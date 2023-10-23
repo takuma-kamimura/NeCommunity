@@ -190,3 +190,7 @@ gem 'pry-byebug' # テスト用
 * Google Maps Platform　近くの動物病院や猫カフェを探す機能で使うため検討
 
 * GCP Natural Language API 悪意のある投稿対策用。文章を解析して感情分析の結果をスコアとして返してくれる。検討
+
+## 画面遷移図
+
+* https://www.figma.com/file/5O5VhEaXhD97rPYlHKn594/%E3%83%8D%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=0-1&mode=design&t=2qEbHMlkd1Fm6ZWo-0
