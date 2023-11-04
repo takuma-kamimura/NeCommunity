@@ -48,6 +48,12 @@ gem "bootsnap", require: false
 # Use Sass to process CSS
 # gem "sassc-rails"
 
+gem 'sorcery' # ユーザーログイン機能追加のため。
+
+gem 'pry-byebug' # テスト用
+
+gem 'rails-i18n' # 日本語対応
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

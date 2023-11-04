@@ -18,5 +18,15 @@ module App
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+     #下記コード、「rails generate」コマンドで「helperファイル・testファイル、ルーティングの記述」が生成されないように設定。
+     config.generators do |g|
+      g.helper false #helperを生成しない
+      g.test_framework false #testファイルを生成しない
+      g.skip_routes true   #ルーティングを生成しない
+     end
+
+     config.i18n.default_locale = :ja # 日本語対応
+     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s] # 日本語対応
   end
 end
