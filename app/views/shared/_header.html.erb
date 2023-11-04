@@ -1,0 +1,4 @@
+<h1>ヘッダー</h1>
+<h1>ログイン後</h1>
+<h1><%= current_user.name %></h1>
+<%= link_to 'ログアウト',logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
