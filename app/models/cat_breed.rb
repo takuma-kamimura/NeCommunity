@@ -1,0 +1,2 @@
+class CatBreed < ApplicationRecord
+end

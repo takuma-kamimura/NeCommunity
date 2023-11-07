@@ -1,0 +1,14 @@
+<h1>・猫の名前</h1>
+<h1><%= cat.name %></h1>
+<h1>・あなたの名前</h1>
+<h1><%= cat.user.name %></h1>
+<h1>・この猫ちゃんの紹介</h1>
+<h1><%= cat.self_introduction %></h1>
+<h1>・この猫ちゃんの性別</h1>
+<h1><%= cat.gender_i18n %></h1>
+<h1>・この猫ちゃんの写真
+<h1><%= image_tag cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
+
+<%= link_to "#{cat.name}ちゃんの編集ページ",edit_cat_path(cat) %>
+
+<!---オスメスで「ちゃん」「くん」分けたい--->

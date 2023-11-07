@@ -11,5 +11,8 @@ Rails.application.routes.draw do
 
   resources :users, only: %i(new create)
   resource :profile, only: %i(show edit update)
+  resources :cats, only: %i(index new show edit create update destroy)
+  # resources :cats, only: [:index]
+
   root "tops#top" # topページ
 end

@@ -8,3 +8,5 @@
 <h2><%=current_user.self_introduction%></h2>
 <h1>◯アバター</h1>
 <%= image_tag @user.avatar_url, id: 'avatar-preview', size: '600x400' %>
+
+<%= link_to 'マイ猫一覧ページ',cats_path %>

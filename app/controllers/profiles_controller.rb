@@ -27,7 +27,6 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    binding.pry
     params.require(:user).permit(:email, :name, :self_introduction, :avatar, :avatar_cache)
   end
 
