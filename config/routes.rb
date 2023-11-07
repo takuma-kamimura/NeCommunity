@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users, only: %i(new create)
-
+  resource :profile, only: %i(show edit update)
   root "tops#top" # topページ
 end

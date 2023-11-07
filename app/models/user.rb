@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, uniqueness: true
+  validates :self_introduction, presence: true, length: { maximum: 500 }
+  mount_uploader :avatar, AvatarUploader # アバターアップローダー
 end
