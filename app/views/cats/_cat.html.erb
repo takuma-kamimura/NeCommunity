@@ -8,7 +8,9 @@
 <h1><%= cat.gender_i18n %></h1>
 <h1>・この猫ちゃんの写真
 <h1><%= image_tag cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
-
-<%= link_to "#{cat.name}ちゃんの編集ページ",edit_cat_path(cat) %>
-
+<% if cat.gender == 'Female' %>
+  <%= link_to "#{cat.name}ちゃんの編集ページ",edit_cat_path(cat) %>
+<% elsif cat.gender == 'Male' %>
+  <%= link_to "#{cat.name}くんの編集ページ",edit_cat_path(cat) %>
+<% end %>
 <!---オスメスで「ちゃん」「くん」分けたい--->
