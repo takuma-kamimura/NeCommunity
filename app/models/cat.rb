@@ -5,4 +5,5 @@ class Cat < ApplicationRecord
   enum gender: { Male: 0, Female: 1 }
   validates :name, presence: true
   validates :gender, presence: true
+  validates :self_introduction, length: { maximum: 500 }
 end
