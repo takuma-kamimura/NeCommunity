@@ -1,11 +1,7 @@
 class CatsController < ApplicationController
 
-  # @cat = Cat.first
-  # binding.pry
   def index
-    # binding.pry
     @cats = current_user.cats
-    # binding.pry
   end
 
   def new
@@ -24,9 +20,7 @@ class CatsController < ApplicationController
 
 
   def create
-    # binding.pry
     @cat = Cat.new(cat_params)
-    # binding.pry
     if @cat.save
       # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
       redirect_to cats_path
@@ -51,7 +45,6 @@ class CatsController < ApplicationController
   def destroy
     return unless set_cat.user_id == current_user.id
 
-    binding.pry
     @cat = Cat.find_by(id: params[:id])
     @cat.destroy!
     # flash[:success] = t('board.board_deleted')

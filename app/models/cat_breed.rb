@@ -1,3 +1,3 @@
 class CatBreed < ApplicationRecord
-    has_many :cats
+  has_many :cats
 end
