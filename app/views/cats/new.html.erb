@@ -6,7 +6,8 @@
   <%= f.input :birthday, as: :string, input_html: { type: "date" }  %>
   <%= f.input :self_introduction %>
   <%= f.input :gender %>
-  <%#= f.association :cat_breed, label: "猫の種類" %>
+  <!-- CatBreedの選択セレクトボックス -->
+  <%= f.collection_select :cat_breed_id, CatBreed.all, :id, :name, prompt: "猫の種類を選択してください" %>
 
   <div class="mb-3">
     <%= f.label :avatar, for: 'avatar-file' %>

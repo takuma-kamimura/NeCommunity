@@ -5,6 +5,7 @@ class UserSessionsController < ApplicationController
   
   def create
     @user = login(params[:email], params[:password])
+    # binding.pry
     if @user
       # flash[:success] = t('user_sessions.new.logged_in') # ログアウトが成功したことを確認してからflashメッセージを入れる。
       redirect_to root_path

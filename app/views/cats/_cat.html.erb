@@ -2,6 +2,9 @@
 <h1><%= cat.name %></h1>
 <h1>・あなたの名前</h1>
 <h1><%= cat.user.name %></h1>
+<h1>・猫ちゃんの猫種</h1>
+<%#= CatBreed_find(cat_breed_id) %>
+<h1><%= cat.cat_breed.name  %></h1>
 <h1>・この猫ちゃんの紹介</h1>
 <h1><%= cat.self_introduction %></h1>
 <h1>・この猫ちゃんの性別</h1>
@@ -14,3 +17,6 @@
   <%= link_to "#{cat.name}くんの編集ページ",edit_cat_path(cat) %>
 <% end %>
 <!---オスメスで「ちゃん」「くん」分けたい--->
+
+<%#= link_to board_path(board), id: "button-delete-#{board.id}", data: { turbo_method: :delete, turbo_confirm: t('board.board_delete') } do %>
+<%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>

@@ -10,25 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_045904) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_08_130320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cat_breeds", force: :cascade do |t|
-    t.string "name", default: "秘密", null: false
+    t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "cats", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.bigint "cat_breed_id", null: false
     t.string "name", null: false
     t.datetime "birthday"
-    t.integer "gender"
+    t.integer "gender", null: false
     t.string "avatar"
     t.text "self_introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cat_breed_id"], name: "index_cats_on_cat_breed_id"
     t.index ["user_id"], name: "index_cats_on_user_id"
   end
 
@@ -45,5 +47,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_045904) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "cats", "cat_breeds"
   add_foreign_key "cats", "users"
 end

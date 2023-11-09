@@ -24,7 +24,9 @@ class CatsController < ApplicationController
 
 
   def create
+    # binding.pry
     @cat = Cat.new(cat_params)
+    # binding.pry
     if @cat.save
       # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
       redirect_to cats_path
@@ -46,6 +48,15 @@ class CatsController < ApplicationController
     end
   end
 
+  def destroy
+    return unless set_cat.user_id == current_user.id
+
+    @cat = Cat.find_by(id: params[:id])
+    @cat.destroy!
+    # flash[:success] = t('board.board_deleted')
+    redirect_to cats_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+  end
+
   private
 
   def set_cat
@@ -53,7 +64,8 @@ class CatsController < ApplicationController
   end
 
   def cat_params
-    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache).merge(user_id: current_user.id)
+    # params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache).merge(user_id: current_user.id, cat_breed_id: params[:cat_breed_id])
+    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache, :cat_breed_id).merge(user_id: current_user.id)
   end
 
 end
