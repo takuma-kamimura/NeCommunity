@@ -1,5 +1,5 @@
 <h1>・猫の名前</h1>
-<h1><%= cat.name %></h1>
+<h1><%= cat.decorate.cat_name %></h1>
 <h1>・あなたの名前</h1>
 <h1><%= cat.user.name %></h1>
 <h1>・猫ちゃんの猫種</h1>
@@ -11,12 +11,9 @@
 <h1><%= cat.gender_i18n %></h1>
 <h1>・この猫ちゃんの写真
 <h1><%= image_tag cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
-<% if cat.gender == 'Female' %>
-  <%= link_to "#{cat.name}ちゃんの編集ページ",edit_cat_path(cat) %>
-<% elsif cat.gender == 'Male' %>
-  <%= link_to "#{cat.name}くんの編集ページ",edit_cat_path(cat) %>
-<% end %>
+
+<%= link_to "#{cat.decorate.cat_name}の詳細ページ",cat_path(cat) %>
+<%= link_to "#{cat.decorate.cat_name}の編集ページ",edit_cat_path(cat) %>
 <!---オスメスで「ちゃん」「くん」分けたい--->
 
-<%#= link_to board_path(board), id: "button-delete-#{board.id}", data: { turbo_method: :delete, turbo_confirm: t('board.board_delete') } do %>
 <%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>

@@ -62,6 +62,8 @@ gem 'simple_form' # シンプルフォーム
 
 gem 'enum_help' # enumで表記の切り替え
 
+gem 'draper' # デコレーター
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

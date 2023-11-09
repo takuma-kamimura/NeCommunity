@@ -7,7 +7,7 @@ class CreateCats < ActiveRecord::Migration[7.0]
       t.datetime :birthday # 誕生日
       t.integer :gender, null: false # 性別
       t.string :avatar # プロフィール画像
-      t.text :self_introduction # ユーザーの猫の紹介欄
+      t.text :self_introduction, default: 'まだこの猫ちゃんの紹介については未記入だよ' # ユーザーの猫の紹介欄
 
       t.timestamps
     end

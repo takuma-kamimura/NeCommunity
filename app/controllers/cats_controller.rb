@@ -13,7 +13,7 @@ class CatsController < ApplicationController
   end
 
   def show
-    @cats = current_user.cats
+    @cat = Cat.find(params[:id])
   end
 
   def edit
@@ -51,6 +51,7 @@ class CatsController < ApplicationController
   def destroy
     return unless set_cat.user_id == current_user.id
 
+    binding.pry
     @cat = Cat.find_by(id: params[:id])
     @cat.destroy!
     # flash[:success] = t('board.board_deleted')

@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_08_130320) do
     t.datetime "birthday"
     t.integer "gender", null: false
     t.string "avatar"
-    t.text "self_introduction"
+    t.text "self_introduction", default: "まだこの猫ちゃんの紹介については未記入だよ"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cat_breed_id"], name: "index_cats_on_cat_breed_id"
