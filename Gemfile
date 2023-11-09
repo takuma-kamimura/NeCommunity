@@ -54,6 +54,16 @@ gem 'pry-byebug' # テスト用
 
 gem 'rails-i18n' # 日本語対応
 
+gem 'carrierwave' # 写真アップロード機能
+
+gem 'jquery-rails' # jquery
+
+gem 'simple_form' # シンプルフォーム
+
+gem 'enum_help' # enumで表記の切り替え
+
+gem 'draper' # デコレーター
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

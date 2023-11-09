@@ -11,6 +11,11 @@ module App
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+
+     # 2行追記:デフォルトのlocaleを日本語(:ja)にする.
+     config.i18n.default_locale = :ja
+     config.time_zone = 'Tokyo'
+     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -26,7 +31,5 @@ module App
       g.skip_routes true   #ルーティングを生成しない
      end
 
-     config.i18n.default_locale = :ja # 日本語対応
-     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s] # 日本語対応
   end
 end

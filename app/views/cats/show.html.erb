@@ -1,0 +1,21 @@
+<h1>Cats#show</h1>
+<p>Find me in app/views/cats/show.html.erb</p>
+
+<h1><%= @cat.decorate.cat_name %>の詳細ページ</h1>
+
+<h1>・猫の名前</h1>
+<h1><%= @cat.name %></h1>
+<h1>・あなたの名前</h1>
+<h1><%= @cat.user.name %></h1>
+<h1>・猫ちゃんの猫種</h1>
+<%#= CatBreed_find(cat_breed_id) %>
+<h1><%= @cat.cat_breed.name  %></h1>
+<h1>・この猫ちゃんの紹介</h1>
+<h1><%= @cat.self_introduction %></h1>
+<h1>・この猫ちゃんの性別</h1>
+<h1><%= @cat.gender_i18n %></h1>
+<h1>・この猫ちゃんの写真
+<h1><%= image_tag @cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
+
+<%= link_to "#{@cat.decorate.cat_name}の編集ページ",edit_cat_path(@cat) %>
+<!---オスメスで「ちゃん」「くん」分けたい--->

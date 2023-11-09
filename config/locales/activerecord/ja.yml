@@ -8,3 +8,16 @@ ja:
         password: 'パスワード'
         password_confirmation: 'パスワード確認'
         name: '名前'
+        self_introduction: '自己紹介'
+        avatar: 'プロフィール画像'
+      cat:
+        name: '猫の名前'
+        birthday: '誕生日'
+        self_introduction: '猫の紹介'
+        gender: '性別'
+        avatar: '猫のプロフィール画像'
+  enums:
+    cat:
+      gender:
+        Male: '男の子'
+        Female: '女の子'

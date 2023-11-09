@@ -1,0 +1,12 @@
+<h1>ユーザープロフィール詳細ページ</h1>
+<%= link_to 'プロフィール編集ページ',edit_profile_path %>
+<h1>◯名前</h1>
+<h2><%=current_user.name%></h2>
+<h1>◯メールアドレス</h1>
+<h2><%=current_user.email%></h2>
+<h1>◯自己紹介</h1>
+<h2><%=current_user.self_introduction%></h2>
+<h1>◯アバター</h1>
+<%= image_tag @user.avatar_url, id: 'avatar-preview', size: '600x400' %>
+
+<%= link_to 'マイ猫一覧ページ',cats_path %>

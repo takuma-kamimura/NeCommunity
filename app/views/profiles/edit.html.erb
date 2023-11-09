@@ -1,0 +1,22 @@
+<h1>プロフィール編集ページ</h1>
+<%= form_with model: @user, url: profile_path do |f| %>
+<form>
+    <div class="mb-3"><%= f.label :name, class: "form-label" %> <%= f.text_field :name, class: "form-control" %></div>
+    <div class="mb-3"><%= f.label :email, class: "form-label" %> <%= f.email_field :email, class: "form-control" %></div>
+    <div class="mb-3"><%= f.label :self_introduction, class: "form-label" %> <%= f.text_area :self_introduction, class: "form-control" %></div>
+   
+    <div class="mb-3">
+        <%= f.label :avatar, for: 'avatar-file' %>
+        <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
+        <%= f.hidden_field :avatar_cache %>
+      </div>
+      <div class="mb-3">
+        <%= image_tag @user.avatar_url, id: 'avatar-preview', size: '300x200' %>
+      </div>
+    <input type="submit" name="commit" value="更新" class="btn btn-primary" data-disable-with="ログイン" />
+  </form>
+<%end%>
+
+<%= link_to '猫登録ページ',new_cat_path %>
+
+  <!-- 後ほどシンプルフォームを使った記述に変える -->
