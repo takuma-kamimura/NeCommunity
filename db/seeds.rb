@@ -5,3 +5,26 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+User.create!(name: '上村 拓磨', email: 'jjd.swt-c.5@docomo.ne.jp', password: "test",password_confirmation: "test",role: 0)
+
+CatBreed.create!(name: 'その他')
+CatBreed.create!(name: 'アメリカンショートヘア')
+CatBreed.create!(name: 'マンチカン')
+CatBreed.create!(name: 'ラグドール')
+CatBreed.create!(name: 'スコティッシュフォールド')
+CatBreed.create!(name: 'ノルウェージャンフォレストキャット')
+CatBreed.create!(name: 'ロシアンブルー')
+
+
+Cat.create!(
+  name: 'ルビー', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "マンチカン").id
+)
+
+Cat.create!(
+  name: 'ルビー2', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "ラグドール").id
+)
+
+Cat.create!(
+  name: 'ルビー3', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "その他").id
+)
