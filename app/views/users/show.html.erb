@@ -1,0 +1,8 @@
+<h1>ユーザー詳細ページ</h1>
+<h1><%= image_tag @user.avatar_url, id: 'avatar-preview', size: '500x500' %></h1>
+<h1>ユーザーの名前</h1>
+<h1><%= @user.name %></h1>
+<h1>ユーザーの自己紹介</h1>
+<h1><%= @user.self_introduction %></h1>
+
+<%= link_to "#{@user.name}さんの猫一覧ページ", usercat_users_path(user_id: @user.id) %>

@@ -9,10 +9,17 @@ Rails.application.routes.draw do
   post 'login' => "user_sessions#create" # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
-  resources :users, only: %i(new create)
+  resources :users, only: %i(new create show) do
+    collection do
+      get 'usercat'
+    end
+  end
   resource :profile, only: %i(show edit update)
   resources :cats, only: %i(index new show edit create update destroy)
+
+  
   # resources :cats, only: [:index]
+  resources :posts, only: %i(index new show edit create update destroy)
 
   root "tops#top" # topページ
 end

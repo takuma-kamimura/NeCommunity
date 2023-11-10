@@ -1,22 +1,6 @@
 <h1>Cats#edit</h1>
 <p>Find me in app/views/cats/edit.html.erb</p>
 
-<%= simple_form_for @cat do |f| %>
-  <%= f.input :name %>
-  <!-- 他のフォームフィールドもここに追加 -->
-  <%= f.input :birthday, as: :string, input_html: { type: "date" }  %>
-  <%= f.input :self_introduction %>
-  <%= f.input :gender %>
-  <%#= f.association :cat_breed, label: "猫の種類" %>
+<h1>猫編集ページ</h1>
 
-  <div class="mb-3">
-    <%= f.label :avatar, for: 'avatar-file' %>
-    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
-    <%= f.hidden_field :avatar_cache %>
-  </div>
-  <div class="mb-3">
-    <%= image_tag @cat.avatar_url, id: 'avatar-preview', size: '300x200' %>
-  </div>
-
-  <%= f.button :submit, "猫の情報を更新する" %>
-<% end %>
+<%= render "form" %>
