@@ -5,4 +5,6 @@
 <%= link_to '新規投稿ページ',new_post_path %>
 <%end%>
 
+<%= render 'search', q: @q, url: posts_path %>
+
 <%= render @posts %>

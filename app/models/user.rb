@@ -14,6 +14,14 @@ class User < ApplicationRecord
   validates :self_introduction, length: { maximum: 500 }
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
 
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name]  # 検索可能な属性を指定してください
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[cat body]  # 検索可能な関連を指定してください
+  end
+
   def own?(object)
     id == object&.user_id
   end
