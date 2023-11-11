@@ -14,7 +14,7 @@ class PostPhotoUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'ネコフリーイラストPostデフォルト.png'
+    'ネコイラストデフォルト.png'
   end
   
   def extension_whitelist # 拡張子の制限
