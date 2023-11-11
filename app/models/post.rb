@@ -8,6 +8,6 @@ class Post < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[cat user]  # 検索可能な関連を指定してください
+    %w[cat user]  # 検索可能な関連モデルを指定してください
   end
 end
