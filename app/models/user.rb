@@ -2,6 +2,7 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :cats, dependent: :destroy
+  has_many :posts, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 255 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
   validates :email, presence: true
@@ -12,4 +13,16 @@ class User < ApplicationRecord
   validates :email, uniqueness: true
   validates :self_introduction, length: { maximum: 500 }
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
+  end
+
+  # def self.ransackable_associations(auth_object = nil)
+  #   %w[cat body]  # 検索可能な関連を指定してください
+  # end
+
+  def own?(object)
+    id == object&.user_id
+  end
 end

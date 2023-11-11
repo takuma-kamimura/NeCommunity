@@ -1,7 +1,8 @@
 class CatsController < ApplicationController
+  skip_before_action :require_login, only: %i[show]
 
   def index
-    @cats = current_user.cats
+    @cats = current_user.cats.order(created_at: :asc) # 生成した順番に取得する
   end
 
   def new
@@ -18,7 +19,6 @@ class CatsController < ApplicationController
     @cat = Cat.find(params[:id])
   end
 
-
   def create
     @cat = Cat.new(cat_params)
     if @cat.save
@@ -31,6 +31,8 @@ class CatsController < ApplicationController
   end
 
   def update
+    return unless set_cat.user_id == current_user.id
+
     @cat = Cat.find_by(id: params[:id])
     if @cat.update(cat_params)
       # flash[:success] = t('board.board_update')

@@ -13,7 +13,10 @@
 <h1><%= image_tag cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
 
 <%= link_to "#{cat.decorate.cat_name}の詳細ページ",cat_path(cat) %>
-<%= link_to "#{cat.decorate.cat_name}の編集ページ",edit_cat_path(cat) %>
 <!---オスメスで「ちゃん」「くん」分けたい--->
 
-<%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+<%if logged_in? && current_user.own?(post) %>
+  <%= link_to "#{cat.decorate.cat_name}の編集ページ",edit_cat_path(cat) %>
+  <%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+<%end%>
+  <!--誕生日データを使って年齢を計算したい-->

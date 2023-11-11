@@ -6,7 +6,7 @@ class SorceryCore < ActiveRecord::Migration[7.0]
       t.string :crypted_password
       t.string :salt
       t.string :avatar # ユーザーのプロフィール画像。
-      t.text :self_introduction # ユーザーの自己紹介欄
+      t.text :self_introduction, default: 'まだ自己紹介については未記入だよ' # ユーザーの自己紹介欄
       t.integer :role, null: false, default: 0 # 一般ユーザー or 管理者権限
 
       t.timestamps                null: false

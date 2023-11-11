@@ -1,7 +1,8 @@
 <h1>ヘッダー</h1>
 <h1>ログイン後</h1>
 <h1><%= current_user.name %></h1>
+<%= link_to 'トップページ',root_path %>
+<%= link_to 'プロフィール詳細ページ',profile_path %>
 <%= link_to 'ログアウト',logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
 
-<%= link_to 'プロフィール詳細ページ',profile_path %>
 <h1>----------------------------------------------------------</h1>
