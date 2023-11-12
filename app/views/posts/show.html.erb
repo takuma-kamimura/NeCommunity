@@ -14,10 +14,10 @@
 <h1>・投稿内容</h1>
 <h3><%= @post.body%></h3>
 
-<% if @post.cat.id.present? %>
+<% if @post.cat.present? %>
   <h1>・猫ちゃんの名前</h1>
   <h3><%= @post.cat.name %></h3>
-  <h3>猫ちゃんの詳細ページ</h3>
+  <h3>猫ちゃんの詳細</h3>
   <%= link_to cat_path(@post.cat) do %>
     <h3><%= image_tag @post.cat.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %></h3>
   <%end%>
@@ -30,3 +30,13 @@
 <%#= image_tag 'logo.png',class: 'navbar-brand' %> <%# end %>
 
 <!-- 投稿詳細と他人のユーザー詳細と他人のcat一覧表示ページを作る -->
+
+<% if @post.tags.present? %>
+  <%@post.tags.each do |tag|%>
+  <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
+  <%#= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle no-underline" %>
+  <!-- custom_styles.cssを追加してリンクの下線を消した -->
+  <h1>タグ</h1>
+  <%= tag.name %>
+  <%end%>
+<%end%>

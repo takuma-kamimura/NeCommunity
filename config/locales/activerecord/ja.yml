@@ -16,6 +16,10 @@ ja:
         self_introduction: '猫の紹介'
         gender: '性別'
         avatar: '猫のプロフィール画像'
+      post:
+        title: 'タイトル'
+        body: '投稿内容'
+        tag: 'タグ'
   enums:
     cat:
       gender:

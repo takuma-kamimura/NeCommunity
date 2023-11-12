@@ -14,5 +14,11 @@
     <%= image_tag @post.photo_url, id: 'preview', size: '300x200' %>
   </div>
 
+  <!-- 下記よりタグ機能 -->
+  <div class="mb-3">
+    <%= f.label :tag %>
+    <%= f.text_field :name, class: 'form-control', placeholder:",で区切って入力してください", value: @tags %>
+    </div>
+
   <%= f.button :submit, "投稿" %>
 <% end %>
