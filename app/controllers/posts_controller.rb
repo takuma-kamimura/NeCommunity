@@ -23,6 +23,7 @@ class PostsController < ApplicationController
     return unless set_post.user_id == current_user.id
 
     @post = Post.find(params[:id])
+    @tags = @post.tags.pluck(:name).join(',') # 「join」でカンマを区切り文字として間に入れている。
   end
 
   def update
