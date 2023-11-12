@@ -23,14 +23,18 @@ class PostsController < ApplicationController
     return unless set_post.user_id == current_user.id
 
     @post = Post.find(params[:id])
+    @tags = @post.tags.pluck(:name).join(',') # 「join」でカンマを区切り文字として間に入れている。
   end
 
   def update
     return unless set_post.user_id == current_user.id
 
     @post = Post.find_by(id: params[:id])
+    @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
     if @post.update(post_params)
       # flash[:success] = t('board.board_update')
+      # モデルのメソッド処理(update_tags)に入る
+      @post.update_tags(@tags)
       redirect_to posts_path
     else
       @post = post_params
@@ -40,11 +44,13 @@ class PostsController < ApplicationController
   end
 
   def create
+    # binding.pry
     @post = Post.new(post_params)
-    # @board.user_id = current_user.id
+    @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
     # binding.pry
     if @post.save!
       # flash[:success] = t('board.board_create')
+      @post.save_tags(@tags)
       redirect_to posts_path
     else
       # flash.now[:danger] = t('board.board_create_failed')
