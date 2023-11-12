@@ -1,0 +1,8 @@
+<%= link_to '投稿一覧', posts_path %>
+<h1>あなたがいいねした一覧</h1>
+
+<% if @like_posts.present? %>
+  <%= render @like_posts %>
+<% else %>
+  <h1>いいね中の掲示板がありません</h1>
+<% end %>

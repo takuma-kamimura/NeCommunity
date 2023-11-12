@@ -4,6 +4,9 @@ class User < ApplicationRecord
   has_many :cats, dependent: :destroy
   has_many :posts, dependent: :destroy
 
+  has_many :likes, dependent: :destroy # 「user」も「like」もお互いを所有。多対多の関係。
+  has_many :like_posts, through: :likes, source: :post # likeを経由してuserに紐づいたpostを取得することができる。
+
   validates :name, presence: true, length: { maximum: 255 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
   validates :email, presence: true
   # 下記、gem sorceryの案内ホームページで書かれている内容のため追記
@@ -24,5 +27,18 @@ class User < ApplicationRecord
 
   def own?(object)
     id == object&.user_id
+  end
+
+  def like(post)
+    # 中間テーブルlike_postsに格納
+    like_posts << post
+  end
+
+  def unlike(post)
+    like_posts.delete(post)
+  end
+
+  def like?(post)
+    like_posts.include?(post)
   end
 end
