@@ -34,15 +34,23 @@
   <% if current_user.own?(post) %>
     <%= link_to '投稿の編集ページ',edit_post_path(post) %>
     <%= link_to '投稿内容を削除する',post_path(post), data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
-  <%end%>
+    <div class ="like-bookmark">
+    <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
+    <i class="bi bi-bookmark" style="color: yellowgreen;"></i><%= post.bookmarks.count %>
+  </div>
+    <%end%>
   <!-- 自分の投稿はいいねとブックマークしない -->
   <!-- ログインIDとボード。ログインIDが違うかチェック -->
   <%if current_user.id != post.user.id %>
   <!-- いずれカウントもホットワイヤーで動的に表示するようにしたい -->
-    <h6>いいね数：<%= post.likes.count %></h6>
-    <%=render 'likes/like_button' , {post: post} %>
-    <h6>ブックマーク数：<%= post.bookmarks.count %></h6>
-    <%=render 'bookmarks/bookmark_button' , {post: post} %>
+  <!-- いいね入力ボタン -->
+  <%=render 'likes/like_button' , {post: post} %><%= post.likes.count %>
+  <!-- ブックマーク入力 -->
+  <%=render 'bookmarks/bookmark_button' , {post: post} %><%= post.bookmarks.count %>
   <%end%>
+<%else%>
+<h6>ログイン前</h6>
+  <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
+  <i class="bi bi-bookmark"  style="color: yellowgreen;"></i><%= post.bookmarks.count %>
 <% end %>
 <h1>----------------------------------------------------------------</h1>
