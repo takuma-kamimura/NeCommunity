@@ -34,9 +34,21 @@
 <% if @post.tags.present? %>
   <%@post.tags.each do |tag|%>
   <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
-  <%#= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle no-underline" %>
   <!-- custom_styles.cssを追加してリンクの下線を消した -->
   <h1>タグ</h1>
-  <%= tag.name %>
+  <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle no-underline" %>
   <%end%>
 <%end%>
+
+<% if logged_in? %>
+  <% if current_user.own?(@post) %>
+    <%= link_to '投稿の編集ページ',edit_post_path(@post) %>
+    <%= link_to '投稿内容を削除する',post_path(@post), data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
+  <%end%>
+  <!-- 自分の投稿はいいねとブックマークしない -->
+  <!-- ログインIDとボード。ログインIDが違うかチェック -->
+  <%if current_user.id != @post.user.id %>
+    <%=render 'likes/like_button' , {post: @post} %>
+    <%=render 'bookmarks/bookmark_button' , {post: @post} %>
+  <% end %>
+<% end %>

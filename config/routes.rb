@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
+  root "tops#top" # topページ
+
   get 'login' => 'user_sessions#new', :as => :login # gem sorceryより。
   post 'login' => "user_sessions#create" # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout
@@ -19,7 +21,13 @@ Rails.application.routes.draw do
 
   
   # resources :cats, only: [:index]
-  resources :posts, only: %i(index new show edit create update destroy)
+  resources :posts, only: %i(index new show edit create update destroy) do
+    collection do
+      get :likes
+      get :bookmarks
+    end
+  end
+  resources :likes, only: %i(create destroy)
+  resources :bookmarks, only: %i(create destroy)
 
-  root "tops#top" # topページ
 end

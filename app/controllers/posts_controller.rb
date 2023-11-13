@@ -68,6 +68,16 @@ class PostsController < ApplicationController
     redirect_to posts_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
   end
 
+  def likes
+    @q = current_user.like_posts.ransack(params[:q])
+    @like_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
+  end
+
+  def bookmarks
+    @q = current_user.bookmark_posts.ransack(params[:q])
+    @bookmark_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
+  end
+
   private
 
   def set_post

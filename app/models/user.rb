@@ -4,6 +4,13 @@ class User < ApplicationRecord
   has_many :cats, dependent: :destroy
   has_many :posts, dependent: :destroy
 
+  # いいね設定
+  has_many :likes, dependent: :destroy # 「user」も「like」もお互いを所有。多対多の関係。
+  has_many :like_posts, through: :likes, source: :post # likeを経由してuserに紐づいたpostを取得することができる。
+  # ブックマーク設定
+  has_many :bookmarks, dependent: :destroy # 「user」も「bookmark」もお互いを所有。多対多の関係。
+  has_many :bookmark_posts, through: :bookmarks, source: :post # bookmarkを経由してuserに紐づいたpostを取得することができる。
+
   validates :name, presence: true, length: { maximum: 255 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
   validates :email, presence: true
   # 下記、gem sorceryの案内ホームページで書かれている内容のため追記
@@ -24,5 +31,33 @@ class User < ApplicationRecord
 
   def own?(object)
     id == object&.user_id
+  end
+
+  # いいね処理
+  def like(post)
+    # 中間テーブルlike_postsに格納
+    like_posts << post
+  end
+
+  def unlike(post)
+    like_posts.delete(post)
+  end
+
+  def like?(post)
+    like_posts.include?(post)
+  end
+
+  # ブックマーク処理
+  def bookmark(post)
+    # 中間テーブルlike_postsに格納
+    bookmark_posts << post
+  end
+
+  def unbookmark(post)
+    bookmark_posts.delete(post)
+  end
+
+  def bookmark?(post)
+    bookmark_posts.include?(post)
   end
 end

@@ -8,6 +8,9 @@
 
 User.create!(name: '上村 拓磨', email: 'jjd.swt-c.5@docomo.ne.jp', password: "test",password_confirmation: "test",role: 1)
 
+User.create!(name: 'test', email: 'test.@Email', password: "test",password_confirmation: "test",role: 0)
+
+
 CatBreed.create!(name: 'その他')
 CatBreed.create!(name: 'アメリカンショートヘア')
 CatBreed.create!(name: 'マンチカン')

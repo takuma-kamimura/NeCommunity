@@ -1,0 +1,6 @@
+<%= turbo_stream.replace "unlike-button-for-post-#{@post.id}" do %>
+  <%= render 'likes/like', post: @post %>
+<% end %>
+
+<!-- いいねされている時の処理 -->
+<!-- いいねを外す処理 -->

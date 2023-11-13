@@ -1,0 +1,7 @@
+<% if current_user.like?(post)%>
+<!-- いいね解除 -->
+  <%= render 'likes/unlike', {post: post} %>
+<%else%>
+<!-- いいね登録 -->
+  <%= render 'likes/like', {post: post} %>
+<% end %>

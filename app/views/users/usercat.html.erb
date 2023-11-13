@@ -1,3 +1,7 @@
 <h1><%= @user.name%>さんの猫一覧</h1>
 
-<%= render @usercats %>
+<% if @usercats.present? %>
+  <%= render @usercats %>
+<% else %>
+  <h1><%= @user.name%>さんはまだ猫ちゃんを登録してないよ</h1>
+<%end%>
