@@ -1,0 +1,9 @@
+<!-- ホットワイヤーの処理のためidを付与 -->
+<div id="comment-form">
+<%= simple_form_for [post, comment], data: { turbo_method: :post } do |f| %>
+<%= f.label :body %>
+<%= f.text_area :body %>
+
+<%= f.button :submit, "コメント投稿" %>
+<% end %>
+</div>

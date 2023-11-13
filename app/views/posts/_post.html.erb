@@ -27,6 +27,8 @@
 
 <h3><%= link_to '投稿詳細',post_path(post) %></h3>
 
+<h6>コメント数:<%= post.comments.count %></h6>
+
 <!-- ログインしていない場合はいいね、ブックマーク、編集、削除は出さない -->
 <% if logged_in? %>
   <% if current_user.own?(post) %>
@@ -36,7 +38,10 @@
   <!-- 自分の投稿はいいねとブックマークしない -->
   <!-- ログインIDとボード。ログインIDが違うかチェック -->
   <%if current_user.id != post.user.id %>
+  <!-- いずれカウントもホットワイヤーで動的に表示するようにしたい -->
+    <h6>いいね数：<%= post.likes.count %></h6>
     <%=render 'likes/like_button' , {post: post} %>
+    <h6>ブックマーク数：<%= post.bookmarks.count %></h6>
     <%=render 'bookmarks/bookmark_button' , {post: post} %>
   <%end%>
 <% end %>

@@ -24,7 +24,8 @@ class UsersController < ApplicationController
   # 他ユーザーの猫一覧
   def usercat
     @user = User.find(params[:user_id])
-    @usercats = @user.cats
+    # @usercats = @user.cats
+    @usercats = @user.cats.includes(:user).order(created_at: :asc)
   end
 
   private

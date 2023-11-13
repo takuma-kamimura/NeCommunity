@@ -17,6 +17,11 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @comment = Comment.new
+    # 下記、空の場合は下の処理は行わない
+    return if @post.blank?
+
+    @comments = @post.comments.includes(:post).order(created_at: :desc)
   end
 
   def edit

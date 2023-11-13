@@ -4,10 +4,10 @@
 <h1>投稿詳細ページ</h1>
 
 <%= link_to user_path(@post.user) do %>
-    <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %></h3>
-  <%end%>
+    <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %>
+  <%end%></h3>
 
-<h1>名前</h1>
+<h1>投稿者の名前</h1>
 <h1><%= @post.user.name %></h1>
 <h1>・タイトル</h1>
 <h2><%= @post.title %></h2>
@@ -52,3 +52,13 @@
     <%=render 'bookmarks/bookmark_button' , {post: @post} %>
   <% end %>
 <% end %>
+
+<% if logged_in? %>
+<%= render 'comments/form', { post: @post, comment: @comment} %>
+<%end%>
+
+<h1>コメントフォーム</h1>
+<!-- ホットワイヤーの処理のためidを付与 -->
+<div id="table-comment">
+<%= render @comments %>
+</div>
