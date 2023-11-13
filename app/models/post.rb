@@ -5,8 +5,11 @@ class Post < ApplicationRecord
   has_many :post_tags, dependent: :destroy
   has_many :tags, through: :post_tags, dependent: :destroy
 
+  # いいね設定
   has_many :likes, dependent: :destroy
-
+  # ブックマーク設定
+  has_many :bookmarks, dependent: :destroy
+  
   mount_uploader :photo, PostPhotoUploader # アバターアップローダー、useで使ってるものと同じものを使う。
 
   validates :title, presence: true, length: { maximum: 20 }

@@ -24,8 +24,10 @@ Rails.application.routes.draw do
   resources :posts, only: %i(index new show edit create update destroy) do
     collection do
       get :likes
+      get :bookmarks
     end
   end
   resources :likes, only: %i(create destroy)
+  resources :bookmarks, only: %i(create destroy)
 
 end

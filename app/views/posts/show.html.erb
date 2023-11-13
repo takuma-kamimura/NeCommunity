@@ -49,5 +49,6 @@
   <!-- ログインIDとボード。ログインIDが違うかチェック -->
   <%if current_user.id != @post.user.id %>
     <%=render 'likes/like_button' , {post: @post} %>
+    <%=render 'bookmarks/bookmark_button' , {post: @post} %>
   <% end %>
 <% end %>

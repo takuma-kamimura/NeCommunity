@@ -4,6 +4,7 @@
 <%if logged_in?%>
 <%= link_to '新規投稿ページ',new_post_path %>
 <%= link_to 'いいね一覧',likes_posts_path %>
+<%= link_to 'ブックマーク一覧',bookmarks_posts_path %>
 <%end%>
 
 <%= render 'search', q: @q, url: posts_path %>

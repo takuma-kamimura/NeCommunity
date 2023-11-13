@@ -1,0 +1,7 @@
+<%= link_to '投稿一覧', posts_path %>
+<h1>あなたがブックマークした一覧</h1>
+<% if @bookmark_posts.present? %>
+  <%= render @bookmark_posts %>
+<% else %>
+  <h1>ブックマークした投稿がここに表示されるよ！</h1>
+<% end %>

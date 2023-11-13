@@ -1,7 +1,7 @@
 <% if current_user.like?(post)%>
-<!-- ブックマーク解除 -->
+<!-- いいね解除 -->
   <%= render 'likes/unlike', {post: post} %>
 <%else%>
-<!-- ブックマーク登録 -->
+<!-- いいね登録 -->
   <%= render 'likes/like', {post: post} %>
 <% end %>
