@@ -1,0 +1,5 @@
+<%= turbo_stream.remove "comment-#{@comment.id}" do %>
+  <%= render 'comments/comment', comment: @comment %>
+<% end %>
+
+<!-- コメント削除の時は「remove」にする。そしてクリックした時の「commrnt.id」を指定する -->

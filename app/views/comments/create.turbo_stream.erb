@@ -1,0 +1,25 @@
+<% if @comment.errors.present? %>
+<!-- エラーメッセージ処理 -->
+<%= turbo_stream.replace "comment-form" do %>
+  <!-- 空なので同じ「@comment」「@comment.board」を返す。 -->
+  <!-- 「@comment.board」の意味はコメントに紐づいているboardのこと -->
+  <%= render 'comments/form', comment: @comment, post: @comment.post %>
+<% end %>
+<%else%>
+<!-- コメント追加処理 -->
+<!-- boards/showではeach文は使わない。ajax処理がちゃんと動かない。「render @comments」の形じゃないとダメ -->
+<!-- ずっと「comment-form」を指定してきたが違った。追加先の「table-comment」じゃないとダメ -->
+<%= turbo_stream.prepend "table-comment" do %>
+  <%= render 'comments/comment', comment: @comment %>
+<% end %>
+<!-- コメントを投稿した後の削除処理 -->
+<%= turbo_stream.replace 'comment-form' do %>
+  <%= render 'comments/form', comment: Comment.new, post: @comment.post %>
+  <!-- ここでコメントにはコントローラーアクションでも使っている「Comment.new」を使うこと。テキストエリアが初期化される。 -->
+<% end %>
+<%end%>
+
+<!--append(対象の末尾に追加)-->
+<!--prepend(対象の先頭に追加)-->
+<!--replace(対象の要素を置き換え）-->
+<!--remove(対象を削除)-->

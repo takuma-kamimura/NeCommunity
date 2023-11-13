@@ -10,6 +10,8 @@ class Post < ApplicationRecord
   # ブックマーク設定
   has_many :bookmarks, dependent: :destroy
   
+  has_many :comments, dependent: :destroy
+
   mount_uploader :photo, PostPhotoUploader # アバターアップローダー、useで使ってるものと同じものを使う。
 
   validates :title, presence: true, length: { maximum: 20 }

@@ -2,6 +2,7 @@ ja:
   activerecord:
     models:
       user: 'ユーザー'
+      comment: 'コメント'
     attributes:
       user:
         email: 'メールアドレス'
@@ -20,6 +21,8 @@ ja:
         title: 'タイトル'
         body: '投稿内容'
         tag: 'タグ'
+      comment:
+        body: 'コメント'
   enums:
     cat:
       gender:
