@@ -15,7 +15,7 @@
 <%= link_to "#{cat.decorate.cat_name}の詳細ページ",cat_path(cat) %>
 <!---オスメスで「ちゃん」「くん」分けたい--->
 
-<%if logged_in? && current_user.own?(post) %>
+<%if logged_in? && current_user.own?(cat) %>
   <%= link_to "#{cat.decorate.cat_name}の編集ページ",edit_cat_path(cat) %>
   <%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
 <%end%>
