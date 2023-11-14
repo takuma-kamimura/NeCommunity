@@ -1,9 +1,6 @@
 <h1>猫ちゃん達の健康状態</h1>
 <h1>ユーザーの猫一覧</h1>
 
-<h4><%= link_to "新規記録作成", new_health_record_path %></h4>
-
-
 <% @catrecord.each do |cat| %>
   <h4><%= link_to "#{cat.decorate.cat_name}の健康状態の記録を見る", health_records_path(cat_id: cat.id) %></h4>
 <%end%>

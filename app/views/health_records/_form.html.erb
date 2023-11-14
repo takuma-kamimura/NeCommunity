@@ -1,6 +1,5 @@
-
-<%= simple_form_for @health_record do |f| %>
-  <!-- 他のフォームフィールドもここに追加 -->
+<%= simple_form_for @health_record, url: { action: @health_record.new_record? ? :create : :update, controller: :health_records } do |f| %>
+   <!-- 他のフォームフィールドもここに追加 -->
   <%= f.input :weight %>
   <%= f.input :note %>
   <!-- CatBreedの選択セレクトボックス -->
