@@ -3,7 +3,6 @@ class HealthRecordsController < ApplicationController
     @health_records = HealthRecord.includes(:cat).where(cat_id: params[:cat_id]).order(created_at: :asc)
     # @cat_name = Cat.find_by(id: params[:cat_id]).name
     @cat = Cat.find_by(id: params[:cat_id])
-
   end
 
   def catrecord
@@ -17,6 +16,10 @@ class HealthRecordsController < ApplicationController
 
   def new
     @health_record = HealthRecord.new
+  end
+
+  def edit
+    @health_record = HealthRecord.find(params[:id])
   end
 
   def create
