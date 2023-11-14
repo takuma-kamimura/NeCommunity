@@ -1,6 +1,5 @@
 class HealthRecordsController < ApplicationController
   def index
-    # @health_records = HealthRecord.includes(params[:cat_id]).order(created_at: :asc)
     @health_records = HealthRecord.includes(:cat).where(cat_id: params[:cat_id]).order(created_at: :asc)
     # @cat_name = Cat.find_by(id: params[:cat_id]).name
     @cat = Cat.find_by(id: params[:cat_id])
