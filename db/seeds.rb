@@ -21,7 +21,7 @@ CatBreed.create!(name: 'ロシアンブルー')
 
 
 Cat.create!(
-  name: 'ルビー', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "マンチカン").id
+  name: 'ルビー', birthday: Date.new(2016, 7, 12), user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "マンチカン").id
 )
 
 # Cat.create!(
