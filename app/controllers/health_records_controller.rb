@@ -44,7 +44,7 @@ class HealthRecordsController < ApplicationController
       # flash[:success] = t('board.board_update')
       
       @cat = @health_record.cat
-      redirect_to health_records_path(cat_id: @health_record.cat.id)
+      redirect_to health_records_path(cat_id: @cat.id)
     else
       @cat = cat_params
       # flash[:danger] = t('board.board_update_failed')
@@ -52,12 +52,19 @@ class HealthRecordsController < ApplicationController
     end
   end
 
+  def destroy
+    return unless set_health_record.user_id == current_user.id
+    
+    @health_record = HealthRecord.find_by(id: params[:id])
+    @cat = @health_record.cat
+    @health_record.destroy!
+    redirect_to health_records_path(cat_id: @cat.id)
+  end
 
   private
 
   def set_health_record
-    @health_record = HealthRecord.find(params[:id])
-    @user = @health_record.cat
+    @health_record = HealthRecord.find(params[:id]).cat
   end
 
   def health_record_params

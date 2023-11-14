@@ -6,3 +6,4 @@
 
 <%= link_to "編集する", edit_health_record_path(@health_record) %>
 
+<%= link_to "この記録を削除する",health_record_path(@health_record), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
