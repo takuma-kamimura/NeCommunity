@@ -1,0 +1,9 @@
+<%= simple_form_for @health_record, url: { action: @health_record.new_record? ? :create : :update, controller: :health_records } do |f| %>
+   <!-- 他のフォームフィールドもここに追加 -->
+  <%= f.input :weight %>
+  <%= f.input :note %>
+  <!-- CatBreedの選択セレクトボックス -->
+  <%= f.collection_select :cat_id, current_user.cats.includes(:user).order(created_at: :asc), :id, :name, prompt: "記録したい猫を選択してください" %>
+
+  <%= f.button :submit, "猫の記録を登録する" %>
+<% end %>

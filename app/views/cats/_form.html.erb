@@ -1,7 +1,7 @@
 <%= simple_form_for @cat do |f| %>
   <%= f.input :name %>
   <!-- 他のフォームフィールドもここに追加 -->
-  <%= f.input :birthday, as: :string, input_html: { type: "date" }  %>
+  <%= f.input :birthday, as: :date, start_year: Date.today.year - 100, end_year: Date.today.year %>
   <%= f.input :self_introduction %>
   <%= f.input :gender %>
   <!-- CatBreedの選択セレクトボックス -->
