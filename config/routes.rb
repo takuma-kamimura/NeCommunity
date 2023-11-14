@@ -27,6 +27,8 @@ Rails.application.routes.draw do
     collection do
       get :likes
       get :bookmarks
+      get :samebreedcats
+      get :specifycats
     end
   end
   resources :likes, only: %i(create destroy)
