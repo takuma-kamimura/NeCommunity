@@ -19,7 +19,7 @@ class CatDecorator < ApplicationDecorator
     end
   end
 
-  # 猫の年齢計算
+  # 猫の年齢の計算
   def cat_age
     today = Time.zone.today
     this_years_birthday = Time.zone.local(today.year, birthday.month, birthday.day)
