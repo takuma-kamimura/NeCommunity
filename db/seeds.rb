@@ -32,28 +32,28 @@ Cat.create!(
   name: 'ルビー3', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "その他").id
 )
 
-20.times do |n|
-    user = User.create!(
-      name: Faker::Name.unique.name,
-      email: Faker::Internet.unique.email,
-      password: "test",
-      password_confirmation: "test",
-      role: 0
-    )
+# 20.times do |n|
+#     user = User.create!(
+#       name: Faker::Name.unique.name,
+#       email: Faker::Internet.unique.email,
+#       password: "test",
+#       password_confirmation: "test",
+#       role: 0
+#     )
   
-    cat_breed = CatBreed.order("RANDOM()").first
-    cat = Cat.create!(
-      name: Faker::Name.unique.name,
-      birthday: Faker::Date.birthday,
-      user_id: user.id,
-      gender: rand(0..1),
-      cat_breed_id: cat_breed.id
-    )
+#     cat_breed = CatBreed.order("RANDOM()").first
+#     cat = Cat.create!(
+#       name: Faker::Name.unique.name,
+#       birthday: Faker::Date.birthday,
+#       user_id: user.id,
+#       gender: rand(0..1),
+#       cat_breed_id: cat_breed.id
+#     )
   
-    Post.create!(
-      title: Faker::Book.unique.title,
-      body: Faker::Lorem.sentence,
-      user_id: user.id,
-      cat_id: cat.id
-    )
-  end
+#     Post.create!(
+#       title: Faker::Book.unique.title,
+#       body: Faker::Lorem.sentence,
+#       user_id: user.id,
+#       cat_id: cat.id
+#     )
+#   end

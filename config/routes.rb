@@ -19,7 +19,8 @@ Rails.application.routes.draw do
   end
   resource :profile, only: %i(show edit update)
   resources :cats, only: %i(index new show edit create update destroy)
-
+  resources :password_resets, only: %i[new create edit update] # パスワードリセット用
+  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? # 開発環境用メーラー
   
   # resources :cats, only: [:index]
   resources :posts, only: %i(index new show edit create update destroy) do

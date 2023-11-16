@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, uniqueness: true
   validates :self_introduction, length: { maximum: 500 }
+  validates :reset_password_token, uniqueness: true, allow_nil: true # パスワードリセット用
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
 
   def self.ransackable_attributes(auth_object = nil)
