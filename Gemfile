@@ -70,6 +70,8 @@ gem 'letter_opener_web' # 開発環境用メーラー
 
 gem 'config'
 
+gem 'dotenv-rails'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

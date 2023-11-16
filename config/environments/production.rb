@@ -66,7 +66,11 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = ture # Gmail導入のため、追加
+
+  config.action_mailer.perform_caching = false # Gmail導入のため、追加
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -77,6 +81,21 @@ Rails.application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # Gmail導入のため下記追加
+  config.action_mailer.delivery_method = :smtp
+  # Gmail導入のため下記7行追加
+  config.action_mailer.smtp_settings = { address: 'smtp.gmail.com',
+                                         port: 587,
+                                         domain: 'gmail.com',
+                                         user_name: ENV['GMAIL_ADDRESS'],
+                                         password: ENV['GMAIL_PASSWORD'],
+                                         authentication: 'plain',
+                                         enable_starttls_auto: true }
+
+  # Gmail導入のため下記2行追加
+  config.action_mailer.asset_host = 'https://necommunity-725d2dbcbb36.herokuapp.com'
+  config.action_mailer.default_url_options = { host: 'necommunity-725d2dbcbb36.herokuapp.com' }
 
   # Use a different logger for distributed setups.
   # require "syslog/logger"
