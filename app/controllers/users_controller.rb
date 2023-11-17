@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = t('activerecord.attributes.user.New_registration_successful')
+      # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
       Rails.logger.error("User registration failed. Errors: #{@user.errors.full_messages}")
       redirect_to root_path
     else
