@@ -68,9 +68,9 @@ gem 'ransack' # 検索機能
 
 gem 'letter_opener_web' # 開発環境用メーラー
 
-gem 'config'
+gem 'config' # 環境設定用。
 
-gem 'dotenv-rails'
+gem 'dotenv-rails' # .envファイル読み込み用。
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
