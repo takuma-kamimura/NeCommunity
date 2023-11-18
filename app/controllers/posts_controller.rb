@@ -122,8 +122,7 @@ class PostsController < ApplicationController
   users = Post.joins(:user).where("users.name LIKE :q", q: "%#{params[:q]}%")
   posts = Post.where("title LIKE :q OR body LIKE :q", q: "%#{params[:q]}%")
 
-  @posts = cats + users + posts
-
+  @posts = (cats + users + posts).uniq
     # render json: @posts.select(:id, :title)
     respond_to do |format|
       format.js
