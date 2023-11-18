@@ -83,6 +83,7 @@ class PostsController < ApplicationController
     @bookmark_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
   end
 
+  # current_userの猫と同じ猫種に関する投稿
   def samebreedcats
     @q = Post.ransack(params[:q])
     # @samebreedcats = 
@@ -94,7 +95,7 @@ class PostsController < ApplicationController
     @samebreedcats = Post.where(cat_id: same_breed_cat_ids)
   end
 
-  
+  # 指定した猫種と同じ猫種に関する投稿
   def specifycats
     @q = Post.ransack(params[:q])
     
@@ -109,6 +110,7 @@ class PostsController < ApplicationController
     @cat_breed = CatBreed.find(params[:cat_breed_id])
   end
 
+  # オートコンプリート機能
   def autocomplete
     # @posts = Post.where("title LIKE :q OR body LIKE :q", q: "%#{params[:q]}%")
 
