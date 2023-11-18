@@ -6,7 +6,9 @@
     "@hotwired/turbo-rails": "^7.3.0",
     "@prettier/plugin-ruby": "^4.0.2",
     "esbuild": "^0.19.5",
-    "sass": "^1.69.5"
+    "sass": "^1.69.5",
+    "stimulus": "^3.2.2",
+    "stimulus-autocomplete": "^3.1.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=/assets",

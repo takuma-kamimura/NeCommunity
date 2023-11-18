@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get :bookmarks
       get :samebreedcats
       get :specifycats
+      get :autocomplete
     end
   end
   resources :likes, only: %i(create destroy)
