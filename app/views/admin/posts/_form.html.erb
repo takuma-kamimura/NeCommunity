@@ -1,0 +1,24 @@
+<%= simple_form_for @post do |f| %>
+  <%= f.input :title %>
+  <%= f.input :body %>
+  
+  <!-- 猫の選択用のドロップダウンメニュー -->
+  <%= f.collection_select :cat_id, current_user.cats, :id, :name, prompt: "猫を選択してください" %>
+
+  <div class="mb-3">
+    <%= f.label :photo, for: 'avatar-file' %>
+    <%= f.file_field :photo, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
+    <%= f.hidden_field :photo_cache %>
+  </div>
+  <div class="mb-3">
+    <%= image_tag @post.photo_url, id: 'preview', size: '300x200' %>
+  </div>
+
+  <!-- 下記よりタグ機能 -->
+  <div class="mb-3">
+    <%= f.label :tag %>
+    <%= f.text_field :name, class: 'form-control', placeholder:",で区切って入力してください", value: @tags %>
+    </div>
+
+  <%= f.button :submit, "投稿" %>
+<% end %>

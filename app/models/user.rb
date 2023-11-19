@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates :self_introduction, length: { maximum: 500 }
   validates :reset_password_token, uniqueness: true, allow_nil: true # パスワードリセット用
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
+  enum role: { general: 0, admin: 1 }
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
