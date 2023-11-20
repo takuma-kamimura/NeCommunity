@@ -8,7 +8,6 @@ class Admin::UserSessionsController < Admin::BaseController
     @user = login(params[:email], params[:password])
     if @user
       # flash[:success] = t('user_sessions.new.logged_in') # ログアウトが成功したことを確認してからflashメッセージを入れる。
-      binding.pry
       redirect_to admin_root_path
     else
       # flash[:danger] = t('user_sessions.new.login_failed')
@@ -18,7 +17,7 @@ class Admin::UserSessionsController < Admin::BaseController
 
   def destroy
     logout
-    redirect_to root_path
+    redirect_to admin_root_path
   end
 
 end

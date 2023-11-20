@@ -28,3 +28,7 @@ ja:
       gender:
         Male: '男の子'
         Female: '女の子'
+    user:
+      role:
+        general: '一般ユーザー'
+        admin: '管理者'

@@ -15,6 +15,9 @@
   </head>
 
   <body class="gray-background">
+    <%if logged_in?%>
+    <%= render 'admin/shared/header'%>
+    <%end%>
     <%= yield %>
   </body>
 </html>

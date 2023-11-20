@@ -2,7 +2,6 @@ class Admin::BaseController < ApplicationController
     before_action :check_admin
     layout 'admin/layouts/application'
 
-
   def not_authenticated
     redirect_to admin_login_path, warning: t('defaults.message.require_login')
     # ログインしていない場合は自動的にnot_authenticaedというメソッドを実行。
