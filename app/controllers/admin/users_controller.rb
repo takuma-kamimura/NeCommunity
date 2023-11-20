@@ -1,7 +1,8 @@
 class Admin::UsersController < Admin::BaseController
 
   def index
-    @users = User.all 
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true)
   end
 
   def show
@@ -29,10 +30,10 @@ class Admin::UsersController < Admin::BaseController
     redirect_to admin_users_path
   end
 
-
   private
 
   def user_params
     params.require(:user).permit(:email, :name, :self_introduction, :avatar, :avatar_cache, :role)
   end
+
 end
