@@ -1,0 +1,14 @@
+<h1>Admin::Comments#show</h1>
+<p>Find me in app/views/admin/comments/show.html.erb</p>
+
+<h3>コメントしたユーザー</h3>
+<h3><%= link_to "#{@comment.user.name}",admin_user_path(@comment.user) %></h3>
+<h3>コメントした投稿のタイトル</h3>
+<h3><%= link_to "#{@comment.post.title}",admin_post_path(@comment.post) %></h3>
+
+<h3>コメント内容</h3>
+<h3><%= @comment.body %></h3>
+
+
+<%= link_to '編集',edit_admin_comment_path(@comment) %>
+<%= link_to '削除',admin_comment_path(@comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" } %>  

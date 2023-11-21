@@ -1,0 +1,6 @@
+<h1><%= link_to "#{comment.post.title}", admin_comment_path(comment) %></h1>
+<h1>コメント内容</h1>
+<h3><%= comment.body.truncate(10) %></h3>   
+<h3>コメントしたユーザーの名前</h3>
+<h3><%= comment.user.name %></h3>
+

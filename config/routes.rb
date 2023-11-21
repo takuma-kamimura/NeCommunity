@@ -51,6 +51,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :cats, only: [:index, :show, :edit, :update, :destroy]
     resources :tags, only: [:index, :show, :edit, :update, :destroy]
+    resources :comments, only: [:index, :show, :edit, :update, :destroy]
+
 
   end
 

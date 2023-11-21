@@ -1,6 +1,6 @@
-<h1>Admin::Tags#index</h1>
-<p>Find me in app/views/admin/tags/index.html.erb</p>
-
 <h1>タグ一覧</h1>
+
+<%= render 'search', q: @q, url: admin_tags_path %>
+
 
 <%= render @tags%>

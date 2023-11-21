@@ -1,6 +1,8 @@
 class Admin::TagsController < Admin::BaseController
   def index
-    @tags = Tag.all
+    # @tags = Tag.all
+    @q = Tag.ransack(params[:q])
+    @tags = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def show
@@ -14,7 +16,6 @@ class Admin::TagsController < Admin::BaseController
 
   def update
     @tag = Tag.find(params[:id])
-    binding.pry
     @tag.update!(tag_params)
     redirect_to admin_tag_path(@tag)
   end
