@@ -1,0 +1,8 @@
+<h1>Admin::HealthRecords#edit</h1>
+<p>Find me in app/views/admin/health_records/edit.html.erb</p>
+
+<%= simple_form_for @health_record, url: admin_health_record_path(@health_record) do |f| %>
+<%= f.input :weight %>
+<%= f.input :note %>
+  <%= f.button :submit, "更新" %>
+<% end %>
