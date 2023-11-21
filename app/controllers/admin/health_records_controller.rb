@@ -3,7 +3,9 @@ class Admin::HealthRecordsController < Admin::BaseController
   def catrecord
     # @catrecord = current_user.cats
     # @catrecord = current_user.cats.includes(:user).order(created_at: :asc)
-    @catrecords = Cat.all
+    # @catrecords = Cat.all
+    @q = Cat.ransack(params[:q])
+    @catrecords = @q.result(distinct: true).order(created_at: :desc)
   end
   
   def index
