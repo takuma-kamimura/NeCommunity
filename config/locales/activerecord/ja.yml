@@ -23,6 +23,8 @@ ja:
         tag: 'タグ'
       comment:
         body: 'コメント'
+      tag:
+        name: 'タグ'
   enums:
     cat:
       gender:

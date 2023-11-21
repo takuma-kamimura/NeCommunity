@@ -50,6 +50,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :edit, :update, :destroy]
     resources :posts, only: [:index, :show, :edit, :update, :destroy]
     resources :cats, only: [:index, :show, :edit, :update, :destroy]
+    resources :tags, only: [:index, :show, :edit, :update, :destroy]
+
   end
 
 end

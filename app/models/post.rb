@@ -31,7 +31,11 @@ class Post < ApplicationRecord
       # 「find_or_create_by」はActive Record モデルのメソッド。
       # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
       # selfはこの場合は@postのこと
-      self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+
+      # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+      tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
+      tagname.save unless tagname.persisted?
+      self.tags << tagname
     end
   end
 
@@ -41,7 +45,15 @@ class Post < ApplicationRecord
     if self.tags.empty?
       #  タグが元々空の場合、通称のタグ追加更新処理
       tags.each do |tag|
-      self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+        # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+        # binding.pry
+        # self.tags.find_or_initialize_by(name: tag)
+
+        # binding.pry
+        tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
+        tagname.save unless tagname.persisted?
+        self.tags << tagname
+
       end
     elsif tags.empty?
       # 取得したtagsが空だった場合の処理
@@ -67,7 +79,11 @@ class Post < ApplicationRecord
 
       # 新しいタグを追加。
       new_tag.each do |new_tag|
-        self.tags.find_or_create_by(name: new_tag) # unless Tag.find_by(name: new_tag)
+        # self.tags.find_or_create_by(name: new_tag) # unless Tag.find_by(name: new_tag)
+        tagname = Tag.find_by(name: new_tag) || Tag.new(name: new_tag)
+        tagname.save unless tagname.persisted?
+        self.tags << tagname
+
       end
     end
   end

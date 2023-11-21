@@ -1,0 +1,7 @@
+<h1>Admin::Tags#edit</h1>
+<p>Find me in app/views/admin/tags/edit.html.erb</p>
+
+<%= simple_form_for @tag, url: admin_tag_path(@tag) do |f| %>
+  <%= f.input :name %>
+  <%= f.button :submit, "更新" %>
+<% end %>
