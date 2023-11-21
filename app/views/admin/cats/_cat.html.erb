@@ -1,0 +1,10 @@
+<h1>・猫の名前</h1>
+<h3><%= cat.decorate.cat_name %></h3>
+<h1>・飼い主さんのお名前</h1>
+<h4><%= cat.user.name %></h4>
+<h3><%= cat.decorate.cat_name %>の紹介</h3>
+<h4><%= cat.self_introduction %></h4>
+
+<%= link_to '詳細',admin_cat_path(cat) %>
+<%= link_to '削除',admin_cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "#{cat.decorate.cat_name}の情報を削除しますか？" } %>
+<h1>--------------------------------------</h1>

@@ -1,8 +1,10 @@
 <h1>ヘッダー</h1>
 <h1>管理者画面</h1>
 <h1><%= current_user.name %></h1>
-<%= link_to '投稿管理ページ',admin_root_path %>
 <%= link_to 'ユーザー管理ページ', admin_users_path %>
+<%= link_to '投稿管理ページ',admin_root_path %>
+<%= link_to '猫管理ページ',admin_cats_path %>
+
 <%= link_to 'ログアウト',admin_logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
 
 <h1>----------------------------------------------------------</h1>
