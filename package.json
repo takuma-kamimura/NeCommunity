@@ -6,6 +6,7 @@
     "@hotwired/turbo-rails": "^7.3.0",
     "@prettier/plugin-ruby": "^4.0.2",
     "autoprefixer": "^10.4.16",
+    "daisyui": "^4.4.2",
     "esbuild": "^0.19.5",
     "postcss": "^8.4.31",
     "sass": "^1.69.5",
