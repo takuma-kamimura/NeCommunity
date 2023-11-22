@@ -1,0 +1,18 @@
+<%= simple_form_for @post, url: admin_post_path(@post) do |f| %>
+  <%= f.input :title %>
+  <%= f.input :body %>
+  
+  <!-- 猫の選択用のドロップダウンメニュー -->
+  <%= f.collection_select :cat_id, Cat.order(:name), :id, :name, prompt: "猫を選択してください" %>
+
+  <div class="mb-3">
+    <%= f.label :photo, for: 'avatar-file' %>
+    <%= f.file_field :photo, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
+    <%= f.hidden_field :photo_cache %>
+  </div>
+  <div class="mb-3">
+    <%= image_tag @post.photo_url, id: 'preview', size: '300x200' %>
+  </div>
+
+  <%= f.button :submit, "更新" %>
+<% end %>

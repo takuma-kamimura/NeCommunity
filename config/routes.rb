@@ -14,7 +14,6 @@ Rails.application.routes.draw do
   resources :users, only: %i(new create show) do
     collection do
       get :usercat
-      # get 'usercat'
     end
   end
   resource :profile, only: %i(show edit update)
@@ -38,8 +37,27 @@ Rails.application.routes.draw do
   resources :health_records do
     collection do
       get :catrecord
-      # get 'usercat'
     end
+  end
+
+  namespace :admin do
+    #root to: 'posts#index'
+    # root 'user_sessions#new'
+    root to: 'posts#index'
+    get 'login', to: 'user_sessions#new'
+    post 'login', to: 'user_sessions#create'
+    delete 'logout', to: 'user_sessions#destroy'
+    resources :users, only: [:index, :show, :edit, :update, :destroy]
+    resources :posts, only: [:index, :show, :edit, :update, :destroy]
+    resources :cats, only: [:index, :show, :edit, :update, :destroy]
+    resources :tags, only: [:index, :show, :edit, :update, :destroy]
+    resources :comments, only: [:index, :show, :edit, :update, :destroy]
+    resources :health_records, only: [:index, :show, :edit, :update, :destroy] do
+      collection do
+        get :catrecord
+      end
+    end
+    
   end
 
 end

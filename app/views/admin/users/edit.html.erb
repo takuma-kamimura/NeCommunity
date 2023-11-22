@@ -1,0 +1,19 @@
+<h1><%= @user.name %>の編集ページ</h1>
+
+<%= simple_form_for @user, url: admin_user_path(@user) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :email %>
+  <%= f.input :self_introduction %>
+  <%= f.select :role, User.roles.keys.map {|k| [I18n.t("enums.user.role.#{k}"), k]}  %>
+
+  <div class="mb-3">
+    <%= f.label :avatar, for: 'avatar-file' %>
+    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
+    <%= f.hidden_field :avatar_cache %>
+  </div>
+  <div class="mb-3">
+    <%= image_tag @user.avatar_url, id: 'preview', size: '300x200' %>
+  </div>
+
+  <%= f.button :submit, "更新" %>
+<% end %>

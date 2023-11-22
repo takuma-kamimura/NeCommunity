@@ -1,0 +1,15 @@
+<h1>Admin::Tags#show</h1>
+<p>Find me in app/views/admin/tags/show.html.erb</p>
+
+<h1>タグ名</h1>
+<h1><%= @tag.name%></h1>
+
+<h1>作成日時</h1>
+<h1><%= @tag.created_at.strftime('%Y年%m月%d日 %H時%M分')%></h1>
+
+<%= link_to "編集",edit_admin_tag_path(@tag) %>
+
+<% @tag.posts.each do |post|%>
+  <h1>・タグに紐づいている投稿タイトル名</h1>
+  <%= link_to "#{post.title}",admin_post_path(post) %>
+<%end%>

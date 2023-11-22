@@ -1,0 +1,11 @@
+ 
+<%= render 'search', q: @q, url: catrecord_admin_health_records_path %>
+
+
+<% @catrecords.each do |cat| %>
+<%if cat.health_records.present? %>
+<h1><%= link_to "#{cat.name}の健康記録詳細ページ", admin_health_records_path(cat_id: cat.id) %></h1>
+<h3>飼い主</h3>
+<h4><%= cat.user.name %></h4>
+<% end %>
+<% end %>

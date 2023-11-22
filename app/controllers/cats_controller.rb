@@ -22,7 +22,7 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-    if @cat.save
+    if @cat.save!
       # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
       redirect_to cats_path
     else

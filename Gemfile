@@ -72,6 +72,8 @@ gem 'config' # 環境設定用。
 
 gem 'dotenv-rails' # .envファイル読み込み用。
 
+gem "sassc-rails"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

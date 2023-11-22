@@ -1,0 +1,9 @@
+<h1>Admin::Comments#edit</h1>
+<p>Find me in app/views/admin/comments/edit.html.erb</p>
+
+<%= simple_form_for @comment, url: admin_comment_path(@comment) do |f| %>
+<%= f.label :body %>
+<%= f.text_area :body %>
+
+<%= f.button :submit, "コメント更新" %>
+<% end %>
