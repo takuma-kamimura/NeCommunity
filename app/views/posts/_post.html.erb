@@ -1,3 +1,4 @@
+<div class="bg-gray-400 p-4 m-2 rounded-md shadow-md">
 <h1>名前</h1>
 <h1><%= post.user.name %></h1>
 <h1>・タイトル</h1>
@@ -15,7 +16,6 @@
 
 <h3><%= image_tag post.photo_url, id: 'avatar-preview', size: '500x500' if post.photo.present? %></h3>
 
-<%#binding.pry %>
 <% if post.tags.present? %>
     <%post.tags.each do |tag|%>
       <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
@@ -49,8 +49,8 @@
   <%=render 'bookmarks/bookmark_button' , {post: post} %><%= post.bookmarks.count %>
   <%end%>
 <%else%>
-<h6>ログイン前</h6>
+<!--ログイン前-->
   <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
   <i class="bi bi-bookmark"  style="color: yellowgreen;"></i><%= post.bookmarks.count %>
 <% end %>
-<h1>----------------------------------------------------------------</h1>
+</div>

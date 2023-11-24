@@ -1,5 +1,4 @@
 module.exports = {
-  
   plugins: [require("daisyui")],
   content: [
     './app/views/**/*.html.erb',
@@ -9,5 +8,12 @@ module.exports = {
   ],
   variants: {
     visibility: ['responsive', 'hover', 'focus', 'group-hover']
-  }
+  },
+  theme: {
+    extend: {
+      backgroundImage: theme => ({
+        'custom': `url("${theme('image-url', 'cat-5830643_1920.jpg')}")`, // 画像のパスを指定
+      }),
+    },
+  },
 }
