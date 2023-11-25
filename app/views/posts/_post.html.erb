@@ -1,17 +1,19 @@
-<div class="mx-auto max-w-md overflow-hidden rounded-lg bg-gray-400 shadow">
+<div class="mx-auto max-w-md overflow-hidden rounded-lg bg-gray-400 shadow text-black mb-4">
 <h2 class="text-4xl"><%= post.title %></h2>
 <h1>・投稿内容</h1>
-<h3 class="bg-white"><%= post.body.truncate(10)%></h3>
+<h3 class="bg-white inline-block"><%= post.body.truncate(10)%></h3>
 
 <div class="aspect-w-4 aspect-h-5">
+<%= link_to post_path(post) do %>
 <h3><%= image_tag post.photo_url, id: 'avatar-preview', class: 'object-cover' %></h3>
+<% end %>
 </div>
 
 <% if post.tags.present? %>
     <h1>・タグ</h1>
     <%post.tags.each do |tag|%>
       <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
-      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500" %>
+      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500 ml-4" %>
       <!-- custom_styles.cssを追加してリンクの下線を消した -->
     <%end%>
 <%end%>
