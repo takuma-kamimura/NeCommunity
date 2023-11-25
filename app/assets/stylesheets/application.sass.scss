@@ -1,32 +1,32 @@
 // Entry point for your Sass build
 
-/* application.html.erbのCSSスタイルの外に移動 */
-.top-page {
-  background-image: url('top.jpg');
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: white;
-}
+// /* application.html.erbのCSSスタイルの外に移動 */
+// .top-page {
+//   background-image: url('top.jpg');
+//   background-size: cover;
+//   background-position: center;
+//   height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
+//   align-items: center;
+//   color: white;
+// }
 
-/* タイトルのスタイル */
-.top-title {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+// /* タイトルのスタイル */
+// .top-title {
+//   font-size: 3rem;
+//   font-weight: bold;
+//   margin-bottom: 1rem;
+// }
 
-/* リンクのスタイル */
-.top-link {
-  text-decoration: none;
-  background-color: #3490dc;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
+// /* リンクのスタイル */
+// .top-link {
+//   text-decoration: none;
+//   background-color: #3490dc;
+//   color: white;
+//   padding: 10px 20px;
+//   border-radius: 5px;
+//   font-weight: bold;
+//   font-size: 1.2rem;
+// }

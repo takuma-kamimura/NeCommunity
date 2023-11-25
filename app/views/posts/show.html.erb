@@ -8,9 +8,9 @@
 <%= link_to user_path(@post.user) do %>
     <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %>
   <%end%></h3>
-
 <h1>投稿者の名前</h1>
 <h1><%= @post.user.name %></h1>
+
 <h1>・タイトル</h1>
 <h2><%= @post.title %></h2>
 <h1>・投稿内容</h1>
