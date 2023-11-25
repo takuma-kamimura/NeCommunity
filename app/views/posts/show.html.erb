@@ -1,7 +1,9 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div class="bg-slate-300">
 
-<h1>投稿詳細ページ</h1>
+<h1 class='text-4xl mb-4'>投稿詳細ページ</h1>
+<%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500' %>
+
+<div class="mx-auto my-auto h-screen max-w-full overflow-hidden rounded-lg bg-gray-400 shadow p-6">
 
 <%= link_to user_path(@post.user) do %>
     <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %>
@@ -61,4 +63,8 @@
 <!-- ホットワイヤーの処理のためidを付与 -->
 <div id="table-comment">
 <%= render @comments %>
+</div>
+
+</div>
+
 </div>

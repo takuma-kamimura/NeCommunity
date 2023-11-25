@@ -1,39 +1,41 @@
-<div class="bg-gray-400 p-4 m-2 rounded-md shadow-md">
-<h1>名前</h1>
-<h1><%= post.user.name %></h1>
-<h1>・タイトル</h1>
-<h2><%= post.title %></h2>
+<div class="mx-auto max-w-md overflow-hidden rounded-lg bg-gray-400 shadow">
+<h2 class="text-4xl"><%= post.title %></h2>
 <h1>・投稿内容</h1>
-<h3><%= post.body%></h3>
+<h3 class="bg-white"><%= post.body.truncate(10)%></h3>
 
-<% if post.cat.present? %>
-  <h1>・猫ちゃんの名前</h1>
-  <h3><%= post.cat.name %></h3>
-  <h1>猫ちゃんのプロフィール画像</h1>
-  <h3><%= image_tag post.cat.avatar_url, id: 'avatar-preview', size: '100x100',
-     style: 'border-radius: 50%;' %></h3>
-<%end%>
-
-<h3><%= image_tag post.photo_url, id: 'avatar-preview', size: '500x500' if post.photo.present? %></h3>
+<div class="aspect-w-4 aspect-h-5">
+<h3><%= image_tag post.photo_url, id: 'avatar-preview', class: 'object-cover' %></h3>
+</div>
 
 <% if post.tags.present? %>
+    <h1>・タグ</h1>
     <%post.tags.each do |tag|%>
       <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
-      <h1>・タグ</h1>
-      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle no-underline" %>
+      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500" %>
       <!-- custom_styles.cssを追加してリンクの下線を消した -->
     <%end%>
 <%end%>
 
-<h3><%= link_to '投稿詳細',post_path(post) %></h3>
+<h1>名前</h1>
+<h1><%= post.user.name %>さん</h1>
+<% if post.cat.present? %>
+  <h1>・猫ちゃんの名前</h1>
+  <h3><%= post.cat.name %></h3>
+  <h1>猫ちゃんのプロフィール画像</h1>
+  <h3><%= image_tag post.cat.avatar_url, id: 'avatar-preview', size: '50x50',
+     style: 'border-radius: 50%;' %></h3>
+<%end%>
+<h3><%= link_to '投稿詳細',post_path(post), class: 'underline text-blue-500' %></h3>
 
 <h6>コメント数:<%= post.comments.count %></h6>
 
 <!-- ログインしていない場合はいいね、ブックマーク、編集、削除は出さない -->
 <% if logged_in? %>
   <% if current_user.own?(post) %>
-    <%= link_to '投稿の編集ページ',edit_post_path(post) %>
-    <%= link_to '投稿内容を削除する',post_path(post), data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
+    <%= link_to '投稿の編集ページ',edit_post_path(post), class: 'underline text-blue-500 ml-4' %>
+    <%= link_to post_path(post),class: 'underline text-blue-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
+    <i class="bi bi-trash-fill"></i>
+    <% end %>
     <div class ="like-bookmark">
     <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
     <i class="bi bi-bookmark" style="color: yellowgreen;"></i><%= post.bookmarks.count %>

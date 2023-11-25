@@ -1,21 +1,23 @@
 <!--- 投稿一覧ページ --->
 <div class="bg-slate-300">
 <%if logged_in?%>
-  <%= link_to '新規投稿ページ',new_post_path %>
-  <%= link_to 'いいね一覧',likes_posts_path %>
-  <%= link_to 'ブックマーク一覧',bookmarks_posts_path %>
+<div class='underline text-blue-500 flex'>
+  <%= link_to '新規投稿ページ',new_post_path, class: 'ml-4' %>
+  <%= link_to 'いいね一覧',likes_posts_path, class: 'ml-4' %>
+  <%= link_to 'ブックマーク一覧',bookmarks_posts_path, class: 'ml-4' %>
   <% if current_user.cats.present? %>
-    <%= link_to 'あなたの猫種と同じ猫種に関する投稿',samebreedcats_posts_path %>
+    <%= link_to 'あなたの猫種と同じ猫種に関する投稿',samebreedcats_posts_path, class: 'ml-4' %>
     <% current_user.cats.each do |cat| %>
-      <%= link_to "#{cat.cat_breed.name}の投稿一覧" ,specifycats_posts_path(cat_breed_id: cat.cat_breed.id) %>
+      <%= link_to "#{cat.cat_breed.name}の投稿一覧" ,specifycats_posts_path(cat_breed_id: cat.cat_breed.id), class: 'ml-4' %>
     <%end%>
   <%end%>
+</div>
 <%end%>
 <div class="mb-4">
 <%= render 'search', q: @q, url: posts_path %>
 </div>
-<div class="mb-4 flex flex-wrap">
-    <div class="p-4 m-2">
+<div class="mb-4">
+    <div class="p-4 m-2 flex flex-wrap space-x-4 space-y-4">
 <%= render @posts %>
 </div>
 </div>
