@@ -1,9 +1,18 @@
 <!-- ホットワイヤーの処理のためidを付与 -->
 <div id="comment-form">
-<%= simple_form_for [post, comment], data: { turbo_method: :post } do |f| %>
+<!-- <%= simple_form_for [post, comment], data: { turbo_method: :post } do |f| %>
 <%= f.label :body %>
 <%= f.text_area :body %>
 
 <%= f.button :submit, "コメント投稿" %>
+<% end %> -->
+
+<%= form_with(model: [post, comment], data: { turbo_method: :post }) do |f| %>
+<div class="flex items-center justify-center h-full">
+  <%#= f.label :body %>
+  <%= f.text_area :body %>
+
+  <%= f.submit "コメント投稿", class: "btn btn-primary" %>
+</div>
 <% end %>
 </div>

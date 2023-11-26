@@ -1,13 +1,15 @@
 <div id="comment-<%= comment.id %>">
+  <div class="border inline-block mb-4" style="width: 537px;">
+ <div class="flex flex-col items-center justify-center mt-4">
 <%= link_to user_path(comment.user) do %>
-<h6><%= image_tag comment.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %>
-  <%end%></h6>
-<h6><%= comment.user.name %>さん</h6>
-<h6><%= comment.body %></h6>
-
-<!-- ログインしていないユーザー&コメントしたユーザー以外は編集不可 -->
-<%if logged_in? && current_user.own?(comment) %>
-<%= link_to 'コメントを削除する',comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" } %>
+<%= image_tag comment.user.avatar_url, id: 'avatar-preview', size: '50x50', style: 'border-radius: 50%;' %>
 <%end%>
-<h6>--------------------------------------------------------------------------</h6>
+<h6 class="mb-4"><%= comment.user.name %>さん</h6>
+<h6 class="mt-2 bg-white mb-3"><%= comment.body %></h6>
+<!-- ログインしていないユーザー&コメントしたユーザー以外は編集不可 -->
+<%= link_to comment_path(comment),class: 'underline text-blue-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" } do %>
+    <i class="bi bi-trash-fill"></i>
+    <% end %>
+</div>
+</div>
 </div>

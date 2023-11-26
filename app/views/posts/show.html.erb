@@ -68,16 +68,17 @@
 <% end %>
 
 <div class="text-center">
+  <div class="mb-3">
 <% if logged_in? %>
 <%= render 'comments/form', { post: @post, comment: @comment} %>
 <%end%>
+</div>
 
-<h1>コメントフォーム</h1>
+<h1 class="text-4xl">みんなのコメント</h1>
 <!-- ホットワイヤーの処理のためidを付与 -->
 <div id="table-comment">
 <%= render @comments %>
 </div>
-
 </div>
 
 </div>
