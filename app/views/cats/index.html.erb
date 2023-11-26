@@ -1,5 +1,5 @@
-<h1>Cats#index</h1>
-<p>Find me in app/views/cats/index.html.erb</p>
-
-<h1>ユーザー猫一覧ページ</h1>
+<div class="bg-slate-300 text-black">
+<h1 class="text-4xl font-bold mb-6">ユーザー猫一覧ページ</h1>
+<%= link_to '猫登録ページ', new_cat_path, class: 'underline text-blue-500' %>
 <%= render @cats %>
+</div>

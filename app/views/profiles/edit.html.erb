@@ -1,22 +1,37 @@
-<h1>プロフィール編集ページ</h1>
-<%= form_with model: @user, url: profile_path do |f| %>
-<form>
-    <div class="mb-3"><%= f.label :name, class: "form-label" %> <%= f.text_field :name, class: "form-control" %></div>
-    <div class="mb-3"><%= f.label :email, class: "form-label" %> <%= f.email_field :email, class: "form-control" %></div>
-    <div class="mb-3"><%= f.label :self_introduction, class: "form-label" %> <%= f.text_area :self_introduction, class: "form-control" %></div>
-   
-    <div class="mb-3">
+<div class="bg-slate-300 text-black">
+  <div class="container mx-auto mt-8">
+    <h1 class="text-4xl mb-4">プロフィール編集ページ</h1>
+  
+    <%= form_with model: @user, url: profile_path, html: { class: 'max-w-md mx-auto bg-white p-8 rounded shadow-md' } do |f| %>
+      <div class="mb-4">
+        <%= f.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.text_field :name, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      </div>
+  
+      <div class="mb-4">
+        <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.email_field :email, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      </div>
+  
+      <div class="mb-4">
+        <%= f.label :self_introduction, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= f.text_area :self_introduction, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      </div>
+  
+      <div class="mb-4">
         <%= f.label :avatar, for: 'avatar-file' %>
         <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
         <%= f.hidden_field :avatar_cache %>
       </div>
-      <div class="mb-3">
-        <%= image_tag @user.avatar_url, id: 'preview', size: '300x200' %>
+  
+      <div class="mb-4">
+        <%= image_tag @user.avatar_url, id: 'preview', class: 'w-full rounded-md' %>
       </div>
-    <input type="submit" name="commit" value="更新" class="btn btn-primary" data-disable-with="ログイン" />
-  </form>
-<%end%>
-
-<%= link_to '猫登録ページ',new_cat_path %>
-
-  <!-- 後ほどシンプルフォームを使った記述に変える -->
+  
+      <div class="mb-4">
+        <%= f.submit "更新", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      </div>
+    <% end %>
+  
+  </div>
+</div>

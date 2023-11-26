@@ -1,30 +1,56 @@
-<h1>Cats#show</h1>
-<p>Find me in app/views/cats/show.html.erb</p>
+<div class="bg-slate-300 text-black p-6 rounded-md">
 
-<h1><%= @cat.decorate.cat_name %>の詳細ページ</h1>
+  <h1 class="text-3xl font-bold mb-4"><%= @cat.decorate.cat_name %>の詳細ページ</h1>
 
-<h1>・猫の名前</h1>
-<h1><%= @cat.name %></h1>
-<h1>・飼い主さんのお名前</h1>
-<h1><%= @cat.user.name %></h1>
-<h1>・猫ちゃんの猫種</h1>
-<h1><%= @cat.cat_breed.name %></h1>
-<%if @cat.birthday.present? %>
-<h1>この猫ちゃんの誕生日</h1>
-<h1><%= @cat.birthday.strftime('%Y年%m月%d日')%>だよ</h1>
-<h1>この猫ちゃんの年齢</h1>
-<h1><%= @cat.decorate.cat_age %></h1>
-<%end%>
-<h1>・この猫ちゃんの紹介</h1>
-<h1><%= @cat.self_introduction %></h1>
-<h1>・この猫ちゃんの性別</h1>
-<h1><%= @cat.gender_i18n %></h1>
-<h1>
-  ・この猫ちゃんの写真
-  <h1><%= image_tag @cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
+  <div class="mb-4">
+    <h1 class="text-xl font-bold">猫の名前</h1>
+    <p><%= @cat.name %></p>
+  </div>
 
-<%if logged_in? && current_user.own?(@cat) %>
-  <%= link_to "#{@cat.decorate.cat_name}の編集ページ",edit_cat_path(@cat) %>
-  <%= link_to "この猫ちゃんの情報を削除する",cat_path(@cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-<%end%>
-</h1>
+  <div class="mb-4">
+    <h1 class="text-xl font-bold">飼い主さんのお名前</h1>
+    <p><%= @cat.user.name %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の猫種</h1>
+    <p><%= @cat.cat_breed.name %></p>
+  </div>
+
+  <% if @cat.birthday.present? %>
+    <div class="mb-4">
+      <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の誕生日</h1>
+      <p><%= @cat.birthday.strftime('%Y年%m月%d日') %>だよ</p>
+    </div>
+
+    <div class="mb-4">
+      <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の年齢</h1>
+      <p><%= @cat.decorate.cat_age %></p>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の紹介</h1>
+    <p><%= @cat.self_introduction %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の性別</h1>
+    <p><%= @cat.gender_i18n %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= @cat.decorate.cat_name %>の写真</h1>
+    <%= image_tag @cat.avatar_url, id: 'avatar-preview', class: 'w-full h-auto rounded-md' %>
+  </div>
+
+  <% if logged_in? && current_user.own?(@cat) %>
+    <div class="flex">
+      <%= link_to "#{@cat.decorate.cat_name}の編集ページ", edit_cat_path(@cat), class: 'mr-4 underline text-blue-500' %>
+      <%= link_to cat_path(@cat),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+        <i class="bi bi-trash-fill"></i>
+        <% end %>
+    </div>
+  <% end %>
+
+</div>

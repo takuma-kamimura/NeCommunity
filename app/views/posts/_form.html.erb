@@ -1,17 +1,17 @@
-<div class="flex items-center justify-center h-screen">
+<div class="flex items-center justify-center">
     <%= form_with(model: @post, local: true) do |f| %>
     <div class="mb-3">
         <%= f.label :title %>
-        <%= f.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', required: false %>
+        <%= f.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white', required: false %>
       </div>
     
       <div class="mb-3">
         <%= f.label :body %>
-        <%= f.text_area :body, rows: 5, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none', required: false %>
+        <%= f.text_area :body, rows: 5, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none bg-white', required: false %>
       </div>
   
   <!-- 猫の選択用のドロップダウンメニュー -->
-  <%= f.collection_select :cat_id, current_user.cats, :id, :name, prompt: "猫を選択してください" %>
+  <%= f.collection_select :cat_id, current_user.cats, :id, :name, { prompt: "猫を選択してください" }, { class: "bg-white" }  %>
 
   <div class="mb-3">
     <%= f.label :photo, for: 'avatar-file' %>
@@ -25,10 +25,10 @@
   <!-- 下記よりタグ機能 -->
   <div class="mb-3">
     <%= f.label :tag %>
-    <%= f.text_field :name, class: 'form-control', placeholder:",で区切って入力してください", value: @tags %>
+    <%= f.text_field :name, class: 'form-control bg-white', placeholder:",で区切って入力してください", value: @tags %>
     </div>
 
-  <%= f.submit "投稿", class: "btn btn-primary" %>
+  <%= f.submit "投稿", class: "btn btn-primary mb-3" %>
 <% end %>
 
 </div>
