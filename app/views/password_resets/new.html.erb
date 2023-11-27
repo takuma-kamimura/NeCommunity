@@ -1,19 +1,18 @@
-<h1>PasswordResets#new</h1>
-<p>Find me in app/views/password_resets/new.html.erb</p>
+<div class="bg-slate-300 h-screen flex items-center justify-center">
 
+    <%# content_for(:title ,'パスワードリセット申請')%>
 
-<% content_for(:title ,'パスワードリセット申請')%>
-<div class="container">
-    <div class="row">
-        <div class=" col-md-10 offset-md-1 col-lg-8 offset-lg-2">
-            <h1>パスワードリセット申請</h1>
-            <%= form_with url:password_resets_path,method: :post,local: true do |f|%>
-                <div class="form-group">
-                    <%=f.label :email, User.human_attribute_name(:email)%>
-                    <%=f.text_field :email,class: "form-control"%>
-                </div>
-                <%=f.submit "送信",class:"btn btn-primary"%>
-            <%end%>
+    <div class="max-w-md p-6 bg-white rounded-md shadow-md">
+      <h1 class="text-2xl font-bold mb-6">パスワードリセット申請</h1>
+  
+      <%= form_with url: password_resets_path, method: :post, local: true do |f| %>
+        <div class="mb-4">
+          <%= f.label :email, User.human_attribute_name(:email), class: "block text-gray-700 text-sm font-bold mb-2" %>
+          <%= f.text_field :email, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline" %>
         </div>
+  
+        <%= f.submit "送信", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      <% end %>
     </div>
-</div>
+  </div>
+  
