@@ -1,9 +1,26 @@
-<h1><%= @health_record.cat.decorate.cat_name %>の健康記録詳細</h1>
-<h1>⚪︎体重</h1>
-<h1><%= @health_record.weight %>kg</h1>
-<h1>⚪︎ノート</h1>
-<h1><%= @health_record.note %></h1>
+<div class="bg-slate-300 p-6">
+    <h1 class="text-2xl font-bold mb-6"><%= @health_record.cat.decorate.cat_name %>の健康記録詳細</h1>
+  <div class="bg-white p-6 rounded-md shadow-md">
+    <div class="mb-4">
+      <h1 class="text-lg font-semibold mb-2">⚪︎記録日時</h1>
+      <p class="text-gray-700"><%= @health_record.created_at.strftime('%Y年%m月%d日%H時%M分') %></p>
+    </div>
 
-<%= link_to "編集する", edit_health_record_path(@health_record) %>
-
-<%= link_to "この記録を削除する",health_record_path(@health_record), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <div class="mb-4">
+        <h1 class="text-lg font-semibold mb-2">⚪︎体重</h1>
+        <p class="text-gray-700"><%= @health_record.weight %>kg</p>
+      </div>
+  
+    <div class="mb-4">
+      <h1 class="text-lg font-semibold mb-2">⚪︎ノート</h1>
+      <p class="text-gray-700"><%= @health_record.note %></p>
+    </div>
+  
+    <div class="flex">
+      <%= link_to "編集する", edit_health_record_path(@health_record), class: "text-blue-500 mr-4" %>
+        <%= link_to health_record_path(@health_record),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " この記録を削除しますか？" } do %>
+          <i class="bi bi-trash-fill"></i>
+        <% end %>
+    </div>
+</div>
+  </div>
