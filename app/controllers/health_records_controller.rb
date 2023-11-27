@@ -26,12 +26,12 @@ class HealthRecordsController < ApplicationController
   def create
     @health_record = HealthRecord.new(health_record_params)
     if @health_record.save
-      # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
+     
       @cat = @health_record.cat
-
+      flash[:success] = t('messages.health_records.create')
       redirect_to health_records_path(cat_id: @health_record.cat.id)
     else
-      # flash.now[:danger] = t('activerecord.attributes.user.New_registration_failed')
+      flash.now[:danger] = t('messages.health_records.create_faild')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
   end
@@ -41,14 +41,15 @@ class HealthRecordsController < ApplicationController
 
     @health_record = HealthRecord.find_by(id: params[:id])
     if @health_record.update(health_record_params)
-      # flash[:success] = t('board.board_update')
-      
       @cat = @health_record.cat
+      flash[:success] = t('messages.health_records.update')
       redirect_to health_records_path(cat_id: @cat.id)
     else
-      @cat = cat_params
-      # flash[:danger] = t('board.board_update_failed')
-      redirect_to edit_health_records_path(@health_record), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      # @health_record = health_record_params
+      flash[:danger] = t('messages.health_records.update_faild')
+      #redirect_to edit_health_record_path(@health_record), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
+      @health_record = health_record_params
     end
   end
 
@@ -58,6 +59,7 @@ class HealthRecordsController < ApplicationController
     @health_record = HealthRecord.find_by(id: params[:id])
     @cat = @health_record.cat
     @health_record.destroy!
+    flash[:success] = t('messages.health_records.delete')
     redirect_to health_records_path(cat_id: @cat.id)
   end
 

@@ -3,3 +3,33 @@ ja:
     new:
       title: 'ユーザー登録'
       to_login_page: 'ログインページへ'
+  messages:
+    users:
+      logged_in: 'ようこそ！ログインしました！'
+      logout: 'ログアウトしました'
+      login_faild: '申し訳ありません ログインに失敗しました'
+      new: '新規登録が完了しました！'
+      new_faild: '申し訳ありません 新規登録に失敗しました'
+      profile_update: 'プロフィールを更新しました'
+      profile_update_faild: '申し訳ありません プロフィールの更新に失敗しました'
+      reset_password_mail: 'ご登録のメールアドレスにパスワードリセット用のメールを送信しました。'
+      reset_password_success: 'パスワードの変更が完了しました！'
+      reset_password_faild: '申し訳ありません パスワードの変更ができませんでした'
+    post:
+      create: '新規投稿が完了しました！'
+      create_faild: '申し訳ありません 新規投稿に失敗しました'
+      update: '投稿内容を更新しました！'
+      update_faild: '申し訳ありません 投稿の更新に失敗しました'
+      delete: '投稿を削除しました！'
+    cats:
+      create: '猫ちゃんの新規登録が完了しました！'
+      create_faild: '申し訳ありません 猫ちゃんの登録に失敗しました'
+      update: '猫ちゃんの情報を更新しました！'
+      update_faild: '申し訳ありません 猫ちゃんの情報の更新に失敗しました'
+      delete: '猫ちゃんの情報を削除しました'
+    health_records:
+      create: '健康記録を追加しました！'
+      create_faild: '申し訳ありません 健康記録の追加に失敗しました'
+      update: '健康記録を更新しました！'
+      update_faild: '申し訳ありません 健康記録の更新に失敗しました'
+      delete: '健康記録を削除しました'

@@ -15,11 +15,7 @@
   </head>
 
   <body>
-    <% flash.each do |key, value| %>
-  <div class="<%= flash_class(key) %> px-4 py-2 rounded-md mb-4">
-    <%= value %>
-  </div>
-<% end %>
+    <%= render 'shared/flash_message'%>
     <% if logged_in?%>
     <%= render 'shared/header' %>
     <% else %>

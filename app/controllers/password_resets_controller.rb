@@ -8,7 +8,8 @@ class PasswordResetsController < ApplicationController
     @user&.deliver_reset_password_instructions!
     # ↓「存在しないメールアドレスです」という旨の文言を表示すると、逆に存在するメールアドレスを特定されてしまうため
     #　　↓あえて成功時のメッセージを送信させている
-    redirect_to login_path, success: "メールを送信しました。"
+    flash[:success] = t('messages.users.reset_password_mail')
+    redirect_to root_path
   end
 
   def edit
@@ -19,16 +20,22 @@ class PasswordResetsController < ApplicationController
 
   def update
     @token = params[:id]
-    @user = User.load_from_reset_password_token(@token)
+    @user = User.load_from_reset_password_token(params[:id])
 
-    return not_authenticated if @user.blank?
+    if @user.blank?
+      not_authenticated
+      return
+    end
 
     @user.password_confirmation = params[:user][:password_confirmation]
-    if @user.change_password(params[:user][:password])
-      redirect_to login_path, success: "パスワードを変更できました"
+    if params[:user][:password].present?
+      @user.change_password(params[:user][:password])
+      flash[:success] = t('messages.users.reset_password_success')
+      redirect_to login_path
     else
-      flash.now[:danger] = "パスワード変更出来ませんでした"
-      render :edit
+      binding.pry
+      flash.now[:danger] = t('messages.users.reset_password_faild')
+      render :edit, status: :unprocessable_entity
     end
   end
 end

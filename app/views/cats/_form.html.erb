@@ -16,7 +16,7 @@
 
   <div class="mb-4">
     <%= f.label :gender, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.collection_select :gender, Cat.genders.keys.map(&:to_s), :to_s, :humanize, { prompt: "性別を選択してください" }, { class: 'appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
+    <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
 
   </div>
 

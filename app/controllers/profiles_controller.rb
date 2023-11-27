@@ -12,10 +12,10 @@ class ProfilesController < ApplicationController
   def update
     @user = User.find(current_user.id)
     if @user.update(user_params)
-      # flash[:success] = t('profiles.update')
+      flash[:success] = t('messages.users.profile_update')
       redirect_to profile_path
     else
-      # flash[:danger] = t('profiles.update_failed')
+      flash[:danger] = t('messages.users.profile_update_faild')
       render :edit, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
   end
