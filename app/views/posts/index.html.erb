@@ -19,7 +19,8 @@
 <%= render 'search', q: @q, url: posts_path %>
 </div>
 <div class="mb-4">
-    <div class="p-4 m-2 flex flex-wrap">
+  <!-- < div class="p-4 m-2 flex flex-wrap"> -->
+    <div class="grid grid-cols-4 gap-4">
 <%= render @posts %>
 </div>
 </div>
