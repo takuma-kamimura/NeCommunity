@@ -3,6 +3,28 @@ ja:
     new:
       title: 'ユーザー登録'
       to_login_page: 'ログインページへ'
+  user_sessions:
+    new:
+      title: 'ログイン'
+  password_resets:
+    new:
+      title: 'パスワードリセット申請'
+    edit:
+      title: 'パスワードリセット'
+  tops:
+    top:
+      title: 'トップページ'
+  posts:
+    index:
+      title: '投稿一覧'
+    new:
+      title: '新規投稿'
+  cats:
+    new:
+      title: '猫登録'
+  health_records:
+    new:
+      title: '新規健康記録'
   helpers:
     label:
       email: 'メールアドレス'
