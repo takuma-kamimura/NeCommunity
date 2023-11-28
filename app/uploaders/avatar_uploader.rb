@@ -20,7 +20,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'ねこフリー画像.jpeg'
+    'kkrn_icon_user_1.png'
   end
   
   def extension_whitelist # 拡張子の制限
