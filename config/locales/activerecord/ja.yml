@@ -17,6 +17,8 @@ ja:
         self_introduction: '猫の紹介'
         gender: '性別'
         avatar: '猫のプロフィール画像'
+        cat_breed_id: '猫種'
+        cat_breed: '猫種'
       post:
         title: 'タイトル'
         body: '投稿内容'
@@ -26,6 +28,10 @@ ja:
         body: 'コメント'
       tag:
         name: 'タグ'
+      health_record:
+        weight: '体重'
+        note: 'ノート'
+        cat_id: '猫ちゃん'
   enums:
     cat:
       gender:

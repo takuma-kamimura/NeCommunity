@@ -3,7 +3,6 @@
       <h1 class="text-2xl font-bold mb-6">パスワードリセット</h1>
   
       <%= form_with model: @user, url: password_reset_path(@token), local: true do |f| %>
-        <%#= render "shared/error_messages", object: f.object %>
         <div class="mb-4">
           <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
           <%= @user.email %>

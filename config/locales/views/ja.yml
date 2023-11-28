@@ -3,6 +3,10 @@ ja:
     new:
       title: 'ユーザー登録'
       to_login_page: 'ログインページへ'
+  helpers:
+    label:
+      email: 'メールアドレス'
+      password: 'パスワード'
   messages:
     users:
       logged_in: 'ようこそ！ログインしました！'

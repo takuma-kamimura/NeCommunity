@@ -33,7 +33,6 @@ class PasswordResetsController < ApplicationController
       flash[:success] = t('messages.users.reset_password_success')
       redirect_to login_path
     else
-      binding.pry
       flash.now[:danger] = t('messages.users.reset_password_faild')
       render :edit, status: :unprocessable_entity
     end

@@ -39,9 +39,9 @@ class CatsController < ApplicationController
       flash[:success] = t('messages.cats.update')
       redirect_to cats_path
     else
-      @cat = cat_params
-      flash[:danger] = t('messages.cats.update_faild')
-      redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      flash.now[:danger] = t('messages.cats.update_faild')
+      # redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
     end
   end
 

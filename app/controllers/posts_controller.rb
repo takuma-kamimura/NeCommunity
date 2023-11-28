@@ -38,9 +38,10 @@ class PostsController < ApplicationController
       @post.update_tags(@tags)
       redirect_to posts_path
     else
-      @post = post_params
+      # @post = post_params
       flash[:danger] = t('messages.post.update_faild')
-      redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
     end
   end
 

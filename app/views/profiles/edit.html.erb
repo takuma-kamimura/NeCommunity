@@ -3,6 +3,7 @@
     <h1 class="text-4xl mb-4">プロフィール編集ページ</h1>
   
     <%= form_with model: @user, url: profile_path, html: { class: 'max-w-md mx-auto bg-white p-8 rounded shadow-md' } do |f| %>
+    <%= render 'shared/error_messages', object: f.object %>
       <div class="mb-4">
         <%= f.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
         <%= f.text_field :name, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
