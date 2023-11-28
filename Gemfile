@@ -74,6 +74,8 @@ gem 'dotenv-rails' # .envファイル読み込み用。
 
 gem "sassc-rails"
 
+gem 'fog-aws'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
