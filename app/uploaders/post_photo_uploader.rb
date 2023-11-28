@@ -14,7 +14,7 @@ class PostPhotoUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'ねこフリー画像.jpeg'
+    'c34caee90e20401e3fa0e8c574bdc298.jpg'
   end
   
   def extension_whitelist # 拡張子の制限
