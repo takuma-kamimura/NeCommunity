@@ -3,6 +3,7 @@ require 'carrierwave/storage/file'
 require 'carrierwave/storage/fog'
 
 CarrierWave.configure do |config|
+  config.fog_public = false # リソースへの直接のアクセスを制限する
   if Rails.env.production?
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
