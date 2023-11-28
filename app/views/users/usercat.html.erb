@@ -1,7 +1,9 @@
+<div class="bg-slate-300">
 <h1><%= @user.name%>さんの猫一覧</h1>
 
 <% if @usercats.present? %>
   <%= render @usercats %>
 <% else %>
-  <h1><%= @user.name%>さんはまだ猫ちゃんを登録してないよ</h1>
+  <h1 class="text-4xl mb-3"><%= @user.name%>さんはまだ猫ちゃんを登録してないよ</h1>
 <%end%>
+</div>

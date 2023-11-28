@@ -1,8 +1,26 @@
-<h1>ユーザー詳細ページ</h1>
-<h1><%= image_tag @user.avatar_url, id: 'avatar-preview', size: '500x500' %></h1>
-<h1>ユーザーの名前</h1>
-<h1><%= @user.name %></h1>
-<h1>ユーザーの自己紹介</h1>
-<h1><%= @user.self_introduction %></h1>
+<div class="bg-slate-300 text-black">
+    <div class="flex items-center justify-center">
+<div class="ml-4 mt-4">
+  <h1 class="text-4xl mb-3"><%= @user.name %>さんの詳細ページ</h1>
 
-<%= link_to "#{@user.name}さんの猫一覧ページ", usercat_users_path(user_id: @user.id) %>
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">名前</h1>
+    <h2><%= @user.name %></h2>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">ユーザーの自己紹介</h1>
+    <h2><%= @user.self_introduction %></h2>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">アバター</h1>
+    <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-64 h-40 object-cover rounded-md' %>
+  </div>
+
+  <div class="mb-3">
+    <%= link_to "#{@user.name}さんの猫一覧ページ", usercat_users_path(user_id: @user.id), class: 'underline text-blue-500' %>    
+  </div>
+</div>
+    </div>
+</div>
