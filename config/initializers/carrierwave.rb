@@ -11,7 +11,7 @@ CarrierWave.configure do |config|
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'], #awsのIAMのシークレットアクセスキー
       region: 'ap-northeast-1' #バケットの作成で設定した地域(東京で設定した場合は左と一緒)
     }
-    config.fog_directory = "ENV['AWS_BUCKET_NAME']" #バケット名
+    config.fog_directory = ENV['AWS_BUCKET_NAME'] #バケット名
     config.cache_storage = :fog     # 本番時はS3にファイルを保存する
   else
     config.storage = :file          # 開発・テスト時はローカルにファイルを保存する
