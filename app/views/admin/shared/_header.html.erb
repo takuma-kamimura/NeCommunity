@@ -1,15 +1,21 @@
-<h1>ヘッダー</h1>
-<h1>管理者画面</h1>
-<h1><%= current_user.name %></h1>
-<%= link_to 'ユーザー管理ページ', admin_users_path %>
-<%= link_to '投稿管理ページ',admin_root_path %>
-<%= link_to 'コメント管理ページ',admin_comments_path %>
-<%= link_to '猫管理ページ',admin_cats_path %>
-<%= link_to '猫健康管理一覧ページ',catrecord_admin_health_records_path %>
-
-<%= link_to 'タグ管理ページ',admin_tags_path %>
-
-
-<%= link_to 'ログアウト',admin_logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
-
+<!-- 管理者画面ヘッダー -->
+<nav class="bg-blue-900 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+      <!-- タイトル -->
+      <h1 class="text-white text-xl font-bold">管理者画面</h1>
+  
+      <!-- ナビゲーションメニュー -->
+      <ul class="flex space-x-4">
+        <li><%= link_to 'ユーザー管理', admin_users_path, class: 'text-white hover:text-gray-300' %></li>
+        <li><%= link_to '投稿管理', admin_root_path, class: 'text-white hover:text-gray-300' %></li>
+        <li><%= link_to 'コメント管理', admin_comments_path, class: 'text-white hover:text-gray-300' %></li>
+        <li><%= link_to '猫管理', admin_cats_path, class: 'text-white hover:text-gray-300' %></li>
+        <li><%= link_to '猫健康管理一覧', catrecord_admin_health_records_path, class: 'text-white hover:text-gray-300' %></li>
+        <li><%= link_to 'タグ管理', admin_tags_path, class: 'text-white hover:text-gray-300' %></li>
+      </ul>
+  
+      <!-- ログアウトボタン -->
+      <%= link_to 'ログアウト', admin_logout_path, class: 'text-white hover:text-gray-300', data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
+    </div>
+  </nav>
 <h1>----------------------------------------------------------</h1>
