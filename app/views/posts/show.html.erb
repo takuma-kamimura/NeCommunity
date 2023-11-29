@@ -1,64 +1,88 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<% content_for(:title, @post.title) %>
 
-<h1>投稿詳細ページ</h1>
+<div class="bg-slate-300 text-black">
 
+<h1 class='text-4xl mb-4'>投稿詳細ページ</h1>
+<%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500' %>
+
+<div class="mx-auto my-auto max-w-full overflow-hidden rounded-lg bg-gray-400 shadow p-6">
+
+<div class="float-right">
 <%= link_to user_path(@post.user) do %>
-    <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %>
-  <%end%></h3>
-
-<h1>投稿者の名前</h1>
-<h1><%= @post.user.name %></h1>
-<h1>・タイトル</h1>
-<h2><%= @post.title %></h2>
-<h1>・投稿内容</h1>
-<h3><%= @post.body%></h3>
-
-<% if @post.cat.present? %>
-  <h1>・猫ちゃんの名前</h1>
-  <h3><%= @post.cat.name %></h3>
-  <h3>猫ちゃんの詳細</h3>
-  <%= link_to cat_path(@post.cat) do %>
-    <h3><%= image_tag @post.cat.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %></h3>
+    <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %></h3>
   <%end%>
+<h1><%= @post.user.name %>さん</h1>
+</div>
+
+
+<h2 class="text-4xl font-bold mb-4"><%= @post.title %></h2>
+
+<h3 class="bg-white inline-block mb-4"><%= @post.body%></h3>
+
+<div class="mb-4">
+<% if @post.cat.present? %>
+<div class="inline-block">
+    <div class="rounded-md border p-2 border-white bg-red-300">
+  <h3><%= @post.cat.decorate.cat_name %></h3>
+  <%= link_to cat_path(@post.cat) do %>
+  
+    <h3><%= image_tag @post.cat.avatar_url, id: 'avatar-preview', size: '100x100', style: 'border-radius: 50%;' %></h3>
+    <%end%>
+</div>
+</div>
 <%end%>
-
-<h3><%= image_tag @post.photo_url, id: 'avatar-preview', size: '500x500' %></h3>
-
-<%#= link_to "/" do %>
-<!-- image_tagを使う形に修正してください -->
-<%#= image_tag 'logo.png',class: 'navbar-brand' %> <%# end %>
+</div>
+<div class="flex items-center justify-center">
+<h3><%= image_tag @post.photo_url, id: 'avatar-preview', class: 'h-screen max-w-full' %></h3>
+</div>
 
 <!-- 投稿詳細と他人のユーザー詳細と他人のcat一覧表示ページを作る -->
 
 <% if @post.tags.present? %>
+<h1 class="flex justify-center mb-2">タグ</h1>
   <%@post.tags.each do |tag|%>
   <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
   <!-- custom_styles.cssを追加してリンクの下線を消した -->
-  <h1>タグ</h1>
-  <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle no-underline" %>
+  <div class="mb-2 flex justify-center">
+  <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle underline text-blue-500" %>
+  </div>
   <%end%>
 <%end%>
 
 <% if logged_in? %>
   <% if current_user.own?(@post) %>
-    <%= link_to '投稿の編集ページ',edit_post_path(@post) %>
-    <%= link_to '投稿内容を削除する',post_path(@post), data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
-  <%end%>
+  <div class="mb-4">
+    <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %>
+    <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
+    <i class="bi bi-trash-fill"></i>
+    <% end %>
+  </div>
+    <%end%>
   <!-- 自分の投稿はいいねとブックマークしない -->
   <!-- ログインIDとボード。ログインIDが違うかチェック -->
   <%if current_user.id != @post.user.id %>
-    <%=render 'likes/like_button' , {post: @post} %>
-    <%=render 'bookmarks/bookmark_button' , {post: @post} %>
-  <% end %>
+  <div class="flex justify-center mb-4 w-3/12">
+    <%=render 'likes/like_button' , {post: @post} %><%= @post.likes.count %>
+    <span style="margin-right: 10px;"></span>
+    <%=render 'bookmarks/bookmark_button' , {post: @post} %><%= @post.bookmarks.count %>
+  </div>
+    <% end %>
 <% end %>
 
+<div class="text-center">
+  <div class="mb-3">
 <% if logged_in? %>
 <%= render 'comments/form', { post: @post, comment: @comment} %>
 <%end%>
+</div>
 
-<h1>コメントフォーム</h1>
+<h1 class="text-4xl">みんなのコメント</h1>
 <!-- ホットワイヤーの処理のためidを付与 -->
 <div id="table-comment">
 <%= render @comments %>
+</div>
+</div>
+
+</div>
+
 </div>

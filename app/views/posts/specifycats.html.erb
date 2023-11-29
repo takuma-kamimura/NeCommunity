@@ -1,4 +1,13 @@
+<% content_for(:title, "#{@cat_breed.name}と同じ猫種に関する投稿") %>
+
+<div class="bg-slate-300">
+  <%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500' %>
 <h1><%= @cat_breed.name%>と同じ猫種に関する投稿</h1>
 <% if @specifycats.present? %>
+<div class="mb-4">
+  <div class="grid grid-cols-4 gap-4 px-2">
     <%= render @specifycats %>
+    </div>
+</div>
 <%end%>
+</div>

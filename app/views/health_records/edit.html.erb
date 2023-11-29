@@ -1,3 +1,8 @@
-<h1>記録編集</h1>
+<% content_for(:title, "#{@health_record.cat.decorate.cat_name}の健康記録編集") %>
+
+<div class="bg-slate-300 p-6 rounded-md shadow-md">
+    <h1 class="text-2xl font-bold mb-6"><%= @health_record.cat.decorate.cat_name %>の記録編集</h1>
 
 <%= render 'form' %>
+
+</div>

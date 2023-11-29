@@ -7,6 +7,13 @@ Rails.application.routes.draw do
 
   root "tops#top" # topページ
 
+  resources :tops do
+    collection do
+      get :kiyac
+      get :policy
+    end
+  end
+
   get 'login' => 'user_sessions#new', :as => :login # gem sorceryより。
   post 'login' => "user_sessions#create" # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout
@@ -16,7 +23,11 @@ Rails.application.routes.draw do
       get :usercat
     end
   end
-  resource :profile, only: %i(show edit update)
+  resource :profile, only: %i(show edit update destroy) do
+    collection do
+      get :delete_confirmation
+    end
+  end
   resources :cats, only: %i(index new show edit create update destroy)
   resources :password_resets, only: %i[new create edit update] # パスワードリセット用
   # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? # 開発環境用メーラー

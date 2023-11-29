@@ -1,6 +1,8 @@
-<h1>Tops#top</h1>
-<p>Find me in app/views/tops/top.html.erb</p>
+<% content_for(:title, t('.title')) %>
 
-<h1>ネコミュニティトップページ</h1>
-
-<%= link_to '投稿一覧ページ',posts_path %>
+<div class="bg-custom bg-cover bg-center h-screen flex flex-col justify-center items-center text-white">
+<h1 class="font-mono text-4xl mb-4">ようこそ!</h1>
+<div class="mb-4">
+<%= link_to '投稿一覧ページへ',posts_path, class: 'underline' %>
+</div>
+</div>

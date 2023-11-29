@@ -1,22 +1,37 @@
-<h1>・猫の名前</h1>
-<h1><%= cat.decorate.cat_name %></h1>
-<h1>・あなたの名前</h1>
-<h1><%= cat.user.name %></h1>
-<h1>・猫ちゃんの猫種</h1>
-<%#= CatBreed_find(cat_breed_id) %>
-<h1><%= cat.cat_breed.name  %></h1>
-<h1>・この猫ちゃんの紹介</h1>
-<h1><%= cat.self_introduction %></h1>
-<h1>・この猫ちゃんの性別</h1>
-<h1><%= cat.gender_i18n %></h1>
-<h1>・この猫ちゃんの写真
-<h1><%= image_tag cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
+  <div class="bg-orange-200 rounded-md shadow-md p-6 mb-6">
+    <h2 class="text-2xl font-bold mb-4"><%= cat.decorate.cat_name %></h2>
 
-<%= link_to "#{cat.decorate.cat_name}の詳細ページ",cat_path(cat) %>
-<!---オスメスで「ちゃん」「くん」分けたい--->
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の猫種</h3>
+      <p><%= cat.cat_breed.name %></p>
+    </div>
 
-<%if logged_in? && current_user.own?(cat) %>
-  <%= link_to "#{cat.decorate.cat_name}の編集ページ",edit_cat_path(cat) %>
-  <%= link_to "この猫ちゃんの情報を削除する",cat_path(cat), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
-<%end%>
-  <!--誕生日データを使って年齢を計算したい-->
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の紹介</h3>
+      <p><%= cat.self_introduction %></p>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の性別</h3>
+      <p><%= cat.gender_i18n %></p>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の写真</h3>
+      <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-64 h-auto rounded-md' %>
+    </div>
+
+    <div class="mb-4">
+      <%= link_to "#{cat.decorate.cat_name}の詳細ページ", cat_path(cat), class: 'underline text-blue-500' %>
+    </div>
+
+    <% if logged_in? && current_user.own?(cat) %>
+      <div class="flex">
+        <%= link_to "#{cat.decorate.cat_name}の編集ページ", edit_cat_path(cat), class: 'underline text-blue-500 mr-4' %>
+        <%= link_to cat_path(cat),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+        <i class="bi bi-trash-fill"></i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+

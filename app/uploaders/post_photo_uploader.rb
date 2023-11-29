@@ -14,11 +14,17 @@ class PostPhotoUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'ネコイラストデフォルト.png'
+    'c34caee90e20401e3fa0e8c574bdc298.jpg'
   end
   
   def extension_whitelist # 拡張子の制限
     %w[jpg jpeg gif png]
+  end
+
+  if Rails.env.production?    
+    storage :fog              # 本番時にS3にファイルを保存する
+  else
+    storage :file             # 開発・テスト時にはローカルにファイルを保存する
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

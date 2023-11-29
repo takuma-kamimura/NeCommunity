@@ -1,13 +1,37 @@
-<h1>ユーザープロフィール詳細ページ</h1>
-<%= link_to 'プロフィール編集ページ',edit_profile_path %>
-<%= link_to '健康状態記録一覧ページ', catrecord_health_records_path %>
-<h1>◯名前</h1>
-<h2><%=current_user.name%></h2>
-<h1>◯メールアドレス</h1>
-<h2><%=current_user.email%></h2>
-<h1>◯自己紹介</h1>
-<h2><%=current_user.self_introduction%></h2>
-<h1>◯アバター</h1>
-<%= image_tag @user.avatar_url, id: 'avatar-preview', size: '600x400' %>
+<% content_for(:title, "#{current_user.name}さんのプロフィール") %>
 
-<%= link_to 'マイ猫一覧ページ',cats_path %>
+<div class="bg-slate-300 text-black">
+    <div class="flex items-center justify-center">
+<div class="ml-4 mt-4">
+  <h1 class="text-4xl mb-3"><%= current_user.name %>の詳細ページ</h1>
+  <div class="mb-3">
+    <%= link_to 'プロフィール編集ページ', edit_profile_path, class: 'underline text-blue-500' %>
+    <%= link_to '健康状態記録一覧ページ', catrecord_health_records_path, class: 'underline text-blue-500 ml-3' %>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">名前</h1>
+    <h2><%= current_user.name %></h2>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">メールアドレス</h1>
+    <h2><%= current_user.email %></h2>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">自己紹介</h1>
+    <h2><%= current_user.self_introduction %></h2>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold mb-1">アバター</h1>
+    <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-64 h-40 object-cover rounded-md' %>
+  </div>
+
+  <div class="mb-4">
+    <%= link_to 'マイ猫一覧ページ', cats_path, class: 'underline text-blue-500' %>
+  </div>
+</div>
+</div>
+</div>

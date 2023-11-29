@@ -12,12 +12,23 @@ class ProfilesController < ApplicationController
   def update
     @user = User.find(current_user.id)
     if @user.update(user_params)
-      # flash[:success] = t('profiles.update')
+      flash[:success] = t('messages.users.profile_update')
       redirect_to profile_path
     else
-      # flash[:danger] = t('profiles.update_failed')
+      flash[:danger] = t('messages.users.profile_update_faild')
       render :edit, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
+
+    def delete_confirmation
+      @user = User.find(current_user.id)
+    end
+  end
+
+  def destroy
+    @user = User.find(current_user.id)
+    @user.destroy!
+    flash[:success] = t('messages.users.delete')
+    redirect_to root_path
   end
 
   private
@@ -27,7 +38,7 @@ class ProfilesController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :name, :self_introduction, :avatar, :avatar_cache)
+    params.require(:user).permit(:email, :name, :self_introduction, :avatar, :avatar_cache, :remove_avatar)
   end
 
 end

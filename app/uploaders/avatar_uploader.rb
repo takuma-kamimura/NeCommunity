@@ -20,13 +20,19 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'ねこフリー画像.jpeg'
+    'kkrn_icon_user_1.png'
   end
   
   def extension_whitelist # 拡張子の制限
     %w[jpg jpeg gif png]
   end
 
+  if Rails.env.production?    
+    storage :fog              # 本番時にS3にファイルを保存する
+  else
+    storage :file             # 開発・テスト時にはローカルにファイルを保存する
+  end
+  
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url(*args)
   #   # For Rails 3.1+ asset pipeline compatibility:

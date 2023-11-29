@@ -14,7 +14,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 255 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
   validates :email, presence: true
   # 下記、gem sorceryの案内ホームページで書かれている内容のため追記
-  validates :password, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
+  validates :password, presence: true, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, uniqueness: true
@@ -22,6 +22,10 @@ class User < ApplicationRecord
   validates :reset_password_token, uniqueness: true, allow_nil: true # パスワードリセット用
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
   enum role: { general: 0, admin: 1 }
+
+  # プロフィール画像解除用として追加。
+  attr_accessor :remove_avatar
+  before_save :remove_avatar_if_needed
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name email]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
@@ -61,5 +65,12 @@ class User < ApplicationRecord
 
   def bookmark?(post)
     bookmark_posts.include?(post)
+  end
+
+  private
+
+  # プロフィール画像解除用として追加。
+  def remove_avatar_if_needed
+    self.avatar = nil if remove_avatar == '1'
   end
 end

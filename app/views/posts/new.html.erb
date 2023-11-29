@@ -1,4 +1,6 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<% content_for(:title, t('.title')) %>
 
+<div class="bg-slate-300 text-black">
+<h1 class='text-4xl mb-4'>新規投稿ページ</h1>
 <%= render 'form' %>
+</div>

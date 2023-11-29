@@ -1,6 +1,8 @@
-<h1>Cats#edit</h1>
-<p>Find me in app/views/cats/edit.html.erb</p>
+<% content_for(:title, "#{@cat.decorate.cat_name}の編集") %>
 
-<h1>猫編集ページ</h1>
+<div class="bg-slate-300 text-black">
+
+<h1 class="text-3xl font-bold mb-4">猫編集ページ</h1>
 
 <%= render "form" %>
+</div>

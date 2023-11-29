@@ -1,20 +1,42 @@
-<%= simple_form_for @cat do |f| %>
-  <%= f.input :name %>
-  <!-- 他のフォームフィールドもここに追加 -->
-  <%= f.input :birthday, as: :date, start_year: Date.today.year - 100, end_year: Date.today.year %>
-  <%= f.input :self_introduction %>
-  <%= f.input :gender %>
-  <!-- CatBreedの選択セレクトボックス -->
-  <%= f.collection_select :cat_breed_id, CatBreed.all, :id, :name, prompt: "猫の種類を選択してください" %>
+<%= form_with model: @cat, local: true, html: { class: 'max-w-md mx-auto bg-white p-8 rounded shadow-md' } do |f| %>
+<%= render 'shared/error_messages', object: f.object %>
+  <div class="mb-4">
+    <%= f.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.text_field :name, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
 
-  <div class="mb-3">
+  <div class="mb-4">
+    <%= f.label :birthday, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.date_field :birthday, class: "form-control bg-slate-300" %> 
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :self_introduction, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.text_area :self_introduction, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :gender, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
+
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :cat_breed_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= f.collection_select :cat_breed_id, CatBreed.all, :id, :name, { prompt: "猫の種類を選択してください" }, { class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+  </div>
+
+  <div class="mb-4">
     <%= f.label :avatar, for: 'avatar-file' %>
     <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
     <%= f.hidden_field :avatar_cache %>
   </div>
-  <div class="mb-3">
-    <%= image_tag @cat.avatar_url, id: 'preview', size: '300x200' %>
+
+  <div class="mb-4">
+    <%= image_tag @cat.avatar_url, id: 'preview', class: 'w-full rounded-md' %>
   </div>
 
-  <%= f.button :submit, "猫を登録する" %>
+  <div class="mb-4">
+    <%= f.submit "猫を登録する", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
 <% end %>

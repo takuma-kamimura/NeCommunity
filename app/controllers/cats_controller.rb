@@ -22,11 +22,11 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-    if @cat.save!
-      # flash[:success] = t('activerecord.attributes.user.New_registration_successful')
+    if @cat.save
+      flash[:success] = t('messages.cats.create')
       redirect_to cats_path
     else
-      flash.now[:danger] = t('activerecord.attributes.user.New_registration_failed')
+      flash.now[:danger] = t('messages.cats.create_faild')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
   end
@@ -36,12 +36,12 @@ class CatsController < ApplicationController
 
     @cat = Cat.find_by(id: params[:id])
     if @cat.update(cat_params)
-      # flash[:success] = t('board.board_update')
+      flash[:success] = t('messages.cats.update')
       redirect_to cats_path
     else
-      @cat = cat_params
-      # flash[:danger] = t('board.board_update_failed')
-      redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      flash.now[:danger] = t('messages.cats.update_faild')
+      # redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -50,7 +50,7 @@ class CatsController < ApplicationController
 
     @cat = Cat.find_by(id: params[:id])
     @cat.destroy!
-    # flash[:success] = t('board.board_deleted')
+    flash[:success] = t('messages.cats.delete')
     redirect_to cats_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
   end
 

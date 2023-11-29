@@ -33,14 +33,15 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
     if @post.update(post_params)
-      # flash[:success] = t('board.board_update')
+      flash[:success] = t('messages.post.update')
       # モデルのメソッド処理(update_tags)に入る
       @post.update_tags(@tags)
       redirect_to posts_path
     else
-      @post = post_params
-      # flash[:danger] = t('board.board_update_failed')
-      redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      # @post = post_params
+      flash[:danger] = t('messages.post.update_faild')
+      # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -49,12 +50,12 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
     # binding.pry
-    if @post.save!
-      # flash[:success] = t('board.board_create')
+    if @post.save
+      flash[:success] = t('messages.post.create')
       @post.save_tags(@tags)
       redirect_to posts_path
     else
-      # flash.now[:danger] = t('board.board_create_failed')
+      flash[:danger] = t('messages.post.create_faild')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
       @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
     end
@@ -65,7 +66,7 @@ class PostsController < ApplicationController
 
     @post = Post.find_by(id: params[:id])
     @post.destroy!
-    # flash[:success] = t('board.board_deleted')
+    flash[:success] = t('messages.post.delete')
     redirect_to posts_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
   end
 

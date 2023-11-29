@@ -3,7 +3,7 @@ class Cat < ApplicationRecord
   belongs_to :cat_breed
   has_many :posts, dependent: :destroy
   has_many :health_records, dependent: :destroy
-  mount_uploader :avatar, AvatarUploader # アバターアップローダー、useで使ってるものと同じものを使う。
+  mount_uploader :avatar, CatAvatarUploader # AvatarUploader # アバターアップローダー、useで使ってるものと同じものを使う。
   enum gender: { Male: 0, Female: 1 }
   validates :name, presence: true
   validates :gender, presence: true

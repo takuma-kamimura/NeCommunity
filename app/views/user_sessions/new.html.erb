@@ -1,7 +1,10 @@
-<h1>UserSessions#new</h1>
-<p>Find me in app/views/user_sessions/new.html.erb</p>
+<% content_for(:title, t('.title')) %>
 
-<h1>ログインページ</h1>
+<div class="bg-slate-300 text-black p-4  h-screen flex items-center justify-center">
+    <div class="max-w-md p-10 bg-white rounded-md shadow-md">
+<h1 class="text-2xl font-bold mb-4">ログインページ</h1>
 <%= render "form"%>
 
-<%= link_to 'パスワードをお忘れの方はこちら', new_password_reset_path %>
+<%= link_to 'パスワードをお忘れの方はこちら', new_password_reset_path, class: 'underline text-red-500' %>
+    </div>
+</div>
