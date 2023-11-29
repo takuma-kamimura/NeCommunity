@@ -7,6 +7,13 @@ Rails.application.routes.draw do
 
   root "tops#top" # topページ
 
+  resources :tops do
+    collection do
+      get :kiyac
+      get :policy
+    end
+  end
+
   get 'login' => 'user_sessions#new', :as => :login # gem sorceryより。
   post 'login' => "user_sessions#create" # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout

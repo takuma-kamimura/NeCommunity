@@ -182,7 +182,6 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
-    high_voltage (3.1.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -397,7 +396,6 @@ DEPENDENCIES
   enum_help
   faker
   fog-aws
-  high_voltage
   jbuilder
   jquery-rails
   jsbundling-rails
