@@ -41,6 +41,7 @@ ja:
       reset_password_mail: 'ご登録のメールアドレスにパスワードリセット用のメールを送信しました。'
       reset_password_success: 'パスワードの変更が完了しました！'
       reset_password_faild: '申し訳ありません パスワードの変更ができませんでした'
+      delete: '退会処理が完了しました。またのご利用をお待ちしております！ありがとうございました！'
     post:
       create: '新規投稿が完了しました！'
       create_faild: '申し訳ありません 新規投稿に失敗しました'
