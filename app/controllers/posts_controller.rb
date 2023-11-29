@@ -14,6 +14,7 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
+    # binding.pry
     # 下記、空の場合は下の処理は行わない
     return if @post.blank?
 
