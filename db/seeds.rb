@@ -127,15 +127,20 @@ tags.each do |tag_name|
   Tag.create!(name: tag_name)
 end
 
+user_avatar_images = Dir[Rails.root.join('public', 'user avatar initial data', '*.webp')]
+
 20.times do |n|
     user = User.create!(
       name: Faker::Name.unique.name,
       email: Faker::Internet.unique.email,
       password: "test",
       password_confirmation: "test",
+      avatar: File.open(user_avatar_images.sample),
       self_introduction: Faker::Lorem.sentence,
       role: 0
     )
+
+    cat_avatar_images = Dir[Rails.root.join('public', 'cat avatar Initial data', '*.webp')]
 
     cat_breed = CatBreed.order("RANDOM()").first
     birthday_datetime = Faker::Time.between(from: 30.years.ago, to: DateTime.now)
@@ -151,13 +156,14 @@ names = ['ムギ', 'ソラ','レオ','ココ','タマ','マロン','モモ','キ
       birthday: birthday_datetime,
       user_id: user.id,
       gender: rand(0..1),
+      avatar: File.open(cat_avatar_images.sample),
       self_introduction: self_introductions.sample,
       cat_breed_id: cat_breed.id
     )
     titles = ['今日も元気です！','かわいい！','見てください！','これがうちの子です！','癒されます']
     bodys = ['元気いっぱい！', 'きゃわわ', '見てみて〜', '何してるの〜？', 'かわいいー']
 
-    cat_images = Dir[Rails.root.join('public', 'uploads', '*.jpg')]
+    cat_images = Dir[Rails.root.join('public', 'Initial data', '*.webp')]
 
     post = Post.create!(
       title: titles.sample,
@@ -167,7 +173,7 @@ names = ['ムギ', 'ソラ','レオ','ココ','タマ','マロン','モモ','キ
       cat_id: cat.id
     )
 
-  # タグをランダムに3つ紐づける（数は適宜変更可能）
+  # タグをランダムに2つ紐づける（数は適宜変更可能）
   post.tags << Tag.where(name: tags.sample(2))
 
    # いいねをランダムに設定
