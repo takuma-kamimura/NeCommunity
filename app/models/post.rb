@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   has_many :likes, dependent: :destroy
   # ブックマーク設定
   has_many :bookmarks, dependent: :destroy
-  
+
   has_many :comments, dependent: :destroy
 
   mount_uploader :photo, PostPhotoUploader # アバターアップローダー、useで使ってるものと同じものを使う。
@@ -25,17 +25,16 @@ class Post < ApplicationRecord
     %w[cat user tags]  # 検索可能な関連モデルを指定してください
   end
 
-   #tag保存メソッド
-   def save_tags(tags)
+  #tag保存メソッド
+  def save_tags(tags)
     tags.each do |tag|
-      # 「find_or_create_by」はActive Record モデルのメソッド。
-      # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
-      # selfはこの場合は@postのこと
-
-      # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
-      tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
-      tagname.save unless tagname.persisted?
-      self.tags << tagname
+    # 「find_or_create_by」はActive Record モデルのメソッド。
+    # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+    # selfはこの場合は@postのこと
+    # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
+    tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
+    tagname.save unless tagname.persisted?
+    self.tags << tagname
     end
   end
 
@@ -43,17 +42,13 @@ class Post < ApplicationRecord
     # self = @post
     # @postの中のtagsを見ている。empty?で存在する場合（nillではない場合）に中の処理に入る。
     if self.tags.empty?
-      #  タグが元々空の場合、通称のタグ追加更新処理
+      # タグが元々空の場合、通称のタグ追加更新処理
       tags.each do |tag|
         # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
-        # binding.pry
         # self.tags.find_or_initialize_by(name: tag)
-
-        # binding.pry
         tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
         tagname.save unless tagname.persisted?
         self.tags << tagname
-
       end
     elsif tags.empty?
       # 取得したtagsが空だった場合の処理
@@ -61,10 +56,8 @@ class Post < ApplicationRecord
         #@postのtagをeach文で回して一つづつ削除している。
         self.tags.delete(tag)
       end
-
     else
       # 既存のタグと新しいタグがある場合の処理
-
       # 新しいタグ = 入力タグ　ー　既存タグ
       new_tag = tags - self.tags.pluck(:name)
       # 古いタグ = 既存タグ　ー　入力タグ
@@ -83,7 +76,6 @@ class Post < ApplicationRecord
         tagname = Tag.find_by(name: new_tag) || Tag.new(name: new_tag)
         tagname.save unless tagname.persisted?
         self.tags << tagname
-
       end
     end
   end

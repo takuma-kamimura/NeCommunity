@@ -9,9 +9,9 @@ class Cat < ApplicationRecord
   validates :gender, presence: true
   validates :self_introduction, length: { maximum: 500 }
 
-# プロフィール画像解除用として追加。
-attr_accessor :remove_cat_avatar
-before_save :remove_cat_avatar_if_needed
+  # プロフィール画像解除用として追加。
+  attr_accessor :remove_cat_avatar
+  before_save :remove_cat_avatar_if_needed
 
   def self.ransackable_attributes(auth_object = nil)
     %w[name]  # 検索可能な属性を指定してください。検索時に猫の名前を検索できる
