@@ -220,6 +220,22 @@ comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!
      end
   end
 
+  all_cats = Cat.all
+
+  all_cats.each do |cat|
+    # Determine the random number of health records to create (1 to 3 in this example)
+    number_of_records = rand(1..3)
+  
+    # Create health records for the current cat
+    number_of_records.times do
+      HealthRecord.create!(
+        weight: rand(1..5), # Replace with your logic for weight
+        note: Faker::Lorem.sentence,
+        cat_id: cat.id
+      )
+    end
+  end
+
 # 20.times do |n|
 #     user = User.create!(
 #       name: Faker::Name.unique.name,
