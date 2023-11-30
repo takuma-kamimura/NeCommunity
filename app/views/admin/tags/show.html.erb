@@ -1,15 +1,24 @@
-<h1>Admin::Tags#show</h1>
-<p>Find me in app/views/admin/tags/show.html.erb</p>
+<div class="container mx-auto mt-8">
+  <h1 class="text-3xl font-semibold mb-6">タグ詳細</h1>
 
-<h1>タグ名</h1>
-<h1><%= @tag.name%></h1>
+  <div class="bg-white rounded-md shadow-md p-6 mb-6">
+    <h1 class="text-xl font-semibold mb-2 text-black">
+      <%= @tag.name %>
+    </h1>
+    <h3 class="text-black mb-2">作成日時</h3>
+    <h3 class="text-sm mb-4 text-black"><%= @tag.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h3>
 
-<h1>作成日時</h1>
-<h1><%= @tag.created_at.strftime('%Y年%m月%d日 %H時%M分')%></h1>
+    <div class="flex mb-4">
+      <%= link_to '編集', edit_admin_tag_path(@tag), class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4" %>
+      <%= link_to '削除', admin_tag_path(@tag), data: { turbo_method: :delete, turbo_confirm: "タグを削除しますか？" }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4" %>
+    
+    </div>
 
-<%= link_to "編集",edit_admin_tag_path(@tag) %>
-
-<% @tag.posts.each do |post|%>
-  <h1>・タグに紐づいている投稿タイトル名</h1>
-  <%= link_to "#{post.title}",admin_post_path(post) %>
-<%end%>
+    <% @tag.posts.each do |post| %>
+      <div class="mb-2">
+        <h1 class="text-lg font-semibold text-black">・タグに紐づいている投稿タイトル名</h1>
+        <%= link_to post.title, admin_post_path(post), class: "text-blue-500 hover:underline" %>
+      </div>
+    <% end %>
+  </div>
+</div>
