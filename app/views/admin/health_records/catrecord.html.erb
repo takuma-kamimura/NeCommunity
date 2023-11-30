@@ -1,11 +1,21 @@
- 
-<%= render 'search', q: @q, url: catrecord_admin_health_records_path %>
-
-
-<% @catrecords.each do |cat| %>
-<%if cat.health_records.present? %>
-<h1><%= link_to "#{cat.name}の健康記録詳細ページ", admin_health_records_path(cat_id: cat.id) %></h1>
-<h3>飼い主</h3>
-<h4><%= cat.user.name %></h4>
-<% end %>
-<% end %>
+<div class="container mx-auto mt-8">
+    <h1 class="text-3xl font-semibold mb-6">猫の健康管理一覧ページ</h1>
+  
+    <div class="mb-4">
+      <%= render 'search', q: @q, url: catrecord_admin_health_records_path %>
+    </div>
+  
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <% @catrecords.each do |cat| %>
+        <% if cat.health_records.present? %>
+          <div class="bg-white rounded-md shadow-md p-6 mb-6">
+            <h1 class="text-xl font-semibold mb-2">
+              <%= link_to "#{cat.name}の健康記録詳細ページ", admin_health_records_path(cat_id: cat.id), class: "text-blue-500 hover:underline" %>
+            </h1>
+            <h3 class="text-gray-600 mb-2">飼い主</h3>
+            <h4 class="text-sm mb-4 text-black"><%= cat.user.name %></h4>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
