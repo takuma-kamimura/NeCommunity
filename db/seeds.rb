@@ -8,11 +8,11 @@
 
 User.create!(name: '上村 拓磨', email: 'jjd.swt-c.5@docomo.ne.jp', password: "test",password_confirmation: "test",role: 1)
 
-User.create!(name: 'test', email: 'test.@Email', password: "test",password_confirmation: "test",role: 0)
+# User.create!(name: 'test', email: 'test.@Email', password: "test",password_confirmation: "test",role: 0)
 
 # メジャー猫種
 CatBreed.create!(name: 'その他')
-CatBreed.create!(name: 'ミックス')
+CatBreed.create!(name: 'ミックス（雑種）')
 CatBreed.create!(name: 'アメリカンカール')
 CatBreed.create!(name: 'アビシニアン')
 CatBreed.create!(name: 'アメリカンショートヘアー')
@@ -122,13 +122,97 @@ Cat.create!(
   name: 'ルビー', birthday: Date.new(2016, 7, 12), user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "マンチカン").id
 )
 
-Cat.create!(
-  name: 'ルビー2', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "ラグドール").id
-)
+tags = ['うちの猫！','一押し！','飼い猫','家猫！','猫好きの人！']
+tags.each do |tag_name|
+  Tag.create!(name: tag_name)
+end
 
-Cat.create!(
-  name: 'ルビー3', birthday: 2016/07/12, user_id: User.find_by(name: "上村 拓磨").id, gender: 1, cat_breed_id: CatBreed.find_by(name: "その他").id
-)
+20.times do |n|
+    user = User.create!(
+      name: Faker::Name.unique.name,
+      email: Faker::Internet.unique.email,
+      password: "test",
+      password_confirmation: "test",
+      self_introduction: Faker::Lorem.sentence,
+      role: 0
+    )
+
+    cat_breed = CatBreed.order("RANDOM()").first
+    birthday_datetime = Faker::Time.between(from: 30.years.ago, to: DateTime.now)
+    self_introductions = [
+  "人懐っこいです！",
+  "自慢の愛猫です！",
+  "かわいいです！",
+  "まだこの猫ちゃんの紹介については未記入だよ"
+]
+names = ['ムギ', 'ソラ','レオ','ココ','タマ','マロン','モモ','キナコ','リン','ルナ','マル']
+    cat = Cat.create!(
+      name: names.sample,
+      birthday: birthday_datetime,
+      user_id: user.id,
+      gender: rand(0..1),
+      self_introduction: self_introductions.sample,
+      cat_breed_id: cat_breed.id
+    )
+    titles = ['今日も元気です！','かわいい！','見てください！','これがうちの子です！','癒されます']
+    bodys = ['元気いっぱい！', 'きゃわわ', '見てみて〜', '何してるの〜？', 'かわいいー']
+
+    cat_images = Dir[Rails.root.join('public', 'uploads', '*.jpg')]
+
+    post = Post.create!(
+      title: titles.sample,
+      body: bodys.sample,
+      photo: File.open(cat_images.sample),
+      user_id: user.id,
+      cat_id: cat.id
+    )
+
+  # タグをランダムに3つ紐づける（数は適宜変更可能）
+  post.tags << Tag.where(name: tags.sample(2))
+
+   # いいねをランダムに設定
+rand(0..5).times do
+  # 投稿にいいねをしていないユーザーを取得
+  liker = User.where.not(id: user.id).where.not(id: post.likes.pluck(:user_id)).sample
+
+  # 投稿にいいねをしていないユーザーがいる場合にのみいいねを作成
+  if liker.present?
+    Like.create!(
+      user_id: liker.id,
+      post_id: post.id
+    )
+  end
+end
+
+# ブックマークをランダムに設定
+rand(0..5).times do
+  # 投稿にブックマークをしていないユーザーを取得
+  bookmarker = User.where.not(id: user.id).where.not(id: post.bookmarks.pluck(:user_id)).sample
+
+  # 投稿にブックマークをしていないユーザーがいる場合にのみブックマークを作成
+  if bookmarker.present?
+    Bookmark.create!(
+      user_id: bookmarker.id,
+      post_id: post.id
+    )
+  end
+end
+  end
+
+comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!']
+
+  users = User.all
+  20.times do
+    user = users.sample
+    posts = Post.all.sample
+
+    rand(1..5).times do
+      posts.comments.create!(
+      body: comments.sample,
+      user_id: user.id
+    )
+     end
+  end
 
 # 20.times do |n|
 #     user = User.create!(
