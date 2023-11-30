@@ -19,6 +19,7 @@ ja:
         avatar: '猫のプロフィール画像'
         cat_breed_id: '猫種'
         cat_breed: '猫種'
+        user_id: 'ユーザー名'
       post:
         title: 'タイトル'
         body: '投稿内容'
