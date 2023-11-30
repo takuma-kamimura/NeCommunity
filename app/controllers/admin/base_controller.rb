@@ -15,5 +15,4 @@ class Admin::BaseController < ApplicationController
     flash[:danger] = t('user_sessions.management.login_failed')
     redirect_to root_path
   end
-
 end

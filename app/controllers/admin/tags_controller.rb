@@ -1,13 +1,11 @@
 class Admin::TagsController < Admin::BaseController
   def index
-    # @tags = Tag.all
     @q = Tag.ransack(params[:q])
     @tags = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def show
     @tag = Tag.find(params[:id])
-    #@post = @tag.posts
   end
 
   def edit

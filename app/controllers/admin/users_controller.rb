@@ -16,11 +16,9 @@ class Admin::UsersController < Admin::BaseController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-    # flash[:success] = t('profiles.update')
-    redirect_to admin_user_path
+      redirect_to admin_user_path
     else
-    # flash[:danger] = t('profiles.update_failed')
-    render :edit, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+      render :edit, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
   end
 

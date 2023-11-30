@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   skip_before_action :require_login, only: %i[index show]
+
   def index
     @q = Post.ransack(params[:q])
     # @posts = Post.includes(:user).order(created_at: :desc)
@@ -14,7 +15,6 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @comment = Comment.new
-    # binding.pry
     # 下記、空の場合は下の処理は行わない
     return if @post.blank?
 
@@ -47,10 +47,8 @@ class PostsController < ApplicationController
   end
 
   def create
-    # binding.pry
     @post = Post.new(post_params)
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
-    # binding.pry
     if @post.save
       flash[:success] = t('messages.post.create')
       @post.save_tags(@tags)
@@ -84,7 +82,7 @@ class PostsController < ApplicationController
   # current_userの猫と同じ猫種に関する投稿
   def samebreedcats
     @q = Post.ransack(params[:q])
-    # @samebreedcats = 
+    # @samebreedcats =
       # ログインユーザーが飼っている全ての猫の猫種を取得
     current_cat_breed_ids = current_user.cats.pluck(:cat_breed_id)
     # 同じ猫種の猫のIDリストを取得
@@ -96,13 +94,13 @@ class PostsController < ApplicationController
   # 指定した猫種と同じ猫種に関する投稿
   def specifycats
     @q = Post.ransack(params[:q])
-    
+
     # ログインユーザーの猫の猫種を取得
     current_cat_breed_id = params[:cat_breed_id]
-  
+
     # 同じ猫種の猫のIDリストを取得
     same_breed_cat_ids = Cat.where(cat_breed_id: current_cat_breed_id).pluck(:id)
-  
+
     # 同じ猫種の猫が投稿した投稿を取得
     @specifycats = Post.where(cat_id: same_breed_cat_ids)
     @cat_breed = CatBreed.find(params[:cat_breed_id])
@@ -136,8 +134,6 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    # params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache).merge(user_id: current_user.id, cat_breed_id: params[:cat_breed_id])
     params.require(:post).permit(:title, :body, :photo, :photo_cache, :cat_id).merge(user_id: current_user.id)
   end
-  
 end
