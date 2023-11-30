@@ -12,12 +12,158 @@ User.create!(name: 'test', email: 'test.@Email', password: "test",password_confi
 
 
 CatBreed.create!(name: 'その他')
-CatBreed.create!(name: 'アメリカンショートヘア')
-CatBreed.create!(name: 'マンチカン')
-CatBreed.create!(name: 'ラグドール')
+
+CatBreed.create!(name: 'ミックス')
+
+CatBreed.create!(name: 'アメリカンカール')
+
+CatBreed.create!(name: 'アビシニアン')
+
+CatBreed.create!(name: 'アメリカンショートヘアー')
+
+CatBreed.create!(name: 'アメリカンボブテイル')
+
+CatBreed.create!(name: 'アメリカンワイヤーヘア')
+
+CatBreed.create!(name: 'エキゾチックショートヘア')
+
+CatBreed.create!(name: 'エジプシャンマウ')
+CatBreed.create!(name: 'オシキャット')
+CatBreed.create!(name: 'オリエンタル')
+CatBreed.create!(name: 'キムリック')
+CatBreed.create!(name: 'コーニッシュレックス')
+CatBreed.create!(name: 'コラット')
+CatBreed.create!(name: 'サイベリアン')
+CatBreed.create!(name: 'ジャパニーズボブテイル')
+CatBreed.create!(name: 'シャム')
+CatBreed.create!(name: 'シャルトリュー')
+CatBreed.create!(name: 'シンガプーラ')
+
 CatBreed.create!(name: 'スコティッシュフォールド')
+
+CatBreed.create!(name: 'スノーシュー')
+
+CatBreed.create!(name: 'スフィンクス')
+
+CatBreed.create!(name: 'セルカークレックス')
+
+CatBreed.create!(name: 'ソマリ')
+
+CatBreed.create!(name: 'ターキッシュアンゴラ')
+
+CatBreed.create!(name: 'ターキッシュバン')
+
+CatBreed.create!(name: 'デボンレックス')
+
+CatBreed.create!(name: 'トンキニーズ')
+
 CatBreed.create!(name: 'ノルウェージャンフォレストキャット')
+
+CatBreed.create!(name: 'バーマン')
+
+CatBreed.create!(name: 'ハバナブラウン')
+
+CatBreed.create!(name: 'バーミーズ')
+
+CatBreed.create!(name: 'バリニーズ')
+
+CatBreed.create!(name: 'ピクシーボブ')
+
+CatBreed.create!(name: 'ヒマラヤン')
+
+CatBreed.create!(name: 'ブリティッシュショートヘアー')
+
+CatBreed.create!(name: 'ペルシャ')
+
+CatBreed.create!(name: 'ベンガル')
+
+CatBreed.create!(name: 'ボンベイ')
+
+CatBreed.create!(name: 'マンクス')
+
+CatBreed.create!(name: 'マンチカン')
+
+CatBreed.create!(name: 'メインクーン')
+
+CatBreed.create!(name: 'ラガマフィン')
+
+CatBreed.create!(name: 'ラグドール')
+
+CatBreed.create!(name: 'ラパーマ')
+
 CatBreed.create!(name: 'ロシアンブルー')
+
+# マイナー猫種
+
+CatBreed.create!(name: 'アメリカンキューダ')
+
+CatBreed.create!(name: 'アメリカンポリダクティル')
+
+CatBreed.create!(name: 'アメリカンリングテイル')
+
+CatBreed.create!(name: 'アラビアンマウ')
+CatBreed.create!(name: 'アルパインリンクス')
+CatBreed.create!(name: 'イジアン')
+CatBreed.create!(name: 'ウラルレックス')
+CatBreed.create!(name: 'エイジアン')
+CatBreed.create!(name: 'オイイーボブ')
+CatBreed.create!(name: 'オーストラリアンミスト')
+CatBreed.create!(name: 'オホサスレス')
+CatBreed.create!(name: 'オリエンタルバイカラー')
+
+CatBreed.create!(name: 'カラーポイントショートヘアー')
+CatBreed.create!(name: 'カリフォルニアスパングルド')
+CatBreed.create!(name: 'キプロスアフロディーテ')
+CatBreed.create!(name: 'キンカロー')
+CatBreed.create!(name: 'クリッパーキャット')
+CatBreed.create!(name: 'クリリアンボブテイル')
+CatBreed.create!(name: 'サバンナ')
+CatBreed.create!(name: 'サファリ')
+CatBreed.create!(name: 'ジャーマンレックス')
+CatBreed.create!(name: 'ジェネッタ')
+CatBreed.create!(name: 'シャンティリー')
+CatBreed.create!(name: 'スクークム')
+CatBreed.create!(name: 'セイシェルワ')
+CatBreed.create!(name: 'セイロンキャット')
+CatBreed.create!(name: 'セレンゲティ')
+CatBreed.create!(name: 'ソコケ')
+CatBreed.create!(name: 'チートー')
+CatBreed.create!(name: 'チャウシー')
+CatBreed.create!(name: 'デザートリンクス')
+CatBreed.create!(name: 'テネシーレックス')
+CatBreed.create!(name: 'トイガー')
+CatBreed.create!(name: 'トイボブ')
+CatBreed.create!(name: 'ドウェルフ')
+CatBreed.create!(name: 'ドラゴンリー')
+CatBreed.create!(name: 'ドンスコイ')
+CatBreed.create!(name: 'メヌエット（ナポレオン）')
+CatBreed.create!(name: 'ネベロング')
+CatBreed.create!(name: 'バーレイニディルムンキャット')
+CatBreed.create!(name: 'ハイランドリンクス')
+CatBreed.create!(name: 'ハバリ')
+CatBreed.create!(name: 'バンビーノ')
+CatBreed.create!(name: 'ピーターボールド')
+CatBreed.create!(name: 'フォールデックス')
+CatBreed.create!(name: 'ブラジリアンショートヘアー')
+CatBreed.create!(name: 'ブランブル')
+CatBreed.create!(name: 'ブリティッシュロングヘアー')
+CatBreed.create!(name: 'マンダレイ')
+CatBreed.create!(name: 'ミンスキン')
+CatBreed.create!(name: 'メコンボブテイル')
+CatBreed.create!(name: 'モハーベスポッテド')
+CatBreed.create!(name: 'モハーベボブ')
+CatBreed.create!(name: 'ユークレイニアンレフコイ')
+CatBreed.create!(name: 'ヨークチョコレート')
+CatBreed.create!(name: 'ヨーロピアンショートヘアー')
+CatBreed.create!(name: 'ライコイ')
+CatBreed.create!(name: 'ラムキン')
+
+
+
+
+
+
+
 
 
 Cat.create!(
