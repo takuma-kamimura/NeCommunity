@@ -1,17 +1,36 @@
-<h1>・ユーザーの名前</h1>
-<h1><%= @user.name%></h1>
-
-<h1>・ユーザーのメールアドレス</h1>
-<h1><%=@user.email%></h1>
-
-<h1>・自己紹介文</h1>
-<h1><%=@user.self_introduction %></h1>
-
-<h1>・ユーザー権限</h1>
-<h1><%= @user.role_i18n %></h1>
-
-<h1>・作成日</h1>
-<h1><%= @user.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
-
-<%= link_to '編集', edit_admin_user_path(@user) %>
-<%= link_to '削除',admin_user_path(@user), data: { turbo_method: :delete, turbo_confirm: "#{@user.name}を削除しますか？" } %>
+<div class="container mx-auto mt-8 text-black">
+    <h1 class="text-3xl font-semibold mb-6 text-white">ユーザー詳細</h1>
+  
+    <div class="bg-white rounded-md shadow-md p-6 mb-6 flex items-center">
+      <!-- Avatar -->
+      <div class="mr-4">
+        <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-20 h-20 rounded-full' %>
+      </div>
+  
+      <!-- ユーザー詳細情報 -->
+      <div>
+        <h1 class="text-2xl font-semibold mb-2">・ユーザーの名前</h1>
+        <h1 class="text-lg font-semibold mb-4"><%= @user.name %></h1>
+  
+        <h1 class="text-2xl font-semibold mb-2">・ユーザーのメールアドレス</h1>
+        <h1 class="text-lg font-semibold mb-4"><%= @user.email %></h1>
+  
+        <h1 class="text-2xl font-semibold mb-2">・自己紹介文</h1>
+        <h1 class="text-lg font-semibold mb-4"><%= @user.self_introduction %></h1>
+  
+        <h1 class="text-2xl font-semibold mb-2">・ユーザー権限</h1>
+        <h1 class="text-lg font-semibold mb-4"><%= @user.role_i18n %></h1>
+  
+        <h1 class="text-2xl font-semibold mb-2">・作成日</h1>
+        <h1 class="text-lg font-semibold mb-4"><%= @user.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
+  
+        <!-- ボタン類 -->
+        <div class="flex space-x-2">
+          <%= link_to '編集', edit_admin_user_path(@user), class: 'text-green-500 hover:underline' %>
+          <%= link_to '削除', admin_user_path(@user), 
+                      class: 'text-red-500 hover:underline',
+                      data: { turbo_method: :delete, turbo_confirm: "#{@user.name}を削除しますか？" } %>
+        </div>
+      </div>
+    </div>
+  </div>

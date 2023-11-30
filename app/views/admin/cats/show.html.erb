@@ -1,23 +1,41 @@
-<h1><%= @cat.decorate.cat_name%>の詳細画面</h1>
+<div class="container mx-auto mt-8 text-black">
+  <h1 class="text-3xl font-semibold mb-6 text-white"><%= @cat.decorate.cat_name %>の詳細画面</h1>
 
-<h1>・飼い主さんのお名前</h1>
-<h1><%= @cat.user.name %></h1>
-<h1>・猫ちゃんの猫種</h1>
-<h1><%= @cat.cat_breed.name %></h1>
-<%if @cat.birthday.present? %>
-<h1>この猫ちゃんの誕生日</h1>
-<h1><%= @cat.birthday.strftime('%Y年%m月%d日')%>だよ</h1>
-<h1>この猫ちゃんの年齢</h1>
-<h1><%= @cat.decorate.cat_age %></h1>
-<%end%>
-<h1>・この猫ちゃんの紹介</h1>
-<h1><%= @cat.self_introduction %></h1>
-<h1>・この猫ちゃんの性別</h1>
-<h1><%= @cat.gender_i18n %></h1>
-<h1>登録日</h1>
-<h1><%= @cat.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
-  ・この猫ちゃんの写真
-  <h1><%= image_tag @cat.avatar_url, id: 'avatar-preview', size: '300x200' %></h1>
+  <div class="bg-white rounded-md shadow-md p-6 mb-6">
+    <h1 class="text-xl font-semibold mb-2">・飼い主さんのお名前</h1>
+    <h1 class="text-lg mb-4"><%= @cat.user.name %></h1>
 
-  <%= link_to '編集',edit_admin_cat_path(@cat) %>
-<%= link_to '削除',admin_cat_path(@cat), data: { turbo_method: :delete, turbo_confirm: "#{@cat.decorate.cat_name}の情報を削除しますか？" } %>
+    <h1 class="text-xl font-semibold mb-2">・猫ちゃんの猫種</h1>
+    <h1 class="text-lg mb-4"><%= @cat.cat_breed.name %></h1>
+
+    <% if @cat.birthday.present? %>
+      <h1 class="text-xl font-semibold mb-2">この猫ちゃんの誕生日</h1>
+      <h1 class="text-lg mb-4"><%= @cat.birthday.strftime('%Y年%m月%d日') %>だよ</h1>
+
+      <h1 class="text-xl font-semibold mb-2">この猫ちゃんの年齢</h1>
+      <h1 class="text-lg mb-4"><%= @cat.decorate.cat_age %></h1>
+    <% end %>
+
+    <h1 class="text-xl font-semibold mb-2">・この猫ちゃんの紹介</h1>
+    <h1 class="text-lg mb-4"><%= @cat.self_introduction %></h1>
+
+    <h1 class="text-xl font-semibold mb-2">・この猫ちゃんの性別</h1>
+    <h1 class="text-lg mb-4"><%= @cat.gender_i18n %></h1>
+
+    <h1 class="text-xl font-semibold mb-2">登録日</h1>
+    <h1 class="text-lg mb-4"><%= @cat.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
+
+    <div class="mb-4">
+      <h1 class="text-xl font-semibold mb-2">・この猫ちゃんの写真</h1>
+      <%= image_tag @cat.avatar_url, id: 'avatar-preview', class: 'w-full rounded-md shadow-md mb-4' %>
+    </div>
+
+    <!-- ボタン類 -->
+    <div class="flex space-x-2">
+      <%= link_to '編集', edit_admin_cat_path(@cat), class: 'text-blue-500 hover:underline' %>
+      <%= link_to '削除', admin_cat_path(@cat),
+                  class: 'text-red-500 hover:underline',
+                  data: { turbo_method: :delete, turbo_confirm: "#{@cat.decorate.cat_name}の情報を削除しますか？" } %>
+    </div>
+  </div>
+</div>

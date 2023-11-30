@@ -1,7 +1,7 @@
 class AvatarUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   storage :file
@@ -23,8 +23,23 @@ class AvatarUploader < CarrierWave::Uploader::Base
     'kkrn_icon_user_1.png'
   end
   
+  version :index_size do
+    process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
+    process :convert_to_webp
+  end
+
+  def convert_to_webp
+    manipulate! { |img| img.format('webp') }
+  end
+
+  def filename
+    return unless original_filename.present?
+
+    base_name = File.basename(original_filename, '.*')
+  end
+
   def extension_whitelist # 拡張子の制限
-    %w[jpg jpeg gif png]
+    %w[jpg jpeg gif png heic webp]
   end
 
   if Rails.env.production?    

@@ -1,8 +1,8 @@
-<h1>Admin::HealthRecords#index</h1>
-<p>Find me in app/views/admin/health_records/index.html.erb</p>
-
-<% if @health_records.any? %>
-  <h1><%= @health_records.first.cat.decorate.cat_name %>の健康記録一覧</h1>
-<% end %>
-
-<%= render @health_records %>
+<div class="container mx-auto mt-8">
+  <% if @health_records.any? %>
+    <h1 class="text-3xl font-semibold mb-6"><%= @health_records.first.cat.decorate.cat_name %>の健康記録一覧</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <%= render @health_records %>
+    </div>
+  <% end %>
+</div>

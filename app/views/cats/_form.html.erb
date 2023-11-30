@@ -37,6 +37,11 @@
   </div>
 
   <div class="mb-4">
+    <%= f.check_box :remove_cat_avatar %>
+    <%= f.label :remove_cat_avatar, "画像の設定を解除する" %>
+  </div>
+
+  <div class="mb-4">
     <%= f.submit "猫を登録する", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 <% end %>

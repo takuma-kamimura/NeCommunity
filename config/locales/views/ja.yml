@@ -60,3 +60,8 @@ ja:
       update: '健康記録を更新しました！'
       update_faild: '申し訳ありません 健康記録の更新に失敗しました'
       delete: '健康記録を削除しました'
+  admin:
+    messages:
+      update: '管理者用：更新が成功しました'
+      update_faild: '管理者用：更新が失敗しました'
+      delete: '管理者用：削除しました'

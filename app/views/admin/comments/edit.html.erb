@@ -1,9 +1,17 @@
-<h1>Admin::Comments#edit</h1>
-<p>Find me in app/views/admin/comments/edit.html.erb</p>
+<div class="container mx-auto mt-8 text-black">
+    <h1 class="text-3xl font-semibold mb-6 text-white">コメント編集画面</h1>
+  
+    <div class="bg-white rounded-md shadow-md p-6 mb-6">
+      <%= form_with(model: @comment, url: admin_comment_path(@comment)) do |f| %>
+        <div class="mb-4">
+          <%= f.label :body, class: "block text-gray-700 text-sm font-bold mb-2" %>
+           <%= f.text_area :body, class: "form-input w-full h-32 p-2 border rounded-md focus:outline-none focus:shadow-outline" %>
 
-<%= simple_form_for @comment, url: admin_comment_path(@comment) do |f| %>
-<%= f.label :body %>
-<%= f.text_area :body %>
-
-<%= f.button :submit, "コメント更新" %>
-<% end %>
+        </div>
+  
+        <div class="mb-4">
+          <%= f.submit "コメント更新", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        </div>
+      <% end %>
+    </div>
+  </div>

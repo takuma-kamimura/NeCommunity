@@ -1,6 +1,5 @@
 class Admin::CommentsController < Admin::BaseController
   def index
-    # @comments = Comment.all
     @q = Comment.ransack(params[:q])
     @comments = @q.result(distinct: true).order(created_at: :desc)
   end
@@ -13,22 +12,27 @@ class Admin::CommentsController < Admin::BaseController
     @comment = Comment.find(params[:id])
   end
 
-  def update 
+  def update
     @comment = Comment.find(params[:id])
-    @comment.update!(comment_params)
-    redirect_to admin_comment_path(@comment)
+    if @comment.update(comment_params)
+      flash[:success] = t('admin.messages.update')
+      redirect_to admin_comment_path(@comment)
+    else
+      flash.now[:danger] = t('admin.messages.update_faild')
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy!
+    flash[:success] = t('admin.messages.delete')
     redirect_to admin_comments_path
   end
 
   private
 
   def comment_params
-    # params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache).merge(user_id: current_user.id, cat_breed_id: params[:cat_breed_id])
-    params.require(:comment).permit(:body) # .merge(user_id: current_user.id, post_id: params[:post_id])
+    params.require(:comment).permit(:body)
   end
 end

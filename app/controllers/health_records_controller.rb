@@ -26,7 +26,7 @@ class HealthRecordsController < ApplicationController
   def create
     @health_record = HealthRecord.new(health_record_params)
     if @health_record.save
-     
+
       @cat = @health_record.cat
       flash[:success] = t('messages.health_records.create')
       redirect_to health_records_path(cat_id: @health_record.cat.id)
@@ -55,7 +55,7 @@ class HealthRecordsController < ApplicationController
 
   def destroy
     return unless set_health_record.user_id == current_user.id
-    
+
     @health_record = HealthRecord.find_by(id: params[:id])
     @cat = @health_record.cat
     @health_record.destroy!

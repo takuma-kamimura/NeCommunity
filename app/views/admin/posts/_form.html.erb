@@ -1,9 +1,18 @@
-<%= simple_form_for @post, url: admin_post_path(@post) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :body %>
-  
-  <!-- 猫の選択用のドロップダウンメニュー -->
-  <%= f.collection_select :cat_id, Cat.order(:name), :id, :name, prompt: "猫を選択してください" %>
+<%= form_with model: @post, url: admin_post_path(@post), local: true, html: { class: 'mb-4' } do |f| %>
+  <div class="mb-4">
+    <%= f.label :title, class: "block text-white text-sm font-bold mb-2" %>
+    <%= f.text_field :title, class: "text-black appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :body, class: "block text-white text-sm font-bold mb-2" %>
+    <%= f.text_area :body, class: "text-black appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
+
+  <div class="mb-4">
+    <%= f.label :cat_id, class: "block text-white text-sm font-bold mb-2" %>
+    <%= f.collection_select :cat_id, Cat.order(:name), :id, :name, { prompt: "猫を選択してください" }, { class: "text-black appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+  </div>
 
   <div class="mb-3">
     <%= f.label :photo, for: 'avatar-file' %>
@@ -14,5 +23,7 @@
     <%= image_tag @post.photo_url, id: 'preview', size: '300x200' %>
   </div>
 
-  <%= f.button :submit, "更新" %>
+  <div class="mb-4">
+    <%= f.submit "更新", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
 <% end %>
