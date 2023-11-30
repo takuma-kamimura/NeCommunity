@@ -1,7 +1,18 @@
-<h1>コメントした投稿のタイトル</h1>
-<h1><%= link_to "#{comment.post.title}", admin_comment_path(comment) %></h1>
-<h1>コメント内容</h1>
-<h3><%= comment.body.truncate(10) %></h3>   
-<h3>コメントしたユーザーの名前</h3>
-<h3><%= comment.user.name %></h3>
+<div class="bg-white rounded-md shadow-md p-6 mb-6">
+    <h2 class="text-xl font-semibold mb-2">コメントした投稿のタイトル</h2>
+    <h2 class="text-lg font-semibold mb-4"><%= comment.post.title %></h2>
 
+    <h2 class="text-xl font-semibold mb-2">コメント内容</h2>
+    <h3 class="text-md font-semibold mb-4"><%= comment.body.truncate(10) %></h3>
+
+    <h2 class="text-xl font-semibold mb-2">コメントしたユーザーの名前</h2>
+    <h3 class="text-md font-semibold mb-4"><%= comment.user.name %></h3>
+
+    <div class="flex space-x-2">
+    <%= link_to '詳細', admin_comment_path(comment), class: 'text-blue-500 hover:underline' %>
+    <%= link_to '編集', edit_admin_comment_path(comment), class: 'text-green-500 hover:underline' %>
+    <%= link_to '削除', admin_comment_path(comment), 
+                class: 'text-red-500 hover:underline',
+                data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" } %>
+    </div>
+  </div>
