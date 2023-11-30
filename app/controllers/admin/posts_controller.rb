@@ -14,13 +14,19 @@ class Admin::PostsController < Admin::BaseController
 
   def update
     @post = Post.find(params[:id])
-    @post.update!(post_params)
-    redirect_to admin_post_path(@post)
+    if @post.update(post_params)
+      flash[:success] = t('admin.messages.update')
+      redirect_to admin_post_path(@post)
+    else
+      flash.now[:danger] = t('admin.messages.update_faild')
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @post = Post.find_by(id: params[:id])
     @post.destroy!
+    flash[:success] = t('admin.messages.delete')
     redirect_to admin_posts_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
   end
 

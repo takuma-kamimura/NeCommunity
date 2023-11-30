@@ -1,0 +1,7 @@
+<div class="bg-slate-500">
+<% flash.each do |key, value| %>
+<div class="<%= flash_class(key) %> px-4 py-2 rounded-md">
+  <%= value %>
+</div>
+<% end %>
+</div>

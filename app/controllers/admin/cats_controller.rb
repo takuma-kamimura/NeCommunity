@@ -15,16 +15,19 @@ class Admin::CatsController < Admin::BaseController
   def update
     @cat = Cat.find_by(id: params[:id])
     if @cat.update(cat_params)
+      flash[:success] = t('admin.messages.update')
       redirect_to admin_cats_path
     else
-      @cat = cat_params
-      redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      flash.now[:danger] = t('admin.messages.update_faild')
+      # redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @cat = Cat.find(params[:id])
     @cat.destroy!
+    flash[:success] = t('admin.messages.delete')
     redirect_to admin_cats_path
   end
 

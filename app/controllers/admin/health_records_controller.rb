@@ -18,14 +18,20 @@ class Admin::HealthRecordsController < Admin::BaseController
 
   def update
     @health_record = HealthRecord.find(params[:id])
-    @health_record.update!(health_record_params)
-    redirect_to admin_health_record_path(@health_record)
+    if @health_record.update(health_record_params)
+      flash[:success] = t('admin.messages.update')
+      redirect_to admin_health_record_path(@health_record)
+    else
+      flash.now[:danger] = t('admin.messages.update_faild')
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     @health_record = HealthRecord.find(params[:id])
     @cat = @health_record.cat
     @health_record.destroy!
+    flash[:success] = t('admin.messages.delete')
     redirect_to admin_health_records_path(cat_id: @cat.id)
   end
 

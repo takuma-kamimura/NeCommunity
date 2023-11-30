@@ -16,6 +16,7 @@
   </head>
 
   <body class="bg-gray-800 text-white">
+    <%= render 'admin/shared/flash_message'%>
     <%if logged_in?%>
     <%= render 'admin/shared/header'%>
     <%end%>
