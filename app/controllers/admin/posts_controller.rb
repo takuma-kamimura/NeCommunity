@@ -4,7 +4,7 @@ class Admin::PostsController < Admin::BaseController
     # @posts = Post.all
 
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true)
+    @posts = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def show

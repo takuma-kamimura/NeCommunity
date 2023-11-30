@@ -1,13 +1,21 @@
-<h3><%= post.user.name%></h3>
-<h3><%=post.title%></h3>
-<h4><%= post.body%></h4>
-<% if post.cat.present? %>
-  <h3>・猫ちゃんの名前</h3>
-  <h3><%= post.cat.name %></h3>
-<%end%>
-<h5><%= post.created_at %></h5>
+<div class="bg-white rounded-md shadow-md p-6 mb-6 text-black">
+  <h3 class="text-xl font-semibold mb-2"><%= post.user.name %></h3>
+  <h3 class="text-lg font-semibold mb-2"><%= post.title %></h3>
+  <h4 class="mb-4"><%= post.body %></h4>
 
-<%= link_to '詳細',admin_post_path(post) %>
-<%= link_to '編集',edit_admin_post_path(post) %>
-<%= link_to '削除',admin_post_path(post), data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
-<h1>---------------------------------------------------------------------</h1>
+  <% if post.cat.present? %>
+    <h3 class="text-xl font-semibold mb-2">猫ちゃんの名前</h3>
+    <h3 class="text-lg font-semibold mb-4"><%= post.cat.name %></h3>
+  <% end %>
+
+  <h5 class="text-sm text-gray-500 mb-4"><%= post.created_at %></h5>
+
+  <!-- ボタン類 -->
+  <div class="flex space-x-2">
+    <%= link_to '詳細', admin_post_path(post), class: 'text-blue-500 hover:underline' %>
+    <%= link_to '編集', edit_admin_post_path(post), class: 'text-green-500 hover:underline' %>
+    <%= link_to '削除', admin_post_path(post), 
+                class: 'text-red-500 hover:underline',
+                data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
+  </div>
+</div>
