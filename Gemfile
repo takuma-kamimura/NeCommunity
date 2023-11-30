@@ -78,6 +78,8 @@ gem 'fog-aws' # awss3画像アップロード用
 
 gem 'mini_magick'
 
+gem "faker"
+
 # gem 'high_voltage' # before_action :require_loginが発生して使えなかった
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

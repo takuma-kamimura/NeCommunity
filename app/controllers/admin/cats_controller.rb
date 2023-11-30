@@ -34,6 +34,6 @@ class Admin::CatsController < Admin::BaseController
   private
 
   def cat_params
-    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache, :cat_breed_id, :user_id)
+    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache, :cat_breed_id, :user_id, :remove_cat_avatar)
   end
 end
