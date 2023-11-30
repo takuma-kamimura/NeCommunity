@@ -7,9 +7,14 @@
 <h6 class="mb-4"><%= comment.user.name %>さん</h6>
 <h6 class="mt-2 bg-white mb-3"><%= comment.body %></h6>
 <!-- ログインしていないユーザー&コメントしたユーザー以外は編集不可 -->
+<% if logged_in? %>
+<!-- ログインIDとコメントのuserIDが違うかチェック -->
+<%if current_user.id == comment.user.id %>
 <%= link_to comment_path(comment),class: 'underline text-blue-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "コメントを削除しますか？" } do %>
     <i class="bi bi-trash-fill"></i>
     <% end %>
+<% end %>
+<%end%>
 </div>
 </div>
 </div>
