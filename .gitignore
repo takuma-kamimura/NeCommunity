@@ -43,3 +43,4 @@ config/environments/*.local.yml
 /.env
 
 /public/uploads/
+FETCH_HEAD
