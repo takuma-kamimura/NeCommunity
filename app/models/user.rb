@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   has_many :cats, dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   # いいね設定
   has_many :likes, dependent: :destroy # 「user」も「like」もお互いを所有。多対多の関係。
