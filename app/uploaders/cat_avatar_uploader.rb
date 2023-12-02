@@ -29,7 +29,12 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
   def filename
     return unless original_filename.present?
 
-    base_name = File.basename(original_filename, '.*')
+    #base_name = File.basename(original_filename, '.*')
+    "#{base_filename}.webp"
+  end
+
+  def base_filename
+    File.basename(original_filename, '.*')
   end
 
   def extension_whitelist # 拡張子の制限
