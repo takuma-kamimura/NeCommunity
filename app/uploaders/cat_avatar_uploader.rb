@@ -17,26 +17,31 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
     'ねこフリー画像.jpeg'
   end
 
-  version :index_size do
-    process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
-    process :convert_to_webp
-  end
+  # version :index_size do
+  #   process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
+  #   process :convert_to_webp
+  # end
 
-  def convert_to_webp
-    manipulate! { |img| img.format('webp') }
-  end
+  # def convert_to_webp
+  #   manipulate! { |img| img.format('webp') }
+  # end
 
   def filename
     return unless original_filename.present?
 
     base_name = File.basename(original_filename, '.*')
+    "#{base_name}.webp"
   end
+
+  # def base_filename
+  #   File.basename(original_filename, '.*')
+  # end
 
   def extension_whitelist # 拡張子の制限
     %w[jpg jpeg gif png heic webp]
   end
 
-  if Rails.env.production?    
+  if Rails.env.production?
     storage :fog              # 本番時にS3にファイルを保存する
   else
     storage :file             # 開発・テスト時にはローカルにファイルを保存する
