@@ -5,10 +5,8 @@
 <h1 class="text-4xl text-black">あなたがいいねした一覧</h1>
 
 <% if @like_posts.present? %>
-<div class="mb-4">
   <div class="grid grid-cols-4 gap-4 px-2">
   <%= render @like_posts %>
-</div>
 </div>
 <% else %>
   <h1>いいねした投稿がここに表示されるよ！</h1>
