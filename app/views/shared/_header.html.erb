@@ -16,7 +16,7 @@
     <div class="cursor-pointer flex justify-end pr-4" id="menuToggle">
       Menu
     </div>
-    <div class="absolute invisible bg-white right-0" id="menuItems">
+    <div class="absolute invisible bg-white right-0 z-10" id="menuItems">
       <div class="pr-4 bg-orange-500"><%= link_to 'トップページ', root_path %></div>
       <div class="pr-4 bg-emerald-500"><%= link_to 'プロフィール詳細ページ', profile_path %></div>
       <div class="pr-4 bg-red-500"><%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %></div>
