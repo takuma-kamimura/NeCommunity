@@ -19,7 +19,7 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
 
   version :index_size do
     process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
-    process :convert_to_webp
+    # process :convert_to_webp
   end
 
   def convert_to_webp
