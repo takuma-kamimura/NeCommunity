@@ -1,8 +1,8 @@
 <% content_for(:title, "#{current_user.name}さんのブックマーク一覧") %>
 
 <div class="bg-slate-300">
-  <%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500' %>
-<h1>あなたがブックマークした一覧</h1>
+  <%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500 p-4' %>
+<h1 class="text-4xl text-black mb-4 mt-3 p-4">あなたがブックマークした一覧</h1>
 <% if @bookmark_posts.present? %>
   <div class="grid grid-cols-4 gap-4 px-2">
   <%= render @bookmark_posts %>
