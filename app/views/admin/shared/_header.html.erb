@@ -2,20 +2,20 @@
 <nav class="bg-blue-900 p-4">
     <div class="container mx-auto flex items-center justify-between">
       <!-- タイトル -->
-      <h1 class="text-white text-xl font-bold">管理者画面</h1>
+      <h1 class="text-white xl:text-xl text-md font-bold whitespace-nowrap p-4">管理者画面</h1>
   
       <!-- ナビゲーションメニュー -->
-      <ul class="flex space-x-4">
-        <li><%= link_to 'ユーザー管理', admin_users_path, class: 'text-white hover:text-gray-300' %></li>
-        <li><%= link_to '投稿管理', admin_root_path, class: 'text-white hover:text-gray-300' %></li>
-        <li><%= link_to 'コメント管理', admin_comments_path, class: 'text-white hover:text-gray-300' %></li>
-        <li><%= link_to '猫管理', admin_cats_path, class: 'text-white hover:text-gray-300' %></li>
-        <li><%= link_to '猫健康管理一覧', catrecord_admin_health_records_path, class: 'text-white hover:text-gray-300' %></li>
-        <li><%= link_to 'タグ管理', admin_tags_path, class: 'text-white hover:text-gray-300' %></li>
+      <ul class="flex flex-col md:flex-row md:space-x-4 md:text-lg text-sm whitespace-nowrap">
+        <li><%= link_to 'ユーザー管理', admin_users_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
+        <li><%= link_to '投稿管理', admin_root_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
+        <li><%= link_to 'コメント管理', admin_comments_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
+        <li><%= link_to '猫管理', admin_cats_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
+        <li><%= link_to '猫健康管理一覧', catrecord_admin_health_records_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
+        <li><%= link_to 'タグ管理', admin_tags_path, class: 'text-white hover:text-gray-300 writing-mode-vertical' %></li>
       </ul>
   
       <!-- ログアウトボタン -->
-      <%= link_to 'ログアウト', admin_logout_path, class: 'text-white hover:text-gray-300', data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
+      <%= link_to 'ログアウト', admin_logout_path, class: 'text-white hover:text-gray-300 text-sm p-4', data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %>
     </div>
   </nav>
   

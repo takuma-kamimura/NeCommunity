@@ -1,11 +1,11 @@
 <div class="container mx-auto mt-8 text-black mb-4">
-    <h1 class="text-3xl font-semibold mb-6 text-white">ユーザー一覧</h1>
+    <h1 class="text-3xl font-semibold mb-6 text-white p-2">ユーザー一覧</h1>
 
-<div class="mb-4">
+<div class="mb-4 p-4">
 <%= render 'search', q: @q, url: admin_users_path %>
 </div>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-2">
 <%= render @users %>
 </div>
 
