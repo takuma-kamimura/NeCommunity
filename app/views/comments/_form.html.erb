@@ -9,7 +9,7 @@
 
 <%= form_with(model: [post, comment], data: { turbo_method: :post }) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-<div class="flex items-center justify-center h-full">
+<div class="flex items-center justify-center mt-4">
   <%#= f.label :body %>
   <%= f.text_area :body, class: 'bg-white' %>
 

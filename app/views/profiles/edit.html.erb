@@ -2,7 +2,7 @@
 
 <div class="bg-slate-300 text-black">
   <div class="container mx-auto">
-    <h1 class="text-4xl mb-4">プロフィール編集ページ</h1>
+    <h1 class="lg:text-4xl text-2xl mb-4">プロフィール編集ページ</h1>
   
     <%= form_with model: @user, url: profile_path, html: { class: 'max-w-md mx-auto bg-white p-8 rounded shadow-md' } do |f| %>
     <%= render 'shared/error_messages', object: f.object %>

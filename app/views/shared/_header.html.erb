@@ -1,10 +1,10 @@
 <div class = "bg-slate-500 text-black">
-<h1 class="text-4xl font-bold text-white p-3"><%= link_to 'ネコミュニティ', root_path %></h1>
+<h1 class="text-4xl font-bold text-white p-4"><%= link_to 'ネコミュニティ', root_path %></h1>
 <div class="flex justify-end items-center mb-3">
-    <div class="rounded-full bg-blue-800 text-white text-lg p-3 mr-2">
+    <div class="rounded-full bg-blue-800 text-white md:text-lg p-3 mr-2 text-sm">
       <%= link_to 'マイ猫一覧ページ', cats_path %>
     </div>
-    <div class="rounded-full bg-blue-800 text-white text-lg p-3">
+    <div class="rounded-full bg-blue-800 text-white md:text-lg p-3 text-sm">
       <%= link_to "#{current_user.name}さん",profile_path %>
     </div>
   </div>
