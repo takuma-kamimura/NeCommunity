@@ -1,5 +1,12 @@
 <% content_for(:title, @post.title) %>
 
+<% content_for :twitter_card do %>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="<%= @post.title %>">
+  <meta name="twitter:description" content="<%= @post.body %>">
+  <meta name="twitter:image" content="<%= @post.photo_url %>">
+<% end %>
+
 <div class="bg-slate-300 text-black">
 
 <h1 class='lg:text-4xl text-black mb-4 p-3 text-xl'>投稿詳細ページ</h1>
@@ -53,6 +60,8 @@
 <% if logged_in? %>
   <% if current_user.own?(@post) %>
   <div class="mb-4">
+    <%= link_to 'Twitter', "https://twitter.com/share?url=#{request.url}", title: 'Twitter', target: '_blank' %>
+
     <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %>
     <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
     <i class="bi bi-trash-fill"></i>
