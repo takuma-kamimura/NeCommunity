@@ -80,6 +80,8 @@ gem 'mini_magick'
 
 gem "faker"
 
+gem 'meta-tags'
+
 # gem 'high_voltage' # before_action :require_loginが発生して使えなかった
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

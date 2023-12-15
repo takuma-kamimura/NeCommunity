@@ -1,11 +1,6 @@
 <% content_for(:title, @post.title) %>
 
-<% content_for :twitter_card do %>
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="<%= @post.title %>">
-  <meta name="twitter:description" content="<%= @post.body %>">
-  <meta name="twitter:image" content="<%= @post.photo_url %>">
-<% end %>
+<% assign_meta_tags title: @post.title, image: @post.photo_url  %>
 
 <div class="bg-slate-300 text-black">
 
