@@ -38,7 +38,7 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
   # end
 
   def extension_whitelist # 拡張子の制限
-    %w[jpg jpeg gif png heic webp]
+    %w[jpg jpeg gif png heic webp HEIC]
   end
 
   if Rails.env.production?
