@@ -58,7 +58,7 @@
     <%#= link_to 'Twitter', "https://twitter.com/share?url=#{request.url}", title: 'Twitter' %>
     <%#= link_to "Twitterでシェアする", "https://twitter.com/share?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@post.title)}", target: "_blank", class: "twitter-share-button" %>
 
-    <%= link_to "Twitterでシェア_テスト", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】", class: "btn btn-dark", title: 'Twitter', target: '_blank' %>
+    <%= link_to "Twitterでシェア_OGPテスト", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】", class: "btn btn-dark", title: 'Twitter', target: '_blank' %>
 
     
 
