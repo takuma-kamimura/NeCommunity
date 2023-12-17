@@ -60,6 +60,8 @@
 
     <%= link_to "Twitterでシェア_テスト", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】", class: "btn btn-dark", title: 'Twitter', target: '_blank' %>
 
+    
+    
     <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %>
     <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
     <i class="bi bi-trash-fill"></i>
