@@ -28,7 +28,7 @@ module ApplicationHelper
     title = options[:title]
     # description = options[:description]
     # keywords = options[:keywords]
-    image = options[:image].presence || image_url('cat-5830643_1920.jpg')
+    image = options[:image].presence || image_url('DSC_0105.JPG')
   
     configs = {
       separator: '|',
@@ -52,7 +52,7 @@ module ApplicationHelper
       twitter: {
         site: site,
         card: 'summary_large_image',
-        image: image # 使用する画像のパスを指定
+        image: #image # 使用する画像のパスを指定
       }
     }
     set_meta_tags(configs)
