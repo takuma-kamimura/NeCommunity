@@ -26,11 +26,21 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
   #   manipulate! { |img| img.format('webp') }
   # end
 
+  process :convert_to_webp
+
+  def convert_to_webp
+    manipulate! do |img|
+      img.format 'webp'
+      img
+    end
+  end
+
   def filename
     return unless original_filename.present?
 
     base_name = File.basename(original_filename, '.*')
-    "#{base_name}.webp"
+    # base_name = File.basename(original_filename, '.*')
+    # "#{base_name}.webp"
   end
 
   # def base_filename
