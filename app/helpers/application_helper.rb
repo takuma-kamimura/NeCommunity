@@ -28,9 +28,8 @@ module ApplicationHelper
     title = options[:title]
     # description = options[:description]
     # keywords = options[:keywords]
-    image = options[:image].presence || default_image_url
+    image = options[:image].presence || image_url('cat-5830643_1920.jpg')
     image = 'cat-5830643_1920.jpg' if image == 'c34caee90e20401e3fa0e8c574bdc298.jpg'
-    
   
     configs = {
       separator: '|',
