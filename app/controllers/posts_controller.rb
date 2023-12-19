@@ -33,16 +33,36 @@ class PostsController < ApplicationController
 
     @post = Post.find_by(id: params[:id])
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
-    if @post.update(post_params)
-      flash[:success] = t('messages.post.update')
-      # モデルのメソッド処理(update_tags)に入る
-      @post.update_tags(@tags)
-      redirect_to posts_path
+    if post_params[:photo].present?
+      result = Vision.image_analysis(post_params[:photo])
+      if result
+        if @post.update(post_params)
+          flash[:success] = t('messages.post.update')
+          # モデルのメソッド処理(update_tags)に入る
+          @post.update_tags(@tags)
+          redirect_to posts_path
+        else
+          # @post = post_params
+          flash[:danger] = t('messages.post.update_faild')
+          # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        flash[:danger] =  t('messages.post.cat_validation')
+        render :edit, status: :unprocessable_entity
+      end
     else
-      # @post = post_params
-      flash[:danger] = t('messages.post.update_faild')
-      # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
-      render :edit, status: :unprocessable_entity
+      if @post.update(post_params)
+        flash[:success] = t('messages.post.update')
+        # モデルのメソッド処理(update_tags)に入る
+        @post.update_tags(@tags)
+        redirect_to posts_path
+      else
+        # @post = post_params
+        flash[:danger] = t('messages.post.update_faild')
+        # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
