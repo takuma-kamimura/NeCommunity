@@ -49,14 +49,23 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
-    if @post.save
-      flash[:success] = t('messages.post.create')
-      @post.save_tags(@tags)
-      redirect_to posts_path
+    result = Vision.image_analysis(post_params[:photo])
+    if result
+      if @post.save
+        # 添付ファイルが猫の画像だった場合
+        flash[:success] = t('messages.post.create')
+        @post.save_tags(@tags)
+        redirect_to posts_path
+      else
+        # 添付ファイルが猫とは関係ない画像だった場合
+        flash[:danger] = t('messages.post.create_faild')
+        render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+        @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
+      end
     else
-      flash[:danger] = t('messages.post.create_faild')
+      flash[:danger] =  t('messages.post.cat_validation')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
-      @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
+      @post = Post.new(post_params)
     end
   end
 
