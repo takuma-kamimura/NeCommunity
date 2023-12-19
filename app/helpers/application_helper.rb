@@ -34,11 +34,12 @@ module ApplicationHelper
     configs = {
       separator: '|',
       reverse: true,
-      site: site,
-      title: title,
+      # 以下の「site」「title」はページタイトルに影響したためコメントにした。
+      # site: site,
+      # title: title,
       canonical: request.original_url,
       icon: {
-        href: image_url('cat-5830643_1920.jpg')
+        href: image_url('OGP-image.jpg')
       },
       og: {
         type: 'website',
