@@ -16,7 +16,6 @@ module ApplicationHelper
   end
 
   def show_meta_tags
-    # @twitter_share_url = "https://twitter.com/share?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@post.title)}&via=your_twitter_username"
     assign_meta_tags if display_meta_tags.blank?
     display_meta_tags
   end
