@@ -34,6 +34,7 @@ module ApplicationHelper
     configs = {
       separator: '|',
       reverse: true,
+      # 以下の「site」「title」はページタイトルに影響したためコメントにした。
       # site: site,
       # title: title,
       canonical: request.original_url,
