@@ -1,9 +1,11 @@
 module ApplicationHelper
+  # ページタイトルを動的に変更する処理
   def page_title(title = '')
     base_title = 'NeCommunity'
     title.present? ? "#{title} | #{base_title}" : base_title
   end
 
+  # フラッシュメッセージ表示処理
   def flash_class(key)
     case key
     when 'success'
@@ -15,28 +17,25 @@ module ApplicationHelper
     end
   end
 
+  # Twitterへシェアするための設定
   def show_meta_tags
-    # @twitter_share_url = "https://twitter.com/share?url=#{CGI.escape(request.original_url)}&text=#{CGI.escape(@post.title)}&via=your_twitter_username"
     assign_meta_tags if display_meta_tags.blank?
     display_meta_tags
   end
-  
+
+  # Twitterへシェアするための設定
   def assign_meta_tags(options = {})
     defaults = t('meta_tags.defaults')
     options.reverse_merge!(defaults)
     site = options[:site]
     title = options[:title]
-    # description = options[:description]
-    # keywords = options[:keywords]
     image = options[:image].presence || image_url('OGP-image.jpg')
-  
+
     configs = {
       separator: '|',
       reverse: true,
       site: site,
       title: title,
-      # description:,
-      # keywords:,
       canonical: request.original_url,
       icon: {
         href: image_url('cat-5830643_1920.jpg')
@@ -44,7 +43,6 @@ module ApplicationHelper
       og: {
         type: 'website',
         title: title.presence || site,
-        # description:,
         url: request.original_url,
         image: image, # 使用する画像のパスを指定
         site_name: site
@@ -57,5 +55,4 @@ module ApplicationHelper
     }
     set_meta_tags(configs)
   end
-  
 end
