@@ -1,9 +1,11 @@
 module ApplicationHelper
+  # ページタイトルを動的に変更する処理
   def page_title(title = '')
     base_title = 'NeCommunity'
     title.present? ? "#{title} | #{base_title}" : base_title
   end
 
+  # フラッシュメッセージ表示処理
   def flash_class(key)
     case key
     when 'success'
@@ -15,11 +17,13 @@ module ApplicationHelper
     end
   end
 
+  # Twitterへシェアするための設定
   def show_meta_tags
     assign_meta_tags if display_meta_tags.blank?
     display_meta_tags
   end
 
+  # Twitterへシェアするための設定
   def assign_meta_tags(options = {})
     defaults = t('meta_tags.defaults')
     options.reverse_merge!(defaults)
