@@ -26,11 +26,23 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
   #   manipulate! { |img| img.format('webp') }
   # end
 
+  process :convert_to_webp
+
+  def convert_to_webp
+    manipulate! do |img|
+      img.auto_orient # Exif情報に基づいて回転 画像が勝手に回転して保存されていたのでこの処理を追加した
+      img.strip       # Exif情報を取り除く 画像が勝手に回転して保存されていたのでこの処理を追加した
+      img.format 'webp'
+      img
+    end
+  end
+
   def filename
     return unless original_filename.present?
 
     base_name = File.basename(original_filename, '.*')
-    "#{base_name}.webp"
+    # base_name = File.basename(original_filename, '.*')
+    # "#{base_name}.webp"
   end
 
   # def base_filename
