@@ -30,6 +30,8 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
 
   def convert_to_webp
     manipulate! do |img|
+      img.auto_orient # Exif情報に基づいて回転 画像が勝手に回転して保存されていたのでこの処理を追加した
+      img.strip       # Exif情報を取り除く 画像が勝手に回転して保存されていたのでこの処理を追加した
       img.format 'webp'
       img
     end
