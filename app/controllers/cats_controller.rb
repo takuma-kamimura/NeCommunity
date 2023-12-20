@@ -36,6 +36,7 @@ class CatsController < ApplicationController
         end
       else
         # 添付ファイルが猫とは関係ない画像だった場合
+        @cat.avatar = nil # renderで戻る前に画像をnillにする処理
         flash.now[:danger] = t('messages.cats.cat_validation')
         render :new, status: :unprocessable_entity
       end

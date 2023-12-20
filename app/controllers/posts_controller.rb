@@ -83,15 +83,15 @@ class PostsController < ApplicationController
           @post.save_tags(@tags)
           redirect_to posts_path
         else
-          # 添付ファイルが猫とは関係ない画像だった場合
           flash[:danger] = t('messages.post.create_faild')
           render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
           @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
         end
       else
+         # 添付ファイルが猫とは関係ない画像だった場合
+        @post.photo = nil # renderで戻る前に画像をnillにする処理
         flash[:danger] =  t('messages.post.cat_validation')
         render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
-        @post = Post.new(post_params)
       end
     else
       # 画像を添付していない場合の処理
