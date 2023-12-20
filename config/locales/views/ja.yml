@@ -55,6 +55,7 @@ ja:
       update: '猫ちゃんの情報を更新しました！'
       update_faild: '申し訳ありません 猫ちゃんの情報の更新に失敗しました'
       delete: '猫ちゃんの情報を削除しました'
+      cat_validation: '猫ちゃんに関係ない画像は設定しないでください！'
     health_records:
       create: '健康記録を追加しました！'
       create_faild: '申し訳ありません 健康記録の追加に失敗しました'

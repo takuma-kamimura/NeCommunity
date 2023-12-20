@@ -22,26 +22,66 @@ class CatsController < ApplicationController
 
   def create
     @cat = Cat.new(cat_params)
-    if @cat.save
-      flash[:success] = t('messages.cats.create')
-      redirect_to cats_path
+    if cat_params[:avatar].present?
+      result = Vision.image_analysis(cat_params[:avatar])
+      # 画像を添付した場合の処理
+      if result
+        if @cat.save
+          # 添付ファイルが猫の画像だった場合
+          flash[:success] = t('messages.cats.create')
+          redirect_to cats_path
+        else
+          flash.now[:danger] = t('messages.cats.create_faild')
+          render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+        end
+      else
+        # 添付ファイルが猫とは関係ない画像だった場合
+        flash.now[:danger] = t('messages.cats.cat_validation')
+        render :new, status: :unprocessable_entity
+      end
     else
-      flash.now[:danger] = t('messages.cats.create_faild')
-      render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+      # 画像を添付していない場合の処理
+      if @cat.save
+        flash[:success] = t('messages.cats.create')
+        redirect_to cats_path
+      else
+        flash.now[:danger] = t('messages.cats.create_faild')
+        render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+      end
     end
   end
 
   def update
     return unless set_cat.user_id == current_user.id
 
-    @cat = Cat.find_by(id: params[:id])
-    if @cat.update(cat_params)
-      flash[:success] = t('messages.cats.update')
-      redirect_to cats_path
+    if cat_params[:avatar].present?
+      result = Vision.image_analysis(cat_params[:avatar])
+      # 画像を添付した場合の処理
+      if result
+        @cat = Cat.find_by(id: params[:id])
+        if @cat.update(cat_params)
+           # 添付ファイルが猫の画像だった場合
+          flash[:success] = t('messages.cats.update')
+          redirect_to cats_path
+        else
+          flash.now[:danger] = t('messages.cats.update_faild')
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        # 添付ファイルが猫とは関係ない画像だった場合
+        flash.now[:danger] = t('messages.cats.cat_validation')
+        render :edit, status: :unprocessable_entity
+      end
     else
-      flash.now[:danger] = t('messages.cats.update_faild')
-      # redirect_to edit_cat_path(@cat), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
-      render :edit, status: :unprocessable_entity
+      # 画像を添付していない場合の処理
+      @cat = Cat.find_by(id: params[:id])
+      if @cat.update(cat_params)
+        flash[:success] = t('messages.cats.update')
+        redirect_to cats_path
+      else
+        flash.now[:danger] = t('messages.cats.update_faild')
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 

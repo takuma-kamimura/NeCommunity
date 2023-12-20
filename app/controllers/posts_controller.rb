@@ -34,9 +34,11 @@ class PostsController < ApplicationController
     @post = Post.find_by(id: params[:id])
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
     if post_params[:photo].present?
+      # 画像を添付した場合の処理
       result = Vision.image_analysis(post_params[:photo])
       if result
         if @post.update(post_params)
+          # 添付ファイルが猫の画像だった場合
           flash[:success] = t('messages.post.update')
           # モデルのメソッド処理(update_tags)に入る
           @post.update_tags(@tags)
@@ -48,10 +50,12 @@ class PostsController < ApplicationController
           render :edit, status: :unprocessable_entity
         end
       else
+        # 添付ファイルが猫とは関係ない画像だった場合
         flash[:danger] =  t('messages.post.cat_validation')
         render :edit, status: :unprocessable_entity
       end
     else
+      # 画像を添付していない場合の処理
       if @post.update(post_params)
         flash[:success] = t('messages.post.update')
         # モデルのメソッド処理(update_tags)に入る
