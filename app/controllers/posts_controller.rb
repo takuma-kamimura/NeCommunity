@@ -33,30 +33,77 @@ class PostsController < ApplicationController
 
     @post = Post.find_by(id: params[:id])
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
-    if @post.update(post_params)
-      flash[:success] = t('messages.post.update')
-      # モデルのメソッド処理(update_tags)に入る
-      @post.update_tags(@tags)
-      redirect_to posts_path
+    if post_params[:photo].present?
+      # 画像を添付した場合の処理
+      result = Vision.image_analysis(post_params[:photo])
+      if result
+        if @post.update(post_params)
+          # 添付ファイルが猫の画像だった場合
+          flash[:success] = t('messages.post.update')
+          # モデルのメソッド処理(update_tags)に入る
+          @post.update_tags(@tags)
+          redirect_to posts_path
+        else
+          # @post = post_params
+          flash.now[:danger] = t('messages.post.update_faild')
+          # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        # 添付ファイルが猫とは関係ない画像だった場合
+        flash.now[:danger] =  t('messages.post.cat_validation')
+        render :edit, status: :unprocessable_entity
+      end
     else
-      # @post = post_params
-      flash[:danger] = t('messages.post.update_faild')
-      # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
-      render :edit, status: :unprocessable_entity
+      # 画像を添付していない場合の処理
+      if @post.update(post_params)
+        flash[:success] = t('messages.post.update')
+        # モデルのメソッド処理(update_tags)に入る
+        @post.update_tags(@tags)
+        redirect_to posts_path
+      else
+        # @post = post_params
+        flash.now[:danger] = t('messages.post.update_faild')
+        # redirect_to edit_post_path(@post), status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
+        render :edit, status: :unprocessable_entity
+      end
     end
   end
 
   def create
     @post = Post.new(post_params)
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
-    if @post.save
-      flash[:success] = t('messages.post.create')
-      @post.save_tags(@tags)
-      redirect_to posts_path
+    if post_params[:photo].present?
+      # 画像を添付した場合の処理
+      result = Vision.image_analysis(post_params[:photo])
+      if result
+        if @post.save
+          # 添付ファイルが猫の画像だった場合
+          flash[:success] = t('messages.post.create')
+          @post.save_tags(@tags)
+          redirect_to posts_path
+        else
+          flash.now[:danger] = t('messages.post.create_faild')
+          render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+          @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
+        end
+      else
+         # 添付ファイルが猫とは関係ない画像だった場合
+        @post.photo = nil # renderで戻る前に画像をnillにする処理
+        flash.now[:danger] =  t('messages.post.cat_validation')
+        render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+      end
     else
-      flash[:danger] = t('messages.post.create_faild')
-      render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
-      @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
+      # 画像を添付していない場合の処理
+      if @post.save
+        flash[:success] = t('messages.post.create')
+        @post.save_tags(@tags)
+        redirect_to posts_path
+      else
+        flash.now[:danger] = t('messages.post.create_faild')
+        render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+        @post = Post.new(post_params) #  上の「render :new, status: :unprocessable_entity」より後に書かないと「エラーメッセージが格納されない。何も入っていない必要があるから。」
+      end
     end
   end
 
