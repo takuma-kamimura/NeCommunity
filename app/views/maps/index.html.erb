@@ -1,6 +1,7 @@
 <!-- app/views/maps/index.html.erb -->
+<!-- app/views/maps/index.html.erb -->
 <h1>動物病院検索結果</h1>
-<%= form_tag(maps_path, method: :get) do %>
+<%= form_tag(maps_path, method: :get, onsubmit: "codeAddress();") do %>
   <%= label_tag :location, "検索する場所:" %>
   <%= text_field_tag :location, params[:location] %>
   <%= submit_tag "検索" %>
@@ -8,17 +9,13 @@
 
 <% if @search_results.present? %>
   <h2>検索結果</h2>
-  <%= raw @search_results %> <!-- rawメソッドを使用してHTMLがエスケープされないようにします -->
+  <%#= raw @search_results %> <!-- rawメソッドを使用してHTMLがエスケープされないようにします -->
 <% else %>
   <p>検索結果はありません。</p>
 <% end %>
 
 <h2>gmap</h2>
 
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="Encode" onclick="codeAddress()">
-<!-- 下の2行を追加 -->
-<div id="display">何かが表示される、、、、！</div>
 <div id='map'></div>
 
 <style>
@@ -29,41 +26,74 @@
 </style>
 
 <script>
-  let map;
-  let geocoder;
-  const display = document.getElementById('display');
+  
+    // @search_results_jsonをパースしてlocationsに代入
+var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
+var locations = locationsData.results;
 
-  function initMap() {
-    geocoder = new google.maps.Geocoder();
+// locationsが各オブジェクトの配列で、各オブジェクトにはgeometryプロパティがあり、その中にlocationプロパティがあり、latおよびlngプロパティがあることを仮定
+// locations.forEach(function(location) {
+//   const name = location.name;
+//   const address = location.formatted_address;
+//   const latitude = location.geometry.location.lat;
+//   const longitude = location.geometry.location.lng;
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: 40.7828, lng: -73.9653 },
-      zoom: 12,
-    });
-  }
+//   console.log("ロケーション", name, address, "緯度:", latitude, "経度:", longitude);
+// });
 
-  function codeAddress() {
-    let inputAddress = document.getElementById('address').value;
+// mapの初期表示
+let map
 
-    geocoder.geocode({ 'address': inputAddress }, function (results, status) {
-      if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat:35.680959106959, lng:139.76730676352},
+    zoom: 12,
+  });
+
+  marker = new google.maps.Marker({
+    position:  {lat:35.680959106959, lng:139.76730676352},
+    map: map
+  });
+}
+
+
+// ここから追加 
+let geocoder
+
+function codeAddress(){
+    var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
+var locations = locationsData.results;
+    locations.forEach(function(location) {
+  const name = location.name;
+  const address = location.formatted_address;
+  const latitude = location.geometry.location.lat;
+  const longitude = location.geometry.location.lng;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: { lat: latitude, lng: longitude },
+    title: name,  // ピンに表示されるタイトル
+  });
+  
+  console.log("ロケーション２", name, address, "緯度:", latitude, "経度:", longitude);
+});
+console.log('テスト');
+  let inputAddress = document.getElementById('address').value;
+
+  geocoder.geocode( { '': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+      map.setCenter(results[0].geometry.location);
+      var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
-        });
+      });
+      console.log('テスト');
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });   
+}
 
-        // 下の3行を追加
-        display.textContent = "検索結果：" + results[0].geometry.location;
-        // マーカーの情報ウィンドウを追加
-        var infowindow = new google.maps.InfoWindow({
-          content: "<b>" + results[0].formatted_address + "</b>"
-        });
-        infowindow.open(map, marker);
-      } else {
-        alert('該当する結果がありませんでした：' + status);
-      }
-    });
-  }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
