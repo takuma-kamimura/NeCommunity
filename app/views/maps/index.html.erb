@@ -1,7 +1,8 @@
 <!-- app/views/maps/index.html.erb -->
 <!-- app/views/maps/index.html.erb -->
 <h1>動物病院検索結果</h1>
-<%= form_tag(maps_path, method: :get, onsubmit: "codeAddress();") do %>
+
+<%= form_tag(maps_path, method: :get, onsubmit: "codeAddress(); return false;") do %>
   <%= label_tag :location, "検索する場所:" %>
   <%= text_field_tag :location, params[:location] %>
   <%= submit_tag "検索" %>
@@ -9,13 +10,13 @@
 
 <% if @search_results.present? %>
   <h2>検索結果</h2>
-  <%#= raw @search_results %> <!-- rawメソッドを使用してHTMLがエスケープされないようにします -->
+  <!-- HTMLエスケープを防ぐためにrawメソッドを使用 -->
+  <%#= raw @search_results %> 
 <% else %>
   <p>検索結果はありません。</p>
 <% end %>
 
 <h2>gmap</h2>
-
 <div id='map'></div>
 
 <style>
@@ -26,74 +27,64 @@
 </style>
 
 <script>
-  
-    // @search_results_jsonをパースしてlocationsに代入
-var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
-var locations = locationsData.results;
+  // mapの初期表示
+  let map
 
-// locationsが各オブジェクトの配列で、各オブジェクトにはgeometryプロパティがあり、その中にlocationプロパティがあり、latおよびlngプロパティがあることを仮定
-// locations.forEach(function(location) {
-//   const name = location.name;
-//   const address = location.formatted_address;
-//   const latitude = location.geometry.location.lat;
-//   const longitude = location.geometry.location.lng;
+  function initMap() {
+    geocoder = new google.maps.Geocoder()
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 35.680959106959, lng: 139.76730676352 },
+      zoom: 12,
+    });
 
-//   console.log("ロケーション", name, address, "緯度:", latitude, "経度:", longitude);
-// });
+    marker = new google.maps.Marker({
+      position: { lat: 35.680959106959, lng: 139.76730676352 },
+      map: map
+    });
+  }
 
-// mapの初期表示
-let map
+  // ここから追加
+  let geocoder
 
-function initMap(){
-  geocoder = new google.maps.Geocoder()
+  function codeAddress() {
+    // コントローラーアクションへの非同期リクエストを行う
+    fetch('/maps.json?location=' + encodeURIComponent(document.getElementById('location').value))
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat:35.680959106959, lng:139.76730676352},
-    zoom: 12,
-  });
+        // マップを更新するためにデータを使用する
+        var locations = data.search_results.results;
+        locations.forEach(function (location) {
+          const name = location.name;
+          const address = location.formatted_address;
+          const latitude = location.geometry.location.lat;
+          const longitude = location.geometry.location.lng;
+          var marker = new google.maps.Marker({
+            map: map,
+            position: { lat: latitude, lng: longitude },
+            title: name,  // ピンに表示されるタイトル
+          });
 
-  marker = new google.maps.Marker({
-    position:  {lat:35.680959106959, lng:139.76730676352},
-    map: map
-  });
-}
+          console.log("ロケーション２", name, address, "緯度:", latitude, "経度:", longitude);
+        });
+      })
+      .catch(error => console.error('エラー:', error));
 
+    let inputAddress = document.getElementById('address').value;
 
-// ここから追加 
-let geocoder
-
-function codeAddress(){
-    var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
-var locations = locationsData.results;
-    locations.forEach(function(location) {
-  const name = location.name;
-  const address = location.formatted_address;
-  const latitude = location.geometry.location.lat;
-  const longitude = location.geometry.location.lng;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: { lat: latitude, lng: longitude },
-    title: name,  // ピンに表示されるタイトル
-  });
-  
-  console.log("ロケーション２", name, address, "緯度:", latitude, "経度:", longitude);
-});
-console.log('テスト');
-  let inputAddress = document.getElementById('address').value;
-
-  geocoder.geocode( { '': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
+    geocoder.geocode({ '': inputAddress }, function (results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
           map: map,
           position: results[0].geometry.location
-      });
-      console.log('テスト');
-    } else {
-      alert('該当する結果がありませんでした：' + status);
-    }
-  });   
-}
-
+        });
+        console.log('テスト');
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
