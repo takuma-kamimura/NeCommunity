@@ -51,7 +51,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :maps, only: [:index] # GoogleマップAPIの導入により追加
+  resources :maps, only: [:index] do # GoogleマップAPIの導入により追加
+    collection do
+      get :search
+    end
+  end
 
   namespace :admin do
     #root to: 'posts#index'

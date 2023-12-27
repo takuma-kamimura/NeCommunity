@@ -1,0 +1,89 @@
+<!-- app/views/maps/index.html.erb -->
+<!-- app/views/maps/search.html.erb -->
+<h1>サーチ</h1>
+<%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
+ <%= form.label :location, "検索する場所:" %>
+  <%= form.text_field :location, value: params[:location] %>
+  <%= form.submit "検索" %>
+<% end %>
+
+<h2>gmap</h2>
+
+<div id='map'></div>
+
+<style>
+  #map {
+    height: 600px;
+    width: 600px;
+  }
+</style>
+
+<script>
+  
+    // @search_results_jsonをパースしてlocationsに代入
+var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
+var locations = locationsData.results;
+
+// mapの初期表示
+let map
+// ここから追加 
+let geocoder
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat:35.680959106959, lng:139.76730676352},
+    zoom: 5,
+  });
+
+//   marker = new google.maps.Marker({
+//     position:  {lat:35.680959106959, lng:139.76730676352},
+//     map: map
+//   });
+   locations.forEach(function(location) {
+  const name = location.name;
+  const address = location.formatted_address;
+  const latitude = location.geometry.location.lat;
+  const longitude = location.geometry.location.lng;
+  var marker = new google.maps.Marker({
+    map: map,
+    position: { lat: latitude, lng: longitude },
+    title: name,  // ピンに表示されるタイトル
+  });
+  
+  // console.log("ロケーション２", name, address, "緯度:", latitude, "経度:", longitude);
+});
+}
+
+function codeAddress() {
+    // フォームデータの取得と非同期リクエストの送信
+    var locationValue = document.getElementById('location').value;
+    fetch('<%= search_maps_path %>?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
+      .then(response => response.json())
+      .then(data => {
+        // 受け取ったデータを使用して地図を更新
+        var locationsData = data;
+        updateMap(locationsData);
+      });
+  }
+
+  // 地図の更新関数
+  function updateMap(locationsData) {
+    var locations = locationsData.results;
+
+    // ... (地図の更新コード)
+    locations.forEach(function(location) {
+      const name = location.name;
+      const address = location.formatted_address;
+      const latitude = location.geometry.location.lat;
+      const longitude = location.geometry.location.lng;
+      var marker = new google.maps.Marker({
+        map: map,
+        position: { lat: latitude, lng: longitude },
+        title: name,  // ピンに表示されるタイトル
+      });
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
