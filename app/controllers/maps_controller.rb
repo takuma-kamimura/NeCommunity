@@ -11,6 +11,7 @@ class MapsController < ApplicationController
       end
   end
 
+  # app/controllers/maps_controller.rb
   def search
     @search_results = GoogleMapsService.search_shops_by_location(params[:location])
     @search_results_json = @search_results.to_json
@@ -18,7 +19,7 @@ class MapsController < ApplicationController
     # binding.pry
     respond_to do |format|
         format.html
-        format.json { render json: { results: @search_results.to_json } }
+        format.json { render json: { results: @search_results } }
       end
   end
 

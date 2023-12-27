@@ -1,4 +1,3 @@
-<!-- app/views/maps/index.html.erb -->
 <!-- app/views/maps/search.html.erb -->
 <h1>サーチ</h1>
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
@@ -24,10 +23,64 @@
 var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
 var locations = locationsData.results;
 
+function codeAddress() {
+    // フォームデータの取得と非同期リクエストの送信
+    var locationValue = document.getElementById('location').value;
+    fetch('<%= search_maps_path %>?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
+      .then(response => response.json())
+      .then(data => {
+        // 受け取ったデータを使用して地図を更新
+        updateMap(data.results);
+      });
+  }
+
+  // マーカーをクリアする関数
+function clearMarkers() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+
+    // マーカーの配列をクリア
+    markers = [];
+}
+
+  // 地図の更新関数
+function updateMap(data) {
+    console.log(data);
+
+    // 既存のマーカーをクリア
+    clearMarkers();
+
+    // dataが正しい構造であるか確認
+    if (data && Array.isArray(data.results)) {
+        const locations = data.results;
+
+        // 新しいマーカーを追加
+        locations.forEach(function(location) {
+            const name = location.name;
+            const address = location.formatted_address;
+            const latitude = location.geometry.location.lat;
+            const longitude = location.geometry.location.lng;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: { lat: latitude, lng: longitude },
+                title: name,  // ピンに表示されるタイトル
+            });
+
+            // 新しいマーカーを保存
+            markers.push(marker);
+        });
+    } else {
+        console.error('無効なlocationsデータ:', data);
+    }
+}
+   // 初期化
 // mapの初期表示
 let map
 // ここから追加 
 let geocoder
+
+let markers = [];  // markers 配列の初期化を追加
 
 function initMap(){
   geocoder = new google.maps.Geocoder()
@@ -41,49 +94,22 @@ function initMap(){
 //     position:  {lat:35.680959106959, lng:139.76730676352},
 //     map: map
 //   });
-   locations.forEach(function(location) {
-  const name = location.name;
-  const address = location.formatted_address;
-  const latitude = location.geometry.location.lat;
-  const longitude = location.geometry.location.lng;
-  var marker = new google.maps.Marker({
-    map: map,
-    position: { lat: latitude, lng: longitude },
-    title: name,  // ピンに表示されるタイトル
-  });
-  
-  // console.log("ロケーション２", name, address, "緯度:", latitude, "経度:", longitude);
-});
-}
+Object.values(locations).forEach(function(location) {
+        const name = location.name;
+        const address = location.formatted_address;
+        const latitude = location.geometry.location.lat;
+        const longitude = location.geometry.location.lng;
+        var marker = new google.maps.Marker({
+            map: map,
+            position: { lat: latitude, lng: longitude },
+            title: name,  // ピンに表示されるタイトル
+        });
 
-function codeAddress() {
-    // フォームデータの取得と非同期リクエストの送信
-    var locationValue = document.getElementById('location').value;
-    fetch('<%= search_maps_path %>?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
-      .then(response => response.json())
-      .then(data => {
-        // 受け取ったデータを使用して地図を更新
-        var locationsData = data;
-        updateMap(locationsData);
-      });
-  }
-
-  // 地図の更新関数
-  function updateMap(locationsData) {
-    var locations = locationsData.results;
-
-    // ... (地図の更新コード)
-    locations.forEach(function(location) {
-      const name = location.name;
-      const address = location.formatted_address;
-      const latitude = location.geometry.location.lat;
-      const longitude = location.geometry.location.lng;
-      var marker = new google.maps.Marker({
-        map: map,
-        position: { lat: latitude, lng: longitude },
-        title: name,  // ピンに表示されるタイトル
-      });
+        // 新しいマーカーを保存
+        markers.push(marker);
     });
-  }
+}  
+ // ページロード時に地図を初期化
+//  document.addEventListener('DOMContentLoaded', initMap); 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
