@@ -2,7 +2,7 @@
 <h1>サーチ</h1>
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
  <%= form.label :location, "検索する場所:" %>
-  <%= form.text_field :location, value: params[:location] %>
+  <%= form.text_field :location, placeholder: '市・地名を入力' %>
   <%= form.submit "検索" %>
 <% end %>
 
@@ -18,10 +18,6 @@
 </style>
 
 <script>
-  
-    // @search_results_jsonをパースしてlocationsに代入
-var locationsData = JSON.parse('<%= j @search_results_json.html_safe %>');
-var locations = locationsData.results;
 
 function codeAddress() {
     // フォームデータの取得と非同期リクエストの送信
@@ -33,27 +29,41 @@ function codeAddress() {
         updateMap(data.results);
       });
   }
-
   // マーカーをクリアする関数
 function clearMarkers() {
     markers.forEach(function(marker) {
         marker.setMap(null);
     });
-
     // マーカーの配列をクリア
     markers = [];
 }
-
   // 地図の更新関数
 function updateMap(data) {
-    console.log(data);
+    // console.log(data);
 
     // 既存のマーカーをクリア
     clearMarkers();
 
+var openinfoWindow = null;
+
     // dataが正しい構造であるか確認
     if (data && Array.isArray(data.results)) {
         const locations = data.results;
+        
+        // 検索地点の中心座標を求める処理
+       let lat_average = 0;
+       let lng_average = 0;
+       // lat、lng座標の総和を取得
+        for (let i = 0; i < locations.length; i++) {
+          lat_average += locations[i].geometry.location.lat;
+          lng_average += locations[i].geometry.location.lng;
+         }
+        // 平均値の取得
+        lat_average = lat_average/locations.length
+        lng_average = lng_average/locations.length
+        // 地図の中心とズームレベルの設定
+        map.setCenter({lat:lat_average, lng:lng_average});
+        map.setZoom(11);
 
         // 新しいマーカーを追加
         locations.forEach(function(location) {
@@ -67,6 +77,22 @@ function updateMap(data) {
                 title: name,  // ピンに表示されるタイトル
             });
 
+             // InfoWindowを作成
+        var infoWindow = new google.maps.InfoWindow({
+            content: '<strong>' + name + '</strong><br>' + address
+        });
+
+        // マーカーをクリックしたときにInfoWindowを表示
+        marker.addListener('click', function() {
+
+          if(openinfoWindow){
+            openinfoWindow.close();
+          }
+
+            infoWindow.open(map, marker);
+
+            openinfoWindow = infoWindow;
+        });
             // 新しいマーカーを保存
             markers.push(marker);
         });
@@ -90,26 +116,21 @@ function initMap(){
     zoom: 5,
   });
 
-//   marker = new google.maps.Marker({
-//     position:  {lat:35.680959106959, lng:139.76730676352},
-//     map: map
-//   });
-Object.values(locations).forEach(function(location) {
-        const name = location.name;
-        const address = location.formatted_address;
-        const latitude = location.geometry.location.lat;
-        const longitude = location.geometry.location.lng;
-        var marker = new google.maps.Marker({
-            map: map,
-            position: { lat: latitude, lng: longitude },
-            title: name,  // ピンに表示されるタイトル
-        });
+// Object.values(locations).forEach(function(location) {
+//         const name = location.name;
+//         const address = location.formatted_address;
+//         const latitude = location.geometry.location.lat;
+//         const longitude = location.geometry.location.lng;
+//         var marker = new google.maps.Marker({
+//             map: map,
+//             position: { lat: latitude, lng: longitude },
+//             title: name,  // ピンに表示されるタイトル
+//         });
 
-        // 新しいマーカーを保存
-        markers.push(marker);
-    });
+//         // 新しいマーカーを保存
+//         markers.push(marker);
+//     });
 }  
- // ページロード時に地図を初期化
-//  document.addEventListener('DOMContentLoaded', initMap); 
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
