@@ -39,7 +39,6 @@ function clearMarkers() {
 }
   // 地図の更新関数
 function updateMap(data) {
-    // console.log(data);
 
     // 既存のマーカーをクリア
     clearMarkers();
@@ -67,6 +66,8 @@ var openinfoWindow = null;
 
         // 新しいマーカーを追加
         locations.forEach(function(location) {
+          console.log(location);
+          const photos = location.photos;
             const name = location.name;
             const address = location.formatted_address;
             const latitude = location.geometry.location.lat;
@@ -77,9 +78,20 @@ var openinfoWindow = null;
                 title: name,  // ピンに表示されるタイトル
             });
 
-             // InfoWindowを作成
-        var infoWindow = new google.maps.InfoWindow({
-            content: '<strong>' + name + '</strong><br>' + address
+        // Infowindowのコンテンツを構築
+    var contentHtml = '<strong>' + name + '</strong><br>' + address;
+
+        // 写真が存在する場合、最初の写真の URL を取得して表示
+    if (photos && photos.length > 0) {
+        const photoReference = photos[0].photo_reference;
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
+        // contentHTMLに写真情報を付け足す処理
+        contentHtml += '<br><img src="' + photoUrl + '" alt="Photo" width="200">';
+    }
+
+       // InfoWindowを作成
+       var infoWindow = new google.maps.InfoWindow({
+            content: contentHtml,
         });
 
         // マーカーをクリックしたときにInfoWindowを表示
@@ -113,7 +125,7 @@ function initMap(){
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat:35.680959106959, lng:139.76730676352},
-    zoom: 5,
+    zoom: 8,
   });
 
 // Object.values(locations).forEach(function(location) {

@@ -7,7 +7,7 @@ class GoogleMapsService
     API_KEY = ENV['PLACES_API_KEY']
     LANGUAGE = 'ja'.freeze
   
-    def self.search_shops_by_location(location)
+    def self.search_veterinaries_by_location(location)
       query = CGI.escape("猫+動物病院+in+#{location}")
       uri = URI.parse("#{BASE_URL}/textsearch/json?query=#{query}&key=#{API_KEY}&language=#{LANGUAGE}")
       res = Net::HTTP.get_response(uri)
