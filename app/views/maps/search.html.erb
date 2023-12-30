@@ -9,6 +9,7 @@
 <h2>gmap</h2>
 
 <div id='map'></div>
+ <div id="hospital-list-html"></div>
 
 <style>
   #map {
@@ -27,8 +28,26 @@ function codeAddress() {
       .then(data => {
         // 受け取ったデータを使用して地図を更新
         updateMap(data.results);
+// console.log(data);
+        // resultsは二重になっている。
+        updateList(data.results);
       });
   }
+
+  // リストの更新
+  function updateList (data) {
+    const hospitalList = document.getElementById('hospital-list-html');
+    let html = '';
+    const lists = data.results;
+console.log(lists);
+lists.forEach(function (list) {
+    html += `<li>${list.name}</li>`;
+  });
+
+  // html += '</ul>';
+  hospitalList.innerHTML = html;
+  }
+
   // マーカーをクリアする関数
 function clearMarkers() {
     markers.forEach(function(marker) {
@@ -66,7 +85,7 @@ var openinfoWindow = null;
 
         // 新しいマーカーを追加
         locations.forEach(function(location) {
-          console.log(location);
+          // console.log(location);
           const photos = location.photos;
             const name = location.name;
             const address = location.formatted_address;
