@@ -39,13 +39,35 @@ function codeAddress() {
     const hospitalList = document.getElementById('hospital-list-html');
     let html = '';
     const lists = data.results;
-console.log(lists);
+// console.log(lists);
 lists.forEach(function (list) {
-    html += `<li>${list.name}</li>`;
+    const address = getaddress(list)
+    const photos = list.photos;
+    html += `<div>${list.name}</div>`;
+    html += `<div>${address}</div>`;
+    if (photos && photos.length > 0) {
+        const photoReference = photos[0].photo_reference;
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
+        html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
+    }
   });
 
   // html += '</ul>';
   hospitalList.innerHTML = html;
+  }
+
+  function getaddress(list){
+    // 郵便番号以降を取得する正規表現を格納
+    const postalCodeRegex = /〒(\d{3}-\d{4})\s(.*)/;
+
+    // 正規表現にマッチするか確認
+    const match = list.formatted_address.match(postalCodeRegex);
+
+    // マッチした場合、郵便番号以降の情報を取得
+    if (match) {
+      const addressAfterPostalCode = match[2]; // 郵便番号以降の住所
+      return addressAfterPostalCode
+    }
   }
 
   // マーカーをクリアする関数
