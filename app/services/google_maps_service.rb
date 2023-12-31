@@ -32,9 +32,8 @@ class GoogleMapsService
     # 写真が存在する場合、最初の写真の URL を取得して表示
       if photos && photos.length > 0
         photoReference = photos[0]["photo_reference"]
+        # return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
         return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
-        # const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
-        # 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>'
       end
     end
 
