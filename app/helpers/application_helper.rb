@@ -57,8 +57,5 @@ module ApplicationHelper
     set_meta_tags(configs)
   end
 
-  def address(veterinary)
-    veterinary["result"]["formatted_address"]
-    # binding.pry
-  end
+  
 end

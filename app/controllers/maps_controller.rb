@@ -36,6 +36,5 @@ class MapsController < ApplicationController
     # end
 
     @photoUrl = GoogleMapsService.veterinary_photo(@veterinary)
-    # binding.pry
   end
 end
