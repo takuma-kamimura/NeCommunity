@@ -23,4 +23,12 @@ class MapsController < ApplicationController
       end
   end
 
+  def show
+    binding.pry
+    # @veterinary = params[:id]
+    # @veterinary["result"]["formatted_address"] でハッシュに紐づけられているデータが取り出せる。
+    @veterinary = GoogleMapsService.veterinary(params[:id])
+    binding.pry
+  end
+
 end

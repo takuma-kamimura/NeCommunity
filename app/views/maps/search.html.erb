@@ -43,7 +43,10 @@ function codeAddress() {
 lists.forEach(function (list) {
     const address = getaddress(list)
     const photos = list.photos;
+    const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
     html += `<div>${list.name}</div>`;
+    html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
+    console.log(list);
     html += `<div>${address}</div>`;
     if (photos && photos.length > 0) {
         const photoReference = photos[0].photo_reference;

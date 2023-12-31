@@ -17,6 +17,16 @@ class GoogleMapsService
     #   binding.pry
     end
   
+    def self.veterinary(place_id)
+        # fields = Shop::GOOGLE_MAP_FIELDS
+        fields = "name,formatted_address,geometry"
+        uri = URI.parse("#{BASE_URL}/details/json?place_id=#{place_id}&fields=#{fields}&key=#{API_KEY}&language=#{LANGUAGE}")
+        res = Net::HTTP.get_response(uri)
+        res.body
+        parsed_body = JSON.parse(res.body)
+        # binding.pry
+      end
+
     private
   
     def self.format_results(results)
