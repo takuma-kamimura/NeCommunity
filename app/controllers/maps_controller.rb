@@ -24,11 +24,18 @@ class MapsController < ApplicationController
   end
 
   def show
-    binding.pry
     # @veterinary = params[:id]
     # @veterinary["result"]["formatted_address"] でハッシュに紐づけられているデータが取り出せる。
     @veterinary = GoogleMapsService.veterinary(params[:id])
+    # photos =  @veterinary["result"]["photos"]
+    # 写真が存在する場合、最初の写真の URL を取得して表示
+    # if photos && photos.length > 0
+    # photoReference = photos[0]["photo_reference"]
+    # @photoUrl = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
+    # binding.pry
+    # end
+
+    @photoUrl = GoogleMapsService.veterinary_photo(@veterinary)
     binding.pry
   end
-
 end

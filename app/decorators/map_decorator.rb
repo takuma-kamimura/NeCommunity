@@ -10,4 +10,7 @@ class MapDecorator < ApplicationDecorator
   #     end
   #   end
 
+  def address
+    # object.
+  end
 end
