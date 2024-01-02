@@ -1,20 +1,24 @@
 <!-- app/views/maps/search.html.erb -->
-<div class= "bg-slate-300 text-black p-6">
-<h1>サーチ</h1>
+<div class= "bg-slate-300 text-black p-3">
+<div class="mb-2">猫ちゃんの動物病院検索</div>
+<div class="mb-4">
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
  <%= form.label :location, "検索する場所:" %>
   <%= form.text_field :location, placeholder: '市・地名を入力' %>
-  <%= form.submit "検索" %>
+  <%= form.submit "検索", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
 <% end %>
-<div class="flex">
-<div id='map' class="flex-1 h-screen"></div>
- <div id="hospital-list-html" class="px-2 animate__animated animate__fadeInUp"></div>
+</div>
+<div class="md:flex">
+<div id='map' class="md:flex-1"></div>
+ <div id="hospital-list-html" class="px-2 overflow-y-auto max-h-screen"></div>
 </div>
 </div>
 <style>
   #map {
-    height: 600px;
-    width: 600px;
+    /* height: 600px;
+    width: 600px; */
+     height: 100vh; /* 画面の高さいっぱいに広げる */
+    width: 100%;   /* 横幅を100%に設定 */
   }
 </style>
 
@@ -44,7 +48,7 @@ lists.forEach(function (list, index) {
     const address = getaddress(list)
     const photos = list.photos;
     const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
-    html+= `<div class="p-4 rounded-lg shadow-md bg-gray-200 mb-2 animate__animated animate__fadeInUp" style="animation-delay: ${index * 100}ms;">`
+    html+= `<div id="hospital" class="p-4 rounded-lg shadow-md bg-gray-200 mb-2 animate__animated animate__fadeInUp" style="animation-delay: ${index * 100}ms;">`
     html+=`<div class = "max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">`
     html += `<div>${list.name}</div>`;
     html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
@@ -54,7 +58,7 @@ lists.forEach(function (list, index) {
         const photoReference = photos[0].photo_reference;
         const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
         html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
-    }
+    } 
     html+= `</div>`
     html+= `</div>`
   });
@@ -117,9 +121,10 @@ var openinfoWindow = null;
           // console.log(location);
           const photos = location.photos;
             const name = location.name;
-            const address = location.formatted_address;
+            const address = getaddress(location);
             const latitude = location.geometry.location.lat;
             const longitude = location.geometry.location.lng;
+            const showPath = '/maps/' + location.place_id; // mapsコントローラーへのshowアクションへのpath
             var marker = new google.maps.Marker({
                 map: map,
                 position: { lat: latitude, lng: longitude },
@@ -127,7 +132,8 @@ var openinfoWindow = null;
             });
 
         // Infowindowのコンテンツを構築
-    var contentHtml = '<strong>' + name + '</strong><br>' + address;
+    // var contentHtml = '<strong>' + name + '</strong><br>' + address;
+     var contentHtml = `<a href="${showPath}" class="underline text-blue-500"><strong>${name}</strong></a><br>${address}`;
 
         // 写真が存在する場合、最初の写真の URL を取得して表示
     if (photos && photos.length > 0) {
@@ -194,7 +200,7 @@ function initMap(){
 //         // 新しいマーカーを保存
 //         markers.push(marker);
 //     });
-}  
 
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
