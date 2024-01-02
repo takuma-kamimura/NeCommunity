@@ -8,7 +8,7 @@
 <% end %>
 <div class="flex">
 <div id='map' class="flex-1 h-screen"></div>
- <div id="hospital-list-html" class="px-2"></div>
+ <div id="hospital-list-html" class="px-2 animate__animated animate__fadeInUp"></div>
 </div>
 </div>
 <style>
@@ -40,11 +40,11 @@ function codeAddress() {
     let html = '';
     const lists = data.results;
 // console.log(lists);
-lists.forEach(function (list) {
+lists.forEach(function (list, index) {
     const address = getaddress(list)
     const photos = list.photos;
     const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
-    html+= `<div class="p-4 rounded-lg shadow-md bg-gray-200 mb-2">`
+    html+= `<div class="p-4 rounded-lg shadow-md bg-gray-200 mb-2 animate__animated animate__fadeInUp" style="animation-delay: ${index * 100}ms;">`
     html+=`<div class = "max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">`
     html += `<div>${list.name}</div>`;
     html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
