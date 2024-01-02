@@ -1,16 +1,16 @@
 <!-- app/views/maps/search.html.erb -->
+<div class= "bg-slate-300 text-black p-6">
 <h1>サーチ</h1>
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
  <%= form.label :location, "検索する場所:" %>
   <%= form.text_field :location, placeholder: '市・地名を入力' %>
   <%= form.submit "検索" %>
 <% end %>
-
-<h2>gmap</h2>
-
-<div id='map'></div>
- <div id="hospital-list-html"></div>
-
+<div class="flex">
+<div id='map' class="flex-1 h-screen"></div>
+ <div id="hospital-list-html" class="px-2"></div>
+</div>
+</div>
 <style>
   #map {
     height: 600px;
@@ -44,6 +44,8 @@ lists.forEach(function (list) {
     const address = getaddress(list)
     const photos = list.photos;
     const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
+    html+= `<div class="p-4 rounded-lg shadow-md bg-gray-200 mb-2">`
+    html+=`<div class = "max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">`
     html += `<div>${list.name}</div>`;
     html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
     console.log(list);
@@ -53,6 +55,8 @@ lists.forEach(function (list) {
         const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
         html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
     }
+    html+= `</div>`
+    html+= `</div>`
   });
 
   // html += '</ul>';
