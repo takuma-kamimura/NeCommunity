@@ -27,7 +27,9 @@
 function codeAddress() {
     // フォームデータの取得と非同期リクエストの送信
     var locationValue = document.getElementById('location').value;
-    fetch('<%= search_maps_path %>?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
+    // 下記コードは「/maps/search?location=」でも問題ない
+    //「<%= search_maps_path %>?location=」でも同じ
+    fetch('/maps/search?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
       .then(response => response.json())
       .then(data => {
         // 受け取ったデータを使用して地図を更新
@@ -48,11 +50,11 @@ lists.forEach(function (list, index) {
     const address = getaddress(list)
     const photos = list.photos;
     const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
+    // 下記、html生成処理
     html+= `<div id="hospital" class="p-4 rounded-lg shadow-md bg-gray-200 mb-2 animate__animated animate__fadeInUp" style="animation-delay: ${index * 100}ms;">`
     html+=`<div class = "max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">`
     html += `<div>${list.name}</div>`;
     html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
-    console.log(list);
     html += `<div>${address}</div>`;
     if (photos && photos.length > 0) {
         const photoReference = photos[0].photo_reference;
