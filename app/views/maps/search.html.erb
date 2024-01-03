@@ -4,7 +4,7 @@
 <div class="mb-4">
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
  <%= form.label :location, "検索する場所:" %>
-  <%= form.text_field :location, placeholder: '市・地名を入力' %>
+  <%= form.text_field :location, placeholder: '市・地名を入力', class: "text-black bg-white" %>
   <%= form.submit "検索", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
 <% end %>
 </div>
@@ -185,22 +185,6 @@ function initMap(){
     center: {lat:35.680959106959, lng:139.76730676352},
     zoom: 8,
   });
-
-// Object.values(locations).forEach(function(location) {
-//         const name = location.name;
-//         const address = location.formatted_address;
-//         const latitude = location.geometry.location.lat;
-//         const longitude = location.geometry.location.lng;
-//         var marker = new google.maps.Marker({
-//             map: map,
-//             position: { lat: latitude, lng: longitude },
-//             title: name,  // ピンに表示されるタイトル
-//         });
-
-//         // 新しいマーカーを保存
-//         markers.push(marker);
-//     });
-
 }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['YOUR_API_KEY'] %>&callback=initMap" async defer></script>
