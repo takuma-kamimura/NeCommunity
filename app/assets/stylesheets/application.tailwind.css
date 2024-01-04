@@ -1,4 +1,4 @@
-@import 'animate.css';
+@import 'animate.css';  /*Google MAPのリスト表示時のアニメーションのため追加*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
