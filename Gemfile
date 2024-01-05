@@ -76,11 +76,11 @@ gem "sassc-rails"
 
 gem 'fog-aws' # awss3画像アップロード用
 
-gem 'mini_magick'
+gem 'mini_magick' # 画像変換
 
-gem "faker"
+gem "faker" # 初期データ導入
 
-gem 'meta-tags'
+gem 'meta-tags' # ツイッターOGP画像設定用
 
 # gem 'high_voltage' # before_action :require_loginが発生して使えなかった
 

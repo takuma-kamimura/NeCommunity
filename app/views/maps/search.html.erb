@@ -1,0 +1,192 @@
+<!-- app/views/maps/search.html.erb -->
+<div class= "bg-slate-300 text-black p-3">
+<div class="mb-3 lg:text-4xl text-xl">猫ちゃんの動物病院検索</div>
+<div class="mb-4">
+<%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
+ <%= form.label :location, "検索する場所:" %>
+  <%= form.text_field :location, placeholder: '市・地名を入力', class: "text-black bg-white" %>
+  <%= form.submit "検索", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+<% end %>
+</div>
+<div class="md:flex">
+<div id='map' class="md:flex-1 mb-2"></div>
+ <div id="hospital-list-html" class="px-2 overflow-y-auto max-h-screen"></div>
+</div>
+</div>
+<style>
+  #map {
+    /* height: 600px;
+    width: 600px; */
+     height: 100vh; /* 画面の高さいっぱいに広げる */
+    width: 100%;   /* 横幅を100%に設定 */
+  }
+</style>
+
+<script>
+
+function codeAddress() {
+    // フォームデータの取得と非同期リクエストの送信
+    var locationValue = document.getElementById('location').value;
+    // 下記コードは「/maps/search?location=」でも問題ない
+    //「<%= search_maps_path %>?location=」でも同じ
+    fetch('/maps/search?location=' + encodeURIComponent(locationValue), { headers: { 'Accept': 'application/json' } })
+      .then(response => response.json())
+      .then(data => {
+        // 受け取ったデータを使用して地図を更新
+        updateMap(data.results);
+// console.log(data);
+        // resultsは二重になっている。
+        updateList(data.results);
+      });
+  }
+
+  // リストの更新
+  function updateList (data) {
+    const hospitalList = document.getElementById('hospital-list-html');
+    let html = '';
+    const lists = data.results;
+// console.log(lists);
+lists.forEach(function (list, index) {
+    const address = getaddress(list)
+    const photos = list.photos;
+    const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
+    // 下記、html生成処理
+    html+= `<div id="hospital" class="p-4 rounded-lg shadow-md bg-gray-200 mb-2 animate__animated animate__fadeInUp" style="animation-delay: ${index * 100}ms;">`
+    html+=`<div class = "max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">`
+    html += `<div>${list.name}</div>`;
+    html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
+    html += `<div>${address}</div>`;
+    if (photos && photos.length > 0) {
+        const photoReference = photos[0].photo_reference;
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
+        html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
+    } 
+    html+= `</div>`
+    html+= `</div>`
+  });
+
+  // html += '</ul>';
+  hospitalList.innerHTML = html;
+  }
+
+  function getaddress(list){
+    // 郵便番号以降を取得する正規表現を格納
+    const postalCodeRegex = /〒(\d{3}-\d{4})\s(.*)/;
+
+    // 正規表現にマッチするか確認
+    const match = list.formatted_address.match(postalCodeRegex);
+
+    // マッチした場合、郵便番号以降の情報を取得
+    if (match) {
+      const addressAfterPostalCode = match[2]; // 郵便番号以降の住所
+      return addressAfterPostalCode
+    }
+  }
+
+  // マーカーをクリアする関数
+function clearMarkers() {
+    markers.forEach(function(marker) {
+        marker.setMap(null);
+    });
+    // マーカーの配列をクリア
+    markers = [];
+}
+  // 地図の更新関数
+function updateMap(data) {
+
+    // 既存のマーカーをクリア
+    clearMarkers();
+
+var openinfoWindow = null;
+
+    // dataが正しい構造であるか確認
+    if (data && Array.isArray(data.results)) {
+        const locations = data.results;
+        
+        // 検索地点の中心座標を求める処理
+       let lat_average = 0;
+       let lng_average = 0;
+       // lat、lng座標の総和を取得
+        for (let i = 0; i < locations.length; i++) {
+          lat_average += locations[i].geometry.location.lat;
+          lng_average += locations[i].geometry.location.lng;
+         }
+        // 平均値の取得
+        lat_average = lat_average/locations.length
+        lng_average = lng_average/locations.length
+        // 地図の中心とズームレベルの設定
+        map.setCenter({lat:lat_average, lng:lng_average});
+        map.setZoom(11);
+
+        // 新しいマーカーを追加
+        locations.forEach(function(location) {
+          // console.log(location);
+          const photos = location.photos;
+            const name = location.name;
+            const address = getaddress(location);
+            const latitude = location.geometry.location.lat;
+            const longitude = location.geometry.location.lng;
+            const showPath = '/maps/' + location.place_id; // mapsコントローラーへのshowアクションへのpath
+            var marker = new google.maps.Marker({
+                map: map,
+                position: { lat: latitude, lng: longitude },
+                title: name,  // ピンに表示されるタイトル
+            });
+
+        // Infowindowのコンテンツを構築
+    // var contentHtml = '<strong>' + name + '</strong><br>' + address;
+     var contentHtml = `<a href="${showPath}" class="underline text-blue-500"><strong>${name}</strong></a><br>${address}`;
+
+        // 写真が存在する場合、最初の写真の URL を取得して表示
+    if (photos && photos.length > 0) {
+        const photoReference = photos[0].photo_reference;
+        // console.log(location);
+        // console.log(name);
+        // console.log(photos);
+        // console.log(photoReference);
+        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
+        // contentHTMLに写真情報を付け足す処理
+        contentHtml += '<br><img src="' + photoUrl + '" alt="Photo" width="200">';
+    }
+
+       // InfoWindowを作成
+       var infoWindow = new google.maps.InfoWindow({
+            content: contentHtml,
+        });
+
+        // マーカーをクリックしたときにInfoWindowを表示
+        marker.addListener('click', function() {
+
+          if(openinfoWindow){
+            openinfoWindow.close();
+          }
+
+            infoWindow.open(map, marker);
+
+            openinfoWindow = infoWindow;
+        });
+            // 新しいマーカーを保存
+            markers.push(marker);
+        });
+    } else {
+        console.error('無効なlocationsデータ:', data);
+    }
+}
+   // 初期化
+// mapの初期表示
+let map
+// ここから追加 
+let geocoder
+
+let markers = [];  // markers 配列の初期化を追加
+
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat:35.680959106959, lng:139.76730676352},
+    zoom: 8,
+  });
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>
