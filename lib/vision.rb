@@ -50,7 +50,7 @@ module Vision
     private
 
     def convert_heic_to_jpg(heic_path)
-      # MiniMagickを使用してHEIC画像を一時的に「.jpg」形式のファイルに変換
+      # MiniMagickを使用してHEIC画像を一時的に「.jpg」形式のファイルに変換する処理
       tempfile = Tempfile.new(['converted_image', '.jpg'])
       image = MiniMagick::Image.open(heic_path)
       image.format('jpg')
