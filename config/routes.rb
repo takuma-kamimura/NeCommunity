@@ -57,6 +57,10 @@ Rails.application.routes.draw do
     end
   end
 
+  post "oauth/callback", to: "oauths#callback"
+  get "oauth/callback", to: "oauths#callback"
+  get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
+
   namespace :admin do
     #root to: 'posts#index'
     # root 'user_sessions#new'
