@@ -61,6 +61,9 @@ Rails.application.routes.draw do
   get "oauth/callback", to: "oauths#callback"
   get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
 
+  # post :line_events, to: 'line_events#recieve'
+  post '/line_events', to: 'line_events#receive'
+
   namespace :admin do
     #root to: 'posts#index'
     # root 'user_sessions#new'
