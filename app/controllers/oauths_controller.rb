@@ -3,10 +3,13 @@ class OauthsController < ApplicationController
 
   def oauth
     login_at(auth_params[:provider])
+    # binding.pry
   end
 
   def callback
     provider = auth_params[:provider]
+    uid = auth_params[:uid]
+    # binding.pry
     # @user = login_from(provider)
     # binding.pry
     if (@user = login_from(provider))
@@ -27,5 +30,9 @@ class OauthsController < ApplicationController
 
   def auth_params
       params.permit(:code, :provider, :error, :state)
+  end
+
+  def login_at(provider_name, args = {})
+    redirect_to sorcery_login_url(provider_name, args), allow_other_host: true
   end
 end
