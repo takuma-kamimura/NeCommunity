@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   # post :line_events, to: 'line_events#recieve'
   get "line_events/show", to: 'line_events#show'
   post '/line_events', to: 'line_events#receive'
+  put '/line_events', to: 'line_events#update'
 
   namespace :admin do
     #root to: 'posts#index'

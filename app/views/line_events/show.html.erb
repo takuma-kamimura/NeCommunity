@@ -1,2 +1,6 @@
-<img src="https://qr-official.line.me/gs/M_452ggkhv_GW.png?oat_content=qr">
-
+<h1 class="text-4xl">Line通知導入テスト中</h1>
+<% if @user.line_id.present? %>
+  <%= link_to '連携したline_idを削除する', line_events_path(id: current_user.id), data: { turbo_method: :put, turbo_confirm: "本当に削除しますか？" } %>
+<% else %>
+  <img src="https://qr-official.line.me/gs/M_452ggkhv_GW.png?oat_content=qr">
+<% end %>

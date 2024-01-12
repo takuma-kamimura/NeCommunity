@@ -8,9 +8,12 @@ class LineEventsController < ApplicationController
   end
 
   def update
+    return unless set_user.id == current_user.id
+
     @user = User.find(current_user.id)
     @user.line_id = nil
     @user.save
+    redirect_to root_path
   end
   
   def client
@@ -40,5 +43,11 @@ class LineEventsController < ApplicationController
           end
       end
     end
+  end
+
+  private
+
+  def set_user
+    @user = User.find(params[:id])
   end
 end
