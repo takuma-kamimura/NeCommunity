@@ -63,7 +63,7 @@ ja:
       update_faild: '申し訳ありません 健康記録の更新に失敗しました'
       delete: '健康記録を削除しました'
     line_events:
-      line_registration_deletion: 'Line連携を解除しました'
+      line_registration_deletion: 'Line連携を解除しました。再度設定したい場合は一度Lineの友達登録を解除してから友達追加してください'
   admin:
     messages:
       update: '管理者用：更新が成功しました'
