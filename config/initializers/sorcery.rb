@@ -251,7 +251,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.scope = "openid"
   # --- user config ---
   config.user_config do |user|
-    user.authentications_class = Authentication
+    # user.authentications_class = Authentication # Lineログイン用に追加したのでコメントにした
     # -- core --
     # Specify username attributes, for example: [:username, :email].
     # Default: `[:email]`
