@@ -38,6 +38,8 @@ class LineEventsController < ApplicationController
             @user.line_id = user_line_id
             @user.save
             client.push_message(user_line_id, { type: 'text', text: "#{@user.name}さんのLineが登録されました!" })
+            flash[:success] = t('messages.line_events.successful_email_registration')
+            redirect_to root_path
           else
             client.push_message(user_line_id, { type: 'text', text: "メールアドレスが存在しませんでした。" })
           end
