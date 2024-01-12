@@ -13,6 +13,8 @@ class LineEventsController < ApplicationController
     @user = User.find(current_user.id)
     @user.line_id = nil
     @user.save
+    Line_registration_deletion
+    flash[:success] = t('messages.line_events.line_registration_deletion')
     redirect_to root_path
   end
   
