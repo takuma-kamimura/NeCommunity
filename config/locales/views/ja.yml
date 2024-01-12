@@ -62,8 +62,6 @@ ja:
       update: '健康記録を更新しました！'
       update_faild: '申し訳ありません 健康記録の更新に失敗しました'
       delete: '健康記録を削除しました'
-    line_events:
-      successful_email_registration: 'Line登録が完了しました!'
   admin:
     messages:
       update: '管理者用：更新が成功しました'
