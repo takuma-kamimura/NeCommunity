@@ -1,0 +1,11 @@
+<h1 class="text-4xl">Line通知導入テスト中</h1>
+<div class="flex items-center justify-center h-screen">
+    <% if @user.line_id.present? %>
+      <%= link_to '連携したline_idを削除する', line_events_path(id: current_user.id), data: { turbo_method: :put, turbo_confirm: "本当に削除しますか？" }, class: "mt-4 bg-blue-500 text-white px-4 py-2 rounded" %>
+    <% else %>
+    <div class="flex flex-col items-center">
+        <h1 class="text-3xl font-bold mt-4">友達追加してからLineにネコミュニティに登録してあるメースアドレスを送ってね</h1>
+        <img src="https://qr-official.line.me/gs/M_452ggkhv_GW.png?oat_content=qr" class="mt-4">
+      </div>
+    <% end %>
+  </div>

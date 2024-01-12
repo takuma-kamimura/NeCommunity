@@ -1,0 +1,2 @@
+# sorcery:
+#     line_callback_url: 'https://本番環境のドメイン/oauth/callback?provider=line'

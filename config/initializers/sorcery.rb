@@ -4,11 +4,16 @@
 # Available submodules are: :user_activation, :http_basic_auth, :remember_me,
 # :reset_password, :session_timeout, :brute_force_protection, :activity_logging,
 # :magic_login, :external
-Rails.application.config.sorcery.submodules = [:reset_password]
+Rails.application.config.sorcery.submodules = [:reset_password, :external]
 
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
-  
+
+  # config.external_providers = %i[line]
+  # config.line.key = ENV['LINE_KEY']
+  # config.line.secret = ENV['LINE_SECRET']
+  # config.line.callback_url = Settings.sorcery[:line_callback_url]
+  # config.line.scope = 'profile'
 
   # user.reset_password_mailer = UserMailer
   # -- core --
@@ -246,6 +251,7 @@ Rails.application.config.sorcery.configure do |config|
   # config.battlenet.scope = "openid"
   # --- user config ---
   config.user_config do |user|
+    # user.authentications_class = Authentication # Lineログイン用に追加したのでコメントにした
     # -- core --
     # Specify username attributes, for example: [:username, :email].
     # Default: `[:email]`

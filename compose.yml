@@ -18,12 +18,26 @@ services:
       - .:/app
       - bundle_data:/usr/local/bundle:cached
       - node_modules:/app/node_modules
+      - ./config/certs:/app/config/certs
     environment:
       TZ: Asia/Tokyo
     ports:
       - "3000:3000"
     depends_on:
       - db
+  nginx:  # 追加した部分
+    build:
+      context: .
+      dockerfile: Dockerfile.nginx
+    volumes:
+      - .:/app
+      - ./config/certs:/app/config/certs
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+
 volumes:
   postgres_data:
   bundle_data:

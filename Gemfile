@@ -82,6 +82,8 @@ gem "faker" # 初期データ導入
 
 gem 'meta-tags' # ツイッターOGP画像設定用
 
+gem 'line-bot-api' # Lineメッセージ用
+
 # gem 'high_voltage' # before_action :require_loginが発生して使えなかった
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
@@ -90,7 +92,7 @@ gem 'meta-tags' # ツイッターOGP画像設定用
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-  gem "faker" # ダミーデータ作成用
+  # gem "faker" # ダミーデータ作成用
 end
 
 group :development do
