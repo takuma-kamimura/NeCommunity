@@ -32,8 +32,11 @@
   <div class="mb-4">
     <%= link_to 'マイ猫一覧ページ', cats_path, class: 'underline text-blue-500' %>
   </div>
+
+  <div class="mb-4">
+    <%= link_to 'Line通知機能(導入お試し中)', line_events_show_path, class: 'm-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm whitespace-nowrap' %>
+  </div>
 </div>
 </div>
 </div>
 
-<%= link_to 'line_events_show_path', line_events_show_path(current_user) %>
