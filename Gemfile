@@ -82,7 +82,7 @@ gem "faker" # 初期データ導入
 
 gem 'meta-tags' # ツイッターOGP画像設定用
 
-gem 'line-bot-api'
+gem 'line-bot-api' # Lineメッセージ用
 
 # gem 'high_voltage' # before_action :require_loginが発生して使えなかった
 
