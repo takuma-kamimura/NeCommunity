@@ -9,13 +9,11 @@ Rails.application.config.sorcery.submodules = [:reset_password, :external]
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
 
-  config.external_providers = %i[line]
-  # config.line.key = Rails.application.credentials.dig(:line, :channel_id)
-  config.line.key = ENV['LINE_KEY']
-  # config.line.secret = Rails.application.credentials.dig(:line, :channel_secret)
-  config.line.secret = ENV['LINE_SECRET']
-  config.line.callback_url = Settings.sorcery[:line_callback_url]
-  config.line.scope = 'profile'
+  # config.external_providers = %i[line]
+  # config.line.key = ENV['LINE_KEY']
+  # config.line.secret = ENV['LINE_SECRET']
+  # config.line.callback_url = Settings.sorcery[:line_callback_url]
+  # config.line.scope = 'profile'
 
   # user.reset_password_mailer = UserMailer
   # -- core --
