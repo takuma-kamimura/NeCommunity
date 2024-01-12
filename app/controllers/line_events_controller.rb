@@ -34,6 +34,7 @@ class LineEventsController < ApplicationController
         client.push_message(user_id, { type: 'text', text: '登録メールアドレスをメッセージで送るとLine通知機能がオンになります！' })
       elsif event['type'] == 'message'
         user_email = event['message']['text']
+        # user_email.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/) で取得でもいいかも
         user_line_id = event['source']['userId']
           if @user = User.find_by(email: user_email)
             @user.line_id = user_line_id
