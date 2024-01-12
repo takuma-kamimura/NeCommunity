@@ -57,11 +57,6 @@ Rails.application.routes.draw do
     end
   end
 
-  post "oauth/callback", to: "oauths#callback"
-  get "oauth/callback", to: "oauths#callback"
-  get "oauth/:provider", to: "oauths#oauth", as: :auth_at_provider
-
-  # post :line_events, to: 'line_events#recieve'
   get "line_events/show", to: 'line_events#show'
   post '/line_events', to: 'line_events#receive'
   put '/line_events', to: 'line_events#update'

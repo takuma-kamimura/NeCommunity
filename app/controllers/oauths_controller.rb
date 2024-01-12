@@ -1,3 +1,4 @@
+# 使わないコントローラー
 class OauthsController < ApplicationController
   skip_before_action :require_login # applications_controllerでbefore_action :require_loginを設定している場合
 
