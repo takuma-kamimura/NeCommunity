@@ -11,7 +11,9 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @comment.save
-    client.push_message(@comment.post.user.line_id, { type: 'text', text: "#{@comment.post.user.name}さんの投稿、#{@comment.post.title}にコメントが追加されました!" })
+    if @comment.post.user.line_id.present?
+      client.push_message(@comment.post.user.line_id, { type: 'text', text: "#{@comment.post.user.name}さんの投稿、#{@comment.post.title}にコメントが追加されました!" })
+    end
   end
 
   def destroy
