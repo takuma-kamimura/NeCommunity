@@ -1,7 +1,7 @@
-<% content_for(:title, "#{@user.name}さんの猫一覧") %>
+<% content_for(:title, "#{h(@user.name)}さんのマイ猫's".html_safe) %>
 
 <div class="bg-slate-300 text-black">
-<h1 class="lg:text-4xl text-xl p-3 font-bold mb-6"><%= @user.name%>さんの猫一覧</h1>
+<h1 class="lg:text-4xl text-xl p-3 font-bold mb-6"><%= @user.name%>さんのマイ猫's</h1>
 
 <% if @usercats.present? %>
   <%= render @usercats %>
