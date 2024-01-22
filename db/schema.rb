@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_10_083445) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_22_073632) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -38,7 +38,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_083445) do
     t.datetime "birthday"
     t.integer "gender", null: false
     t.string "avatar"
-    t.text "self_introduction", default: "まだこの猫ちゃんの紹介については未記入だよ"
+    t.text "self_introduction"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cat_breed_id"], name: "index_cats_on_cat_breed_id"
@@ -107,7 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_10_083445) do
     t.string "crypted_password"
     t.string "salt"
     t.string "avatar"
-    t.text "self_introduction", default: "まだ自己紹介については未記入だよ"
+    t.text "self_introduction"
     t.integer "role", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
