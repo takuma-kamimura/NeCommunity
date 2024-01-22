@@ -12,12 +12,12 @@ ja:
         self_introduction: '自己紹介'
         avatar: 'プロフィール画像'
       cat:
-        name: '猫の名前'
+        name: 'ネコの名前'
         birthday: '誕生日'
-        self_introduction: '猫の紹介'
+        self_introduction: 'ネコの紹介'
         gender: '性別'
-        avatar: '猫のプロフィール画像'
-        cat_breed_id: '猫種'
+        avatar: 'ネコのプロフィール画像'
+        cat_breed_id: 'ネコ種'
         cat_breed: '猫種'
         user_id: 'ユーザー名'
       post:

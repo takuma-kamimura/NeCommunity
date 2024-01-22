@@ -18,12 +18,12 @@
     <%end%>
 <%end%>
 
-<h1>名前</h1>
+<h1>・名前</h1>
 <h1><%= post.user.name %>さん</h1>
 <% if post.cat.present? %>
-  <h1>・猫ちゃんの名前</h1>
+  <h1>・ネコちゃんの名前</h1>
   <h3><%= post.cat.name %></h3>
-  <h1>猫ちゃんのプロフィール画像</h1>
+  <h1>ネコちゃんのプロフィール画像</h1>
   <h3><%= image_tag post.cat.avatar_url, id: 'avatar-preview', size: '50x50',
      style: 'border-radius: 50%;' %></h3>
 <%end%>
