@@ -48,7 +48,7 @@
   <%if current_user.id != post.user.id %>
   <!-- いずれカウントもホットワイヤーで動的に表示するようにしたい -->
   <!-- いいね入力ボタン -->
-  <%=render 'likes/like_button' , {post: post} %><%= post.likes.count %>
+  <%=render 'likes/like_button' , {post: post} %><span id="like-count-for-post-<%= post.id %>"><%= post.likes.count %></span><!-- divだとおかしくなったためspanにした。 -->
   <!-- ブックマーク入力 -->
   <%=render 'bookmarks/bookmark_button' , {post: post} %><%= post.bookmarks.count %>
   <%end%>
