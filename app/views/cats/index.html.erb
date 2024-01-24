@@ -1,11 +1,11 @@
-<% content_for(:title, "#{current_user.name}さんの猫一覧") %>
+<% content_for(:title, "#{h(current_user.name)}さんのマイ猫's".html_safe) %>
 
 <div class="bg-slate-300 text-black">
-<h1 class="lg:text-4xl text-xl p-3 font-bold mb-6">ユーザー猫一覧ページ</h1>
-<%= link_to '猫登録ページ', new_cat_path, class: 'underline text-blue-500 p-2' %>
+<h1 class="lg:text-4xl text-xl p-3 font-bold mb-6">マイ猫's</h1>
+<%= link_to 'ネコ登録ページ', new_cat_path, class: 'underline text-blue-500 p-2' %>
 <% if @cats.present? %>
 <%= render @cats %>
 <% else %>
-<h1 class="text-2xl font-bold p-3"><%= current_user.name %>さんはまだ猫ちゃんを登録してないよ！</h1>
+<h1 class="text-2xl font-bold p-3"><%= current_user.name %>さんはまだネコを登録してないよ！</h1>
 <% end %>
 </div>

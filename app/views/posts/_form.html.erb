@@ -12,7 +12,7 @@
       </div>
   
   <!-- 猫の選択用のドロップダウンメニュー -->
-  <%= f.collection_select :cat_id, current_user.cats, :id, :name, { prompt: "猫を選択してください" }, { class: "bg-white" }  %>
+  <%= f.collection_select :cat_id, current_user.cats, :id, :name, { prompt: "ネコを選択してください" }, { class: "bg-white" }  %>
 
   <div class="mb-3">
     <%= f.label :photo, for: 'avatar-file' %>
