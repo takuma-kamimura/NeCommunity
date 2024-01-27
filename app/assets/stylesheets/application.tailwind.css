@@ -2,3 +2,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ベースカラー */
+.base-color {
+    background-color: #f0f0f0;
+}
+
+.accent-color {
+    background-color: #e6e5ef;
+}
