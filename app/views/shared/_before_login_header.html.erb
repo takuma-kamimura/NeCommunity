@@ -1,16 +1,16 @@
-<div class = "base-color text-black">
+<div class = "base-color text-black flex">
     <h1 class="text-4xl font-bold text-black p-4"><%= link_to 'ネコミュニティ', root_path %></h1>
-    <div class="drawer-end">
+    <div class="drawer-end flex items-center">
         <input id="drawer" type="checkbox" class="drawer-toggle" />
-      <label for="drawer" class="drawer-button top-0 right-0 m-4 absolute">
+      <label for="drawer" class="drawer-button right-0 m-4 absolute">
           <i id="bars" class="fa-solid fa-bars fa-2x"></i>
       </label>
       <div class="drawer-side">
           <label for="drawer" class="drawer-overlay"></label>
           <ul class="menu p-4 w-80 h-full accent-color text-base-content">
-              <%= link_to 'トップページ',root_path, class: 'mr-4 whitespace-nowrap' %>
-              <%= link_to '新規会員登録ページ',new_user_path, class: 'mr-4 whitespace-nowrap' %>
-              <%= link_to 'ログインページ',login_path, class: 'whitespace-nowrap' %>
+              <%= link_to 'Sign Up',new_user_path, class: 'mt-5 whitespace-nowrap md:text-lg text-sm' %>
+              <%= link_to 'Login',login_path, class: ' mt-5 whitespace-nowrap md:text-lg text-sm' %>
+              <%= link_to '投稿一覧', posts_path, class: 'mt-5 whitespace-nowrap md:text-lg text-sm' %>
           </ul>
         </div>
       </div>
