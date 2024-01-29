@@ -7,8 +7,6 @@ class Post < ApplicationRecord
 
   # いいね設定
   has_many :likes, dependent: :destroy
-  # ブックマーク設定
-  has_many :bookmarks, dependent: :destroy
 
   has_many :comments, dependent: :destroy
 

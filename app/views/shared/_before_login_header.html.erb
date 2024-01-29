@@ -7,11 +7,13 @@
       </label>
       <div class="drawer-side">
           <label for="drawer" class="drawer-overlay"></label>
-          <ul class="menu p-4 w-80 h-full accent-color text-base-content">
-              <%= link_to 'Sign Up',new_user_path, class: 'mt-5 whitespace-nowrap md:text-lg text-sm' %>
-              <%= link_to 'Login',login_path, class: ' mt-5 whitespace-nowrap md:text-lg text-sm' %>
-              <%= link_to '投稿一覧', posts_path, class: 'mt-5 whitespace-nowrap md:text-lg text-sm' %>
-          </ul>
+          <ul class="menu p-4 w-80 h-full accent-color text-base-content text-black">
+            <div class="mt-8">
+              <div class="mb-4"><%= link_to '投稿一覧', posts_path, class: 'mt-5 whitespace-nowrap md:text-lg text-sm' %></div>
+              <div class="mb-4"><%= link_to 'Sign Up',new_user_path, class: 'mt-5 md:text-lg text-sm' %></div>
+              <div class="mb-4"><%= link_to 'Login',login_path, class: ' mt-5 whitespace-nowrap md:text-lg text-sm' %></div>
+            </div>
+            </ul>
         </div>
       </div>
 </div>

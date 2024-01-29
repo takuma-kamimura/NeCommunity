@@ -120,11 +120,6 @@ class PostsController < ApplicationController
     @like_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
   end
 
-  def bookmarks
-    @q = current_user.bookmark_posts.ransack(params[:q])
-    @bookmark_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
-  end
-
   # current_userの猫と同じ猫種に関する投稿
   def samebreedcats
     @q = Post.ransack(params[:q])

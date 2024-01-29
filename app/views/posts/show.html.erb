@@ -61,19 +61,20 @@
       <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %>
       <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
       <i class="bi bi-trash-fill"></i>
-    <% end %>
-  <%end%>
+      <% end %>
+   <%end%>
 </div>
   <!-- 自分の投稿はいいねとブックマークしない -->
   <!-- ログインIDとボード。ログインIDが違うかチェック -->
   <%if current_user.id != @post.user.id %>
   <div class="flex justify-center mb-4 w-3/12">
     <%=render 'likes/like_button' , {post: @post} %><%= @post.likes.count %>
-    <span style="margin-right: 10px;"></span>
-    <%=render 'bookmarks/bookmark_button' , {post: @post} %><%= @post.bookmarks.count %>
   </div>
     <% end %>
-<% end %>
+    <%else%>
+<!--ログイン前-->
+  <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %>
+  <% end %>
 
 <div class="text-center">
   <div class="mb-3">

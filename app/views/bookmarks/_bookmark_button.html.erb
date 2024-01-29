@@ -1,7 +1,0 @@
-<% if current_user.bookmark?(post)%>
-<!-- ブックマーク解除 -->
-  <%= render 'bookmarks/unbookmark', {post: post} %>
-<%else%>
-<!-- ブックマーク登録 -->
-  <%= render 'bookmarks/bookmark', {post: post} %>
-<% end %>

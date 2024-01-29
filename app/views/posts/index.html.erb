@@ -7,12 +7,11 @@
 <div class="flex flex-wrap mx-4 -my-2">
   <%= link_to '新規投稿ページ', new_post_path, class: 'm-3 px-4 py-2 bg-orange-500 text-white rounded-full hover:bg-orange-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
   <%= link_to 'いいね一覧', likes_posts_path, class: 'm-3 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-  <%= link_to 'ブックマーク一覧', bookmarks_posts_path, class: 'm-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% if current_user.cats.present? %>
-    <%= link_to 'あなたのネコ種と同じネコ種に関する投稿', samebreedcats_posts_path, class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <% current_user.cats.each do |cat| %>
+    <%= link_to '貴方の猫"sと同猫種', samebreedcats_posts_path, class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
+    <!-- <% current_user.cats.each do |cat| %>
       <%= link_to "#{cat.cat_breed.name}の投稿一覧", specifycats_posts_path(cat_breed_id: cat.cat_breed.id), class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <% end %>
+    <% end %> -->
   <% end %>
 </div>
 </div>
