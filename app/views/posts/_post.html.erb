@@ -9,15 +9,6 @@
 <% end %>
 </div>
 
-<% if post.tags.present? %>
-    <h1>・タグ</h1>
-    <%post.tags.each do |tag|%>
-      <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
-      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500 ml-4" %>
-      <!-- custom_styles.cssを追加してリンクの下線を消した -->
-    <%end%>
-<%end%>
-
 <h1>・名前</h1>
 <h1><%= post.user.name %>さん</h1>
 <% if post.cat.present? %>
@@ -54,4 +45,13 @@
 <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=https://neko-community.com/posts/#{post.id}&text=【#{post.title}】%0a%20%23ネコミュニティ", class: "ml-2 mb-2 btn btn-sm bg-black text-white text-sm", title: 'Twitter', target: '_blank' %>
 </div>
 </div>
+<!-- タグの表示 -->
+<% if post.tags.present? %>
+    <h1>・タグ</h1>
+    <%post.tags.each do |tag|%>
+      <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
+      <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500 ml-4" %>
+      <!-- custom_styles.cssを追加してリンクの下線を消した -->
+    <%end%>
+<%end%>
 </div>
