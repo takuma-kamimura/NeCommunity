@@ -23,11 +23,7 @@
 <% if post.cat.present? %>
   <h1>・ネコちゃんの名前</h1>
   <h3><%= post.cat.name %></h3>
-  <h1>ネコちゃんのプロフィール画像</h1>
-  <h3><%= image_tag post.cat.avatar_url, id: 'avatar-preview', size: '50x50',
-     style: 'border-radius: 50%;' %></h3>
 <%end%>
-<h3><%= link_to '投稿詳細',post_path(post), class: 'underline text-blue-500' %></h3>
 
 <h6>コメント数:<%= post.comments.count %></h6>
 
