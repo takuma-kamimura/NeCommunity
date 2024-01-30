@@ -43,11 +43,6 @@ Rails.application.routes.draw do
     end
   end
   resources :likes, only: %i(create destroy)
-  resources :health_records do
-    collection do
-      get :catrecord
-    end
-  end
 
   resources :maps, only: [:index, :show] do # GoogleマップAPIの導入により追加
     collection do
@@ -71,12 +66,5 @@ Rails.application.routes.draw do
     resources :cats, only: [:index, :show, :edit, :update, :destroy]
     resources :tags, only: [:index, :show, :edit, :update, :destroy]
     resources :comments, only: [:index, :show, :edit, :update, :destroy]
-    resources :health_records, only: [:index, :show, :edit, :update, :destroy] do
-      collection do
-        get :catrecord
-      end
-    end
-    
   end
-
 end
