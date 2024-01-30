@@ -22,14 +22,22 @@
   </head>
 
 
-  <body>
+  <body class="flex flex-col min-h-screen base-color">
     <%= render 'shared/flash_message'%>
     <% if logged_in?%>
-    <%= render 'shared/header' %>
+      <div class="shadow-md"><!-- ヘッダーに影を加える -->
+      <%= render 'shared/header' %>
+      </div>
     <% else %>
-    <%= render 'shared/before_login_header' %>
+      <div class="shadow-md"><!-- ヘッダーに影を加える -->
+      <%= render 'shared/before_login_header' %>
+      </div>
     <% end %>
+    <div class="flex-grow">
+      <div class="shadow-md"><!-- フッターと要素の間に影を加える -->
     <%= yield %>
+      </div>
+    </div>
     <%= render 'shared/footer' %>
   </body>
 </html>

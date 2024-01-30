@@ -1,18 +1,5 @@
-<div class = "base-color text-black flex">
+<div class="text-black flex">
 <h1 class="text-4xl font-bold text-black p-4"><%= link_to 'ネコミュニティ', root_path %></h1>
-<!-- <div class="flex justify-end items-center mb-3">
-    <div class="rounded-full bg-blue-800 text-white md:text-lg p-3 mr-2 text-sm">
-      <%= link_to '動物病院検索', search_maps_path %>
-    </div>
-    <div class="rounded-full bg-blue-800 text-white md:text-lg p-3 mr-2 text-sm">
-      <%= link_to 'マイ猫\'s', cats_path %>
-    </div>
-    <div class="rounded-full bg-blue-800 text-white md:text-lg p-3 text-sm">
-      <%= link_to "#{current_user.name}さん",profile_path %>
-    </div>
-  </div> -->
-
-
   <div class="drawer-end flex items-center">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
   <label for="drawer" class="drawer-button right-0 m-4 absolute">
@@ -32,30 +19,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div class="relative group bg-indigo-200">
-    <div class="cursor-pointer flex justify-end pr-4" id="menuToggle">
-      Menu
-    </div>
-    <div class="absolute invisible bg-white right-0 z-10" id="menuItems">
-      <div class="pr-4 bg-orange-500"><%= link_to 'トップページ', root_path %></div>
-      <div class="pr-4 bg-emerald-500"><%= link_to 'プロフィール詳細ページ', profile_path %></div>
-      <div class="pr-4 bg-red-500"><%= link_to 'ログアウト', logout_path, data: { turbo_method: :delete, turbo_confirm: 'ログアウトしますか？' } %></div>
-    </div>
-  </div>
-</div> -->
-  
-  <!-- <script>
-    // 変数の競合を避けるためにコードを関数でラップ
-    function setupMenuToggle() {
-      const menuToggle = document.getElementById('menuToggle');
-      const menuItems = document.getElementById('menuItems');
-  
-      menuToggle.addEventListener('click', () => {
-        menuItems.classList.toggle('invisible');
-      });
-    }
-  
-    // 関数を呼び出してメニュートグルをセットアップ
-    setupMenuToggle();
-  </script> -->

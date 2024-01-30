@@ -1,6 +1,5 @@
 <% content_for(:title, "#{current_user.name}さんのいいね一覧") %>
 
-<div class="bg-slate-300">
 <div class="py-3 p-4">
 <%= link_to '投稿一覧', posts_path, class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
 </div>
@@ -13,5 +12,3 @@
 <% else %>
 <h1 class="text-black p-3 lg:text-4xl text-xl">いいねした投稿がここに表示されるよ！</h1>
 <% end %>
-</div>
-
