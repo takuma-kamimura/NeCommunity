@@ -13,7 +13,7 @@ module.exports = {
     extend: {
       backgroundImage: theme => ({
         'custom': `url("${theme('image-url', 'cat-5830643_1920.webp')}")`, // 画像のパスを指定
-        'custom-mobile': `url("${theme('image-url', 'top2.jpg')}")`,
+        'custom-mobile': `url("${theme('image-url', 'top2.webp')}")`,
       }),
     },
   },
