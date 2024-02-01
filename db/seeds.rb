@@ -191,18 +191,18 @@ rand(0..5).times do
 end
 
 # ブックマークをランダムに設定
-rand(0..5).times do
-  # 投稿にブックマークをしていないユーザーを取得
-  bookmarker = User.where.not(id: user.id).where.not(id: post.bookmarks.pluck(:user_id)).sample
+# rand(0..5).times do
+#   # 投稿にブックマークをしていないユーザーを取得
+#   bookmarker = User.where.not(id: user.id).where.not(id: post.bookmarks.pluck(:user_id)).sample
 
-  # 投稿にブックマークをしていないユーザーがいる場合にのみブックマークを作成
-  if bookmarker.present?
-    Bookmark.create!(
-      user_id: bookmarker.id,
-      post_id: post.id
-    )
-  end
-end
+#   # 投稿にブックマークをしていないユーザーがいる場合にのみブックマークを作成
+#   if bookmarker.present?
+#     Bookmark.create!(
+#       user_id: bookmarker.id,
+#       post_id: post.id
+#     )
+#   end
+# end
   end
 
 comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!']
@@ -222,19 +222,19 @@ comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!
 
   all_cats = Cat.all
 
-  all_cats.each do |cat|
-    # Determine the random number of health records to create (1 to 3 in this example)
-    number_of_records = rand(1..3)
+  # all_cats.each do |cat|
+  #   # Determine the random number of health records to create (1 to 3 in this example)
+  #   number_of_records = rand(1..3)
   
-    # Create health records for the current cat
-    number_of_records.times do
-      HealthRecord.create!(
-        weight: rand(1..5), # Replace with your logic for weight
-        note: Faker::Lorem.sentence,
-        cat_id: cat.id
-      )
-    end
-  end
+  #   # Create health records for the current cat
+  #   number_of_records.times do
+  #     HealthRecord.create!(
+  #       weight: rand(1..5), # Replace with your logic for weight
+  #       note: Faker::Lorem.sentence,
+  #       cat_id: cat.id
+  #     )
+  #   end
+  # end
 
 # 20.times do |n|
 #     user = User.create!(

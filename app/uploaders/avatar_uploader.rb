@@ -43,12 +43,17 @@ class AvatarUploader < CarrierWave::Uploader::Base
     end
   end
 
-  def filename
-    return unless original_filename.present?
+  # def filename
+  #   return unless original_filename.present?
 
-    base_name = File.basename(original_filename, '.*')
-    # base_name = File.basename(original_filename, '.*')
-    # "#{base_name}.webp"
+  #   base_name = File.basename(original_filename, '.*')
+  #   # base_name = File.basename(original_filename, '.*')
+  #   # "#{base_name}.webp"
+  # end
+
+  #🔥拡張子を.webpで保存
+  def filename
+    super.chomp(File.extname(super)) + '.webp' if original_filename.present?
   end
 
   def extension_whitelist # 拡張子の制限

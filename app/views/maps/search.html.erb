@@ -1,5 +1,5 @@
 <!-- app/views/maps/search.html.erb -->
-<div class= "bg-slate-300 text-black p-3">
+<div class= "text-black p-3">
 <div class="mb-3 lg:text-4xl text-xl">ネコちゃんの動物病院検索</div>
 <div class="mb-4">
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
