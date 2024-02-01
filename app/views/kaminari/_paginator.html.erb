@@ -1,0 +1,51 @@
+<%
+=begin
+
+The container tag
+- available local variables
+  current_page : a page object for the currently displayed page
+  total_pages  : total number of pages
+  per_page     : number of items to fetch per page
+  remote       : data-remote
+  paginator    : the paginator that renders the pagination tags inside
+
+=end
+%>
+
+<%= paginator.render do %>
+  <nav class="pagination flex justify-center items-center gap-4">
+    <%#= prev_page_tag unless current_page.first? %>
+    <%#= next_page_tag unless current_page.last? %>
+    <ul class="pagination-list flex justify-center items-center gap-4">
+      <% unless current_page.first? %>
+      <span class="border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center">
+        <!-- 最初のページ以外にいるときは「first_page_tag」が出現する -->
+        <%= first_page_tag %>
+      </span>
+      <% end %>
+      <% each_page do |page| %>
+        <% if page.display_tag? %>
+          <% if page.current? %>
+            <span class="border border-black w-8 h-8 bg-gray-500 text-white flex items-center justify-center">
+              <!-- 現在のページでない場合はリンクを有効にする -->
+              <%= page %>
+            </span>
+          <% else %>
+            <span class="border border-black w-8 h-8 base-color hover:bg-gray-300 flex items-center justify-center">
+              <%= page_tag page %>
+            </span>
+          <% end %>
+        <% elsif !page.was_truncated? %>
+          <%= gap_tag %>
+        <% end %>
+      <% end %>
+      <% unless current_page.last? %>
+      <span class="border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center">
+        <!-- 最後のページ以外にいるときは「last_page_tag」が出現する -->
+        <%= last_page_tag %>
+      </span>
+      <% end %>
+    </ul>
+  </nav>
+<% end %>
+<!-- border border-black -->
