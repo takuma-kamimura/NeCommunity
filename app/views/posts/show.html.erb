@@ -5,40 +5,37 @@
 <div class="text-black">
 
 <h1 class='lg:text-4xl text-black mb-4 p-3 text-xl'>投稿詳細ページ</h1>
-<%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500' %>
+<%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500 p-4' %>
 
-<div class="mx-auto my-auto max-w-full overflow-hidden rounded-lg shadow p-6">
+<div class="rounded-lg shadow p-6">
 
-  <div class="float-right flex flex-col items-center">
-    <%= link_to user_path(@post.user) do %>
-      <h3><%= image_tag @post.user.avatar_url, id: 'avatar-preview', class: 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full' %></h3>
-    <% end %>
-    <h1 class="mt-2 text-center"><%= @post.user.name %>さん</h1>
+  <div class="flex flex-row items-center justify-center">
+    <div class="flex-col">
+  <div class="text-right">
+      <% if @post.cat.present? %>
+      <div class="inline-block mb-4">
+          <div class="rounded-md border p-2 border-white accent-color">
+        <h3><%= @post.cat.decorate.cat_name %></h3>
+        <%= link_to cat_path(@post.cat) do %>
+          <h3><%= image_tag @post.cat.avatar_url, class: 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover' %></h3>
+          <%end%>
+      </div>
+      </div>
+      <%end%>
   </div>
-
-<h2 class="text-black mb-4 p-3 lg:text-4xl text-xl"><%= @post.title %></h2>
-
-<h3 class="bg-white inline-block mb-4"><%= @post.body%></h3>
-
-<div class="mb-4">
-<% if @post.cat.present? %>
-<div class="inline-block">
-    <div class="rounded-md border p-2 border-white bg-red-300">
-  <h3><%= @post.cat.decorate.cat_name %></h3>
-  <%= link_to cat_path(@post.cat) do %>
-    <h3><%= image_tag @post.cat.avatar_url, id: 'avatar-preview', class: 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-32 xl:h-32 rounded-full' %></h3>
-    <%end%>
+    <!-- 投稿のタイトル -->
+  <h2 class="text-black mb-4 p-3 lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
+  <div class="mx-auto object-cover mb-4">
+    <%= image_tag @post.photo_url %>
+  </div>
+<!-- 投稿の内容 -->
+<div class="flex justify-center">
+<div class="accent-color mb-4 border border-black rounded-md max-w-sm">
+  <h3 class="inline-block"><%= @post.body%></h3>
+  </div>
 </div>
 </div>
-<%end%>
-</div>
-<div class="flex items-center justify-center mb-3">
-  <h3>
-    <%= image_tag @post.photo_url, id: 'avatar-preview', class: 'w-full h-auto max-w-full max-h-screen' %>
-  </h3>
-</div>
-
-<!-- 投稿詳細と他人のユーザー詳細と他人のcat一覧表示ページを作る -->
+  </div>
 
 <% if @post.tags.present? %>
 <h1 class="flex justify-center mb-2">タグ</h1>
@@ -50,6 +47,7 @@
   </div>
   <%end%>
 <%end%>
+
 
 <div class="mb-4">
   <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
