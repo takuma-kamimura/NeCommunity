@@ -4,90 +4,88 @@
 
 <div class="text-black">
 
-<h1 class='lg:text-4xl text-black mb-4 p-3 text-xl'>投稿詳細ページ</h1>
-<%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500 p-4' %>
+  <h1 class='lg:text-4xl text-black mb-4 p-3 text-xl'>投稿詳細ページ</h1>
+  <%= link_to '投稿一覧', posts_path, class: 'underline text-blue-500 p-4' %>
 
-<div class="rounded-lg shadow p-6">
+  <div class="rounded-lg shadow p-6">
 
-  <div class="flex flex-row items-center justify-center">
-    <div class="flex-col">
-  <div class="text-right">
-      <% if @post.cat.present? %>
-      <div class="inline-block mb-4">
-          <div class="rounded-md border p-2 border-white accent-color">
-        <h3><%= @post.cat.decorate.cat_name %></h3>
-        <%= link_to cat_path(@post.cat) do %>
-          <h3><%= image_tag @post.cat.avatar_url, class: 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover' %></h3>
+    <div class="flex flex-row items-center justify-center">
+      <div class="flex-col">
+        <div class="text-right">
+          <% if @post.cat.present? %>
+          <div class="inline-block mb-4">
+            <div class="rounded-md border p-2 border-white accent-color">
+              <h3><%= @post.cat.decorate.cat_name %></h3>
+              <%= link_to cat_path(@post.cat) do %>
+              <h3><%= image_tag @post.cat.avatar_url, class: 'w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover' %></h3>
+              <%end%>
+            </div>
+          </div>
           <%end%>
+        </div>
+        <!-- 投稿のタイトル -->
+        <h2 class="text-black mb-4 p-3 lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
+        <div class="mx-auto object-cover mb-4">
+          <%= image_tag @post.photo_url %>
+        </div>
+        <!-- 投稿の内容 -->
+        <div class="flex justify-center">
+          <div class="accent-color mb-4 border border-black rounded-xl max-w-sm p-4 shadow-md">
+            <h3 class="inline-block"><%= @post.body%></h3>
+          </div>
+        </div>
       </div>
-      </div>
+    </div>
+
+    <% if @post.tags.present? %>
+      <h1 class="flex justify-center mb-2">タグ</h1>
+      <%@post.tags.each do |tag|%>
+        <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
+        <!-- custom_styles.cssを追加してリンクの下線を消した -->
+        <div class="mb-2 flex justify-center">
+        <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle underline text-blue-500" %>
+        </div>
       <%end%>
+    <%end%>
+
+
+      <div class="mb-4">
+        <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
+        <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
+
+        <!-- ログインしてるかチェック -->
+        <% if logged_in? %>
+          <!-- 自分の場合 -->
+          <% if current_user.own?(@post) %>
+            <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %><!-- いいね -->
+            <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %><!-- 編集ページへのリンク -->
+            <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
+              <i class="bi bi-trash-fill"></i>
+            <% end %>
+          <%end%>
+          <!-- ログイン後いいねボタン -->
+          <!-- 自分の投稿はいいねとブックマークしない -->
+          <%if current_user.id != @post.user.id %>
+            <%=render 'likes/like_button' , {post: @post} %><span id="like-count-for-post-<%= @post.id %>"><%= @post.likes.count %></span>
+          <% end %>
+        <%else%>
+          <!--ログイン前いいね-->
+          <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %>
+        <% end %>
+      </div>
+
+      <div class="text-center">
+        <div class="mb-3">
+          <% if logged_in? %>
+            <%= render 'comments/form', { post: @post, comment: @comment} %>
+          <%end%>
+        </div>
+
+        <h1 class="lg:text-4xl text-xl">みんなのコメント</h1>
+          <!-- ホットワイヤーの処理のためidを付与 -->
+          <div id="table-comment">
+            <%= render @comments %>
+          </div>
+      </div>
   </div>
-    <!-- 投稿のタイトル -->
-  <h2 class="text-black mb-4 p-3 lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
-  <div class="mx-auto object-cover mb-4">
-    <%= image_tag @post.photo_url %>
-  </div>
-<!-- 投稿の内容 -->
-<div class="flex justify-center">
-<div class="accent-color mb-4 border border-black rounded-xl max-w-sm p-4 shadow-md">
-  <h3 class="inline-block"><%= @post.body%></h3>
-  </div>
-</div>
-</div>
-  </div>
-
-<% if @post.tags.present? %>
-<h1 class="flex justify-center mb-2">タグ</h1>
-  <%@post.tags.each do |tag|%>
-  <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
-  <!-- custom_styles.cssを追加してリンクの下線を消した -->
-  <div class="mb-2 flex justify-center">
-  <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm btn-primary rounded-circle underline text-blue-500" %>
-  </div>
-  <%end%>
-<%end%>
-
-
-<div class="mb-4">
-  <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
-  <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
-
-  <!-- ログインしてるかチェック -->
-  <% if logged_in? %>
-    <!-- 自分の場合 -->
-    <% if current_user.own?(@post) %>
-      <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %><!-- いいね -->
-      <%= link_to '投稿の編集ページ',edit_post_path(@post), class: 'ml-4 underline text-blue-500' %><!-- 編集ページへのリンク -->
-      <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
-      <i class="bi bi-trash-fill"></i>
-      <% end %>
-   <%end%>
-   <!-- ログイン後いいねボタン -->
-  <!-- 自分の投稿はいいねとブックマークしない -->
-  <%if current_user.id != @post.user.id %>
-  <%=render 'likes/like_button' , {post: @post} %><span id="like-count-for-post-<%= @post.id %>"><%= @post.likes.count %></span>
-  <% end %>
-  <%else%>
-<!--ログイン前いいね-->
-<i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %>
-<% end %>
-</div>
-
-<div class="text-center">
-  <div class="mb-3">
-<% if logged_in? %>
-<%= render 'comments/form', { post: @post, comment: @comment} %>
-<%end%>
-</div>
-
-<h1 class="lg:text-4xl text-xl">みんなのコメント</h1>
-<!-- ホットワイヤーの処理のためidを付与 -->
-<div id="table-comment">
-<%= render @comments %>
-</div>
-</div>
-
-</div>
-
 </div>
