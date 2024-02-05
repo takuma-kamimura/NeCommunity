@@ -222,6 +222,29 @@ comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!
 
   all_cats = Cat.all
 
+  names = ['ムギ', 'ソラ','レオ','ココ','タマ','マロン','モモ','キナコ','リン','ルナ','マル']
+  cat_avatar_images = Dir[Rails.root.join('public', 'cat avatar Initial data', '*.webp')]
+
+  cat_breed = CatBreed.order("RANDOM()").first
+  birthday_datetime = Faker::Time.between(from: 30.years.ago, to: DateTime.now)
+  self_introductions = [
+"人懐っこいです！",
+"自慢の愛猫です！",
+"かわいいです！",
+"まだこの猫ちゃんの紹介については未記入だよ"
+]
+
+  20.times do
+  cat = Cat.create!(
+      name: names.sample,
+      birthday: birthday_datetime,
+      user_id: User.find_by(name: "上村 拓磨").id,
+      gender: rand(0..1),
+      avatar: File.open(cat_avatar_images.sample),
+      self_introduction: self_introductions.sample,
+      cat_breed_id: cat_breed.id
+    )
+  end
   # all_cats.each do |cat|
   #   # Determine the random number of health records to create (1 to 3 in this example)
   #   number_of_records = rand(1..3)

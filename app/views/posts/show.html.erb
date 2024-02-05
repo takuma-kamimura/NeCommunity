@@ -24,7 +24,9 @@
           <%end%>
         </div>
         <!-- 投稿のタイトル -->
+        <div class="flex justify-center">
         <h2 class="text-black mb-4 p-3 lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
+      </div>
         <div class="mx-auto object-cover mb-4">
           <%= image_tag @post.photo_url %>
         </div>
