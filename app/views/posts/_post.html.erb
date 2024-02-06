@@ -1,9 +1,13 @@
 <div class="mx-auto max-w-md overflow-hidden rounded-lg base-color shadow-2xl text-black mb-4">
-  <div class="p-2">
-<h2 class="text-4xl mb-3"><%= post.title %></h2>
-<h3 class="bg-white inline-block mb-3"><%= post.body.truncate(10)%></h3>
+  <div class="p-3">
+<div class="text-4xl mb-3 text-center"><%= post.title %></div>
+<div class="text-center">
+<div class="accent-color rounded-md border border-black inline-block mb-3 p-2">
+  <%= post.body.truncate(10)%>
+</div>
+</div>
 
-<div class="aspect-w-4 aspect-h-5">
+<div class="aspect-w-4 aspect-h-5 mb-2">
 <%= link_to post_path(post) do %>
 <h3><%= image_tag post.photo_url, id: 'avatar-preview', class: 'object-cover' %></h3>
 <% end %>
@@ -21,7 +25,9 @@
 <!-- ログインしていない場合はいいね、ブックマーク、編集、削除は出さない -->
 <% if logged_in? %>
   <% if current_user.own?(post) %>
-    <%= link_to '投稿の編集ページ',edit_post_path(post), class: 'underline text-blue-500 ml-4' %>
+    <%= link_to edit_post_path(post), class: 'text-blue-500 ml-4' do %>
+    <i class="bi bi-pencil-fill"></i><!-- 編集ページへのリンク -->
+    <% end %>
     <%= link_to post_path(post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %>
     <i class="bi bi-trash-fill"></i>
     <% end %>
@@ -47,11 +53,13 @@
 </div>
 <!-- タグの表示 -->
 <% if post.tags.present? %>
+<div class="mb-3 px-2">
     <h1>・タグ</h1>
     <%post.tags.each do |tag|%>
       <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
       <%= link_to tag.name, posts_path(q: { tags_name_eq: tag.name }), class:"btn-sm rounded-circle underline text-blue-500 ml-4" %>
       <!-- custom_styles.cssを追加してリンクの下線を消した -->
     <%end%>
+  </div>
 <%end%>
 </div>
