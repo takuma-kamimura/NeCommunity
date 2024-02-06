@@ -35,8 +35,8 @@ The container tag
               <%= page_tag page %>
             </span>
           <% end %>
-        <% elsif !page.was_truncated? %>
-          <%= gap_tag %>
+        <%# elsif !page.was_truncated? %>
+          <%#= gap_tag %>
         <% end %>
       <% end %>
       <% unless current_page.last? %>

@@ -245,6 +245,20 @@ comments = ['あなたの猫かわいいですね！','かわいい！', 'Good!!
       cat_breed_id: cat_breed.id
     )
   end
+
+  cat_images = Dir[Rails.root.join('public', 'Initial data', '*.webp')]
+  titles = ['今日も元気です！','かわいい！','見てください！','これがうちの子です！','癒されます']
+  bodys = ['元気いっぱい！', 'きゃわわ', '見てみて〜', '何してるの〜？', 'かわいいー']
+20.times do
+post = Post.create!(
+    title: titles.sample,
+    body: bodys.sample,
+    photo: File.open(cat_images.sample),
+    user_id: User.find_by(name: "上村 拓磨").id,
+    cat_id: Cat.find_by(cat_breed_id: CatBreed.find_by(name:"マンチカン")).id
+  )
+end
+  
   # all_cats.each do |cat|
   #   # Determine the random number of health records to create (1 to 3 in this example)
   #   number_of_records = rand(1..3)
