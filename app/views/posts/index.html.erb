@@ -1,23 +1,24 @@
 <% content_for(:title, t('.title')) %>
 
 <!--- 投稿一覧ページ --->
-  <div class="py-3">
 <%if logged_in?%>
-<div class="flex flex-wrap mx-4 -my-2">
-  <%= link_to '新規投稿ページ', new_post_path, class: 'm-3 px-4 py-2 bg-orange-500 text-white rounded-full hover:bg-orange-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-  <%= link_to 'いいね一覧', likes_posts_path, class: 'm-3 px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
+<div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
+  <div class="mb-4 md:mb-0">
+  <%= link_to 'いいね一覧', likes_posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-red-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% if current_user.cats.present? %>
-    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <!-- <% current_user.cats.each do |cat| %>
-      <%= link_to "#{cat.cat_breed.name}の投稿一覧", specifycats_posts_path(cat_breed_id: cat.cat_breed.id), class: 'm-3 px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <% end %> -->
+    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-blue-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% end %>
 </div>
-</div>
-<%end%>
-<div class="mb-4 ml-4">
+<div class="mx-auto">
 <%= render 'search', q: @q, url: posts_path %>
 </div>
+  <%= link_to '新規投稿ページ', new_post_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-orange-700 transition duration-300 ease-in-out md:text-lg text-sm' %>
+</div>
+<%else%>
+<div class="py-4 px-4 flex justify-center items-center">
+  <%= render 'search', q: @q, url: posts_path %>
+  </div>
+<%end%>
   <!-- < div class="p-4 m-2 flex flex-wrap"> -->
     <div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
 <%= render @posts %>

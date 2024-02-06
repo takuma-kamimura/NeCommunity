@@ -11,7 +11,7 @@
 
     <div class="flex flex-row items-center justify-center">
       <div class="flex-col">
-        <div class="flex items-center justify-between"><!-- 消す -->
+        <div class="flex items-center justify-between">
         <% if @post.cat.present? %>
         <div class="inline-block mb-4">
           <div class="rounded-md border p-2 border-white accent-color">
@@ -53,7 +53,7 @@
             <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %>
           <% end %>
         </div>
-      </div><!--消す-->
+      </div>
         <div class="mx-auto object-cover mb-4">
           <%= image_tag @post.photo_url %>
         </div>
