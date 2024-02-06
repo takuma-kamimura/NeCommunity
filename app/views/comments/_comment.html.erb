@@ -7,7 +7,7 @@
       <div class="p-2"><%= comment.user.name %>さん</div>
     </div>
     <div class="mx-auto p-2">
-      <div class="base-color inline-block rounded-md p-2 shadow-md"><%= comment.body %></div>
+      <div class="mb-4 base-color inline-block rounded-md p-2 shadow-md"><%= comment.body %></div>
       <div class="flex flex-col text-right">
         <!-- ログインしていないユーザー&コメントしたユーザー以外は編集不可 -->
         <% if logged_in? %>
