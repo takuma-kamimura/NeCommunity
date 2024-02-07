@@ -16,12 +16,12 @@
 <div class="text-sm px-5 mb-2"><%= post.user.name %>さん</div>
 
 <div class="flex justify-center relative items-center">
-  <div class="center">
+  
     <% if post.cat.present? %>
       <div class="text-md"><%= post.cat.decorate.cat_name %></div>
     <%end%>
-    </div>
-    <div class="right absolute right-0 flex items-center">
+   
+    <div class="absolute right-0 flex items-center">
   <div class="mt-3">
   <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
   <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=https://neko-community.com/posts/#{post.id}&text=【#{post.title}】%0a%20%23ネコミュニティ", class: "mb-2 btn btn-sm bg-black text-white text-sm", title: 'Twitter', target: '_blank' %>
@@ -77,12 +77,6 @@
 <div class="px-4 text-sm">
   <div class="whitespace-nowrap">コメント数:<%= post.comments.count %></div>
 </div>
-     
 </div>
 </div>
 </div>
-
-<!-- <div class="flex justify-center relative">
-  <div class="center">中央寄せ</div>
-  <div class="right absolute right-0">右寄せ</div>
-</div> -->

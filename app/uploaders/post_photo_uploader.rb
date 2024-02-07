@@ -26,10 +26,10 @@ class PostPhotoUploader < CarrierWave::Uploader::Base
   #   manipulate! { |img| img.format('webp') }
   # end
 
-  # process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
+  process resize_and_pad: [1600, 900, '#f5ebdc', 'Center']
   
   # 余白をベージュからベースカラーと同じ色に設定した。
-  process resize_and_pad: [1600, 900, '#f0f0f0', 'Center']
+  # process resize_and_pad: [1600, 900, '#f0f0f0', 'Center']
   # process resize_to_fill: [1600, 900, 'Center']
   process :convert_to_webp
 
