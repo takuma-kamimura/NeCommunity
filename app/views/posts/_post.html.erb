@@ -15,7 +15,7 @@
 
 <div class="text-sm px-5 mb-2"><%= post.user.name %>さん</div>
 
-<div class="flex justify-center relative items-center mb-4">
+<div class="flex justify-center relative items-center">
   <div class="center">
     <% if post.cat.present? %>
       <div class="text-md"><%= post.cat.decorate.cat_name %></div>
@@ -47,11 +47,11 @@
   <div class="ml-2">
   <%=render 'likes/like_button' , {post: post} %>
 </div>
-<span id="like-count-for-post-<%= post.id %>"><%= post.likes.count %></span><!-- divだとおかしくなったためspanにした。 -->
+<span class="mr-2" id="like-count-for-post-<%= post.id %>"><%= post.likes.count %></span><!-- divだとおかしくなったためspanにした。 -->
   <%end%>
   <%else%>
 <!--ログイン前-->
-<div class="ml-2">
+<div class="ml-2 mr-2">
   <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
 </div>
 <% end %>
@@ -59,11 +59,11 @@
 </div>
 
 
-<div class="flex justify-end items-center">
+<div class="flex justify-end mt-8 mb-4">
  <!-- タグの表示 -->
  <% if post.tags.present? %>
  <div class="mr-auto">
- <div class="px-2 mb-4">
+ <div class="px-2">
      <!-- <h1>・タグ</h1> -->
      <%post.tags.each do |tag|%>
        <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
