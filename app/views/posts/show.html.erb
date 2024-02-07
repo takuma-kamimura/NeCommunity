@@ -30,7 +30,7 @@
         <%end%>
         <!-- 投稿のタイトル -->
         <div class="flex justify-center">
-        <h2 class="text-black md:text-4xl md:text-xl text-sm inline-block"><%= @post.title %></h2>
+        <h2 class="text-black md:text-4xl text-xl inline-block"><%= @post.title %></h2>
         </div>
 
         <div class="mb-4">
@@ -41,7 +41,17 @@
           <% if logged_in? %>
             <!-- 自分の場合 -->
             <% if current_user.own?(@post) %>
-              <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %><!-- いいね -->
+              <!-- <i class="bi bi-heart" style="color: red;"></i> -->
+              <%#= @post.likes.count %><!-- いいね -->
+
+               <!-- 編集ページへのリンク -->
+          <%= link_to edit_post_path(@post), class: 'ml-4 text-blue-500' do %>
+          <i class="bi bi-pencil-fill"></i>
+        <% end %>
+        <!-- 削除リンク -->
+        <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
+          <i class="bi bi-trash-fill"></i>
+        <% end %>
             <%end%>
             <!-- ログイン後いいねボタン -->
             <!-- 自分の投稿はいいねとブックマークしない -->
@@ -76,21 +86,6 @@
         </div>
       <%end%>
     <%end%>
-
-    <div class="mb-4 text-lg">
-      <!-- ログインしてるかチェック -->
-      <% if logged_in? %>
-        <!-- 自分の場合 -->
-        <% if current_user.own?(@post) %>
-          <%= link_to edit_post_path(@post), class: 'ml-4 text-blue-500' do %>
-            <i class="bi bi-pencil-fill"></i><!-- 編集ページへのリンク -->
-          <% end %>
-          <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
-            <i class="bi bi-trash-fill"></i>
-          <% end %>
-        <%end%>
-      <% end %>
-    </div>
 
       <div class="text-center">
         <div class="mb-8">
