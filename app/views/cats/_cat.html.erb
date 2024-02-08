@@ -1,35 +1,19 @@
   <div class="p-3">
-  <div class="accent-color rounded-md shadow-md p-6">
-    <h2 class="text-2xl font-bold mb-4"><%= cat.decorate.cat_name %></h2>
 
+    <div class="flex flex-col items-center">
     <div class="mb-4">
-      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>のネコ種</h3>
-      <p><%= cat.cat_breed.name %></p>
+      <%= link_to cat_path(cat), class: 'underline text-blue-500' do %>
+      <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-32 h-32 rounded-full object-cover shadow-xl hover:scale-110' %>
+      <% end %>
     </div>
-
-    <div class="mb-4">
-      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の紹介</h3>
-      <p><%= cat.self_introduction %></p>
-    </div>
-
-    <div class="mb-4">
-      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の性別</h3>
-      <p><%= cat.gender_i18n %></p>
-    </div>
-
-    <div class="mb-4">
-      <h3 class="text-lg font-semibold mb-2"><%= cat.decorate.cat_name %>の写真</h3>
-      <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-64 h-auto rounded-md' %>
-    </div>
-
-    <div class="mb-4">
-      <%= link_to "#{cat.decorate.cat_name}の詳細ページ", cat_path(cat), class: 'underline text-blue-500' %>
-    </div>
-
+    <h2 class="text-xl font-bold mb-2"><%= cat.decorate.cat_name %></h2>
+ 
     <% if logged_in? && current_user.own?(cat) %>
-      <div class="flex">
-        <%= link_to "#{cat.decorate.cat_name}の編集ページ", edit_cat_path(cat), class: 'underline text-blue-500 mr-4' %>
-        <%= link_to cat_path(cat),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+      <div class="flex space-x-6">
+        <%= link_to edit_cat_path(cat), class: 'underline text-blue-500' do %>
+        <i class="bi bi-pencil-fill"></i>
+        <% end %>
+        <%= link_to cat_path(cat),class: 'underline text-red-500',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
         <i class="bi bi-trash-fill"></i>
         <% end %>
       </div>
