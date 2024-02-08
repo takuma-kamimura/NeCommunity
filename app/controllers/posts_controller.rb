@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
   def index
     @q = Post.ransack(params[:q])
-    @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
+    @posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   def new
@@ -117,7 +117,7 @@ class PostsController < ApplicationController
 
   def likes
     @q = current_user.like_posts.ransack(params[:q])
-    @like_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc)
+    @like_posts = @q.result(distinct: true).includes(:user).order(created_at: :desc).page(params[:page])
   end
 
   # current_userの猫と同じ猫種に関する投稿
@@ -129,7 +129,7 @@ class PostsController < ApplicationController
     # 同じ猫種の猫のIDリストを取得
     same_breed_cat_ids = Cat.where(cat_breed_id: current_cat_breed_ids).pluck(:id)
     # 同じ猫種の猫が投稿した投稿を取得
-    @samebreedcats = Post.where(cat_id: same_breed_cat_ids)
+    @samebreedcats = Post.where(cat_id: same_breed_cat_ids).order(created_at: :desc).page(params[:page])
   end
 
   # 指定した猫種と同じ猫種に関する投稿

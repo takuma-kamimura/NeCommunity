@@ -1,5 +1,7 @@
 <div class="text-black flex">
-<h1 class="text-4xl font-bold text-black p-4"><%= link_to 'ネコミュニティ', root_path %></h1>
+  <%= link_to posts_path, class:'p-1' do %>
+  <%= image_tag 'logo.png', size: "100x100"  %>
+  <%end%>
   <div class="drawer-end flex items-center">
     <input id="drawer" type="checkbox" class="drawer-toggle" />
   <label for="drawer" class="drawer-button right-0 m-4 absolute">

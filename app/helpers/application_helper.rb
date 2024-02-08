@@ -39,7 +39,7 @@ module ApplicationHelper
       # title: title,
       canonical: request.original_url,
       icon: {
-        href: image_url('OGP-image.jpg')
+        href: image_url('logo.png')
       },
       og: {
         type: 'website',

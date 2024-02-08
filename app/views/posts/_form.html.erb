@@ -1,4 +1,4 @@
-<div class="flex items-center justify-center">
+<div class="flex items-center justify-center text-black">
     <%= form_with(model: @post, local: true) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="mb-3">
@@ -29,7 +29,7 @@
     <%= f.text_field :name, class: 'form-control bg-white', placeholder:",で区切ってください", value: @tags %>
     </div>
 
-  <%= f.submit "投稿", class: "btn btn-primary mb-3" %>
+  <%= f.submit "投稿", class: "btn accent-color hover:bg-white text-black shadow-md mb-3" %>
 <% end %>
 
 </div>

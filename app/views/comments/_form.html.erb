@@ -1,19 +1,16 @@
 <!-- ホットワイヤーの処理のためidを付与 -->
-<div id="comment-form">
-<!-- <%= simple_form_for [post, comment], data: { turbo_method: :post } do |f| %>
-<%= f.label :body %>
-<%= f.text_area :body %>
-
-<%= f.button :submit, "コメント投稿" %>
-<% end %> -->
-
+<div class="inline-block" id="comment-form">
 <%= form_with(model: [post, comment], data: { turbo_method: :post }) do |f| %>
 <%= render 'shared/error_messages', object: f.object %>
-<div class="flex items-center justify-center mt-4">
-  <%#= f.label :body %>
-  <%= f.text_area :body, class: 'bg-white' %>
+<div class="inline-block mb-4 mt-4">
+<div class="flex items-center justify-center">
+  <%#= f.text_area :body, class: 'bg-white rounded-md' %>
+  <%= f.text_field :body, class: 'bg-white rounded-md shadow-md', style: 'height: 50px; padding-left: 10px;' %>
 
-  <%= f.submit "コメント投稿", class: "btn btn-primary" %>
+<div class="px-2">
+  <%= f.submit "コメント投稿", class: "btn accent-color hover:bg-white text-black shadow-md" %>
+</div>
+</div>
 </div>
 <% end %>
 </div>
