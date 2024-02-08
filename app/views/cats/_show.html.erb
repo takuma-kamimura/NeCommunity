@@ -1,0 +1,66 @@
+<!-- Modal Background -->
+<div class="hidden fixed inset-0 bg-black bg-opacity-80 overflow-y-auto flex items-center justify-center"
+        data-modal-target="background"
+        data-action="click->modal#closeBackground">
+ <!-- Modal Container -->
+ <div data-modal-target="container" 
+ class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
+  <!-- Modal Inner Container -->
+<div class="text-black p-6 rounded-md accent-color">
+
+  <h1 class="lg:text-4xl text-2xl font-bold mb-4"><%= cat.decorate.cat_name %>の詳細ページ</h1>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold">ネコの名前</h1>
+    <p><%= cat.name %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold">飼い主さんのお名前</h1>
+    <p><%= cat.user.name %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>のネコ種</h1>
+    <p><%= cat.cat_breed.name %></p>
+  </div>
+
+  <% if cat.birthday.present? %>
+    <div class="mb-4">
+      <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の誕生日</h1>
+      <p><%= cat.birthday.strftime('%Y年%m月%d日') %>だよ</p>
+    </div>
+
+    <div class="mb-4">
+      <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の年齢</h1>
+      <p><%= cat.decorate.cat_age %></p>
+    </div>
+  <% end %>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の紹介</h1>
+    <p><%= cat.self_introduction %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の性別</h1>
+    <p><%= cat.gender_i18n %></p>
+  </div>
+
+  <div class="mb-4">
+    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の写真</h1>
+    <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-32 h-32 h-auto rounded-md' %>
+  </div>
+
+  <% if logged_in? && current_user.own?(cat) %>
+    <div class="flex">
+      <%= link_to "#{cat.decorate.cat_name}の編集ページ", edit_cat_path(cat), class: 'mr-4 underline text-blue-500' %>
+      <%= link_to cat_path(cat),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+        <i class="bi bi-trash-fill"></i>
+        <% end %>
+    </div>
+  <% end %>
+
+</div>
+ </div>
+</div>
