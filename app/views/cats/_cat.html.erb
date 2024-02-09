@@ -3,22 +3,11 @@
     <div class="mb-4">
       <div data-controller="modal" data-modal-allow-background-close="true">
         <button data-action="click->modal#open">
-          <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-32 h-32 rounded-full object-cover shadow-xl hover:scale-110' %>
+          <%= image_tag cat.avatar_url, class: 'w-32 h-32 rounded-full object-cover shadow-xl hover:scale-110' %>
          </button>
          <%= render 'cats/show', cat: cat %>
       </div>
     </div>
     <h2 class="text-xl font-bold mb-2"><%= cat.decorate.cat_name %></h2>
- 
-    <% if logged_in? && current_user.own?(cat) %>
-      <div class="flex space-x-6">
-        <%= link_to edit_cat_path(cat), class: 'underline text-blue-500' do %>
-        <i class="bi bi-pencil-fill"></i>
-        <% end %>
-        <%= link_to cat_path(cat),class: 'underline text-red-500',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
-        <i class="bi bi-trash-fill"></i>
-        <% end %>
-      </div>
-    <% end %>
   </div>
 </div>

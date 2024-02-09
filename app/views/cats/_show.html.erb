@@ -9,52 +9,55 @@
 <div class="text-black p-6 rounded-md accent-color">
 
   <div class="flex flex-col">
-  <h1 class="lg:text-4xl text-2xl font-bold mb-4"><%= cat.decorate.cat_name %>の詳細ページ</h1>
+  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center"><%= cat.decorate.cat_name %>の詳細ページ</div>
 
+  <div class="flex items-center space-x-6 mb-2">
   <div class="mb-4">
-    <h1 class="text-xl font-bold">ネコの名前</h1>
-    <p><%= cat.name %></p>
+    <%= image_tag cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
   </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold">飼い主さんのお名前</h1>
-    <p><%= cat.user.name %></p>
+  <div class="flex flex-col">
+    <div class="mb-1">
+    <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
+    <div><%= cat.name %></div>
   </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>のネコ種</h1>
-    <p><%= cat.cat_breed.name %></p>
+    <% if cat.birthday.present? %>
+    <div class="mb-1">
+    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の誕生日</div>
+    <div><%= cat.birthday.strftime('%Y年%m月%d日') %>(<%= cat.decorate.cat_age %>)</div>
   </div>
-
-  <% if cat.birthday.present? %>
-    <div class="mb-4">
-      <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の誕生日</h1>
-      <p><%= cat.birthday.strftime('%Y年%m月%d日') %>だよ</p>
-    </div>
-
-    <div class="mb-4">
-      <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の年齢</h1>
-      <p><%= cat.decorate.cat_age %></p>
-    </div>
-  <% end %>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の紹介</h1>
-    <p><%= cat.self_introduction %></p>
+    <% end %>
+    <div class="mb-1">
+    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の性別</div>
+    <div><%= cat.gender_i18n %></div>
   </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の性別</h1>
-    <p><%= cat.gender_i18n %></p>
+    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>のネコ種</div>
+    <div><%= cat.cat_breed.name %></div>
   </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold"><%= cat.decorate.cat_name %>の写真</h1>
-    <%= image_tag cat.avatar_url, id: 'avatar-preview', class: 'w-32 h-32 h-auto rounded-md' %>
+</div>
+<% if cat.self_introduction.present? %>
+<div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+  <div class="whitespace-pre-line text-sm"><%= cat.self_introduction %></div>
+</div>
+<% end %>
+<div class="flex flex-col">
+  <div class="mb-2">
+    <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
+    <div><%= cat.user.name %></div>
   </div>
+<div class="flex justify-center items-center space-x-4">
+  <div class="mb-1">
+    <%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %>
+  </div>
+  <% if cat.user.self_introduction.present? %>
 
+<div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+  <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
+</div>
+<% end %>
+</div>
+</div>
   <% if logged_in? && current_user.own?(cat) %>
-    <div class="flex">
+    <div class="flex justify-end">
       <%= link_to edit_cat_path(cat), class: 'mr-4 underline text-blue-500' do %>
       <i class="bi bi-pencil-fill"></i>
       <% end %>
