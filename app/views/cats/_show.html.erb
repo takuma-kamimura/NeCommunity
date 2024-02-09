@@ -5,10 +5,13 @@
  <!-- Modal Container -->
  <div data-modal-target="container" 
  class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
+ 
   <!-- Modal Inner Container -->
   <div class="rounded-md base-color p-3">
 <div class="text-black p-6 rounded-md accent-color border border-black border-2">
-
+  <div class="absolute top-0 right-0 p-3 md:invisible">
+    <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
+  </div>
   <div class="flex flex-col">
   <div class="lg:text-4xl text-2xl font-bold mb-4 text-center"><%= cat.decorate.cat_name %></div>
 
