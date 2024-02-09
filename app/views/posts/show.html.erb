@@ -15,10 +15,15 @@
         <% if @post.cat.present? %>
         <div class="inline-block mb-4">
           <div class="rounded-md border p-2 border-white accent-color">
-            <h3 class="text-sm lg:text-md text-center"><%= @post.cat.decorate.cat_name %></h3>
-            <%= link_to cat_path(@post.cat) do %>
-            <h3><%= image_tag @post.cat.avatar_url, class: 'w-10 h-10 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover' %></h3>
-            <%end%>
+            <h3 class="text-sm lg:text-md text-center whitespace-nowrap"><%= @post.cat.decorate.cat_name %></h3>
+            <div data-controller="modal" data-modal-allow-background-close="true">
+              <div class="text-center">
+              <button data-action="click->modal#open">
+                <%= image_tag @post.cat.avatar_url, class: 'w-10 h-10 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover hover:scale-110' %>
+               </button>
+              </div>
+               <%= render 'cats/show', cat: @post.cat %>
+            </div>
           </div>
         </div>
         <% else %>
@@ -30,7 +35,7 @@
         <%end%>
         <!-- 投稿のタイトル -->
         <div class="flex justify-center">
-        <h2 class="text-black md:text-4xl text-xl inline-block"><%= @post.title %></h2>
+        <h2 class="text-black lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
         </div>
 
         <div class="mb-4">
