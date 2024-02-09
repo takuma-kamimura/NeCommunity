@@ -8,6 +8,7 @@
   <!-- Modal Inner Container -->
 <div class="text-black p-6 rounded-md accent-color">
 
+  <div class="flex flex-col">
   <h1 class="lg:text-4xl text-2xl font-bold mb-4"><%= cat.decorate.cat_name %>の詳細ページ</h1>
 
   <div class="mb-4">
@@ -54,12 +55,15 @@
 
   <% if logged_in? && current_user.own?(cat) %>
     <div class="flex">
-      <%= link_to "#{cat.decorate.cat_name}の編集ページ", edit_cat_path(cat), class: 'mr-4 underline text-blue-500' %>
+      <%= link_to edit_cat_path(cat), class: 'mr-4 underline text-blue-500' do %>
+      <i class="bi bi-pencil-fill"></i>
+      <% end %>
       <%= link_to cat_path(cat),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
         <i class="bi bi-trash-fill"></i>
         <% end %>
     </div>
   <% end %>
+</div>
 
 </div>
  </div>
