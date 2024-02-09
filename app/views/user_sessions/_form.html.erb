@@ -1,11 +1,11 @@
 <%= form_with url: login_path, method: :post do |f| %>
   <div class="mb-4">
     <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.email_field :email, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+    <%= f.email_field :email, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white text-black" %>
   </div>
   <div class="mb-4">
     <%= f.label :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.password_field :password, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+    <%= f.password_field :password, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white text-black" %>
   </div>
   
   <div class="mb-6 text-center">

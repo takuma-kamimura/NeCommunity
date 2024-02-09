@@ -1,6 +1,6 @@
-<h3>タイトル一覧</h3>
+<div class="accent-color text-gray-500 inline-block p-1 rounded-md border-2 border-gray-500">タイトル一覧</div>
 <% @posts.each do |post| %>
-  <li class="w-80 flex items-center gap-x-3.5 py-2 px-3 accent-color text-sm text-gray-800 hover:bg-blue-200 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-blue-200 dark:hover:text-gray-300" role="option" data-autocomplete-value="<%= post.id %>" data-autocomplete-label="<%= post.title %>">
+  <li class="w-80 flex items-center rounded-md border border-black gap-x-3.5 py-2 px-3 accent-color text-sm hover:bg-blue-200 focus:ring-2 focus:ring-blue-500 dark:text-black dark:hover:bg-blue-200 dark:hover:text-gray-600" role="option" data-autocomplete-value="<%= post.id %>" data-autocomplete-label="<%= post.title %>">
     <%= post.title %>
   </li>
 <% end %>
