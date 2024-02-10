@@ -19,7 +19,7 @@
   <div class="flex items-center space-x-6 mb-2">
   <div class="mb-4">
     <div class="mb-2">
-    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage(this, #{cat.id});" %>
+    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %>
     <%= f.hidden_field :avatar_cache %>
 </div>
     <%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
@@ -31,7 +31,7 @@
   </div>
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
-    <%= f.date_field :birthday, class: "form-control bg-white px-2 py-2 text-center rounded-md border border-black" %> 
+    <%= f.date_field :birthday, class: "px-2 py-2 text-center rounded-md border border-black base-color" %> 
   </div>
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
