@@ -26,11 +26,9 @@
 <%= @cat.birthday.strftime('%Y年%m月%d日') %>
 <% end %>
 
-
 <%= turbo_stream.update "cat-gender-for-show-#{@cat.id}" do %>
 <%= @cat.gender_i18n %>
 <% end %>
-
 
 <%= turbo_stream.update "cat-breed-name-for-show-#{@cat.id}" do %>
 <%= @cat.decorate.cat_name %>のネコ種
@@ -40,7 +38,6 @@
 <%= turbo_stream.update "cat-breed-for-show-#{@cat.id}" do %>
 <%= @cat.cat_breed.name %>
 <% end %>
-
 
 <%= turbo_stream.update "cat-self_introduction-for-show-#{@cat.id}" do %>
 <%= @cat.self_introduction %>
@@ -56,4 +53,8 @@
 
 <%= turbo_stream.update "cat-breed-name-for-edit-#{@cat.id}" do %>
 <%= @cat.decorate.cat_name %>のネコ種
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-edit-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
 <% end %>

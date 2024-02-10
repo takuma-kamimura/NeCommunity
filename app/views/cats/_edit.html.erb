@@ -1,72 +1,69 @@
 <!-- Modal Background -->
-<div class="hidden fixed inset-0 overflow-y-auto flex items-center justify-center"
-        data-modal-target="background"
-        data-action="click->modal#closeBackground">
- <!-- Modal Container -->
- <div data-modal-target="container" 
- class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
- 
-  <!-- Modal Inner Container -->
-  <div class="rounded-md base-color p-1 lg:p-3">
-<div class="text-black p-6 rounded-md accent-color border border-black border-2">
-  <div class="absolute top-0 right-0 p-3 md:invisible">
-    <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
-  </div>
-  <div class="flex flex-col">
-    <%= form_with model: cat do |f| %>
-  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
+<div class="hidden fixed inset-0 overflow-y-auto flex items-center justify-center" data-modal-target="background" data-action="click->modal#closeBackground">
+  <!-- Modal Container -->
+  <div data-modal-target="container" class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
+    <!-- Modal Inner Container -->
+    <div class="rounded-md base-color p-1 lg:p-3">
+      <div class="text-black p-6 rounded-md accent-color border border-black border-2">
+        <div class="absolute top-0 right-0 p-3 md:invisible">
+          <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="flex flex-col">
+          <%= form_with model: cat do |f| %>
+          <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
-  <div class="flex items-center space-x-6 mb-2">
-  <div class="mb-4">
-    <div class="mb-2">
-    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %>
-    <%= f.hidden_field :avatar_cache %>
-</div>
-    <%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
-  </div>
-  <div class="flex flex-col">
-    <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
-    <%= f.text_field :name, class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white"%>
-  </div>
-    <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
-    <%= f.date_field :birthday, class: "px-2 py-2 text-center rounded-md border border-black base-color" %> 
-  </div>
-    <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
-    <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
-  </div>
-    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
-    <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+          <div class="flex items-center space-x-6 mb-2">
+            <div class="mb-4">
+              <div class="mb-2">
+                <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %> <%= f.hidden_field :avatar_cache %>
+              </div>
+              <div id="cat-avatar-for-edit-<%= cat.id %>"><%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %></div>
+              <div class="mb-4">
+                <%= f.check_box :remove_cat_avatar, checked: false%> <%= f.label :remove_cat_avatar, "画像の設定を解除する", class: 'text-sm md:text-md'%>
+              </div>
+            </div>
+            <div class="flex flex-col">
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
+                <%= f.text_field :name, class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white"%>
+              </div>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
+                <%= f.date_field :birthday, class: "px-2 py-2 text-center rounded-md border border-black base-color" %>
+              </div>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
+                <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border border-black rounded-md
+                w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
+              </div>
+              <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
+              <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2
+              px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+            </div>
+          </div>
+          <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
+          focus:outline-none focus:shadow-outline bg-white" %>
+          <div class="flex flex-col">
+            <div class="mb-2">
+              <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
+              <div><%= cat.user.name %></div>
+            </div>
+            <div class="flex justify-center items-center space-x-4">
+              <div class="mb-1"><%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %></div>
+              <% if cat.user.self_introduction.present? %>
 
+              <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+                <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black", data: { action: "modal#close" } %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
-    <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
-<div class="flex flex-col">
-  <div class="mb-2">
-    <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
-    <div><%= cat.user.name %></div>
-  </div>
-<div class="flex justify-center items-center space-x-4">
-  <div class="mb-1">
-    <%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %>
-  </div>
-  <% if cat.user.self_introduction.present? %>
-
-<div class="mb-4 border border-black border-2 base-color rounded-md p-2">
-  <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
-</div>
-<% end %>
-</div>
-</div>
-<div class="flex justify-end">
-<%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black", data: { action: "modal#close" } %>
-</div>
-<% end %>
-</div>
-
-</div>
- </div>
-</div>
 </div>
