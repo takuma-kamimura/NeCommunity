@@ -56,5 +56,5 @@
 <% end %>
 
 <%= turbo_stream.update "cat-avatar-for-edit-#{@cat.id}" do %>
-<%= image_tag @cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
+<%= image_tag @cat.avatar_url, id: "preview-#{@cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
 <% end %>

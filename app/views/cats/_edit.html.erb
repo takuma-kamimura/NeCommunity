@@ -17,7 +17,9 @@
               <div class="mb-2">
                 <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %> <%= f.hidden_field :avatar_cache %>
               </div>
-              <div id="cat-avatar-for-edit-<%= cat.id %>"><%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %></div>
+              <div id="cat-avatar-for-edit-<%= cat.id %>">
+                <%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
+              </div>
               <div class="mb-4">
                 <%= f.check_box :remove_cat_avatar, checked: false%> <%= f.label :remove_cat_avatar, "画像の設定を解除する", class: 'text-sm md:text-md'%>
               </div>

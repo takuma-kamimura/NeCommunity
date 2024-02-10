@@ -66,12 +66,12 @@ class CatsController < ApplicationController
           # redirect_to cats_path
         else
           flash.now[:danger] = t('messages.cats.update_faild')
-          render :edit, status: :unprocessable_entity
+          # render :edit, status: :unprocessable_entity
         end
       else
         # 添付ファイルが猫とは関係ない画像だった場合
         flash.now[:danger] = t('messages.cats.cat_validation')
-        render :edit, status: :unprocessable_entity
+        # render :edit, status: :unprocessable_entity
       end
     else
       # 画像を添付していない場合の処理
