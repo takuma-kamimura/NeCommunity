@@ -30,14 +30,14 @@
     <%= f.text_field :name, class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white"%>
   </div>
     <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の誕生日</div>
+    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
     <%= f.date_field :birthday, class: "form-control bg-white px-2 py-2 text-center rounded-md border border-black" %> 
   </div>
     <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の性別</div>
+    <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
     <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
   </div>
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>のネコ種</div>
+    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
     <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
 
   </div>

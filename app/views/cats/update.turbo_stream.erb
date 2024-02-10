@@ -49,3 +49,11 @@
 <%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>
 <%= @cat.decorate.cat_name %>
 <% end %>
+
+<%= turbo_stream.update "cat-birthday-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>の誕生日
+<% end %>
+
+<%= turbo_stream.update "cat-breed-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>のネコ種
+<% end %>
