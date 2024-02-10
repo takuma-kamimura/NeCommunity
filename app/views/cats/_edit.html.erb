@@ -14,7 +14,7 @@
   </div>
   <div class="flex flex-col">
     <%= form_with model: cat do |f| %>
-  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center"><%= cat.decorate.cat_name %></div>
+  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
   <div class="flex items-center space-x-6 mb-2">
   <div class="mb-4">
@@ -61,7 +61,7 @@
 </div>
 </div>
 <div class="flex justify-end">
-<%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %>
+<%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black", data: { action: "modal#close" } %>
 </div>
 <% end %>
 </div>

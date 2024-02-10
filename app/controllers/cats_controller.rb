@@ -63,7 +63,7 @@ class CatsController < ApplicationController
         if @cat.update(cat_params)
            # 添付ファイルが猫の画像だった場合
           flash[:success] = t('messages.cats.update')
-          redirect_to cats_path
+          # redirect_to cats_path
         else
           flash.now[:danger] = t('messages.cats.update_faild')
           render :edit, status: :unprocessable_entity
@@ -78,7 +78,7 @@ class CatsController < ApplicationController
       @cat = Cat.find_by(id: params[:id])
       if @cat.update(cat_params)
         flash[:success] = t('messages.cats.update')
-        redirect_to cats_path
+        # redirect_to cats_path
       else
         flash.now[:danger] = t('messages.cats.update_faild')
         render :edit, status: :unprocessable_entity

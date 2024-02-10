@@ -13,34 +13,34 @@
     <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="flex flex-col">
-  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center"><%= cat.decorate.cat_name %></div>
+  <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
   <div class="flex items-center space-x-6 mb-2">
-  <div class="mb-4">
+  <div class="mb-4" id="cat-avatar-for-show-<%= cat.id %>">
     <%= image_tag cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
   </div>
   <div class="flex flex-col">
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
-    <div><%= cat.name %></div>
+    <div id="cat-name-for-show-sm-<%= cat.id %>"><%= cat.name %></div>
   </div>
     <% if cat.birthday.present? %>
     <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の誕生日</div>
-    <div><%= cat.birthday.strftime('%Y年%m月%d日') %>(<%= cat.decorate.cat_age %>)</div>
+    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
+    <div id="cat-birthday-for-show-<%= cat.id %>"><%= cat.birthday.strftime('%Y年%m月%d日') %>(<%= cat.decorate.cat_age %>)</div>
   </div>
     <% end %>
     <div class="mb-1">
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の性別</div>
-    <div><%= cat.gender_i18n %></div>
+    <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
+    <div id="cat-gender-for-show-<%= cat.id %>"><%= cat.gender_i18n %></div>
   </div>
-    <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>のネコ種</div>
-    <div><%= cat.cat_breed.name %></div>
+    <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
+    <div id="cat-breed-for-show-<%= cat.id %>"><%= cat.cat_breed.name %></div>
   </div>
 </div>
 <% if cat.self_introduction.present? %>
 <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
-  <div class="whitespace-pre-line text-sm"><%= cat.self_introduction %></div>
+  <div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= cat.id %>"><%= cat.self_introduction %></div>
 </div>
 <% end %>
 <div class="flex flex-col">

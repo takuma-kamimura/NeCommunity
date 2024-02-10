@@ -1,0 +1,51 @@
+  <%= turbo_stream.update "cat-name-for-index-#{@cat.id}" do %>
+    <%= @cat.decorate.cat_name %>
+  <% end %>
+
+  <%= turbo_stream.update "cat-name-for-show-#{@cat.id}" do %>
+  <%= @cat.decorate.cat_name %>
+<% end %>
+
+<%= turbo_stream.update "cat-name-for-show-sm-#{@cat.id}" do %>
+<%= @cat.name %>
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-index-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, class: 'w-32 h-32 rounded-full object-cover shadow-xl hover:scale-110' %>
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-show-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
+<% end %>
+
+<%= turbo_stream.update "cat-birthday-name-for-show-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>の誕生日
+<% end %>
+
+<%= turbo_stream.update "cat-birthday-for-show-#{@cat.id}" do %>
+<%= @cat.birthday.strftime('%Y年%m月%d日') %>
+<% end %>
+
+
+<%= turbo_stream.update "cat-gender-for-show-#{@cat.id}" do %>
+<%= @cat.gender_i18n %>
+<% end %>
+
+
+<%= turbo_stream.update "cat-breed-name-for-show-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>のネコ種
+<% end %>
+
+
+<%= turbo_stream.update "cat-breed-for-show-#{@cat.id}" do %>
+<%= @cat.cat_breed.name %>
+<% end %>
+
+
+<%= turbo_stream.update "cat-self_introduction-for-show-#{@cat.id}" do %>
+<%= @cat.self_introduction %>
+<% end %>
+
+<%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>
+<% end %>
