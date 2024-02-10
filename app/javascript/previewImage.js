@@ -15,8 +15,8 @@
 
 document.addEventListener("DOMContentLoaded", function () {
   // ファイルフィールドから選択された画像をプレビューする関数
-  window.previewImage = function(input) {
-    const preview = document.getElementById("preview");
+  window.previewImage = function(input, catId) {
+    const preview = document.getElementById("preview-"+ catId);
     if (input.files && input.files[0]) {
       const reader = new FileReader();
 
