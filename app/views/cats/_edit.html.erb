@@ -1,5 +1,5 @@
 <!-- Modal Background -->
-<div class="hidden fixed inset-0 bg-black bg-opacity-80 overflow-y-auto flex items-center justify-center"
+<div class="hidden fixed inset-0 overflow-y-auto flex items-center justify-center"
         data-modal-target="background"
         data-action="click->modal#closeBackground">
  <!-- Modal Container -->
@@ -13,36 +13,36 @@
     <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
   </div>
   <div class="flex flex-col">
+    <%= form_with model: cat do |f| %>
   <div class="lg:text-4xl text-2xl font-bold mb-4 text-center"><%= cat.decorate.cat_name %></div>
 
   <div class="flex items-center space-x-6 mb-2">
   <div class="mb-4">
-    <%= image_tag cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
+    <div class="mb-2">
+    <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage(this);" %>
+    <%= f.hidden_field :avatar_cache %>
+</div>
+    <%= image_tag cat.avatar_url, id: 'preview', class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
   </div>
   <div class="flex flex-col">
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
-    <div><%= cat.name %></div>
+    <%= f.text_field :name, class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white"%>
   </div>
-    <% if cat.birthday.present? %>
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の誕生日</div>
-    <div><%= cat.birthday.strftime('%Y年%m月%d日') %>(<%= cat.decorate.cat_age %>)</div>
+    <%= f.date_field :birthday, class: "form-control bg-white px-2 py-2 text-center rounded-md border border-black" %> 
   </div>
-    <% end %>
     <div class="mb-1">
     <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>の性別</div>
-    <div><%= cat.gender_i18n %></div>
+    <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
   </div>
     <div class="text-sm font-bold text-gray-500 mb-1"><%= cat.decorate.cat_name %>のネコ種</div>
-    <div><%= cat.cat_breed.name %></div>
+    <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+
   </div>
 </div>
-<% if cat.self_introduction.present? %>
-<div class="mb-4 border border-black border-2 base-color rounded-md p-2">
-  <div class="whitespace-pre-line text-sm"><%= cat.self_introduction %></div>
-</div>
-<% end %>
+    <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
 <div class="flex flex-col">
   <div class="mb-2">
     <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
@@ -60,19 +60,10 @@
 <% end %>
 </div>
 </div>
-  <% if logged_in? && current_user.own?(cat) %>
-    <div class="flex justify-end">
-      <div data-controller="modal" data-modal-allow-background-close="true">
-        <button class="mr-4 text-blue-500" data-action="click->modal#open">
-      <i class="bi bi-pencil-fill"></i>
-    </button>
-    <%= render 'cats/edit', cat: cat %>
-      </div>
-      <%= link_to cat_path(cat),class: 'text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
-        <i class="bi bi-trash-fill"></i>
-        <% end %>
-    </div>
-  <% end %>
+<div class="flex justify-end">
+<%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %>
+</div>
+<% end %>
 </div>
 
 </div>
