@@ -9,8 +9,8 @@
           <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="flex flex-col">
-          <%#= form_with(model: cat, remote: true, html: { onsubmit: "codeAddress();" }) do |f| %> <%= form_with(model: cat, remote: true, html: { onsubmit: "submitForm(event);" }) do |f| %>
-          <div id="flash-messages-container"></div>
+           <%= form_with(model: cat) do |f| %>
+          <div class="mb-2" id="flash-messages-container"></div>
 
           <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
@@ -83,37 +83,72 @@
   // console.log(errorMessage);
   // }
 
-  function submitForm(event) {
-    event.preventDefault();
+  // function submitForm(event) {
+  //   event.preventDefault();
 
-    const flash = document.getElementById("flash-messages-container");
-  let html = "";
-  html += "<h1>ああああ</h1>";
+  //   const flash = document.getElementById("flash-messages-container");
+  //   let html = "";
+
+  //   var form = event.target;
+  //   var formData = new FormData(form);
+
+  //   fetch(form.action, {
+  //     method: form.method,
+  //     body: formData,
+  //     headers: {
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // レスポンスデータを処理する
+  //       if (data.success) {
+  //         // 成功時の処理
+  //         alert(data.message);
+  //       } else {
+  //         // エラー時の処理
+  //         // alert(data.message);
+  //         html += `<h1 class="bg-red-100 border-red-400 text-red-700">${data.message}</h1>`;
+  //         flash.innerHTML = html;
+
+  //         // 3秒後にメッセージを非表示にする
+  //         setTimeout(() => {
+  //           flash.innerHTML = ""; // メッセージを削除することで非表示にします
+  //         }, 3000);
+  //         // 'bg-red-100 border-red-400 text-red-700'
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }
   
-    var form = event.target;
-    var formData = new FormData(form);
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   const myForm = document.getElementById('my-form');
 
-    fetch(form.action, {
-      method: form.method,
-      body: formData,
-      headers: {
-        Accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // レスポンスデータを処理する
-        if (data.success) {
-          // 成功時の処理
-          alert(data.message);
-        } else {
-          // エラー時の処理
-          alert(data.message);
-          flash.innerHTML = html;
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }
+  //   if (myForm) {
+  //     myForm.addEventListener('submit', function(event) {
+  //       // フォームが送信された時の処理
+  //       event.preventDefault();
+
+  //       // 送信前に何か処理を追加できる
+
+  //       // フォームの送信を遅延させる（この例では3秒に設定）
+  //       setTimeout(function() {
+  //         // 3秒後にメッセージを非表示にする
+  //         const flashMessagesContainer = document.getElementById('flash-messages-container');
+  //         flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
+
+  //         // フォームの実際の送信処理をここに追加
+  //         myForm.submit();
+  //       }, 3000);
+  //     });
+  //   }
+  // });
+
+   // 3秒後にメッセージを非表示にする
+   setTimeout(() => {
+    const flashMessagesContainer = document.getElementById('flash-messages-container');
+    flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
+  }, 3000);
 </script>

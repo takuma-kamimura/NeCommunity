@@ -72,6 +72,7 @@ class CatsController < ApplicationController
         # 添付ファイルが猫とは関係ない画像だった場合
         flash.now[:danger] = t('messages.cats.cat_validation')
         # render :edit, status: :unprocessable_entity
+        render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
       end
     else
       # 画像を添付していない場合の処理
@@ -80,21 +81,10 @@ class CatsController < ApplicationController
         flash[:success] = t('messages.cats.update')
         # redirect_to cats_path
       else
-       
-        # flash.now[:danger] = t('messages.cats.update_faild')
-        # render :edit, status: :unprocessable_entity
-        # render json: { message: t('messages.cats.update_faild') }, status: :unprocessable_entity
-        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
-
-        # end
-        # respond_to do |format|
-          # format.html { render :edit, status: :unprocessable_entity }
-        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
-        # flash[:error] = t('messages.cats.update_faild')
-        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
         flash.now[:danger] = t('messages.cats.update_faild')
-  render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
-        # end
+        # render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
+        # エラー時の Turbo Stream
+    render turbo_stream: turbo_stream.append('flash-messages-container', partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' })
       end
     end
   end

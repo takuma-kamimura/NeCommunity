@@ -1,0 +1,5 @@
+# // 3秒後にメッセージを非表示にする
+setTimeout(() => {
+  const flashMessagesContainer = document.getElementById('flash-messages-container');
+  flashMessagesContainer.innerHTML = ''; #// メッセージを削除して非表示にする
+}, 3000);
