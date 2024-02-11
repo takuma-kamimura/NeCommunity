@@ -80,8 +80,21 @@ class CatsController < ApplicationController
         flash[:success] = t('messages.cats.update')
         # redirect_to cats_path
       else
+       
+        # flash.now[:danger] = t('messages.cats.update_faild')
+        # render :edit, status: :unprocessable_entity
+        # render json: { message: t('messages.cats.update_faild') }, status: :unprocessable_entity
+        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
+
+        # end
+        # respond_to do |format|
+          # format.html { render :edit, status: :unprocessable_entity }
+        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
+        # flash[:error] = t('messages.cats.update_faild')
+        # render json: { success: false, message: t('messages.cats.update_faild') }, status: :unprocessable_entity
         flash.now[:danger] = t('messages.cats.update_faild')
-        render :edit, status: :unprocessable_entity
+  render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
+        # end
       end
     end
   end

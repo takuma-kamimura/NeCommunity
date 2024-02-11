@@ -9,7 +9,9 @@
           <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="flex flex-col">
-          <%= form_with model: cat do |f| %>
+          <%#= form_with(model: cat, remote: true, html: { onsubmit: "codeAddress();" }) do |f| %> <%= form_with(model: cat, remote: true, html: { onsubmit: "submitForm(event);" }) do |f| %>
+          <div id="flash-messages-container"></div>
+
           <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
           <div class="flex items-center space-x-6 mb-2">
@@ -17,12 +19,8 @@
               <div class="mb-2">
                 <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %> <%= f.hidden_field :avatar_cache %>
               </div>
-              <div id="cat-avatar-for-edit-<%= cat.id %>">
-                <%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
-              </div>
-              <div class="mb-4">
-                <%= f.check_box :remove_cat_avatar, checked: false%> <%= f.label :remove_cat_avatar, "画像の設定を解除する", class: 'text-sm md:text-md'%>
-              </div>
+              <div id="cat-avatar-for-edit-<%= cat.id %>"><%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %></div>
+              <div class="mb-4"><%= f.check_box :remove_cat_avatar, checked: false%> <%= f.label :remove_cat_avatar, "画像の設定を解除する", class: 'text-sm md:text-md'%></div>
             </div>
             <div class="flex flex-col">
               <div class="mb-1">
@@ -60,12 +58,62 @@
               <% end %>
             </div>
           </div>
-          <div class="flex justify-end">
-            <%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black", data: { action: "modal#close" } %>
-          </div>
+          <div class="flex justify-end"><%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %></div>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
+<script>
+  // function codeAddress() {
+  // const flash = document.getElementById("flash-messages-container");
+  // let html = "";
+  // html += "<h1>ああああ</h1>";
+  // flash.innerHTML = html;
+
+  // console.log("テスト");
+
+  // const flashContainer = document.getElementById("flash-messages-container");
+  // let errorMessage = "<%= j flash[:error] %>";
+  // let html = "";
+  // html += `<h1>${errorMessage}</h1>`;
+  // flashContainer.innerHTML = html;
+  // console.log(errorMessage);
+  // }
+
+  function submitForm(event) {
+    event.preventDefault();
+
+    const flash = document.getElementById("flash-messages-container");
+  let html = "";
+  html += "<h1>ああああ</h1>";
+  
+    var form = event.target;
+    var formData = new FormData(form);
+
+    fetch(form.action, {
+      method: form.method,
+      body: formData,
+      headers: {
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // レスポンスデータを処理する
+        if (data.success) {
+          // 成功時の処理
+          alert(data.message);
+        } else {
+          // エラー時の処理
+          alert(data.message);
+          flash.innerHTML = html;
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+</script>
