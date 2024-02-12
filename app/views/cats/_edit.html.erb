@@ -6,11 +6,11 @@
     <div class="rounded-md base-color p-1 lg:p-3">
       <div class="text-black p-6 rounded-md accent-color border border-black border-2">
         <div class="absolute top-0 right-0 p-3 md:invisible">
-          <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
+          <button id="test-<%=cat.id%>" class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="flex flex-col">
-           <%= form_with(model: cat) do |f| %>
-          <div class="mb-2" id="flash-messages-container"></div>
+          <%= form_with(model: cat) do |f| %>
+          <div class="mb-2" id="flash-messages-container-<%= cat.id%>"></div>
 
           <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
@@ -122,7 +122,7 @@
   //       console.error("Error:", error);
   //     });
   // }
-  
+
   // document.addEventListener('DOMContentLoaded', function() {
   //   const myForm = document.getElementById('my-form');
 
@@ -146,9 +146,33 @@
   //   }
   // });
 
-   // 3秒後にメッセージを非表示にする
-   setTimeout(() => {
-    const flashMessagesContainer = document.getElementById('flash-messages-container');
-    flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
-  }, 3000);
+  // 3秒後にメッセージを非表示にする
+  //  setTimeout(() => {
+  //   const flashMessagesContainer = document.getElementById('flash-messages-container');
+  //   flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
+  // }, 3000);
+
+  // document.addEventListener("turbo:before-stream-render", function (event) {
+  //   // Turbo Streamsがコンテンツをレンダリングする前に実行される処理
+  //   // var flashMessagesContainer = event.target.getElementById(`flash-messages-container-<%= cat.id %>`);
+  //   var id = `flash-messages-container2-<%= cat.id %>`;
+  //   var flashMessagesContainer = document.getElementById(id);
+  //   var catId = "<%= cat.id %>";
+  //   var escapedCatId = catId.replace(/\W/g, "\\$&");
+
+  //   var test = document.querySelector(`#test-${"<%= cat.id %>"}`);
+  //   console.log(test);
+
+  //   if (flashMessagesContainer.textContent.includes("猫ちゃんの情報を更新しました！")) {
+  //     var containsText = flashMessagesContainer.textContent.includes("猫ちゃんの情報を更新しました！");
+
+  //     console.log(containsText);
+  //     // data-action="modal#close"をトリガーする
+  //     // var closeButton = document.querySelector(`[data-action="modal#close"]`);
+  //     var closeButton = document.querySelector(`#test-${"<%= cat.id %>"}`);
+  //     if (closeButton) {
+  //       closeButton.click();
+  //     }
+  //   }
+  // });
 </script>
