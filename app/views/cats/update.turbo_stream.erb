@@ -63,8 +63,8 @@
 <%= @cat.cat_breed.name %>
 <% end %>
 
-<%= turbo_stream.update "cat-self_introduction-for-show-#{@cat.id}" do %>
-<%= @cat.self_introduction %>
+<%= turbo_stream.replace "cat-self_introduction-for-show-#{@cat.id}" do %>
+<div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= @cat.id %>"><%= @cat.self_introduction %></div>
 <% end %>
 
 <%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>
