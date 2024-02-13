@@ -63,6 +63,7 @@
 <%= @cat.cat_breed.name %>
 <% end %>
 
+# ここは「turbo_stream.update」ではなく「turbo_stream.replace」だとちゃんと動いた。
 <%= turbo_stream.replace "cat-self_introduction-for-show-#{@cat.id}" do %>
 <div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= @cat.id %>"><%= @cat.self_introduction %></div>
 <% end %>
