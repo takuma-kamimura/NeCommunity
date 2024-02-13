@@ -4,6 +4,10 @@
 
   <%= turbo_stream.update "cat-name-for-show-#{@cat.id}" do %>
   <%= @cat.decorate.cat_name %>
+
+  <%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
+  <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
+<% end %>
 <% end %>
 
 <%= turbo_stream.update "cat-name-for-show-sm-#{@cat.id}" do %>
@@ -28,6 +32,22 @@
 
 <%= turbo_stream.update "cat-gender-for-show-#{@cat.id}" do %>
 <%= @cat.gender_i18n %>
+
+<%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
+  <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
+<% end %>
+<script>
+
+  var id = `flash-messages-container-<%= @cat.id %>`;
+  var flashMessagesContainer = document.getElementById(id);
+  var catId = "<%= @cat.id %>";
+  var escapedCatId = catId.replace(/\W/g, "\\$&");
+  var test = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  var closeButton = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  if (closeButton) {
+    closeButton.click();
+  }
+</script>
 <% end %>
 
 <%= turbo_stream.update "cat-breed-name-for-show-#{@cat.id}" do %>
@@ -45,6 +65,7 @@
 
 <%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>
 <%= @cat.decorate.cat_name %>
+
 <% end %>
 
 <%= turbo_stream.update "cat-birthday-name-for-edit-#{@cat.id}" do %>
