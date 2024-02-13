@@ -1,36 +1,35 @@
 <% content_for(:title, "#{current_user.name}さんのプロフィール") %>
 
 <div class="text-black">
-    <div class="flex items-center justify-center">
-<div class="ml-4 mt-4">
-  <h1 class="lg:text-4xl text-2xl mb-6"><%= current_user.name %>の詳細ページ</h1>
-  <div class="mb-3 flex flex-wrap">
-    <%= link_to 'プロフィール編集ページ', edit_profile_path, class: 'btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap' %>
+  <div class="flex items-center justify-center">
+    <div class="ml-4 mt-4">
+      <h1 class="lg:text-4xl text-2xl mb-6"><%= current_user.name %>の詳細ページ</h1>
+      <div class="mb-3 flex"><%= link_to 'プロフィール編集ページ', edit_profile_path, class: 'btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap' %></div>
+
+      <div class="mb-4">
+        <h1 class="text-xl font-bold mb-1">名前</h1>
+        <h2><%= current_user.name %></h2>
+      </div>
+
+      <div class="mb-4">
+        <h1 class="text-xl font-bold mb-1">メールアドレス</h1>
+        <h2><%= current_user.email %></h2>
+      </div>
+
+      <div class="mb-4">
+        <h1 class="text-xl font-bold mb-1">自己紹介</h1>
+        <h2><%= current_user.self_introduction %></h2>
+      </div>
+
+      <div class="mb-4">
+        <h1 class="text-xl font-bold mb-1">アバター</h1>
+        <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'mx-auto w-64 h-64 object-cover rounded-md' %>
+      </div>
+
+      <div class="mb-4">
+        <%= link_to 'Line通知機能(導入お試し中)', line_events_show_path, class: 'm-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg
+        text-sm whitespace-nowrap' %>
+      </div>
     </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">名前</h1>
-    <h2><%= current_user.name %></h2>
   </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">メールアドレス</h1>
-    <h2><%= current_user.email %></h2>
-  </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">自己紹介</h1>
-    <h2><%= current_user.self_introduction %></h2>
-  </div>
-
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">アバター</h1>
-    <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-64 h-40 object-cover rounded-md' %>
-  </div>
-
-  <div class="mb-4">
-    <%= link_to 'Line通知機能(導入お試し中)', line_events_show_path, class: 'm-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm whitespace-nowrap' %>
-  </div>
-</div>
-</div>
 </div>

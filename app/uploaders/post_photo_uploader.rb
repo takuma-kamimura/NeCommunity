@@ -14,7 +14,7 @@ class PostPhotoUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'c34caee90e20401e3fa0e8c574bdc298.jpg'
+    'post_default.webp'
   end
 
   # version :index_size do
