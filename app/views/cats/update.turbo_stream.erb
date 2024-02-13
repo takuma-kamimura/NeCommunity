@@ -8,6 +8,22 @@
   <%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
   <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
 <% end %>
+<script>
+  // 名前が入っていれば処理が動く。名前が入っていなければ動かないので、更新処理が動く時は必ず動く。
+  var id = `flash-messages-container-<%= @cat.id %>`;
+  var flashMessagesContainer = document.getElementById(id);
+  var test = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  var closeButton = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  if (closeButton) {
+    closeButton.click();
+  }
+  // 3秒後にフラッシュメッセージを非表示にする
+  setTimeout(function() {
+    flashMessagesContainer.style.display = 'none';
+  }, 3000);
+  // フラッシュメッセージを再表示可能にする
+  flashMessagesContainer.style.display = 'block';
+</script>
 <% end %>
 
 <%= turbo_stream.update "cat-name-for-show-sm-#{@cat.id}" do %>
@@ -36,18 +52,6 @@
 <%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
   <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
 <% end %>
-<script>
-
-  var id = `flash-messages-container-<%= @cat.id %>`;
-  var flashMessagesContainer = document.getElementById(id);
-  var catId = "<%= @cat.id %>";
-  var escapedCatId = catId.replace(/\W/g, "\\$&");
-  var test = document.querySelector(`#test-${"<%= @cat.id %>"}`);
-  var closeButton = document.querySelector(`#test-${"<%= @cat.id %>"}`);
-  if (closeButton) {
-    closeButton.click();
-  }
-</script>
 <% end %>
 
 <%= turbo_stream.update "cat-breed-name-for-show-#{@cat.id}" do %>

@@ -10,7 +10,7 @@
         </div>
         <div class="flex flex-col">
           <%= form_with(model: cat) do |f| %>
-          <div class="mb-2" id="flash-messages-container-<%= cat.id%>"></div>
+          <div class="mb-2" id="flash-messages-container-edit-<%= cat.id%>"></div>
 
           <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
 
@@ -152,10 +152,10 @@
   //   flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
   // }, 3000);
 
-  // document.addEventListener("turbo:before-stream-render", function (event) {
+  // document.addEventListener("change", function (event) {
   //   // Turbo Streamsがコンテンツをレンダリングする前に実行される処理
   //   // var flashMessagesContainer = event.target.getElementById(`flash-messages-container-<%= cat.id %>`);
-  //   var id = `flash-messages-container2-<%= cat.id %>`;
+  //   var id = `flash-messages-container-edit-<%= cat.id %>`;
   //   var flashMessagesContainer = document.getElementById(id);
   //   var catId = "<%= cat.id %>";
   //   var escapedCatId = catId.replace(/\W/g, "\\$&");
@@ -175,4 +175,16 @@
   //     }
   //   }
   // });
+//   document.addEventListener("change", function (event) {
+//   var idedit = `flash-messages-container-edit-<%= cat.id %>`;
+//   var flashMessagesContaineredit = document.getElementById(idedit);
+//   // console.log(flashMessagesContaineredit);
+
+//   // 3秒後にフラッシュメッセージを非表示にする
+//   setTimeout(function() {
+//     flashMessagesContaineredit.style.display = 'none';
+//   }, 3000);
+//   // フラッシュメッセージを再表示可能にする
+//   flashMessagesContaineredit.style.display = 'block';
+// });
 </script>
