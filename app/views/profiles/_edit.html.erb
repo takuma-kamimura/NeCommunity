@@ -6,14 +6,6 @@
       <div class="mb-3 text-center">
         <%= link_to 'Profile Edit', edit_profile_path, class: 'border-black btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap' %>
       </div>
-
-      <div class="mb-3 text-center" data-controller="modal" data-modal-allow-background-close="true">
-        <button data-action="click->modal#open">
-          <div class="border-black btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap">Profile Edit</div>
-        </button>
-        <%= render 'profiles/edit', current_user: current_user %>
-      </div>
-
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <div class="text-lg text-gray-500 mb-1">name</div>
         <div class="text-xl font-bold"><%= current_user.name %></div>
