@@ -10,15 +10,15 @@ class CatsController < ApplicationController
     @cat = Cat.new
   end
 
-  def show
-    @cat = Cat.find(params[:id])
-  end
+  # def show
+  #   @cat = Cat.find(params[:id])
+  # end
 
-  def edit
-    return unless set_cat.user_id == current_user.id
+  # def edit
+  #   return unless set_cat.user_id == current_user.id
 
-    @cat = Cat.find(params[:id])
-  end
+  #   @cat = Cat.find(params[:id])
+  # end
 
   def create
     @cat = Cat.new(cat_params)
