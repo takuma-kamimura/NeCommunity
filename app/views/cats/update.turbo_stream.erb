@@ -1,0 +1,86 @@
+  <%= turbo_stream.update "cat-name-for-index-#{@cat.id}" do %>
+    <%= @cat.decorate.cat_name %>
+  <% end %>
+
+  <%= turbo_stream.update "cat-name-for-show-#{@cat.id}" do %>
+  <%= @cat.decorate.cat_name %>
+
+  <%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
+  <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
+<% end %>
+<script>
+  // 名前が入っていれば処理が動く。名前が入っていなければ動かないので、更新処理が動く時は必ず動く。
+  var id = `flash-messages-container-<%= @cat.id %>`;
+  var flashMessagesContainer = document.getElementById(id);
+  var test = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  var closeButton = document.querySelector(`#test-${"<%= @cat.id %>"}`);
+  if (closeButton) {
+    closeButton.click();
+  }
+  // 3秒後にフラッシュメッセージを非表示にする
+  setTimeout(function() {
+    flashMessagesContainer.style.display = 'none';
+  }, 3000);
+  // フラッシュメッセージを再表示可能にする
+  flashMessagesContainer.style.display = 'block';
+</script>
+<% end %>
+
+<%= turbo_stream.update "cat-name-for-show-sm-#{@cat.id}" do %>
+<%= @cat.name %>
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-index-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, class: 'w-32 h-32 rounded-full object-cover shadow-xl hover:scale-110' %>
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-show-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %>
+<% end %>
+
+<%= turbo_stream.update "cat-birthday-name-for-show-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>の誕生日
+<% end %>
+
+<%= turbo_stream.update "cat-birthday-for-show-#{@cat.id}" do %>
+<%= @cat.birthday.strftime('%Y年%m月%d日') %>
+<% end %>
+
+<%= turbo_stream.update "cat-gender-for-show-#{@cat.id}" do %>
+<%= @cat.gender_i18n %>
+
+<%= turbo_stream.update "flash-messages-container-#{@cat.id}" do %>
+  <div class="bg-green-100 border-green-400 text-green-700"><%= t('messages.cats.update') %></div>
+<% end %>
+<% end %>
+
+<%= turbo_stream.update "cat-breed-name-for-show-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>のネコ種
+<% end %>
+
+
+<%= turbo_stream.update "cat-breed-for-show-#{@cat.id}" do %>
+<%= @cat.cat_breed.name %>
+<% end %>
+
+# ここは「turbo_stream.update」ではなく「turbo_stream.replace」だとちゃんと動いた。
+<%= turbo_stream.replace "cat-self_introduction-for-show-#{@cat.id}" do %>
+<div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= @cat.id %>"><%= @cat.self_introduction %></div>
+<% end %>
+
+<%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>
+
+<% end %>
+
+<%= turbo_stream.update "cat-birthday-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>の誕生日
+<% end %>
+
+<%= turbo_stream.update "cat-breed-name-for-edit-#{@cat.id}" do %>
+<%= @cat.decorate.cat_name %>のネコ種
+<% end %>
+
+<%= turbo_stream.update "cat-avatar-for-edit-#{@cat.id}" do %>
+<%= image_tag @cat.avatar_url, id: "preview-#{@cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %>
+<% end %>

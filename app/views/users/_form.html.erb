@@ -2,26 +2,26 @@
 <%= render 'shared/error_messages', object: f.object %>
     <div class="mb-4">
       <%= f.label :name, class: "block text-sm font-bold text-gray-700" %>
-      <%= f.text_field :name, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <%= f.text_field :name, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
     </div>
 
     <div class="mb-4">
       <%= f.label :email, class: "block text-sm font-bold text-gray-700" %>
-      <%= f.email_field :email, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <%= f.email_field :email, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
     </div>
 
     <div class="mb-4">
       <%= f.label :password, class: "block text-sm font-bold text-gray-700" %>
-      <%= f.password_field :password, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <%= f.password_field :password, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
     </div>
 
     <div class="mb-4">
       <%= f.label :password_confirmation, class: "block text-sm font-bold text-gray-700" %>
-      <%= f.password_field :password_confirmation, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+      <%= f.password_field :password_confirmation, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
     </div>
 
     <div class="mb-4 text-center">
-      <%= f.submit "新規登録", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline-blue" %>
+      <%= f.submit "Sign Up", class: "accent-color text-black border border-black font-bold py-2 px-4 rounded hover:bg-white" %>
     </div>
   <% end %>
 

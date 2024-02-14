@@ -20,7 +20,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
   
   def default_url # デフォルトの画像ファイル
-    'kkrn_icon_user_1.png'
+    'kkrn_icon_user_1.webp'
   end
   
   # version :index_size do

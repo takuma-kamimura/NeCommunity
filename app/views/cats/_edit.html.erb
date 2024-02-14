@@ -1,0 +1,190 @@
+<!-- Modal Background -->
+<div class="hidden fixed inset-0 overflow-y-auto flex items-center justify-center" data-modal-target="background" data-action="click->modal#closeBackground">
+  <!-- Modal Container -->
+  <div data-modal-target="container" class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
+    <!-- Modal Inner Container -->
+    <div class="rounded-md base-color p-1 lg:p-3">
+      <div class="text-black p-6 rounded-md accent-color border border-black border-2">
+        <div class="absolute top-0 right-0 p-3 md:invisible">
+          <button id="test-<%=cat.id%>" class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="flex flex-col">
+          <%= form_with(model: cat) do |f| %>
+          <div class="mb-2" id="flash-messages-container-edit-<%= cat.id%>"></div>
+
+          <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
+
+          <div class="flex items-center space-x-6 mb-2">
+            <div class="mb-4">
+              <div class="mb-2">
+                <%= f.file_field :avatar, id: 'avatar-file', class: "form-control w-32 md:w-full", accept: 'image/*', onchange: "previewImage2(this, #{cat.id});" %> <%= f.hidden_field :avatar_cache %>
+              </div>
+              <div id="cat-avatar-for-edit-<%= cat.id %>"><%= image_tag cat.avatar_url, id: "preview-#{cat.id}", class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover mx-auto' %></div>
+              <div class="mb-4"><%= f.check_box :remove_cat_avatar, checked: false%> <%= f.label :remove_cat_avatar, "設定した画像を初期化する", class: 'text-sm md:text-md'%></div>
+            </div>
+            <div class="flex flex-col">
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
+                <%= f.text_field :name, class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white"%>
+              </div>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
+                <%= f.date_field :birthday, class: "px-2 py-2 text-center rounded-md border border-black base-color" %>
+              </div>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
+                <%= f.select :gender, Cat.genders.keys.map{|k| [I18n.t("enums.cat.gender.#{k}"), k]}, { prompt: "性別を選択してください" }, { class: 'appearance-none border border-black rounded-md
+                w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white' } %>
+              </div>
+              <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-edit-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
+              <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2
+              px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+            </div>
+          </div>
+          <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
+          focus:outline-none focus:shadow-outline bg-white" %>
+          <div class="flex flex-col">
+            <div class="mb-2">
+              <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
+              <div><%= cat.user.name %></div>
+            </div>
+            <div class="flex justify-center items-center space-x-4">
+              <div class="mb-1"><%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %></div>
+              <% if cat.user.self_introduction.present? %>
+
+              <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+                <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+          <div class="flex justify-end"><%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %></div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // function codeAddress() {
+  // const flash = document.getElementById("flash-messages-container");
+  // let html = "";
+  // html += "<h1>ああああ</h1>";
+  // flash.innerHTML = html;
+
+  // console.log("テスト");
+
+  // const flashContainer = document.getElementById("flash-messages-container");
+  // let errorMessage = "<%= j flash[:error] %>";
+  // let html = "";
+  // html += `<h1>${errorMessage}</h1>`;
+  // flashContainer.innerHTML = html;
+  // console.log(errorMessage);
+  // }
+
+  // function submitForm(event) {
+  //   event.preventDefault();
+
+  //   const flash = document.getElementById("flash-messages-container");
+  //   let html = "";
+
+  //   var form = event.target;
+  //   var formData = new FormData(form);
+
+  //   fetch(form.action, {
+  //     method: form.method,
+  //     body: formData,
+  //     headers: {
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       // レスポンスデータを処理する
+  //       if (data.success) {
+  //         // 成功時の処理
+  //         alert(data.message);
+  //       } else {
+  //         // エラー時の処理
+  //         // alert(data.message);
+  //         html += `<h1 class="bg-red-100 border-red-400 text-red-700">${data.message}</h1>`;
+  //         flash.innerHTML = html;
+
+  //         // 3秒後にメッセージを非表示にする
+  //         setTimeout(() => {
+  //           flash.innerHTML = ""; // メッセージを削除することで非表示にします
+  //         }, 3000);
+  //         // 'bg-red-100 border-red-400 text-red-700'
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //     });
+  // }
+
+  // document.addEventListener('DOMContentLoaded', function() {
+  //   const myForm = document.getElementById('my-form');
+
+  //   if (myForm) {
+  //     myForm.addEventListener('submit', function(event) {
+  //       // フォームが送信された時の処理
+  //       event.preventDefault();
+
+  //       // 送信前に何か処理を追加できる
+
+  //       // フォームの送信を遅延させる（この例では3秒に設定）
+  //       setTimeout(function() {
+  //         // 3秒後にメッセージを非表示にする
+  //         const flashMessagesContainer = document.getElementById('flash-messages-container');
+  //         flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
+
+  //         // フォームの実際の送信処理をここに追加
+  //         myForm.submit();
+  //       }, 3000);
+  //     });
+  //   }
+  // });
+
+  // 3秒後にメッセージを非表示にする
+  //  setTimeout(() => {
+  //   const flashMessagesContainer = document.getElementById('flash-messages-container');
+  //   flashMessagesContainer.innerHTML = ''; // メッセージを削除して非表示にする
+  // }, 3000);
+
+  // document.addEventListener("change", function (event) {
+  //   // Turbo Streamsがコンテンツをレンダリングする前に実行される処理
+  //   // var flashMessagesContainer = event.target.getElementById(`flash-messages-container-<%= cat.id %>`);
+  //   var id = `flash-messages-container-edit-<%= cat.id %>`;
+  //   var flashMessagesContainer = document.getElementById(id);
+  //   var catId = "<%= cat.id %>";
+  //   var escapedCatId = catId.replace(/\W/g, "\\$&");
+
+  //   var test = document.querySelector(`#test-${"<%= cat.id %>"}`);
+  //   console.log(test);
+
+  //   if (flashMessagesContainer.textContent.includes("猫ちゃんの情報を更新しました！")) {
+  //     var containsText = flashMessagesContainer.textContent.includes("猫ちゃんの情報を更新しました！");
+
+  //     console.log(containsText);
+  //     // data-action="modal#close"をトリガーする
+  //     // var closeButton = document.querySelector(`[data-action="modal#close"]`);
+  //     var closeButton = document.querySelector(`#test-${"<%= cat.id %>"}`);
+  //     if (closeButton) {
+  //       closeButton.click();
+  //     }
+  //   }
+  // });
+//   document.addEventListener("change", function (event) {
+//   var idedit = `flash-messages-container-edit-<%= cat.id %>`;
+//   var flashMessagesContaineredit = document.getElementById(idedit);
+//   // console.log(flashMessagesContaineredit);
+
+//   // 3秒後にフラッシュメッセージを非表示にする
+//   setTimeout(function() {
+//     flashMessagesContaineredit.style.display = 'none';
+//   }, 3000);
+//   // フラッシュメッセージを再表示可能にする
+//   flashMessagesContaineredit.style.display = 'block';
+// });
+</script>

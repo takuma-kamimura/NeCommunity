@@ -1,0 +1,74 @@
+<!-- Modal Background -->
+<div class="hidden fixed inset-0 bg-black bg-opacity-80 overflow-y-auto flex items-center justify-center" data-modal-target="background" data-action="click->modal#closeBackground">
+  <!-- Modal Container -->
+  <div data-modal-target="container" class="hidden animated fadeIn inset-0 overflow-y-auto flex items-center justify-center">
+    <!-- Modal Inner Container -->
+    <div class="rounded-md base-color p-1 lg:p-3">
+      <div class="text-black p-6 rounded-md accent-color border border-black border-2">
+        <div class="absolute top-0 right-0 p-3 md:invisible">
+          <button class="text-4xl text-red-500" data-action="modal#close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="flex flex-col">
+          <div class="mb-2" id="flash-messages-container-<%= cat.id %>"></div>
+
+          <div class="lg:text-4xl text-2xl font-bold mb-4 text-center" id="cat-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %></div>
+
+          <div class="flex items-center space-x-6 mb-2">
+            <div class="mb-4" id="cat-avatar-for-show-<%= cat.id %>"><%= image_tag cat.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-full object-cover' %></div>
+            <div class="flex flex-col">
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">ネコの名前</div>
+                <div id="cat-name-for-show-sm-<%= cat.id %>"><%= cat.name %></div>
+              </div>
+              <% if cat.birthday.present? %>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1" id="cat-birthday-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %>の誕生日</div>
+                <div id="cat-birthday-for-show-<%= cat.id %>"><%= cat.birthday.strftime('%Y年%m月%d日') %>(<%= cat.decorate.cat_age %>)</div>
+              </div>
+              <% end %>
+              <div class="mb-1">
+                <div class="text-sm font-bold text-gray-500 mb-1">性別</div>
+                <div id="cat-gender-for-show-<%= cat.id %>"><%= cat.gender_i18n %></div>
+              </div>
+              <div class="text-sm font-bold text-gray-500 mb-1" id="cat-breed-name-for-show-<%= cat.id %>"><%= cat.decorate.cat_name %>のネコ種</div>
+              <div id="cat-breed-for-show-<%= cat.id %>"><%= cat.cat_breed.name %></div>
+            </div>
+          </div>
+          <% if cat.self_introduction.present? %>
+          <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+            <div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= cat.id %>"><%= cat.self_introduction %></div>
+          </div>
+          <% end %>
+          <div class="flex flex-col">
+            <div class="mb-2">
+              <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
+              <div><%= cat.user.name %></div>
+            </div>
+            <div class="flex justify-center items-center space-x-4">
+              <div class="mb-1"><%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %></div>
+              <% if cat.user.self_introduction.present? %>
+
+              <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
+                <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
+              </div>
+              <% end %>
+            </div>
+          </div>
+          <% if logged_in? && current_user.own?(cat) %>
+          <div class="flex justify-end">
+            <div data-controller="modal" data-modal-allow-background-close="true">
+              <button class="mr-4 text-blue-500" data-action="click->modal#open">
+                <i class="bi bi-pencil-fill"></i>
+              </button>
+              <%= render 'cats/edit', cat: cat %>
+            </div>
+            <%= link_to cat_path(cat),class: 'text-red-500 ml-4', data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+            <i class="bi bi-trash-fill"></i>
+            <% end %>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

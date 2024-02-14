@@ -29,7 +29,7 @@ module ApplicationHelper
     options.reverse_merge!(defaults)
     site = options[:site]
     title = options[:title]
-    image = options[:image].presence || image_url('OGP-image.jpg')
+    image = options[:image].presence || image_url('post_default.webp')
 
     configs = {
       separator: '|',
@@ -39,7 +39,7 @@ module ApplicationHelper
       # title: title,
       canonical: request.original_url,
       icon: {
-        href: image_url('logo.png')
+        href: image_url('logo.webp')
       },
       og: {
         type: 'website',
