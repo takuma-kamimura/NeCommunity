@@ -4,9 +4,9 @@
 <%if logged_in?%>
 <div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
   <div class="mb-4 md:mb-0">
-  <%= link_to 'いいね一覧', likes_posts_path, class: 'shadow-md m-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+  <%= link_to 'いいね一覧', likes_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% if current_user.cats.present? %>
-    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% end %>
 </div>
 <div class="mx-auto">
