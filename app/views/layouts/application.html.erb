@@ -23,14 +23,17 @@
 
 
   <body class="flex flex-col min-h-screen base-color">
-    <%= render 'shared/flash_message'%>
     <% if logged_in?%>
       <div class="shadow-md"><!-- ヘッダーに影を加える -->
       <%= render 'shared/header' %>
+      <!-- フラッシュメッセージの表示をここへ移動 -->
+      <%= render 'shared/flash_message'%>
       </div>
     <% else %>
       <div class="shadow-md"><!-- ログイン前ヘッダーに影を加える -->
       <%= render 'shared/before_login_header' %>
+      <!-- フラッシュメッセージの表示をここへ移動 -->
+      <%= render 'shared/flash_message'%>
       </div>
     <% end %>
     <div class="flex-grow">
