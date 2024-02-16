@@ -1,17 +1,11 @@
-<% content_for(:title, "#{current_user.name}さんのプロフィール") %>
+
+<%= turbo_frame_tag current_user do %>
 
 <div class="text-black">
   <div class="flex items-center justify-center">
-    <div class="ml-4 mt-8 mb-4 border border-black p-4 rounded-md shadow-md accent-color w-1/2">
+    <div class="mt-8 mb-4 border border-black p-4 rounded-md shadow-md accent-color md:w-1/2">
       <div class="mb-3 text-center">
         <%= link_to 'Profile Edit', edit_profile_path, class: 'border-black btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap' %>
-      </div>
-
-      <div class="mb-3 text-center" data-controller="modal" data-modal-allow-background-close="true">
-        <button data-action="click->modal#open">
-          <div class="border-black btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap">Profile Edit</div>
-        </button>
-        <%= render 'profiles/edit', current_user: current_user %>
       </div>
 
       <div class="mb-4 border border-black base-color rounded-md p-3">
@@ -31,13 +25,14 @@
 
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <h1 class="text-lg text-gray-500 mb-1">avatar</h1>
-        <%= image_tag @user.avatar_url, id: 'avatar-preview', class: ' mx-auto w-64 h-64 object-cover rounded-md mb-4' %>
+        <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'mx-auto w-full h-full object-cover rounded-md mb-4' %>
       </div>
 
-      <div class="mb-4">
+      <div class="mb-4 text-center">
         <%= link_to 'Line通知機能ON', line_events_show_path, class: 'shadow-md m-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg
         text-sm whitespace-nowrap' %>
       </div>
     </div>
   </div>
 </div>
+<%end%>

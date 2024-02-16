@@ -1,48 +1,54 @@
-<% content_for(:title, "#{current_user.name}さんのプロフィール編集ページ") %>
-
+<%= turbo_frame_tag current_user do %>
 <div class="text-black">
-  <div class="container mx-auto">
-    <h1 class="lg:text-4xl text-2xl mb-4">プロフィール編集ページ</h1>
-  
-    <%= form_with model: @user, url: profile_path, html: { class: 'max-w-md mx-auto bg-white p-8 rounded shadow-md' } do |f| %>
+  <div class="flex items-center justify-center">
+    <div class="mt-8 mb-4 border border-black p-4 rounded-md shadow-md accent-color md:w-1/2">
+    <%= form_with model: @user, url: profile_path do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
-      <div class="mb-4">
-        <%= f.label :name, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= f.text_field :name, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+
+    <div class="mb-3 text-center">
+      <div class='border-black py-2 px-4 inline-block border border-black rounded-md font-bold bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap'>While editing</div>
+    </div>
+
+      <div class="mb-4 border border-black base-color rounded-md p-3">
+        <div class="text-lg text-gray-500 mb-1"><%= f.label :name %></div>
+        <div class="text-xl font-bold"> <%= f.text_field :name, class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-  
-      <div class="mb-4">
-        <%= f.label :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= f.email_field :email, class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+
+      <div class="mb-4 border border-black base-color rounded-md p-3">
+        <div class="text-lg text-gray-500 mb-1"><%= f.label :email %></div>
+        <div class="text-xl font-bold"><%= f.email_field :email, class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-  
-      <div class="mb-4">
-        <%= f.label :self_introduction, class: "block text-gray-700 text-sm font-bold mb-2" %>
-        <%= f.text_area :self_introduction, placeholder:'自己紹介についてはまだ未記入です', class: "appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+
+      <div class="mb-4 border border-black base-color rounded-md p-3">
+        <div class="text-lg text-gray-500 mb-1"><%= f.label :self_introduction %></div>
+        <div class="text-xl font-bold"><%= f.text_area :self_introduction, placeholder:'自己紹介についてはまだ未記入です', class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-  
+
       <div class="mb-4">
-        <%= f.label :avatar, for: 'avatar-file' %>
-        <%= f.file_field :avatar, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
-        <%= f.hidden_field :avatar_cache %>
+        <div class="mb-2">
+          <%= f.label :avatar, for: 'avatar-file', class: 'text-lg text-gray-500' %>
+        </div>
+        <%= f.file_field :avatar, id: 'avatar-file', class: "form-control inline-block", accept: 'image/*', onchange: "previewImage(this);" %>
+        <%= f.hidden_field :avatar_cache, class: 'inline-block'%>
+        <div class="mt-4">
+          <%= image_tag @user.avatar_url, id: 'preview', class: 'mx-auto w-full h-full object-cover rounded-md mb-4' %>
+        </div>
       </div>
-  
-      <div class="mb-4">
-        <%= image_tag @user.avatar_url, id: 'preview', class: 'w-full rounded-md' %>
-      </div>
-  
+
       <div class="mb-4">
         <%= f.check_box :remove_avatar %>
         <%= f.label :remove_avatar, "設定した画像を初期化する" %>
       </div>
 
-      <div class="mb-4">
-        <%= f.submit "更新", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+      <div class="mb-4 text-center">
+        <%= f.submit "Update", class: "border-black btn accent-color hover:bg-white text-black shadow-lg md:text-lg text-sm whitespace-nowrap" %>
       </div>
       <div class="mb-4 text-right">
-        <%= link_to '退会', delete_confirmation_profile_path, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link_to '退会', delete_confirmation_profile_path, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline shadow-md" %>
       </div>
     <% end %>
 
   </div>
 </div>
+</div>
+<% end %>
