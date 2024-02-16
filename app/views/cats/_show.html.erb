@@ -39,21 +39,6 @@
             <div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= cat.id %>"><%= cat.self_introduction %></div>
           </div>
           <% end %>
-          <div class="flex flex-col">
-            <div class="mb-2">
-              <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
-              <div><%= cat.user.name %></div>
-            </div>
-            <div class="flex justify-center items-center space-x-4">
-              <div class="mb-1"><%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %></div>
-              <% if cat.user.self_introduction.present? %>
-
-              <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
-                <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
-              </div>
-              <% end %>
-            </div>
-          </div>
           <% if logged_in? && current_user.own?(cat) %>
           <div class="flex justify-end">
             <div data-controller="modal" data-modal-allow-background-close="true">
