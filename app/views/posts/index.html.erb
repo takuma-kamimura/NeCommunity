@@ -12,7 +12,9 @@
 <div class="mx-auto">
 <%= render 'search', q: @q, url: posts_path %>
 </div>
+<div class="ml-auto mt-4 lg:mt-0">
   <%= link_to '新規投稿ページ', new_post_path, class: 'shadow-md m-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+</div>
 </div>
 <%else%>
 <div class="py-4 px-4 flex justify-center items-center">
