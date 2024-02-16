@@ -2,7 +2,7 @@
 
 <!--- 投稿一覧ページ --->
 <%if logged_in?%>
-<div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
+<div class="py-4 md:px-4 px-2 flex items-center justify-center justify-between flex-wrap">
   <div class="mb-4 md:mb-0">
   <%= link_to 'いいね一覧', likes_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
   <% if current_user.cats.present? %>
