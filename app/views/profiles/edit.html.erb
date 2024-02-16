@@ -1,29 +1,28 @@
 <%= turbo_frame_tag current_user do %>
+<%= render 'shared/flash_message'%>
+
 <div class="text-black">
   <div class="flex items-center justify-center">
     <div class="mt-8 mb-4 border border-black p-4 rounded-md shadow-md accent-color md:w-1/2">
     <%= form_with model: @user, url: profile_path do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
-
+    <div class="mb-2">
+      <%= render 'shared/error_messages', object: f.object %>
+    </div>
     <div class="mb-3 text-center">
       <div class='border-black py-2 px-4 inline-block border border-black rounded-md font-bold bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap'>While editing</div>
     </div>
-
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <div class="text-lg text-gray-500 mb-1"><%= f.label :name %></div>
         <div class="text-xl font-bold"> <%= f.text_field :name, class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <div class="text-lg text-gray-500 mb-1"><%= f.label :email %></div>
         <div class="text-xl font-bold"><%= f.email_field :email, class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <div class="text-lg text-gray-500 mb-1"><%= f.label :self_introduction %></div>
         <div class="text-xl font-bold"><%= f.text_area :self_introduction, placeholder:'自己紹介についてはまだ未記入です', class: "appearance-none border border-black rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %></div>
       </div>
-
       <div class="mb-4">
         <div class="mb-2">
           <%= f.label :avatar, for: 'avatar-file', class: 'text-lg text-gray-500' %>
@@ -34,12 +33,10 @@
           <%= image_tag @user.avatar_url, id: 'preview', class: 'mx-auto w-full h-full object-cover rounded-md mb-4' %>
         </div>
       </div>
-
       <div class="mb-4">
         <%= f.check_box :remove_avatar %>
         <%= f.label :remove_avatar, "設定した画像を初期化する" %>
       </div>
-
       <div class="mb-4 text-center">
         <%= f.submit "Update", class: "border-black btn accent-color hover:bg-white text-black shadow-lg md:text-lg text-sm whitespace-nowrap" %>
       </div>
@@ -47,7 +44,6 @@
         <%= link_to '退会', delete_confirmation_profile_path, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline shadow-md" %>
       </div>
     <% end %>
-
   </div>
 </div>
 </div>
