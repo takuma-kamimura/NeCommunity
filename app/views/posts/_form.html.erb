@@ -1,35 +1,44 @@
 <div class="flex items-center justify-center text-black">
-    <%= form_with(model: @post, local: true) do |f| %>
+    <%= form_with(model: @post, local: true, class: 'md:w-1/2') do |f| %>
+    <div class="shadow-md border border-black accent-color p-3 rounded-md">
     <%= render 'shared/error_messages', object: f.object %>
-    <div class="mb-3">
+    <div class="mb-4">
         <%= f.label :title %>
-        <%= f.text_field :title, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline bg-white', required: false %>
+        <%= f.text_field :title, class: 'border border-black rounded-md appearance-none focus:outline-none w-full py-2 px-3 text-black bg-white', required: false %>
       </div>
-    
-      <div class="mb-3">
-        <%= f.label :body %>
-        <%= f.text_area :body, rows: 5, class: 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline resize-none bg-white', required: false %>
-      </div>
-  
-  <!-- 猫の選択用のドロップダウンメニュー -->
-  <%= f.collection_select :cat_id, current_user.cats, :id, :name, { prompt: "ネコを選択してください" }, { class: "bg-white" }  %>
 
-  <div class="mb-3">
+      <div class="mb-4">
+        <%= f.label :body %>
+        <%= f.text_area :body, rows: 5, style: 'resize: none;', class: 'border border-black rounded-md appearance-none focus:outline-none w-full py-2 px-3 text-black bg-white', required: false %>
+      </div>
+
+  <!-- 猫の選択用のドロップダウンメニュー -->
+  <div class="mb-4">
+  <%= f.collection_select :cat_id, current_user.cats.order(created_at: :asc), :id, :name, { prompt: "ネコを選択してください" }, { class: "border border-black rounded-md appearance-none focus:outline-none w-full py-2 px-3 text-black bg-white" }  %>
+</div>
+
+  <div class="mb-4">
+    <div class="mb-2">
     <%= f.label :photo, for: 'avatar-file' %>
-    <%= f.file_field :photo, id: 'avatar-file', class: "form-control", accept: 'image/*', onchange: "previewImage(this);" %>
+  </div>
+    <%= f.file_field :photo, id: 'avatar-file', class: "form-control rounded", accept: 'image/*', onchange: "previewImage(this);" %>
     <%= f.hidden_field :photo_cache %>
   </div>
-  <div class="mb-3">
-    <%= image_tag @post.photo_url, id: 'preview', size: '300x200' %>
+  <div class="mb-4">
+    <div class="text-center">
+    <%= image_tag @post.photo_url, id: 'preview', size: '300x200', class: 'border border-black rounded-md inline-block shadow-md' %>
   </div>
+</div>
 
   <!-- 下記よりタグ機能 -->
-  <div class="mb-3">
+  <div class="mb-4">
     <%= f.label :tag %>
-    <%= f.text_field :name, class: 'form-control bg-white', placeholder:",で区切ってください", value: @tags %>
+    <%= f.text_field :name, class: 'p-2 form-control bg-white rounded-md border border-black', placeholder:",で区切ってください", value: @tags %>
     </div>
-
-  <%= f.submit "投稿", class: "btn accent-color hover:bg-white text-black shadow-md mb-3" %>
+    <div class="text-center">
+      <%= f.submit "投稿", class: "btn accent-color hover:bg-white text-black shadow-lg mb-3" %>
+    </div>
+</div>
 <% end %>
 
 </div>

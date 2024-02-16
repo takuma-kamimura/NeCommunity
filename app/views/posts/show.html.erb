@@ -15,7 +15,7 @@
         <% if @post.cat.present? %>
         <div class="inline-block mb-4">
           <div class="rounded-md border p-2 border-white accent-color">
-            <h3 class="text-sm lg:text-md text-center whitespace-nowrap"><%= @post.cat.decorate.cat_name %></h3>
+            <div class="text-sm lg:text-md text-center whitespace-nowrap" id="cat-name-for-post-show-<%= @post.cat.id %>"><%= @post.cat.decorate.cat_name %></div>
             <div data-controller="modal" data-modal-allow-background-close="true">
               <div class="text-center">
               <button data-action="click->modal#open">
