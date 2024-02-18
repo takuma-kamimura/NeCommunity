@@ -5,10 +5,10 @@ ja:
       comment: 'コメント'
     attributes:
       user:
-        email: 'email'
-        password: 'password'
-        password_confirmation: 'password_confirmation'
-        name: 'name'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: 'パスワード確認'
+        name: '名前'
         self_introduction: '自己紹介'
         avatar: 'プロフィール画像'
       cat:
