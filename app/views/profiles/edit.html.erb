@@ -9,7 +9,8 @@
       <%= render 'shared/error_messages', object: f.object %>
     </div>
     <div class="mb-3 text-center">
-      <div class='border-black py-2 px-4 inline-block border border-black rounded-md font-bold bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap'>While editing</div>
+      <div class="border-black btn accent-color hover:bg-white text-black shadow-md md:text-lg text-sm whitespace-nowrap"><%= link_to "Back",profile_path %></div>
+
     </div>
       <div class="mb-4 border border-black base-color rounded-md p-3">
         <div class="text-lg text-gray-500 mb-1"><%= f.label :name %></div>
