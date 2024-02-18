@@ -41,9 +41,11 @@
               px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
             </div>
           </div>
-          <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
+          <%= f.text_area :self_introduction, rows: 2, style: 'resize: none;', placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
           focus:outline-none focus:shadow-outline bg-white" %>
-          <div class="flex justify-end"><%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %></div>
+          <div class="flex justify-end">
+            <%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %>
+          </div>
           <% end %>
         </div>
       </div>
