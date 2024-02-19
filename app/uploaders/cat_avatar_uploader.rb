@@ -14,7 +14,7 @@ class CatAvatarUploader < CarrierWave::Uploader::Base
   end
 
   def default_url # デフォルトの画像ファイル
-    'ねこフリー画像.webp'
+    'cat_default.webp'
   end
 
   # version :index_size do
