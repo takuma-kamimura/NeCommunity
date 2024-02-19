@@ -14,7 +14,7 @@ class LineEventsController < ApplicationController
     @user.line_id = nil
     @user.save
     flash[:success] = t('messages.line_events.line_registration_deletion')
-    redirect_to root_path
+    redirect_to profile_path
   end
   
   def client

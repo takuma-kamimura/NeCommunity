@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get :delete_confirmation
     end
   end
-  resources :cats, only: %i(index new show edit create update destroy)
+  resources :cats, only: %i(index new create update destroy)
   resources :password_resets, only: %i[new create edit update] # パスワードリセット用
   # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? # 開発環境用メーラー
   

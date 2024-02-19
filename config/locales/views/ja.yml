@@ -27,8 +27,8 @@ ja:
       title: '新規健康記録'
   helpers:
     label:
-      email: 'メールアドレス'
-      password: 'パスワード'
+      email: 'email'
+      password: 'password'
   messages:
     users:
       logged_in: 'ようこそ！ログインしました！'

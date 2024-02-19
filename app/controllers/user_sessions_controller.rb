@@ -9,7 +9,7 @@ class UserSessionsController < ApplicationController
       flash[:success] = t('messages.users.logged_in') # 'ログインに成功しました。'
       redirect_to posts_path
     else
-      flash[:danger] = t('messages.users.login_faild')
+      flash.now[:danger] = t('messages.users.login_faild')
       render :new, status: :unprocessable_entity
     end
   end

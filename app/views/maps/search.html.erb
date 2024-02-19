@@ -1,15 +1,15 @@
 <!-- app/views/maps/search.html.erb -->
 <div class= "text-black p-3">
-<div class="mb-3 lg:text-4xl text-xl">ネコちゃんの動物病院検索</div>
+<div class="mb-3 lg:text-4xl text-xl">ネコの動物病院検索</div>
 <div class="mb-4">
 <%= form_with(url: search_maps_path, method: :get, remote: true, html: { onsubmit: "codeAddress(); return false;" }) do |form| %>
  <%= form.label :location, "検索する場所:" %>
-  <%= form.text_field :location, placeholder: '市・地名を入力', class: "text-black bg-white" %>
+  <%= form.text_field :location, placeholder: '市・地名を入力', class: "text-black bg-white rounded-md border border-black px-1" %>
   <%= form.submit "検索", class: "btn accent-color hover:bg-white text-black shadow-md rounded" %>
 <% end %>
 </div>
 <div class="md:flex">
-<div id='map' class="md:flex-1 mb-2"></div>
+<div id='map' class="md:flex-1 mb-2 rounded-md border border-black"></div>
  <div id="hospital-list-html" class="px-2 overflow-y-auto max-h-screen"></div>
 </div>
 </div>

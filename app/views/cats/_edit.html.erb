@@ -41,24 +41,11 @@
               px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
             </div>
           </div>
-          <%= f.text_area :self_introduction, placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
+          <%= f.text_area :self_introduction, rows: 2, style: 'resize: none;', placeholder:'まだこのネコちゃんの紹介については未記入です', class: "appearance-none border border-black border-2 rounded-md w-full py-2 px-3 leading-tight
           focus:outline-none focus:shadow-outline bg-white" %>
-          <div class="flex flex-col">
-            <div class="mb-2">
-              <div class="text-sm font-bold text-gray-500 mb-2">飼い主さんのお名前</div>
-              <div><%= cat.user.name %></div>
-            </div>
-            <div class="flex justify-center items-center space-x-4">
-              <div class="mb-1"><%= image_tag cat.user.avatar_url, class: 'w-32 h-32 lg:w-40 lg:h-40 rounded-md object-cover' %></div>
-              <% if cat.user.self_introduction.present? %>
-
-              <div class="mb-4 border border-black border-2 base-color rounded-md p-2">
-                <div class="whitespace-pre-line text-sm"><%= cat.user.self_introduction %></div>
-              </div>
-              <% end %>
-            </div>
+          <div class="flex justify-end">
+            <%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %>
           </div>
-          <div class="flex justify-end"><%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-xl rounded-md border border-black" %></div>
           <% end %>
         </div>
       </div>
