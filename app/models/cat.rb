@@ -4,7 +4,7 @@ class Cat < ApplicationRecord
   has_many :posts, dependent: :destroy
   mount_uploader :avatar, CatAvatarUploader # AvatarUploader # アバターアップローダー、useで使ってるものと同じものを使う。
   enum gender: { Male: 0, Female: 1 }
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 15 }
   validates :gender, presence: true
   validates :self_introduction, length: { maximum: 500 }
 
