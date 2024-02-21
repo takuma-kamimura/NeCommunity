@@ -6,7 +6,7 @@ class Cat < ApplicationRecord
   enum gender: { Male: 0, Female: 1 }
   validates :name, presence: true, length: { maximum: 15 }
   validates :gender, presence: true
-  validates :self_introduction, length: { maximum: 500 }
+  validates :self_introduction, length: { maximum: 200 }
 
   # プロフィール画像解除用として追加。
   attr_accessor :remove_cat_avatar
