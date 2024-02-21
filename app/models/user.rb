@@ -13,14 +13,14 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy # 「user」も「like」もお互いを所有。多対多の関係。
   has_many :like_posts, through: :likes, source: :post # likeを経由してuserに紐づいたpostを取得することができる。
 
-  validates :name, presence: true, length: { maximum: 255 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
+  validates :name, presence: true, length: { maximum: 15 } # 7/09追加　新規登録時に名前が空欄だとエラーで処理を受け付けなくする。
   validates :email, presence: true
   # 下記、gem sorceryの案内ホームページで書かれている内容のため追記
   validates :password, presence: true, length: { minimum: 3 }, if: -> { new_record? || changes[:crypted_password] }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validates :email, uniqueness: true
-  validates :self_introduction, length: { maximum: 500 }
+  validates :self_introduction, length: { maximum: 200 }
   validates :reset_password_token, uniqueness: true, allow_nil: true # パスワードリセット用
   mount_uploader :avatar, AvatarUploader # アバターアップローダー
   enum role: { general: 0, admin: 1 }
