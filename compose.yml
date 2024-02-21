@@ -21,6 +21,7 @@ services:
       - ./config/certs:/app/config/certs
     environment:
       TZ: Asia/Tokyo
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
     ports:
       - "3000:3000"
     depends_on:
@@ -37,6 +38,10 @@ services:
       - "443:443"
     depends_on:
       - web
+  chrome:
+    image: seleniarm/standalone-chromium:latest
+    ports:
+      - 4444:4444
 
 volumes:
   postgres_data:

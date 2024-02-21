@@ -11,6 +11,7 @@ module App
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    config.assets.css_compressor = nil # scss設定ありでRails Newしてしまったため、Tailwind cssと干渉しないようにこちらを追加。Rspecでおかしくなった。
 
      # 2行追記:デフォルトのlocaleを日本語(:ja)にする.
      config.i18n.default_locale = :ja
