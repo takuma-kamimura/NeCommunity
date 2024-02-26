@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-  # let(:user) { create(:user) }
   describe 'User-Create' do
     it "名前がない場合は登録できないこと" do
       user = build(:user, name: nil)
@@ -23,6 +21,10 @@ RSpec.describe User, type: :model do
       user = build(:user, password_confirmation: nil)
       user.valid? # バリデーションにより保存できないかチェック
       expect(user.errors[:password_confirmation]).to include("を入力してください")
+    end
+    it "名前・メールアドレス・パスワードが３文字以上で入力され新規登録が有効" do
+      user = build(:user)
+      expect(user).to be_valid
     end
   end
 end
