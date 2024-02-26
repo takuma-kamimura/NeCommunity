@@ -26,6 +26,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - chrome
   nginx:  # 追加した部分
     build:
       context: .
