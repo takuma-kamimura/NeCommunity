@@ -86,5 +86,17 @@ RSpec.describe "Cats", type: :system do
         expect(current_path).to eq(cats_path)
       end
     end
+    context '入力内容が正常' do
+      it "猫の紹介が200文字以内の場合でかつ、猫が正常に登録されること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+      end
+    end
   end
 end
