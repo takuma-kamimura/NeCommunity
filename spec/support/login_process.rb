@@ -1,12 +1,9 @@
 module Login_process
     def login_process(user)
-      visit root_path
-      find('.fa-solid.fa-bars.fa-2x').click
-      click_link "Login"
+      visit login_path
       fill_in 'email', with: user.email
-      fill_in 'password', with: user.password
+      fill_in 'password', with: 'password'
       click_button 'Login'
-    #   Capybara.assert_current_path("/boards", ignore_query: true)
     end
     # def login_as_admin(user)
     #   visit admin_login_path

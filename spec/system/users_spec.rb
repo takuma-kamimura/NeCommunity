@@ -16,7 +16,6 @@ RSpec.describe "Users", type: :system do
         expect(page).to have_content('申し訳ありません 新規登録に失敗しました')
         expect(page).to have_content('名前を入力してください')
         expect(current_path).to eq(new_user_path)
-
       end
     end
     context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
