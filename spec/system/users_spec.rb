@@ -20,6 +20,18 @@ RSpec.describe "Users", type: :system do
       end
     end
     context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
+      it "名前が16文字以上の場合はエラーメッセージが表示されること" do
+        fill_in 'user[name]', with: 'a' * 16
+        fill_in 'user[email]', with: 'test@email.com'
+        fill_in 'user[password]', with: 'test'
+        fill_in 'user[password_confirmation]', with: 'test'
+        click_button 'Sign Up'
+        expect(page).to have_content('申し訳ありません 新規登録に失敗しました')
+        expect(page).to have_content('名前は15文字以内で入力してください')
+        expect(current_path).to eq(new_user_path)
+      end
+    end
+    context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
       it "メールアドレスがない場合はエラーメッセージが表示されること" do
         fill_in 'user[name]', with: 'test'
         fill_in 'user[email]', with: nil

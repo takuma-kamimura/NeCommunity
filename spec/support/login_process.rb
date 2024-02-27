@@ -16,8 +16,7 @@ module Login_process
     #   Capybara.assert_current_path("/admin", ignore_query: true)
     # end
   end
-  
+
   RSpec.configure do |config|
     config.include Login_process
   end
-  
