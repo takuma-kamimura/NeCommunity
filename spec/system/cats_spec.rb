@@ -22,6 +22,7 @@ RSpec.describe "Cats", type: :system do
         select cat_breed.name, from: 'cat[cat_breed_id]'
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの名前を入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
         expect(current_path).to eq(new_cat_path)
       end
     end
@@ -33,6 +34,7 @@ RSpec.describe "Cats", type: :system do
         select cat_breed.name, from: 'cat[cat_breed_id]'
         click_button 'ネコを登録する'
         expect(page).to have_content('性別を入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
         expect(current_path).to eq(new_cat_path)
       end
     end
@@ -44,6 +46,7 @@ RSpec.describe "Cats", type: :system do
         select 'ネコの種類を選択してください', from: 'cat[cat_breed_id]'
         click_button 'ネコを登録する'
         expect(page).to have_content('猫種を入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
         expect(current_path).to eq(new_cat_path)
       end
     end
@@ -55,6 +58,7 @@ RSpec.describe "Cats", type: :system do
         select cat_breed.name, from: 'cat[cat_breed_id]'
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの名前は15文字以内で入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
         expect(current_path).to eq(new_cat_path)
       end
     end
@@ -67,6 +71,7 @@ RSpec.describe "Cats", type: :system do
         fill_in 'cat[self_introduction]', with: 'a' * 201
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの紹介は200文字以内で入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
         expect(current_path).to eq(new_cat_path)
       end
     end

@@ -14,13 +14,24 @@ RSpec.describe "Posts", type: :system do
   describe '新規投稿時のテスト' do
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
       it "タイトルがない場合はエラーメッセージが表示されること" do
-        # expect(current_path).to eq(posts_path)
         visit new_post_path
-        # fill_in 'cat[name]', with: nil
-        # select '女の子', from: 'cat_gender'
-        # select cat_breed.name, from: 'cat[cat_breed_id]'
-        # click_button 'ネコを登録する'
-        # expect(page).to have_content('ネコの名前を入力してください')
+        fill_in 'post[title]', with: nil
+        fill_in 'post[body]', with: 'test-body'
+        click_button '投稿'
+        expect(page).to have_content('申し訳ありません 新規投稿に失敗しました')
+        expect(page).to have_content('タイトルを入力してください')
+        expect(current_path).to eq(new_post_path)
+      end
+    end
+    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+      it "投稿内容がない場合はエラーメッセージが表示されること" do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: nil
+        click_button '投稿'
+        expect(page).to have_content('申し訳ありません 新規投稿に失敗しました')
+        expect(page).to have_content('投稿内容を入力してください')
+        expect(current_path).to eq(new_post_path)
       end
     end
   end
