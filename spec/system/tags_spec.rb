@@ -75,7 +75,7 @@ RSpec.describe "Tags", type: :system do
         expect(page).to have_content('test-tag3')
         expect(current_path).to eq(posts_path)
 
-        post = Post.last  # 最後に作成された投稿を取得
+        post = Post.last
         visit edit_post_path(post)
         expect(page).to have_selector("input[value='test-tag,test-tag2,test-tag3']")
         fill_in 'post[name]', with: 'test-tag,test-tag-edit,test-tag-edit2'

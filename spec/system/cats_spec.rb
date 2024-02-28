@@ -8,12 +8,12 @@ RSpec.describe "Cats", type: :system do
     # 開発環境のデータをコピーしてテスト用データベースに保存
     CatBreed.create!(name: 'マンチカン')
   end
-  before do
-    login_process(user)
-    visit root_path
-    visit cats_path
-  end
   describe '猫新規登録時のテスト' do
+    before do
+      login_process(user)
+      visit root_path
+      visit cats_path
+    end
     context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
       it "名前がない場合はエラーメッセージが表示されること" do
         visit new_cat_path
@@ -95,6 +95,44 @@ RSpec.describe "Cats", type: :system do
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+      end
+    end
+  end
+  describe '猫編集・更新時のテスト' do
+    before do
+      login_process(user)
+      visit root_path
+      visit cats_path
+    end
+    context '入力内容が正常' do
+      it "登録した猫を編集し、更新できること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test-cat'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+
+        cat = Cat.last
+        button_id = "cat-avatar-for-index-#{cat.id}"
+        find("button##{button_id}").click
+        edit_button_id = "cat-edit-#{cat.id}"
+        find("button##{edit_button_id}").click
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content('女の子')
+        expect(page).to have_content(cat.cat_breed.name)
+        expect(page).to have_content(cat.self_introduction)
+        fill_in 'cat[name]', with: 'test-edit-cat'
+        select '男の子', from: 'cat_gender'
+        fill_in 'cat[self_introduction]', with: 'b' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの情報を更新しました！')
+        expect(page).to have_content('test-edit-cat')
+        expect(page).to have_content('男の子')
+        expect(page).to have_content('b' * 200)
         expect(current_path).to eq(cats_path)
       end
     end

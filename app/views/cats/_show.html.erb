@@ -42,7 +42,7 @@
           <% if logged_in? && current_user.own?(cat) %>
           <div class="flex justify-end">
             <div data-controller="modal" data-modal-allow-background-close="true">
-              <button class="mr-4 text-blue-500" data-action="click->modal#open">
+              <button class="mr-4 text-blue-500" data-action="click->modal#open" id="cat-edit-<%= cat.id %>">
                 <i class="bi bi-pencil-fill"></i>
               </button>
               <%= render 'cats/edit', cat: cat %>
