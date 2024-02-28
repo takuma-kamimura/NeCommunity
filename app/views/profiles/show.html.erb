@@ -1,3 +1,4 @@
+<% content_for(:title, "#{current_user.name}さんのプロフィール") %>
 
 <%= turbo_frame_tag current_user do %>
   <!-- ターボを使っているのでここにフラッシュメッセージのパーシャルファイルを設置。 -->
