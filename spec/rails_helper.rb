@@ -44,12 +44,15 @@ RSpec.configure do |config|
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
+  # config.include Sorcery::TestHelpers::Rails::Request, type: :request # 追加
+
   config.before(:each, type: :system) do
     driven_by :remote_chrome
     Capybara.server_host = IPSocket.getaddress(Socket.gethostname)
     Capybara.server_port = 4444
     Capybara.app_host = "http://#{Capybara.server_host}:#{Capybara.server_port}"
     Capybara.ignore_hidden_elements = false
+    Capybara.current_session.driver.browser.file_detector = nil # 「You are trying to upload something that isn't a file.」というエラーが出たため追加したら解消した
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

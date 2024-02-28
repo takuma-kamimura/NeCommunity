@@ -78,7 +78,7 @@ gem 'fog-aws' # awss3画像アップロード用
 
 gem 'mini_magick' # 画像変換
 
-gem "faker" # 初期データ導入
+# gem "faker" # 初期データ導入
 
 gem 'meta-tags' # ツイッターOGP画像設定用
 
@@ -96,7 +96,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
-  # gem "faker" # ダミーデータ作成用
+  gem "faker" # ダミーデータ作成用
 end
 
 group :development do
