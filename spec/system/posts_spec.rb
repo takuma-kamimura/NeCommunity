@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Posts", type: :system do
   let(:user) { create(:user) }
+  let(:cat) { create(:cat) }
   let!(:cat_breed) do
     # 開発環境のデータをコピーしてテスト用データベースに保存
     CatBreed.create!(name: 'マンチカン')
