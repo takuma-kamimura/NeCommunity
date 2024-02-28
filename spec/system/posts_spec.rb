@@ -111,11 +111,9 @@ RSpec.describe "Posts", type: :system do
     let!(:cat) { create(:cat, user: another_user, cat_breed: cat_breed) }
     let!(:cat2) { create(:cat, user: another_user2, cat_breed: cat_breed) }
     let!(:cat3) { create(:cat, user: another_user3, cat_breed: cat_breed) }
-
     let!(:post) { create(:post, user: another_user, cat: cat) }
     let!(:post2) { create(:post, user: another_user2, cat: cat2) }
     let!(:post3) { create(:post, user: another_user3, cat: cat3) }
-
     before do
       login_process(user)
       visit root_path
