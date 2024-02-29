@@ -1,31 +1,57 @@
 require 'rails_helper'
 
 RSpec.describe "Likes", type: :system do
-  let!(:user) { create(:user) }
-  let!(:like_user) { create(:user) }
-  let!(:like_post) { create(:post, user: like_user) }
-  let!(:delete_like_post) { create(:post, user: like_user) }
-  let!(:like) { create(:like, user: user, post: delete_like_post) }
-  before do
-    login_process(user)
-    visit root_path
-    visit posts_path
-  end
-  describe 'いいねのテスト' do
-    it "投稿にいいねができること" do
+  describe '投稿一覧画面でのいいねの作成・削除テスト' do
+    let!(:user) { create(:user) }
+    let!(:like_user) { create(:user) }
+    let!(:like_post) { create(:post, user: like_user) }
+    let!(:delete_like_post) { create(:post, user: like_user) }
+    let!(:like) { create(:like, user: user, post: delete_like_post) }
+    before do
+      login_process(user)
+      visit root_path
+      visit posts_path
+    end
+    it "投稿一覧画面で投稿にいいねができること" do
       find("#like-button-for-post-#{like_post.id}").click
       find("#like-button-for-post-#{like_post.id}").click
       expect(page).not_to have_css("#like-button-for-post-#{like_post.id}")
       expect(page).to have_css("#unlike-button-for-post-#{like_post.id}")
     end
-    it "投稿につけたいいねを削除できること" do
+    it "投稿一覧画面で投稿につけたいいねを削除できること" do
       find("#unlike-button-for-post-#{like.post.id}").click
       find("#unlike-button-for-post-#{like.post.id}").click
       expect(page).not_to have_css("#unlike-button-for-post-#{delete_like_post.id}")
       expect(page).to have_css("#like-button-for-post-#{delete_like_post.id}")
     end
   end
+  describe '投稿詳細画面でのいいねの作成・削除テスト' do
+    let!(:user) { create(:user) }
+    let!(:like_user) { create(:user) }
+    let!(:like_post) { create(:post, user: like_user) }
+    let!(:delete_like_post) { create(:post, user: like_user) }
+    let!(:like) { create(:like, user: user, post: delete_like_post) }
+    before do
+      login_process(user)
+      visit root_path
+      visit posts_path
+    end
+    it "投稿詳細画面で投稿にいいねができること" do
+      visit post_path(like_post)
+      find("#like-button-for-post-#{like_post.id}").click
+      expect(page).not_to have_css("#like-button-for-post-#{like_post.id}")
+      expect(page).to have_css("#unlike-button-for-post-#{like_post.id}")
+      expect(current_path).to eq(post_path(like_post))
+    end
+    it "投稿詳細画面で投稿につけたいいねを削除できること" do
+      visit post_path(delete_like_post)
+      find("#unlike-button-for-post-#{like.post.id}").click
+      expect(page).not_to have_css("#unlike-button-for-post-#{delete_like_post.id}")
+      expect(page).to have_css("#like-button-for-post-#{delete_like_post.id}")
+    end
+  end
   describe 'いいねした投稿の一覧表示テスト' do
+    let!(:user) { create(:user) }
     let!(:another_user) { create(:user) }
     let!(:post1) { create(:post, user: another_user) }
     let!(:post2) { create(:post, user: another_user) }
