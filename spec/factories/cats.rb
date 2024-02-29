@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :cat do
-    name { "test-cat" }
+    sequence(:name) { |n| "cat#{n}" }
     gender { :Female }
     association :user
     association :cat_breed

@@ -1,5 +1,5 @@
 FactoryBot.define do
   factory :cat_breed do
-    name { "test-cat-breed" }
+    sequence(:name) { |n| "cat-breed#{n}" }
   end
 end
