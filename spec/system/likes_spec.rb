@@ -25,4 +25,35 @@ RSpec.describe "Likes", type: :system do
       expect(page).to have_css("#like-button-for-post-#{delete_like_post.id}")
     end
   end
+  describe 'いいねした投稿の一覧表示テスト' do
+    let!(:another_user) { create(:user) }
+    let!(:post1) { create(:post, user: another_user) }
+    let!(:post2) { create(:post, user: another_user) }
+    let!(:post3) { create(:post, user: another_user) }
+    let!(:like1) { create(:like, user: user, post: post1) }
+    let!(:like2) { create(:like, user: user, post: post2) }
+    let!(:like3) { create(:like, user: user, post: post3) }
+    before do
+      login_process(user)
+      visit root_path
+      visit posts_path
+    end
+    it "いいねした投稿がいいね一覧に表示されること" do
+      visit likes_posts_path
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(post2.title)
+      expect(page).to have_content(post3.title)
+      expect(page).to have_content(another_user.name)
+    end
+    it "いいね一覧の投稿からいいねを外すといいね一覧から消えていること" do
+      visit likes_posts_path
+      find("#unlike-button-for-post-#{like1.post.id}").click
+      find("#unlike-button-for-post-#{like1.post.id}").click
+      visit posts_path
+      visit likes_posts_path
+      expect(page).not_to have_content(post1.title)
+      expect(page).to have_content(post2.title)
+      expect(page).to have_content(post3.title)
+    end
+  end
 end
