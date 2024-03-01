@@ -40,7 +40,7 @@
 
         <div class="mb-4">
           <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
-          <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
+          <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", id: "share-button-#{@post.id}", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
   
           <!-- ログインしてるかチェック -->
           <% if logged_in? %>
@@ -50,11 +50,11 @@
               <%#= @post.likes.count %><!-- いいね -->
 
                <!-- 編集ページへのリンク -->
-          <%= link_to edit_post_path(@post), class: 'ml-4 text-blue-500' do %>
+          <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}", class: 'ml-4 text-blue-500' do %>
           <i class="bi bi-pencil-fill"></i>
         <% end %>
         <!-- 削除リンク -->
-        <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
+        <%= link_to post_path(@post), id: "button-delete-#{@post.id}", class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
           <i class="bi bi-trash-fill"></i>
         <% end %>
             <%end%>
