@@ -54,4 +54,22 @@ RSpec.describe "UserSessions", type: :system do
       end
     end
   end
+  describe 'ユーザーのログアウトテスト' do
+    context 'ログアウト処理が正常' do
+      it "ログインした後、正常にログアウトができること" do
+        visit login_path
+        fill_in 'email', with: user.email
+        fill_in 'password', with: 'password'
+        click_button 'Login'
+        expect(page).to have_content('ようこそ！ログインしました！')
+        expect(current_path).to eq(posts_path)
+        find('#bars').click
+        accept_alert do
+          click_link('Logout')
+        end
+        expect(page).to have_content('ログアウトしました')
+        expect(current_path).to eq(root_path)
+      end
+    end
+  end
 end

@@ -90,7 +90,7 @@ RSpec.describe "Comments", type: :system do
     it "自分のコメントが削除されること" do
       visit post_path(post)
       expect(page).to have_content(destroy_comment.body)
-      accept_alert do  
+      accept_alert do
         find("a[href='#{comment_path(destroy_comment)}'][data-turbo-method='delete']").click
       end
       expect(page).not_to have_content(destroy_comment.body)
