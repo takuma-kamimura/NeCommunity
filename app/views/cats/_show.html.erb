@@ -47,7 +47,7 @@
               </button>
               <%= render 'cats/edit', cat: cat %>
             </div>
-            <%= link_to cat_path(cat),class: 'text-red-500 ml-4', data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
+            <%= link_to cat_path(cat), id: "cat-delete-#{cat.id}", class: 'text-red-500 ml-4', data: { turbo_method: :delete, turbo_confirm: " 本当に削除しますか？" } do %>
             <i class="bi bi-trash-fill"></i>
             <% end %>
           </div>

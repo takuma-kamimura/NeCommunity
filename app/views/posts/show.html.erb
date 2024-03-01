@@ -18,7 +18,7 @@
             <div class="text-sm lg:text-md text-center whitespace-nowrap" id="cat-name-for-post-show-<%= @post.cat.id %>"><%= @post.cat.decorate.cat_name %></div>
             <div data-controller="modal" data-modal-allow-background-close="true">
               <div class="text-center">
-              <button data-action="click->modal#open">
+              <button data-action="click->modal#open" id="cat-avatar-for-post-show-<%= @post.cat.id %>">
                 <%= image_tag @post.cat.avatar_url, class: 'w-10 h-10 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover hover:scale-110' %>
                </button>
               </div>

@@ -106,8 +106,10 @@ RSpec.describe "Posts", type: :system do
     let!(:user) { create(:user) }
     let!(:another_user) { create(:user) }
     let!(:cat) { create(:cat, user: another_user, cat_breed: cat_breed) }
+    let!(:me_cat) { create(:cat, user: user, cat_breed: cat_breed) }
     let!(:post) { create(:post, user: another_user, cat: cat) }
     let!(:me_post) { create(:post, user: user) }
+    let!(:me_cat_post) { create(:post, user: user, cat: me_cat) }
     before do
       login_process(user)
       visit root_path
@@ -136,6 +138,28 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_css("#button-delete-#{me_post.id}")
       expect(page).to have_css("#button-edit-#{me_post.id}")
       expect(current_path).to eq(post_path(me_post))
+    end
+    it "他人が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されないこと" do
+      visit post_path(post)
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(post.body)
+      find("#cat-avatar-for-post-show-#{cat.id}").click
+      expect(page).to have_content(cat.name)
+      expect(page).to have_content('ネコの名前')
+      expect(page).not_to have_css("#cat-edit-#{cat.id }")
+      expect(page).not_to have_css("#cat-delete-#{cat.id}")
+      expect(current_path).to eq(post_path(post))
+    end
+    it "自分が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されること" do
+      visit post_path(me_cat_post)
+      expect(page).to have_content(me_cat_post.title)
+      expect(page).to have_content(me_cat_post.body)
+      find("#cat-avatar-for-post-show-#{me_cat.id}").click
+      expect(page).to have_content(me_cat.name)
+      expect(page).to have_content('ネコの名前')
+      expect(page).to have_css("#cat-edit-#{me_cat.id }")
+      expect(page).to have_css("#cat-delete-#{me_cat.id}")
+      expect(current_path).to eq(post_path(me_cat_post))
     end
   end
 
