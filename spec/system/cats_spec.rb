@@ -97,7 +97,21 @@ RSpec.describe "Cats", type: :system do
       end
     end
   end
-
+  describe '猫一覧ページの表示テスト' do
+    let!(:cat) { create(:cat, user: user) }
+    let!(:cat2) { create(:cat, user: user) }
+    let!(:cat3) { create(:cat, user: user) }
+    before do
+      login_process(user)
+      visit root_path
+      visit cats_path
+    end
+      it "登録されている猫の一覧が表示されること" do
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content(cat2.name)
+        expect(page).to have_content(cat3.name)
+      end
+  end
   describe '猫詳細ページの表示テスト' do
     let!(:cat) { create(:cat, user: user) }
     before do
@@ -114,7 +128,6 @@ RSpec.describe "Cats", type: :system do
         expect(current_path).to eq(cats_path)
       end
   end
-
   describe '猫編集・更新時のテスト' do
     before do
       login_process(user)
