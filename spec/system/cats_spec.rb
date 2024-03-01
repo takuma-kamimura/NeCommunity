@@ -128,7 +128,7 @@ RSpec.describe "Cats", type: :system do
         expect(current_path).to eq(cats_path)
       end
   end
-  describe '猫編集・更新時のテスト' do
+  describe '猫の編集・更新・削除のテスト' do
     before do
       login_process(user)
       visit root_path
@@ -249,6 +249,27 @@ RSpec.describe "Cats", type: :system do
         expect(page).to have_content('test-edit-cat')
         expect(page).to have_content('男の子')
         expect(page).to have_content('b' * 200)
+        expect(current_path).to eq(cats_path)
+      end
+    end
+    context '削除処理が正常' do
+      it "登録した猫を削除できること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test-cat'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+        cat = Cat.last
+        button_id = "cat-avatar-for-index-#{cat.id}"
+        find("button##{button_id}").click
+        accept_alert do
+          find("#cat-delete-#{cat.id}").click
+        end
+        expect(page).to have_content('猫ちゃんの情報を削除しました')
+        expect(page).not_to have_content(cat.name)
         expect(current_path).to eq(cats_path)
       end
     end
