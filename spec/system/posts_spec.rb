@@ -544,6 +544,35 @@ RSpec.describe "Posts", type: :system do
       end
     end
   end
+  describe 'ページネーションのテスト' do
+    let!(:cat_breed) do
+      # 開発環境のデータをコピーしてテスト用データベースに保存
+      CatBreed.create!(name: 'マンチカン')
+    end
+    let(:user) { create(:user) }
+    before do
+      login_process(user)
+      visit root_path
+      visit posts_path
+    end
+    context '投稿一覧が12件以内の場合' do
+      let!(:posts) { create_list(:post, 12) }
+      it "ページネーションが表示されないこと" do
+        login_process(user)
+        visit posts_path
+        expect(page).not_to have_selector('.pagination')
+      end
+    end
+    context '投稿一覧が13件以上の場合' do
+      let!(:posts) { create_list(:post, 13) }
+      it "ページネーションが表示されること" do
+        login_process(user)
+        visit posts_path
+        expect(page).to have_selector('.pagination')
+      end
+    end
+  end
+
   describe '投稿詳細ページからの投稿の編集・更新・削除のテスト' do
     let!(:user) { create(:user) }
     let!(:me_cat) { create(:cat, user: user) }
