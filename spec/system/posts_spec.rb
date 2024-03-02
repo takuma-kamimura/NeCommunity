@@ -7,6 +7,53 @@ RSpec.describe "Posts", type: :system do
     # 開発環境のデータをコピーしてテスト用データベースに保存
     CatBreed.create!(name: 'マンチカン')
   end
+  describe 'ログイン・ログアウト状態の投稿一覧の表示テスト' do
+    let!(:another_user) { create(:user) }
+    let!(:post) { create(:post, user: another_user) }
+    before do
+      visit root_path
+      visit posts_path
+    end
+    context 'ログアウト状態の場合' do
+      it "「新規投稿」ボタンが表示されないこと" do
+        expect(page).not_to have_link '新規投稿', href: new_post_path
+      end
+    end
+    context 'ログアウト状態の場合' do
+      it "「いいね一覧」ボタンが表示されないこと" do
+        expect(page).not_to have_link 'いいね一覧', href: likes_posts_path
+      end
+    end
+    context 'ログアウト状態の場合' do
+      it "「貴方の猫\'sと同猫種」ボタンが表示されないこと" do
+        expect(page).not_to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+      end
+    end
+    context 'ログイン状態の場合' do
+      it "「新規投稿」ボタンが表示されること" do
+        login_process(user)
+        visit root_path
+        visit posts_path
+        expect(page).to have_link '新規投稿', href: new_post_path
+      end
+    end
+    context 'ログイン状態の場合' do
+      it "「いいね一覧」ボタンが表示されること" do
+        login_process(user)
+        visit root_path
+        visit posts_path
+        expect(page).to have_link 'いいね一覧', href: likes_posts_path
+      end
+    end
+    context 'ログイン状態の場合' do
+      it "「貴方の猫\'sと同猫種」ボタンが表示されること" do
+        login_process(user)
+        visit root_path
+        visit posts_path
+        expect(page).to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+      end
+    end
+  end
   describe '新規投稿時のテスト' do
     before do
       login_process(user)
@@ -198,7 +245,6 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_content(cat3.name)
     end
     it "他人が投稿した投稿が一覧ページで表示され、編集ボタン、削除ボタンが表示されていないこと" do
-      # visit post_path(post)
       expect(page).to have_content(post.title)
       expect(page).to have_content(cat.name)
       expect(page).to have_content(post2.title)
@@ -572,7 +618,6 @@ RSpec.describe "Posts", type: :system do
       end
     end
   end
-
   describe '投稿詳細ページからの投稿の編集・更新・削除のテスト' do
     let!(:user) { create(:user) }
     let!(:me_cat) { create(:cat, user: user) }

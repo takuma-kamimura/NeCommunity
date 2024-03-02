@@ -52,7 +52,7 @@
   <%else%>
 <!--ログイン前-->
 <div class="ml-2 mr-2">
-  <i class="bi bi-heart" style="color: red;"></i><%= post.likes.count %>
+  <i class="bi bi-heart" id="like-before-login-for-post-<%= post.id %>" style="color: red;"></i><%= post.likes.count %>
 </div>
 <% end %>
 </div>

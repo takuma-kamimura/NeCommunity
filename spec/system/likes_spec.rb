@@ -1,6 +1,48 @@
 require 'rails_helper'
 
 RSpec.describe "Likes", type: :system do
+  describe 'ログイン・ログアウト状態の投稿一覧画面・投稿詳細画面の「いいね」ボタン表示テスト' do
+    let(:user) { create(:user) }
+    let!(:another_user) { create(:user) }
+    let!(:post) { create(:post, user: another_user) }
+    before do
+      visit root_path
+      visit posts_path
+    end
+    context 'ログアウト状態の投稿一覧画面の場合' do
+      it "投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること" do
+        expect(page).not_to have_css("#like-button-for-post-#{post.id}")
+        expect(page).to have_css("#like-before-login-for-post-#{post.id}")
+      end
+    end
+    context 'ログイン状態の投稿一覧画面の場合' do
+      it "投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること" do
+        login_process(user)
+        visit root_path
+        visit posts_path
+        expect(page).not_to have_css("#like-before-login-for-post-#{post.id}")
+        expect(page).to have_css("#like-button-for-post-#{post.id}")
+      end
+    end
+    context 'ログアウト状態の投稿一覧画面の場合' do
+      it "投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること" do
+        visit post_path(post)
+        expect(page).not_to have_css("#like-button-for-post-#{post.id}")
+        expect(page).to have_css("#like-before-login-for-post-#{post.id}")
+      end
+    end
+    context 'ログイン状態の投稿一覧画面の場合' do
+      it "投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること" do
+        login_process(user)
+        visit root_path
+        visit posts_path
+        visit post_path(post)
+        expect(page).not_to have_css("#like-before-login-for-post-#{post.id}")
+        expect(page).to have_css("#like-button-for-post-#{post.id}")
+      end
+    end
+  end
+
   describe '投稿一覧画面でのいいねの作成・削除テスト' do
     let!(:user) { create(:user) }
     let!(:like_user) { create(:user) }
