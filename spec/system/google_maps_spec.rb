@@ -14,7 +14,9 @@ RSpec.describe "GoogleMaps", type: :system do
         click_button '検索'
         # sleep 5
         expect(page).to have_selector('#hospital')
+        expect(page).to have_css('map#gmimap0')
         expect(current_path).to eq(search_maps_path)
+        # map#gmimap0 area", visible: false
         # # expect(page).to have_css('div[title="まつい犬猫病院"]', visible: true)
         # expect(page).to have_css('div[title="まつい犬猫病院"]', visible: true, wait: 30)
         puts page.body
