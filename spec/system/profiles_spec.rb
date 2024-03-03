@@ -8,6 +8,7 @@ RSpec.describe "Profiles", type: :system do
     find('#bars').click
     visit profile_path
     visit edit_profile_path
+    sleep 5
   end
   describe 'ユーザー新規登録時のテスト' do
     context '入力に不備がある場合に更新に失敗し、エラーメッセージが表示されること' do
