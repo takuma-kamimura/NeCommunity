@@ -56,7 +56,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
     super.chomp(File.extname(super)) + '.webp' if original_filename.present?
   end
 
-  def extension_whitelist # 拡張子の制限
+  # def extension_whitelist # 拡張子の制限
+  def extension_allowlist # rspecにて「def extension_whitelist」は廃止となったので左のコードへ変更
     %w[jpg jpeg gif png heic webp]
   end
 
