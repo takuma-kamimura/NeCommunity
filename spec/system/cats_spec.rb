@@ -73,6 +73,21 @@ RSpec.describe "Cats", type: :system do
         expect(current_path).to eq(new_cat_path)
       end
     end
+    context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
+      it "猫以外のアバター画像を登録しようとするとエラーメッセージが表示されること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
+        attach_file 'avatar-file', image_path
+        click_button 'ネコを登録する'
+        sleep 5
+        expect(page).to have_content('猫ちゃんに関係ない画像は設定しないでください！')
+        expect(current_path).to eq(new_cat_path)
+      end
+    end
     context '入力内容が正常' do
       it "猫が正常に登録されること" do
         visit new_cat_path
@@ -94,6 +109,22 @@ RSpec.describe "Cats", type: :system do
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
         expect(current_path).to eq(cats_path)
+      end
+    end
+    context '入力内容が正常' do
+      it "猫のアバター画像を登録できること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button 'ネコを登録する'
+        sleep 5
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+        expect(page).to have_selector("img[src$='test-cat-photo.webp']")
       end
     end
   end
@@ -221,6 +252,37 @@ RSpec.describe "Cats", type: :system do
         expect(current_path).to eq(cats_path)
       end
     end
+    context '入力に不備がある場合に更新に失敗し、エラーメッセージが表示されること' do
+      it "猫以外のアバター画像を登録しようとするとエラーメッセージが表示されること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test-cat'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+
+        cat = Cat.last
+        button_id = "cat-avatar-for-index-#{cat.id}"
+        find("button##{button_id}").click
+        edit_button_id = "cat-edit-#{cat.id}"
+        find("button##{edit_button_id}").click
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content('女の子')
+        expect(page).to have_content(cat.cat_breed.name)
+        expect(page).to have_content(cat.self_introduction)
+        fill_in 'cat[name]', with: 'test-edit-cat'
+        select '男の子', from: 'cat_gender'
+        fill_in 'cat[self_introduction]', with: 'b' * 200
+        image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
+        attach_file 'avatar-file', image_path
+        click_button 'ネコを登録する'
+        sleep 5
+        expect(page).to have_content('猫ちゃんに関係ない画像は設定しないでください！')
+        expect(current_path).to eq(cats_path)
+      end
+    end
     context '入力内容が正常' do
       it "登録した猫を編集し、更新できること" do
         visit new_cat_path
@@ -249,6 +311,71 @@ RSpec.describe "Cats", type: :system do
         expect(page).to have_content('test-edit-cat')
         expect(page).to have_content('男の子')
         expect(page).to have_content('b' * 200)
+        expect(current_path).to eq(cats_path)
+      end
+    end
+    context '入力内容が正常' do
+      it "猫のアバター画像を登録できること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test-cat'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+
+        cat = Cat.last
+        button_id = "cat-avatar-for-index-#{cat.id}"
+        find("button##{button_id}").click
+        edit_button_id = "cat-edit-#{cat.id}"
+        find("button##{edit_button_id}").click
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content('女の子')
+        expect(page).to have_content(cat.cat_breed.name)
+        expect(page).to have_content(cat.self_introduction)
+        fill_in 'cat[name]', with: 'test-edit-cat'
+        select '男の子', from: 'cat_gender'
+        fill_in 'cat[self_introduction]', with: 'b' * 200
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button 'ネコを登録する'
+        sleep 5
+        expect(page).to have_content('猫ちゃんの情報を更新しました！')
+        expect(page).to have_selector("img[src$='test-cat-photo.webp']")
+        expect(current_path).to eq(cats_path)
+      end
+    end
+    context '入力内容が正常' do
+      it "登録した猫のアバター画像を解除できること" do
+        visit new_cat_path
+        fill_in 'cat[name]', with: 'test-cat'
+        select '女の子', from: 'cat_gender'
+        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[self_introduction]', with: 'a' * 200
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button 'ネコを登録する'
+        sleep 5
+        expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
+        expect(current_path).to eq(cats_path)
+
+        cat = Cat.last
+        button_id = "cat-avatar-for-index-#{cat.id}"
+        find("button##{button_id}").click
+        edit_button_id = "cat-edit-#{cat.id}"
+        find("button##{edit_button_id}").click
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content('女の子')
+        expect(page).to have_content(cat.cat_breed.name)
+        expect(page).to have_content(cat.self_introduction)
+
+        check 'cat[remove_cat_avatar]'
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫ちゃんの情報を更新しました！')
+        expect(page).not_to have_selector("img[src$='test-cat-photo.webp']")
+        selector = "img[src*='cat_default'][src*='.webp']"
+        expect(page).to have_selector(selector)
         expect(current_path).to eq(cats_path)
       end
     end
