@@ -104,14 +104,30 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(new_post_path)
       end
     end
+    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        select cat.name, from: 'post[cat_id]'
+        image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('猫ちゃんに関係ない画像は投稿しないでください！')
+        expect(current_path).to eq(new_post_path)
+      end
+    end
     context '入力内容が正常' do
-      it "正常に投稿ができること" do
+      it "正常に投稿ができること。画像を添付していない場合はデフォルト画像が設定されていること" do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
         click_button '投稿'
         expect(page).to have_content('新規投稿が完了しました！')
         expect(current_path).to eq(posts_path)
+        selector = "img[src*='post_default'][src*='.webp']"
+        expect(page).to have_selector(selector)
       end
     end
     context '入力内容が正常' do
@@ -145,6 +161,22 @@ RSpec.describe "Posts", type: :system do
         expect(page).to have_content('新規投稿が完了しました！')
         expect(current_path).to eq(posts_path)
         expect(page).to have_content(cat.name)
+      end
+    end
+    context '入力内容が正常' do
+      it "猫の画像を添付して、正常に投稿ができること" do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        select cat.name, from: 'post[cat_id]'
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('新規投稿が完了しました！')
+        expect(current_path).to eq(posts_path)
+        expect(page).to have_content(cat.name)
+        expect(page).to have_selector("img[src$='test-cat-photo.webp']")
       end
     end
   end
@@ -377,7 +409,7 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
-    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
       it "タイトルが21文字以上の場合はエラーメッセージが表示されること" do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
@@ -407,7 +439,7 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
-    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
       it "投稿内容が501文字以上の場合はエラーメッセージが表示されること" do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
@@ -434,6 +466,39 @@ RSpec.describe "Posts", type: :system do
         click_button '投稿'
         expect(page).to have_content('申し訳ありません 投稿の更新に失敗しました')
         expect(page).to have_content('投稿内容は500文字以内で入力してください')
+        expect(current_path).to eq(edit_post_path(edit_post))
+      end
+    end
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
+      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+
+        expect(page).to have_content(post.title)
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content(post2.title)
+        expect(page).to have_content(another_user2.name)
+        expect(page).to have_content(cat2.name)
+        expect(page).to have_content(post3.title)
+        expect(page).to have_content(another_user3.name)
+        expect(page).to have_content(cat3.name)
+
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        click_button '投稿'
+        expect(page).to have_content('新規投稿が完了しました！')
+
+        edit_post = Post.last
+        visit edit_post_path(edit_post)
+        expect(current_path).to eq(edit_post_path(edit_post))
+        expect(page).to have_content(edit_post.title)
+        expect(page).to have_content(edit_post.body)
+        fill_in 'post[title]', with: 'test-edit-totle'
+        fill_in 'post[body]', with: 'test-edit-body'
+        image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('猫ちゃんに関係ない画像は投稿しないでください！')
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
@@ -563,6 +628,43 @@ RSpec.describe "Posts", type: :system do
         expect(page).to have_content(me_cat.name)
       end
     end
+    context '入力内容が正常' do
+      it "投稿に猫の画像を添付して、正常に投稿ができること" do
+        expect(page).to have_content(post.title)
+        expect(page).to have_content(cat.name)
+        expect(page).to have_content(post2.title)
+        expect(page).to have_content(another_user2.name)
+        expect(page).to have_content(cat2.name)
+        expect(page).to have_content(post3.title)
+        expect(page).to have_content(another_user3.name)
+        expect(page).to have_content(cat3.name)
+
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        click_button '投稿'
+        expect(page).to have_content('新規投稿が完了しました！')
+
+        edit_post = Post.last
+        visit edit_post_path(edit_post)
+        expect(current_path).to eq(edit_post_path(edit_post))
+        expect(page).to have_content(edit_post.title)
+        expect(page).to have_content(edit_post.body)
+        fill_in 'post[title]', with: 'edit'
+        fill_in 'post[body]', with: 'test-edit-body'
+        select me_cat.name, from: 'post[cat_id]'
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('投稿内容を更新しました！')
+        expect(current_path).to eq(posts_path)
+        expect(page).not_to have_content(edit_post.title)
+        expect(page).to have_content('edit')
+        expect(page).to have_content(me_cat.name)
+        expect(page).to have_selector("img[src$='test-cat-photo.webp']")
+      end
+    end
     context '投稿の削除の処理が正常' do
       it "自分の投稿が投稿一覧ページで削除できること" do
         expect(page).to have_content(post.title)
@@ -662,7 +764,7 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
-    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
       it "タイトルが21文字以上の場合はエラーメッセージが表示されること" do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
@@ -680,7 +782,7 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
-    context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
       it "投稿内容が501文字以上の場合はエラーメッセージが表示されること" do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
@@ -695,6 +797,26 @@ RSpec.describe "Posts", type: :system do
         click_button '投稿'
         expect(page).to have_content('申し訳ありません 投稿の更新に失敗しました')
         expect(page).to have_content('投稿内容は500文字以内で入力してください')
+        expect(current_path).to eq(edit_post_path(edit_post))
+      end
+    end
+    context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
+      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        click_button '投稿'
+        expect(page).to have_content('新規投稿が完了しました！')
+
+        edit_post = Post.last
+        visit edit_post_path(edit_post)
+        fill_in 'post[title]', with: 'test-edit-title'
+        fill_in 'post[body]', with: 'test-edit-body'
+        image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('猫ちゃんに関係ない画像は投稿しないでください！')
         expect(current_path).to eq(edit_post_path(edit_post))
       end
     end
@@ -756,7 +878,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の情報を紐づけて、正常に投稿ができること" do
+      it "投稿に猫の情報を紐づけて、正常に投稿の更新ができること" do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -774,6 +896,31 @@ RSpec.describe "Posts", type: :system do
         expect(current_path).to eq(posts_path)
         expect(page).to have_content('test-edit')
         expect(page).to have_content(me_cat.name)
+      end
+    end
+    context '入力内容が正常' do
+      it "投稿に猫の画像を添付して、正常に投稿の更新ができること" do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        click_button '投稿'
+        expect(page).to have_content('新規投稿が完了しました！')
+
+        edit_post = Post.last
+        visit post_path(edit_post)
+        visit edit_post_path(edit_post)
+        fill_in 'post[title]', with: 'test-edit'
+        fill_in 'post[body]', with: 'edit-body'
+        select me_cat.name, from: 'post[cat_id]'
+        image_path = Rails.root.join('spec/images/test-cat-photo.webp')
+        attach_file 'avatar-file', image_path
+        click_button '投稿'
+        sleep 5
+        expect(page).to have_content('投稿内容を更新しました！')
+        expect(current_path).to eq(posts_path)
+        expect(page).to have_content('test-edit')
+        expect(page).to have_content(me_cat.name)
+        expect(page).to have_selector("img[src$='test-cat-photo.webp']")
       end
     end
     context '投稿の削除の処理が正常' do
