@@ -65,6 +65,7 @@ RSpec.describe "UserSessions", type: :system do
         expect(current_path).to eq(posts_path)
         find('#bars').click
         accept_alert do
+          sleep 5
           click_link('Logout')
         end
         expect(page).to have_content('ログアウトしました')
