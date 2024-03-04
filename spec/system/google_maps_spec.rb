@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "GoogleMaps", type: :system do
   let(:user) { create(:user) }
   before do
-    sleep 5
     login_process(user)
     find('#bars').click
     visit search_maps_path
@@ -14,6 +13,7 @@ RSpec.describe "GoogleMaps", type: :system do
         expect(current_path).to eq(search_maps_path)
         fill_in 'location', with: '札幌'
         click_button '検索'
+        sleep 5
         expect(page).to have_selector('#hospital')
         expect(page).to have_css('map#gmimap0')
       end
@@ -23,6 +23,7 @@ RSpec.describe "GoogleMaps", type: :system do
         expect(current_path).to eq(search_maps_path)
         fill_in 'location', with: '札幌緑が丘動物病院'
         click_button '検索'
+        sleep 5
         expect(page).to have_selector('#hospital')
         expect(page).to have_css('map#gmimap0')
 
