@@ -1,6 +1,6 @@
 module MapHelper
   def address(veterinary)
-    formatted_address_address = veterinary["result"]["formatted_address"]
+    formatted_address_address = veterinary['result']['formatted_address']
     # 郵便番号以降を取得する正規表現を格納
     postalCodeRegex = /〒(\d{3}-\d{4})\s(.*)/
 

@@ -14,8 +14,8 @@ AllCops:
     - "vendor/**/*"
     - "lib/tasks/auto_annotate_models.rake"
     - "node_modules/**/*"
-    # - "config/environments/*"
-    # - "config/puma.rb"
+    - "config/environments/*"
+    - "config/puma.rb"
   DisplayCopNames: true
   TargetRubyVersion: 3.2.2
 
@@ -31,7 +31,7 @@ Style/HashTransformValues:
 
 # 設定が厳しいので一旦全てfalseにする
 Metrics:
-  Enabled: false
+  Enabled: true
 
 # 一行あたりの文字数
 Layout/LineLength:

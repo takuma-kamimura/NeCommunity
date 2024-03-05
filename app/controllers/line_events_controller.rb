@@ -19,8 +19,8 @@ class LineEventsController < ApplicationController
   
   def client
     @client ||= Line::Bot::Client.new { |config|
-    config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-    config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+    config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+    config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     }
   end
   
@@ -41,7 +41,7 @@ class LineEventsController < ApplicationController
             @user.save
             client.push_message(user_line_id, { type: 'text', text: "#{@user.name}さんのLineが登録されました!" })
           else
-            client.push_message(user_line_id, { type: 'text', text: "メールアドレスが存在しませんでした。" })
+            client.push_message(user_line_id, { type: 'text', text: 'メールアドレスが存在しませんでした。' })
           end
       end
     end
