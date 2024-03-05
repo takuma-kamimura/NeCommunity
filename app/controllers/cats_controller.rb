@@ -67,14 +67,22 @@ class CatsController < ApplicationController
         else
           flash.now[:danger] = t('messages.cats.update_faild')
           # render :edit, status: :unprocessable_entity
-          render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' })
+          render turbo_stream: turbo_stream.replace(
+            "flash-messages-container-edit-#{@cat.id}",
+            partial: 'shared/flash_message',
+            locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }
+          )
         end
       else
         # 添付ファイルが猫とは関係ない画像だった場合
         flash.now[:danger] = t('messages.cats.cat_validation')
         # render :edit, status: :unprocessable_entity
         # render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
-        render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.cat_validation'), css_class: 'danger' })
+        render turbo_stream: turbo_stream.replace(
+          "flash-messages-container-edit-#{@cat.id}",
+          partial: 'shared/flash_message',
+          locals: { message: t('messages.cats.cat_validation'), css_class: 'danger' }
+        )
       end
     else
       # 画像を添付していない場合の処理
@@ -86,8 +94,12 @@ class CatsController < ApplicationController
         flash.now[:danger] = t('messages.cats.update_faild')
         # render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
         # エラー時の Turbo Stream
-        # render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' })
-        render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }), status: :unprocessable_entity
+        render turbo_stream: turbo_stream.replace(
+          "flash-messages-container-edit-#{@cat.id}",
+          partial: 'shared/flash_message',
+          locals: { message: t('messages.cats.update_faild'),
+                    css_class: 'danger' }
+        ), status: :unprocessable_entity
       end
     end
   end
@@ -108,7 +120,8 @@ class CatsController < ApplicationController
   end
 
   def cat_params
-    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache, :cat_breed_id, :remove_cat_avatar).merge(user_id: current_user.id)
+    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender,
+                                :avatar, :avatar_cache, :cat_breed_id, :remove_cat_avatar).merge(user_id: current_user.id)
   end
 
 end
