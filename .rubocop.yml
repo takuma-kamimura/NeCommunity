@@ -1,0 +1,118 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-rails
+
+# 対象外
+AllCops:
+  Exclude:
+    - "Gemfile"
+    - "bin/**/*"
+    - "db/**/*"
+    - "log/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "lib/tasks/auto_annotate_models.rake"
+    # - "config/environments/*"
+    # - "config/puma.rb"
+  DisplayCopNames: true
+  TargetRubyVersion: 3.2.2
+
+# trueかfalseを設定しないと警告が出る
+Style/HashEachMethods:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+
+##################### Style ##################################
+
+# 設定が厳しいので一旦全てfalseにする
+Metrics:
+  Enabled: false
+
+# 一行あたりの文字数
+Layout/LineLength:
+  Enabled: false
+
+# メソッドの改行ルール
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+# 日本語にコメントを許可
+Style/AsciiComments:
+  Enabled: false
+
+# クラスにコメントを残さなくても良い
+Style/Documentation:
+  Enabled: false
+
+# コントローラ等のモジュールをネストしての宣言
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# 文字列のfreeze（Ruby3からは自動でfreezeされるので要らない）
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# ガード節の提案（難しいので一旦false）
+Style/GuardClause:
+  Enabled: false
+
+# 文字列のダブルクォートチェック
+Style/StringLiterals:
+  Enabled: true
+
+# シンボルによる配列の%記法のチェック
+Style/SymbolArray:
+  Enabled: false
+  # EnforcedStyle: brackets
+
+# 文字列による配列の%記法のチェック
+Style/WordArray:
+  Enabled: true
+
+# 変数名に数字を許可
+Naming/VariableNumber:
+  Enabled: true
+
+# = と == の指摘
+Lint/AssignmentInCondition:
+  Enabled: true
+
+# メソッド名等の命名の指摘
+Naming/PredicateName:
+  Enabled: true
+
+# 未i18nのチェック（バリデーションエラーメッセージをi18nに登録するのはやや冗長？なためfalse）
+Rails/I18nLocaleTexts:
+  Enabled: true
+
+# before_actionの際の未定義メソッドのチェック（deviseとの兼ね合いで一旦false）
+Rails/LexicallyScopedActionFilter:
+  Enabled: true
+
+##################### Lint ##################################
+
+##################### Metrics ##################################
+
+# 変数の代入(A)、メソッドの呼び出し等(B)、条件分岐(C)から算出される複雑度
+Metrics/AbcSize:
+  Max: 30
+
+# 循環的複雑度 ≒ 分岐の数
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+# 1行の文字数
+Metrics/LineLength:
+  Max: 160
+  Exclude:
+    - "db/migrate/*.rb"
+
+# メソッドの行数
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"

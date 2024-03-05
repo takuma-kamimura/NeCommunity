@@ -61,7 +61,7 @@ class CatsController < ApplicationController
       if result
         @cat = Cat.find_by(id: params[:id])
         if @cat.update(cat_params)
-           # 添付ファイルが猫の画像だった場合
+          # 添付ファイルが猫の画像だった場合
           # flash.now[:success] = t('messages.cats.update')
           # redirect_to cats_path
         else
