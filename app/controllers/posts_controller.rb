@@ -170,12 +170,13 @@ class PostsController < ApplicationController
     end
   end
 
-  # 画像更新時、猫以外の画像を添付していた場合の処理
+  # 投稿更新時、猫以外の画像を添付していた場合の処理
   def update_bad_image
     flash.now[:danger] =  t('messages.post.cat_validation')
     render :edit, status: :unprocessable_entity
   end
 
+  # 投稿更新時、画像を添付していた場合の処理
   def update_not_image
     # 画像を添付していない場合の処理
     if @post.update(post_params)

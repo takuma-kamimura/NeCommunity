@@ -15,6 +15,7 @@ RSpec.describe 'Cats', type: :system do
     context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
       it '名前がない場合はエラーメッセージが表示されること' do
         visit new_cat_path
+        sleep 3
         fill_in 'cat[name]', with: nil
         select '女の子', from: 'cat_gender'
         select cat_breed.name, from: 'cat[cat_breed_id]'

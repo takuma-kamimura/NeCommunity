@@ -57,5 +57,4 @@ module ApplicationHelper
     set_meta_tags(configs)
   end
 
-  
 end
