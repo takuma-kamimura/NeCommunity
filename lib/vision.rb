@@ -1,12 +1,12 @@
-require "base64"
-require "json"
-require "net/https"
+require 'base64'
+require 'json'
+require 'net/https'
 
 module Vision
   class << self
     def image_analysis(image_file)
       api_url = "https://vision.googleapis.com/v1/images:annotate?key=#{ENV['GOOGLE_API_KEY']}"
-      if image_file.content_type == "image/heic"
+      if image_file.content_type == 'image/heic'
         # 画像の拡張子が「.heic」の場合
         heic_path = image_file.tempfile.path
         jpg_path = convert_heic_to_jpg(heic_path)
@@ -22,7 +22,7 @@ module Vision
           },
           features: [
             {
-              type: "LABEL_DETECTION"
+              type: 'LABEL_DETECTION'
             }
           ]
         }]
@@ -31,15 +31,15 @@ module Vision
       https = Net::HTTP.new(uri.host, uri.port)
       https.use_ssl = true
       request = Net::HTTP::Post.new(uri.request_uri)
-      request["Content-Type"] = "application/json"
+      request['Content-Type'] = 'application/json'
       response = https.request(request, params)
       result = JSON.parse(response.body)
-      if (error = result["responses"][0]["error"]).present?
-        raise error["message"]
+      if (error = result['responses'][0]['error']).present?
+        raise error['message']
       else
-        labels = result["responses"][0]["labelAnnotations"].map { |annotation| annotation["description"].downcase }
+        labels = result['responses'][0]['labelAnnotations'].map { |annotation| annotation['description'].downcase }
         # ここで猫のラベルをチェックする（例: "cat"）
-        if labels.include?("cat")
+        if labels.include?('cat')
           true
         else
           false

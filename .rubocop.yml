@@ -13,6 +13,7 @@ AllCops:
     - "tmp/**/*"
     - "vendor/**/*"
     - "lib/tasks/auto_annotate_models.rake"
+    - "node_modules/**/*"
     # - "config/environments/*"
     # - "config/puma.rb"
   DisplayCopNames: true
