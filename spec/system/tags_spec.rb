@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Tags", type: :system do
+RSpec.describe 'Tags', type: :system do
   let(:user) { create(:user) }
   let!(:cat_breed) do
     # 開発環境のデータをコピーしてテスト用データベースに保存
@@ -14,7 +14,7 @@ RSpec.describe "Tags", type: :system do
       visit root_path
     end
     context '入力内容が正常' do
-      it "タグが保存されること" do
+      it 'タグが保存されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -25,7 +25,7 @@ RSpec.describe "Tags", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "タグが複数保存されること" do
+      it 'タグが複数保存されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -38,7 +38,7 @@ RSpec.describe "Tags", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "同じタグが重複して保存されないこと" do
+      it '同じタグが重複して保存されないこと' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -63,7 +63,7 @@ RSpec.describe "Tags", type: :system do
       visit root_path
     end
     context '入力内容が正常' do
-      it "タグが編集できること" do
+      it 'タグが編集できること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title-tag'
         fill_in 'post[body]', with: 'test-body'
@@ -102,7 +102,7 @@ RSpec.describe "Tags", type: :system do
       post3.tags << tag2
     end
     context 'タグで検索できるか' do
-      it "投稿にタグが付与されている場合、同じ「タグ名」がついた投稿のみ投稿一覧に表示できるか" do
+      it '投稿にタグが付与されている場合、同じ「タグ名」がついた投稿のみ投稿一覧に表示できるか' do
         visit posts_path
         expect(page).to have_content(post1.title)
         expect(page).to have_content(post2.title)

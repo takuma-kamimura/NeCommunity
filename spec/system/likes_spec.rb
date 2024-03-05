@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Likes", type: :system do
+RSpec.describe 'Likes', type: :system do
   describe 'ログイン・ログアウト状態の投稿一覧画面・投稿詳細画面の「いいね」ボタン表示テスト' do
     let(:user) { create(:user) }
     let!(:another_user) { create(:user) }
@@ -10,13 +10,13 @@ RSpec.describe "Likes", type: :system do
       visit posts_path
     end
     context 'ログアウト状態の投稿一覧画面の場合' do
-      it "投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること" do
+      it '投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること' do
         expect(page).not_to have_css("#like-button-for-post-#{post.id}")
         expect(page).to have_css("#like-before-login-for-post-#{post.id}")
       end
     end
     context 'ログイン状態の投稿一覧画面の場合' do
-      it "投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること" do
+      it '投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること' do
         login_process(user)
         visit root_path
         visit posts_path
@@ -25,14 +25,14 @@ RSpec.describe "Likes", type: :system do
       end
     end
     context 'ログアウト状態の投稿一覧画面の場合' do
-      it "投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること" do
+      it '投稿一覧画面でいいねボタンが表示されず、いいねアイコンが表示されること' do
         visit post_path(post)
         expect(page).not_to have_css("#like-button-for-post-#{post.id}")
         expect(page).to have_css("#like-before-login-for-post-#{post.id}")
       end
     end
     context 'ログイン状態の投稿一覧画面の場合' do
-      it "投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること" do
+      it '投稿一覧画面でいいねアイコンが表示されず、いいねボタンが表示されること' do
         login_process(user)
         visit root_path
         visit posts_path
@@ -54,13 +54,13 @@ RSpec.describe "Likes", type: :system do
       visit root_path
       visit posts_path
     end
-    it "投稿一覧画面で投稿にいいねができること" do
+    it '投稿一覧画面で投稿にいいねができること' do
       find("#like-button-for-post-#{like_post.id}").click
       find("#like-button-for-post-#{like_post.id}").click
       expect(page).not_to have_css("#like-button-for-post-#{like_post.id}")
       expect(page).to have_css("#unlike-button-for-post-#{like_post.id}")
     end
-    it "投稿一覧画面で投稿につけたいいねを削除できること" do
+    it '投稿一覧画面で投稿につけたいいねを削除できること' do
       find("#unlike-button-for-post-#{like.post.id}").click
       find("#unlike-button-for-post-#{like.post.id}").click
       expect(page).not_to have_css("#unlike-button-for-post-#{delete_like_post.id}")
@@ -78,14 +78,14 @@ RSpec.describe "Likes", type: :system do
       visit root_path
       visit posts_path
     end
-    it "投稿詳細画面で投稿にいいねができること" do
+    it '投稿詳細画面で投稿にいいねができること' do
       visit post_path(like_post)
       find("#like-button-for-post-#{like_post.id}").click
       expect(page).not_to have_css("#like-button-for-post-#{like_post.id}")
       expect(page).to have_css("#unlike-button-for-post-#{like_post.id}")
       expect(current_path).to eq(post_path(like_post))
     end
-    it "投稿詳細画面で投稿につけたいいねを削除できること" do
+    it '投稿詳細画面で投稿につけたいいねを削除できること' do
       visit post_path(delete_like_post)
       find("#unlike-button-for-post-#{like.post.id}").click
       expect(page).not_to have_css("#unlike-button-for-post-#{delete_like_post.id}")
@@ -106,14 +106,14 @@ RSpec.describe "Likes", type: :system do
       visit root_path
       visit posts_path
     end
-    it "いいねした投稿がいいね一覧に表示されること" do
+    it 'いいねした投稿がいいね一覧に表示されること' do
       visit likes_posts_path
       expect(page).to have_content(post1.title)
       expect(page).to have_content(post2.title)
       expect(page).to have_content(post3.title)
       expect(page).to have_content(another_user.name)
     end
-    it "いいね一覧の投稿からいいねを外すといいね一覧から消えていること" do
+    it 'いいね一覧の投稿からいいねを外すといいね一覧から消えていること' do
       visit likes_posts_path
       find("#unlike-button-for-post-#{like1.post.id}").click
       find("#unlike-button-for-post-#{like1.post.id}").click

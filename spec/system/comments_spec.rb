@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Comments", type: :system do
+RSpec.describe 'Comments', type: :system do
   let(:user) { create(:user) }
   let(:another_user) { create(:user) }
   let(:post) { create(:post, user: another_user) }
@@ -16,7 +16,7 @@ RSpec.describe "Comments", type: :system do
       visit posts_path
     end
     context '入力に不備がある場合にコメント投稿に失敗し、エラーメッセージが表示されること' do
-      it "内容がない場合はエラーメッセージが表示されること" do
+      it '内容がない場合はエラーメッセージが表示されること' do
         visit post_path(post)
         fill_in 'comment[body]', with: nil
         click_button 'コメント投稿'
@@ -25,7 +25,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力に不備がある場合にコメント投稿に失敗し、エラーメッセージが表示されること' do
-      it "コメントが501文字以上の場合はエラーメッセージが表示されること" do
+      it 'コメントが501文字以上の場合はエラーメッセージが表示されること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'a' * 501
         click_button 'コメント投稿'
@@ -34,7 +34,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "正常にコメント投稿ができること" do
+      it '正常にコメント投稿ができること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'test-comment'
         click_button 'コメント投稿'
@@ -45,7 +45,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "コメント内容が500文字以内であり正常にコメント投稿ができること" do
+      it 'コメント内容が500文字以内であり正常にコメント投稿ができること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'a' * 500
         click_button 'コメント投稿'
@@ -69,7 +69,7 @@ RSpec.describe "Comments", type: :system do
       visit root_path
       visit posts_path
     end
-    it "コメント一覧が表示されること" do
+    it 'コメント一覧が表示されること' do
       visit post_path(comment_post)
       expect(current_path).to eq(post_path(comment_post))
       expect(page).to have_content(comment1.body)
@@ -87,7 +87,7 @@ RSpec.describe "Comments", type: :system do
       visit root_path
       visit posts_path
     end
-    it "自分のコメントが削除されること" do
+    it '自分のコメントが削除されること' do
       visit post_path(post)
       expect(page).to have_content(destroy_comment.body)
       accept_alert do
