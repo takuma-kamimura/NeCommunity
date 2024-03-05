@@ -18,7 +18,7 @@
             <div class="text-sm lg:text-md text-center whitespace-nowrap" id="cat-name-for-post-show-<%= @post.cat.id %>"><%= @post.cat.decorate.cat_name %></div>
             <div data-controller="modal" data-modal-allow-background-close="true">
               <div class="text-center">
-              <button data-action="click->modal#open">
+              <button data-action="click->modal#open" id="cat-avatar-for-post-show-<%= @post.cat.id %>">
                 <%= image_tag @post.cat.avatar_url, class: 'w-10 h-10 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-24 xl:h-24 rounded-full mx-auto object-cover hover:scale-110' %>
                </button>
               </div>
@@ -40,7 +40,7 @@
 
         <div class="mb-4">
           <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
-          <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
+          <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", id: "share-button-#{@post.id}", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
   
           <!-- ログインしてるかチェック -->
           <% if logged_in? %>
@@ -50,11 +50,11 @@
               <%#= @post.likes.count %><!-- いいね -->
 
                <!-- 編集ページへのリンク -->
-          <%= link_to edit_post_path(@post), class: 'ml-4 text-blue-500' do %>
+          <%= link_to edit_post_path(@post), id: "button-edit-#{@post.id}", class: 'ml-4 text-blue-500' do %>
           <i class="bi bi-pencil-fill"></i>
         <% end %>
         <!-- 削除リンク -->
-        <%= link_to post_path(@post),class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
+        <%= link_to post_path(@post), id: "button-delete-#{@post.id}", class: 'underline text-red-500 ml-4',  data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } do %><!-- 削除ボタン -->
           <i class="bi bi-trash-fill"></i>
         <% end %>
             <%end%>
@@ -65,7 +65,7 @@
             <% end %>
           <%else%>
             <!--ログイン前いいね-->
-            <i class="bi bi-heart" style="color: red;"></i><%= @post.likes.count %>
+            <i class="bi bi-heart" id="like-before-login-for-post-<%= @post.id %>" style="color: red;"></i><%= @post.likes.count %>
           <% end %>
         </div>
       </div>

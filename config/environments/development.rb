@@ -75,8 +75,8 @@ Rails.application.configure do
   # config.action_mailer.perform_deliveries = true  # メーラー導入後追記
   # config.action_mailer.default_url_options = Settings.default_url_options.to_h # Gmail導入のため一旦コメント
 
-  config.action_mailer.asset_host = 'http://localhost:3000'
-  config.action_mailer.default_url_options = { host: 'localhost:3000' }
+  config.action_mailer.asset_host = 'http://localhost'
+  config.action_mailer.default_url_options = { host: 'localhost' }
 
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true

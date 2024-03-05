@@ -8,7 +8,7 @@ RSpec.describe "Tags", type: :system do
   end
   let(:cat) { create(:cat) }
   
-  describe 'タグのテスト' do
+  describe 'タグの生成テスト' do
     before do
       login_process(user)
       visit root_path
@@ -75,7 +75,7 @@ RSpec.describe "Tags", type: :system do
         expect(page).to have_content('test-tag3')
         expect(current_path).to eq(posts_path)
 
-        post = Post.last  # 最後に作成された投稿を取得
+        post = Post.last
         visit edit_post_path(post)
         expect(page).to have_selector("input[value='test-tag,test-tag2,test-tag3']")
         fill_in 'post[name]', with: 'test-tag,test-tag-edit,test-tag-edit2'
@@ -87,6 +87,32 @@ RSpec.describe "Tags", type: :system do
         expect(page).not_to have_content('test-tag2')
         expect(page).not_to have_content('test-tag3')
         expect(current_path).to eq(posts_path)
+      end
+    end
+  end
+  describe 'タグの絞り込み検索テスト' do
+    let!(:post1) { create(:post) }
+    let!(:post2) { create(:post) }
+    let!(:post3) { create(:post) }
+    let!(:tag1) { create(:tag) }
+    let!(:tag2) { create(:tag) }
+    before do
+      post1.tags << tag1
+      post2.tags << tag1
+      post3.tags << tag2
+    end
+    context 'タグで検索できるか' do
+      it "投稿にタグが付与されている場合、同じ「タグ名」がついた投稿のみ投稿一覧に表示できるか" do
+        visit posts_path
+        expect(page).to have_content(post1.title)
+        expect(page).to have_content(post2.title)
+        expect(page).to have_content(post3.title)
+        first(:link, tag1.name).click
+        first(:link, tag1.name).click
+        expect(current_path).to eq(posts_path)
+        expect(page).to have_content(post1.title)
+        expect(page).to have_content(post2.title)
+        expect(page).not_to have_content(post3.title)
       end
     end
   end

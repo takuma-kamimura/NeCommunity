@@ -43,8 +43,11 @@
 <% end %>
 
 <%= turbo_stream.update "cat-birthday-for-show-#{@cat.id}" do %>
+<% if @cat.birthday.present? %>
 <%= @cat.birthday.strftime('%Y年%m月%d日') %>
 <% end %>
+<% end %>
+
 
 <%= turbo_stream.update "cat-gender-for-show-#{@cat.id}" do %>
 <%= @cat.gender_i18n %>
@@ -64,8 +67,8 @@
 <% end %>
 
 # ここは「turbo_stream.update」ではなく「turbo_stream.replace」だとちゃんと動いた。
-<%= turbo_stream.replace "cat-self_introduction-for-show-#{@cat.id}" do %>
-<div class="whitespace-pre-line text-sm" id="cat-self_introduction-for-show-<%= @cat.id %>"><%= @cat.self_introduction %></div>
+<%= turbo_stream.update "cat-self_introduction-for-show-#{@cat.id}" do %>
+<%= @cat.self_introduction %>
 <% end %>
 
 <%= turbo_stream.update "cat-name-for-edit-#{@cat.id}" do %>

@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :post do
-    title { "test-post" }
-    body { "test-body" }
+    sequence(:title) { |n| "post-#{n}" }
+    sequence(:body) { |n| "post-body-#{n}" }
     association :user
     association :cat
   end
