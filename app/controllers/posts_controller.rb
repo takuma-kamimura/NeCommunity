@@ -149,20 +149,10 @@ class PostsController < ApplicationController
 
   # オートコンプリート機能
   def autocomplete
-    # @posts = Post.where("title LIKE :q OR body LIKE :q", q: "%#{params[:q]}%")
-
-    # @posts = Post.joins(:user)
-    #          .where("posts.title LIKE :q OR posts.body LIKE :q OR users.name LIKE :q", q: "%#{params[:q]}%")
-
-    # @posts = Post.joins(:user, :cat)
-    # .where("posts.title LIKE :q OR posts.body LIKE :q OR users.name LIKE :q OR cats.name LIKE :q", q: "%#{params[:q]}%")
-
   cats = Post.joins(:cat).where('cats.name LIKE :q', q: "%#{params[:q]}%")
   users = Post.joins(:user).where('users.name LIKE :q', q: "%#{params[:q]}%")
   posts = Post.where('title LIKE :q OR body LIKE :q', q: "%#{params[:q]}%")
-
   @posts = (cats + users + posts).uniq
-    # render json: @posts.select(:id, :title)
     respond_to do |format|
       format.js
     end
