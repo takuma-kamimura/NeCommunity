@@ -1,6 +1,6 @@
-require_relative "boot"
+require_relative 'boot'
 
-require "rails/all"
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -18,7 +18,7 @@ module App
      config.time_zone = 'Tokyo'
      config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}').to_s]
 
-     config.paths.add "lib", eager_load: true # Google Cloud Vision APIを使うため、この1行を追記
+     config.paths.add 'lib', eager_load: true # Google Cloud Vision APIを使うため、この1行を追記
 
     # Configuration for the application, engines, and railties goes here.
     #

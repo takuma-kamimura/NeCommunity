@@ -1,7 +1,7 @@
 # app/services/google_maps_service.rb
 class GoogleMapsService
-    require "net/http"
-    require "uri"
+    require 'net/http'
+    require 'uri'
 
     BASE_URL = 'https://maps.googleapis.com/maps/api/place'
     API_KEY = ENV['PLACES_API_KEY']
@@ -18,7 +18,7 @@ class GoogleMapsService
     end
 
     def self.veterinary(place_id)
-        fields = "name,formatted_address,geometry,photos,website"
+        fields = 'name,formatted_address,geometry,photos,website'
         uri = URI.parse("#{BASE_URL}/details/json?place_id=#{place_id}&fields=#{fields}&key=#{API_KEY}&language=#{LANGUAGE}")
         res = Net::HTTP.get_response(uri)
         # res.body
@@ -26,10 +26,10 @@ class GoogleMapsService
     end
 
     def self.veterinary_photo(veterinary)
-      photos = veterinary["result"]["photos"]
+      photos = veterinary['result']['photos']
     # 写真が存在する場合、最初の写真の URL を取得して表示
       if photos && photos.length > 0
-        photoReference = photos[0]["photo_reference"]
+        photoReference = photos[0]['photo_reference']
         # return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
         return "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
       end

@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
 
-  root "tops#top" # topページ
+  root 'tops#top' # topページ
 
   resources :tops do
     collection do
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
 
   get 'login' => 'user_sessions#new', :as => :login # gem sorceryより。
-  post 'login' => "user_sessions#create" # gem sorceryのより。
+  post 'login' => 'user_sessions#create' # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users, only: %i(new create show) do
@@ -50,7 +50,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get "line_events/show", to: 'line_events#show'
+  get 'line_events/show', to: 'line_events#show'
   post '/line_events', to: 'line_events#receive'
   put '/line_events', to: 'line_events#update'
 
