@@ -63,17 +63,11 @@ module Vision
 
     # 猫のラベルが存在するかチェック
     def result_check(result)
-      if (error = result['responses'][0]['error']).present?
-        raise error['message']
-      else
-        labels = result['responses'][0]['labelAnnotations'].map { |annotation| annotation['description'].downcase }
-        # ここで猫のラベルをチェックする（例: "cat"）
-        if labels.include?('cat')
-          true
-        else
-          false
-        end
-      end
+      error = result['responses'][0]['error']
+      return false if error.present?
+
+      labels = result['responses'][0]['labelAnnotations'].map { |annotation| annotation['description'].downcase }
+      labels.include?('cat')
     end
   end
 end
