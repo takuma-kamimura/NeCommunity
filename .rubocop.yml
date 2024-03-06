@@ -67,7 +67,7 @@ Style/StringLiterals:
 
 # シンボルによる配列の%記法のチェック
 Style/SymbolArray:
-  Enabled: false
+  Enabled: true
   # EnforcedStyle: brackets
 
 # 文字列による配列の%記法のチェック
@@ -117,3 +117,4 @@ Metrics/MethodLength:
   Max: 20
   Exclude:
     - "db/migrate/*.rb"
+

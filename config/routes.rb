@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   end
   resources :likes, only: %i(create destroy)
 
-  resources :maps, only: [:index, :show] do # GoogleマップAPIの導入により追加
+  resources :maps, only: %i(index show) do # GoogleマップAPIの導入により追加
     collection do
       get :search
     end
@@ -55,16 +55,14 @@ Rails.application.routes.draw do
   put '/line_events', to: 'line_events#update'
 
   namespace :admin do
-    #root to: 'posts#index'
-    # root 'user_sessions#new'
     root to: 'posts#index'
     get 'login', to: 'user_sessions#new'
     post 'login', to: 'user_sessions#create'
     delete 'logout', to: 'user_sessions#destroy'
-    resources :users, only: [:index, :show, :edit, :update, :destroy]
-    resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :cats, only: [:index, :show, :edit, :update, :destroy]
-    resources :tags, only: [:index, :show, :edit, :update, :destroy]
-    resources :comments, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: %i(index show edit update destroy)
+    resources :posts, only: %i(index show edit update destroy)
+    resources :cats, only: %i(index show edit update destroy)
+    resources :tags, only: %i(index show edit update destroy)
+    resources :comments, only: %i(index show edit update destroy)
   end
 end
