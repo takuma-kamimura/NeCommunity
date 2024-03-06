@@ -14,8 +14,9 @@ AllCops:
     - "vendor/**/*"
     - "lib/tasks/auto_annotate_models.rake"
     - "node_modules/**/*"
-    - "config/environments/*"
-    - "config/puma.rb"
+    - "config/**/*"
+    # - "config/environments/*"
+    # - "config/puma.rb"
   DisplayCopNames: true
   TargetRubyVersion: 3.2.2
 
@@ -59,7 +60,7 @@ Style/FrozenStringLiteralComment:
 
 # ガード節の提案（難しいので一旦false）
 Style/GuardClause:
-  Enabled: false
+  Enabled: true
 
 # 文字列のダブルクォートチェック
 Style/StringLiterals:

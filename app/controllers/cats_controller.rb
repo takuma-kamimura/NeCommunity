@@ -91,14 +91,14 @@ class CatsController < ApplicationController
   # 猫プロフィール更新時、猫の画像を添付していた場合の処理
   def update_has_image
     @cat = Cat.find_by(id: params[:id])
-    unless @cat.update(cat_params)
-      flash.now[:danger] = t('messages.cats.update_faild')
-      render turbo_stream: turbo_stream.replace(
-        "flash-messages-container-edit-#{@cat.id}",
-        partial: 'shared/flash_message',
-        locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }
-      )
-    end
+    return if @cat.update(cat_params)
+
+    flash.now[:danger] = t('messages.cats.update_faild')
+    render turbo_stream: turbo_stream.replace(
+      "flash-messages-container-edit-#{@cat.id}",
+      partial: 'shared/flash_message',
+      locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }
+    )
   end
 
   # 猫プロフィール更新時、猫以外の画像を添付していた場合の処理
@@ -116,15 +116,15 @@ class CatsController < ApplicationController
   def update_not_image
     # 画像を添付していない場合の処理
     @cat = Cat.find_by(id: params[:id])
-    unless @cat.update(cat_params)
-      flash.now[:danger] = t('messages.cats.update_faild')
-      # エラー時の Turbo Stream
-      render turbo_stream: turbo_stream.replace(
-        "flash-messages-container-edit-#{@cat.id}",
-        partial: 'shared/flash_message',
-        locals: { message: t('messages.cats.update_faild'),
-                  css_class: 'danger' }
-      ), status: :unprocessable_entity
-    end
+    return if @cat.update(cat_params)
+
+    flash.now[:danger] = t('messages.cats.update_faild')
+    # エラー時の Turbo Stream
+    render turbo_stream: turbo_stream.replace(
+      "flash-messages-container-edit-#{@cat.id}",
+      partial: 'shared/flash_message',
+      locals: { message: t('messages.cats.update_faild'),
+                css_class: 'danger' }
+    ), status: :unprocessable_entity
   end
 end
