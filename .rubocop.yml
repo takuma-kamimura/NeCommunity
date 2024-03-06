@@ -120,3 +120,7 @@ Metrics/MethodLength:
   Exclude:
     - "db/migrate/*.rb"
 
+# クラスの行数
+Metrics/ClassLength:
+  CountComments: false
+  Max: 300
