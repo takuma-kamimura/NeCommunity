@@ -1,6 +1,4 @@
 class CatsController < ApplicationController
-  skip_before_action :require_login, only: %i[show]
-
   def index
     @cats = current_user.cats.includes(:user).order(created_at: :asc)
   end

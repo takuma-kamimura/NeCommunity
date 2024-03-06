@@ -36,7 +36,7 @@ class LineEventsController < ApplicationController
         user_email = event['message']['text']
         # user_email.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/) で取得でもいいかも
         user_line_id = event['source']['userId']
-          if @user = User.find_by(email: user_email)
+          if @user == User.find_by(email: user_email)
             @user.line_id = user_line_id
             @user.save
             client.push_message(user_line_id, { type: 'text', text: "#{@user.name}さんのLineが登録されました!" })

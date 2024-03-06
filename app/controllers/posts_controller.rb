@@ -86,20 +86,20 @@ class PostsController < ApplicationController
     @samebreedcats = Post.where(cat_id: same_breed_cat_ids).order(created_at: :desc).page(params[:page])
   end
 
-  # 指定した猫種と同じ猫種に関する投稿
-  def specifycats
-    @q = Post.ransack(params[:q])
+  # # 指定した猫種と同じ猫種に関する投稿
+  # def specifycats
+  #   @q = Post.ransack(params[:q])
 
-    # ログインユーザーの猫の猫種を取得
-    current_cat_breed_id = params[:cat_breed_id]
+  #   # ログインユーザーの猫の猫種を取得
+  #   current_cat_breed_id = params[:cat_breed_id]
 
-    # 同じ猫種の猫のIDリストを取得
-    same_breed_cat_ids = Cat.where(cat_breed_id: current_cat_breed_id).pluck(:id)
+  #   # 同じ猫種の猫のIDリストを取得
+  #   same_breed_cat_ids = Cat.where(cat_breed_id: current_cat_breed_id).pluck(:id)
 
-    # 同じ猫種の猫が投稿した投稿を取得
-    @specifycats = Post.where(cat_id: same_breed_cat_ids)
-    @cat_breed = CatBreed.find(params[:cat_breed_id])
-  end
+  #   # 同じ猫種の猫が投稿した投稿を取得
+  #   @specifycats = Post.where(cat_id: same_breed_cat_ids)
+  #   @cat_breed = CatBreed.find(params[:cat_breed_id])
+  # end
 
   # オートコンプリート機能
   def autocomplete
