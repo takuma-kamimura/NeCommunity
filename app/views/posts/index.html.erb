@@ -2,35 +2,32 @@
 
 <!--- 投稿一覧ページ --->
 <%if logged_in?%>
-<div class="py-4 md:px-4 px-2 flex items-center justify-center justify-between flex-wrap">
-  <div class="mb-4 md:mb-0">
-  <%= link_to 'いいね一覧', likes_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
-  <% if current_user.cats.present? %>
-    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <% else %>
-    <!-- まだ猫を登録していない時のダミー。 -->
-    <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
-    <% end %>
-</div>
+  <div class="py-4 md:px-4 px-2 flex items-center justify-center justify-between flex-wrap">
+    <div class="mb-4 md:mb-0">
+      <%= link_to 'いいね一覧', likes_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+      <% if current_user.cats.present? %>
+        <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+      <% else %>
+        <!-- まだ猫を登録していない時のダミー。 -->
+        <%= link_to '貴方の猫\'sと同猫種', samebreedcats_posts_path, class: 'shadow-md m-2 px-1 py-1 md:m-3 md:px-4 md:py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+      <% end %>
+    </div>
 
-<div class="mx-auto">
-<%= render 'search', q: @q, url: posts_path %>
-</div>
-<div class="ml-auto lg:justify-end mt-4 md:mt-4 lg:mt-0 xl:mt-0">
-  <%= link_to '新規投稿', new_post_path, class: 'shadow-md m-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
-</div>
-</div>
-
+    <div class="mx-auto">
+      <%= render 'search', q: @q, url: posts_path %>
+    </div>
+    <div class="ml-auto lg:justify-end mt-4 md:mt-4 lg:mt-0 xl:mt-0">
+      <%= link_to '新規投稿', new_post_path, class: 'shadow-md m-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+    </div>
+  </div>
 <%else%>
-<div class="py-4 px-4 flex justify-center items-center">
-  <%= render 'search', q: @q, url: posts_path %>
+  <div class="py-4 px-4 flex justify-center items-center">
+    <%= render 'search', q: @q, url: posts_path %>
   </div>
 <%end%>
-  <!-- < div class="p-4 m-2 flex flex-wrap"> -->
-    <div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
-<%= render @posts %>
-
+<div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
+  <%= render @posts %>
 </div>
 <div class="text-black py-3">
-<%= paginate @posts %>
+  <%= paginate @posts %>
 </div>

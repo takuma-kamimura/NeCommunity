@@ -4,15 +4,11 @@ class OauthsController < ApplicationController
 
   def oauth
     login_at(auth_params[:provider])
-    # binding.pry
   end
 
   def callback
     provider = auth_params[:provider]
     uid = auth_params[:uid]
-    # binding.pry
-    # @user = login_from(provider)
-    # binding.pry
     if (@user = login_from(provider))
       redirect_to root_path, notice: "#{provider.titleize}でログインしました"
     else

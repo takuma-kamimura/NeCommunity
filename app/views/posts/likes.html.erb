@@ -1,17 +1,17 @@
 <% content_for(:title, "#{current_user.name}さんのいいね一覧") %>
 
 <div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
-<%= link_to '投稿一覧', posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+  <%= link_to '投稿一覧', posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
 </div>
 
 <% if @like_posts.present? %>
-<h1 class="text-black mb-4 px-4 lg:text-4xl text-xl">あなたがいいねした一覧</h1>
+  <h1 class="text-black mb-4 px-4 lg:text-4xl text-xl">あなたがいいねした一覧</h1>
   <div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
-  <%= render @like_posts %>
-</div>
+    <%= render @like_posts %>
+  </div>
 <% else %>
-<h1 class="text-black p-3 lg:text-4xl text-xl">いいねした投稿がここに表示されます</h1>
+  <h1 class="text-black p-3 lg:text-4xl text-xl">いいねした投稿がここに表示されます</h1>
 <% end %>
-<div class="text-black py-3">
-  <%= paginate @like_posts %>
+  <div class="text-black py-3">
+    <%= paginate @like_posts %>
   </div>

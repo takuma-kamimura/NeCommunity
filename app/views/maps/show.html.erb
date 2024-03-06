@@ -1,12 +1,12 @@
 <div class="flex items-center justify-center text-black p-6">
-  <div class="max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">
+    <div class="max-w-4xl mx-auto rounded-lg shadow-md bg-white p-6">
     <h3 class="text-3xl font-bold mb-4 text-center p-3"><%= @veterinary["result"]["name"] %></h3>
     <h3 class="text-lg mb-4 text-center"><%= address(@veterinary) %></h3>
     <% if @photoUrl.present? %>
         <div class="mb-4 text-center">
-            <%= image_tag @photoUrl, class: 'w-full max-w-md mx-auto' %>
+        <%= image_tag @photoUrl, class: 'w-full max-w-md mx-auto' %>
         </div>
     <% end %>
     <h3 class="text-center"><%= link_to '公式HPはこちら', @veterinary["result"]["website"], class: 'text-blue-500' %></h3>
-</div>
+    </div>
 </div>

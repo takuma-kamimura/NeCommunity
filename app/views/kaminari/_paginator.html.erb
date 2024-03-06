@@ -14,8 +14,6 @@ The container tag
 
 <%= paginator.render do %>
   <nav class="pagination flex justify-center items-center gap-4">
-    <%#= prev_page_tag unless current_page.first? %>
-    <%#= next_page_tag unless current_page.last? %>
     <ul class="pagination-list flex justify-center items-center gap-4">
       <% unless current_page.first? %>
       <span class="border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center">
@@ -35,8 +33,6 @@ The container tag
               <%= page_tag page %>
             </span>
           <% end %>
-        <%# elsif !page.was_truncated? %>
-          <%#= gap_tag %>
         <% end %>
       <% end %>
       <% unless current_page.last? %>

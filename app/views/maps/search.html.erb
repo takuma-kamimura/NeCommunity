@@ -15,8 +15,6 @@
 </div>
 <style>
   #map {
-    /* height: 600px;
-    width: 600px; */
      height: 100vh; /* 画面の高さいっぱいに広げる */
     width: 100%;   /* 横幅を100%に設定 */
   }
@@ -34,19 +32,17 @@ function codeAddress() {
       .then(data => {
         // 受け取ったデータを使用して地図を更新
         updateMap(data.results);
-// console.log(data);
         // resultsは二重になっている。
         updateList(data.results);
       });
-  }
+}
 
-  // リストの更新
-  function updateList (data) {
-    const hospitalList = document.getElementById('hospital-list-html');
-    let html = '';
-    const lists = data.results;
-// console.log(lists);
-lists.forEach(function (list, index) {
+// リストの更新
+function updateList (data) {
+  const hospitalList = document.getElementById('hospital-list-html');
+  let html = '';
+  const lists = data.results;
+  lists.forEach(function (list, index) {
     const address = getaddress(list)
     const photos = list.photos;
     const showPath = '/maps/' + list.place_id; // mapsコントローラーへのshowアクションへのpath
@@ -57,127 +53,123 @@ lists.forEach(function (list, index) {
     html += `<a href="${showPath}" class="underline text-blue-500">${list.name}の詳細ページ</a>`;
     html += `<div>${address}</div>`;
     if (photos && photos.length > 0) {
-        const photoReference = photos[0].photo_reference;
-        const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
-        html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
+      const photoReference = photos[0].photo_reference;
+      const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
+      html += `<img src="${photoUrl}" alt="Photo" class="w-200 h-200 rounded-md">`;
     } 
     html+= `</div>`
     html+= `</div>`
   });
 
-  // html += '</ul>';
   hospitalList.innerHTML = html;
-  }
-
-  function getaddress(list){
-    // 郵便番号以降を取得する正規表現を格納
-    const postalCodeRegex = /〒(\d{3}-\d{4})\s(.*)/;
-
-    // 正規表現にマッチするか確認
-    const match = list.formatted_address.match(postalCodeRegex);
-
-    // マッチした場合、郵便番号以降の情報を取得
-    if (match) {
-      const addressAfterPostalCode = match[2]; // 郵便番号以降の住所
-      return addressAfterPostalCode
-    }
-  }
-
-  // マーカーをクリアする関数
-function clearMarkers() {
-    markers.forEach(function(marker) {
-        marker.setMap(null);
-    });
-    // マーカーの配列をクリア
-    markers = [];
 }
-  // 地図の更新関数
+
+function getaddress(list){
+  // 郵便番号以降を取得する正規表現を格納
+  const postalCodeRegex = /〒(\d{3}-\d{4})\s(.*)/;
+
+  // 正規表現にマッチするか確認
+  const match = list.formatted_address.match(postalCodeRegex);
+
+  // マッチした場合、郵便番号以降の情報を取得
+  if (match) {
+    const addressAfterPostalCode = match[2]; // 郵便番号以降の住所
+    return addressAfterPostalCode
+  }
+}
+
+// マーカーをクリアする関数
+function clearMarkers() {
+  markers.forEach(function(marker) {
+    marker.setMap(null);
+  });
+  // マーカーの配列をクリア
+  markers = [];
+}
+// 地図の更新関数
 function updateMap(data) {
 
-    // 既存のマーカーをクリア
-    clearMarkers();
+  // 既存のマーカーをクリア
+  clearMarkers();
 
-var openinfoWindow = null;
+  var openinfoWindow = null;
 
-    // dataが正しい構造であるか確認
-    if (data && Array.isArray(data.results)) {
-        const locations = data.results;
-        
-        // 検索地点の中心座標を求める処理
-       let lat_average = 0;
-       let lng_average = 0;
-       // lat、lng座標の総和を取得
-        for (let i = 0; i < locations.length; i++) {
-          lat_average += locations[i].geometry.location.lat;
-          lng_average += locations[i].geometry.location.lng;
-         }
-        // 平均値の取得
-        lat_average = lat_average/locations.length
-        lng_average = lng_average/locations.length
-        // 地図の中心とズームレベルの設定
-        map.setCenter({lat:lat_average, lng:lng_average});
-        map.setZoom(11);
+  // dataが正しい構造であるか確認
+  if (data && Array.isArray(data.results)) {
+    const locations = data.results;
 
-        // 新しいマーカーを追加
-        locations.forEach(function(location) {
-          // console.log(location);
-          const photos = location.photos;
-            const name = location.name;
-            const address = getaddress(location);
-            const latitude = location.geometry.location.lat;
-            const longitude = location.geometry.location.lng;
-            const showPath = '/maps/' + location.place_id; // mapsコントローラーへのshowアクションへのpath
-            var marker = new google.maps.Marker({
-                map: map,
-                position: { lat: latitude, lng: longitude },
-                title: name,  // ピンに表示されるタイトル
-            });
+    // 検索地点の中心座標を求める処理
+    let lat_average = 0;
+    let lng_average = 0;
+    // lat、lng座標の総和を取得
+    for (let i = 0; i < locations.length; i++) {
+      lat_average += locations[i].geometry.location.lat;
+      lng_average += locations[i].geometry.location.lng;
+    }
+    // 平均値の取得
+    lat_average = lat_average/locations.length
+    lng_average = lng_average/locations.length
+    // 地図の中心とズームレベルの設定
+    map.setCenter({lat:lat_average, lng:lng_average});
+    map.setZoom(11);
 
-        // Infowindowのコンテンツを構築
-    // var contentHtml = '<strong>' + name + '</strong><br>' + address;
-     var contentHtml = `<a href="${showPath}" class="underline text-blue-500"><strong>${name}</strong></a><br>${address}`;
+    // 新しいマーカーを追加
+    locations.forEach(function(location) {
+      const photos = location.photos;
+      const name = location.name;
+      const address = getaddress(location);
+      const latitude = location.geometry.location.lat;
+      const longitude = location.geometry.location.lng;
+      const showPath = '/maps/' + location.place_id; // mapsコントローラーへのshowアクションへのpath
+      var marker = new google.maps.Marker({
+        map: map,
+        position: { lat: latitude, lng: longitude },
+        title: name,  // ピンに表示されるタイトル
+      });
 
-        // 写真が存在する場合、最初の写真の URL を取得して表示
-    if (photos && photos.length > 0) {
+      // Infowindowのコンテンツを構築
+      // var contentHtml = '<strong>' + name + '</strong><br>' + address;
+      var contentHtml = `<a href="${showPath}" class="underline text-blue-500"><strong>${name}</strong></a><br>${address}`;
+
+      // 写真が存在する場合、最初の写真の URL を取得して表示
+      if (photos && photos.length > 0) {
         const photoReference = photos[0].photo_reference;
-        // console.log(location);
-        // console.log(name);
-        // console.log(photos);
-        // console.log(photoReference);
         const photoUrl = `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=<%= ENV['PLACES_API_KEY'] %>`;
         // contentHTMLに写真情報を付け足す処理
         contentHtml += '<br><img src="' + photoUrl + '" alt="Photo" width="200">';
-    }
+      }
 
-       // InfoWindowを作成
-       var infoWindow = new google.maps.InfoWindow({
-            content: contentHtml,
-        });
+      // InfoWindowを作成
+      var infoWindow = new google.maps.InfoWindow({
+        content: contentHtml,
+      });
 
-        // マーカーをクリックしたときにInfoWindowを表示
-        marker.addListener('click', function() {
+      // マーカーをクリックしたときにInfoWindowを表示
+      marker.addListener('click', function() {
 
-          if(openinfoWindow){
+        if(openinfoWindow){
             openinfoWindow.close();
-          }
+        }
 
-            infoWindow.open(map, marker);
+        infoWindow.open(map, marker);
+          openinfoWindow = infoWindow;
+      });
+        // 新しいマーカーを保存
+        markers.push(marker);
+    });
 
-            openinfoWindow = infoWindow;
-        });
-            // 新しいマーカーを保存
-            markers.push(marker);
-        });
-    } else {
-        console.error('無効なlocationsデータ:', data);
-    }
+  } else {
+
+    console.error('無効なlocationsデータ:', data);
+
+  }
 }
-   // 初期化
+
+// 初期化
 // mapの初期表示
 let map
-// ここから追加 
+// ここから追加
 let geocoder
-
 let markers = [];  // markers 配列の初期化を追加
 
 function initMap(){
@@ -188,5 +180,6 @@ function initMap(){
     zoom: 8,
   });
 }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API_KEY'] %>&callback=initMap" async defer></script>

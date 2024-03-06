@@ -1,26 +1,24 @@
 <div class="text-black h-screen flex items-center justify-center">
-    <!-- <div class="flex items-center justify-center"> -->
-<div class="ml-4 mt-4 border p-4 rounded-md bg-white">
-  <h1 class="lg:text-4xl text-2xl font-bold mb-4"><%= @user.name %>さんの詳細ページ</h1>
+  <div class="ml-4 mt-4 border p-4 rounded-md bg-white">
+    <h1 class="lg:text-4xl text-2xl font-bold mb-4"><%= @user.name %>さんの詳細ページ</h1>
 
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">名前</h1>
-    <h2><%= @user.name %></h2>
-  </div>
+    <div class="mb-4">
+      <h1 class="text-xl font-bold mb-1">名前</h1>
+      <h2><%= @user.name %></h2>
+    </div>
 
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">ユーザーの自己紹介</h1>
-    <h2><%= @user.self_introduction %></h2>
-  </div>
+    <div class="mb-4">
+      <h1 class="text-xl font-bold mb-1">ユーザーの自己紹介</h1>
+      <h2><%= @user.self_introduction %></h2>
+    </div>
 
-  <div class="mb-4">
-    <h1 class="text-xl font-bold mb-1">アバター</h1>
-    <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-64 h-40 object-cover rounded-md' %>
-  </div>
+    <div class="mb-4">
+      <h1 class="text-xl font-bold mb-1">アバター</h1>
+      <%= image_tag @user.avatar_url, id: 'avatar-preview', class: 'w-64 h-40 object-cover rounded-md' %>
+    </div>
 
-  <div class="mb-3">
-    <%= link_to "#{@user.name}さんのマイ猫's", usercat_users_path(user_id: @user.id), class: 'underline text-blue-500' %>    
+    <div class="mb-3">
+      <%= link_to "#{@user.name}さんのマイ猫's", usercat_users_path(user_id: @user.id), class: 'underline text-blue-500' %>
+    </div>
   </div>
-</div>
-    <!-- </div> -->
 </div>

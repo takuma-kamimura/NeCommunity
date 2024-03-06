@@ -1,32 +1,28 @@
 <%= form_with(model: user, class: "mb-4") do |f| %>
-<%= render 'shared/error_messages', object: f.object %>
-    <div class="mb-4">
-      <%#= f.label :name, class: "block text-sm font-bold text-gray-700 mb-2" %>
-      <div class="block text-sm font-bold text-gray-700 mb-2">name</div>
-      <%= f.text_field :name, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
-    </div>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="mb-4">
+    <div class="block text-sm font-bold text-gray-700 mb-2">name</div>
+    <%= f.text_field :name, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
 
-    <div class="mb-4">
-      <%#= f.label :email, class: "block text-sm font-bold text-gray-700 mb-2" %>
-      <div class="block text-sm font-bold text-gray-700 mb-2">email</div>
-      <%= f.email_field :email, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
-    </div>
+  <div class="mb-4">
+    <div class="block text-sm font-bold text-gray-700 mb-2">email</div>
+    <%= f.email_field :email, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
 
-    <div class="mb-4">
-      <%#= f.label :password, class: "block text-sm font-bold text-gray-700 mb-2" %>
-      <div class="block text-sm font-bold text-gray-700 mb-2">password</div>
-      <%= f.password_field :password, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
-    </div>
+  <div class="mb-4">
+    <div class="block text-sm font-bold text-gray-700 mb-2">password</div>
+    <%= f.password_field :password, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
 
-    <div class="mb-4">
-      <%#= f.label :password_confirmation, class: "block text-sm font-bold text-gray-700 mb-2" %>
-      <div class="block text-sm font-bold text-gray-700 mb-2">password_confirmation</div>
-      <%= f.password_field :password_confirmation, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
-    </div>
+  <div class="mb-4">
+    <div class="block text-sm font-bold text-gray-700 mb-2">password_confirmation</div>
+    <%= f.password_field :password_confirmation, class: "appearance-none border border-black rounded-lg w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" %>
+  </div>
 
-    <div class="mb-4 text-center">
-      <%= f.submit "Sign Up", class: "accent-color text-black border border-black font-bold py-2 px-4 rounded hover:bg-white" %>
-    </div>
-  <% end %>
+  <div class="mb-4 text-center">
+    <%= f.submit "Sign Up", class: "accent-color text-black border border-black font-bold py-2 px-4 rounded hover:bg-white" %>
+  </div>
+<% end %>
 
 <!-- ラベルで表示を変える -->
