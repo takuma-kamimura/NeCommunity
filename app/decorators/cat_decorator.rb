@@ -3,9 +3,9 @@ class CatDecorator < ApplicationDecorator
 
   # 猫の名前のオス・メスの表示切り替え
   def cat_name
-    if object.gender == 'Female'
+    if object.Female?
       "#{object.name}ちゃん"
-    elsif object.gender == 'Male'
+    else
       "#{object.name}くん"
     end
   end
