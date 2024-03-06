@@ -1,9 +1,4 @@
 Rails.application.routes.draw do
-  # get 'tops/top'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
 
   root 'tops#top' # topページ
 
@@ -30,9 +25,7 @@ Rails.application.routes.draw do
   end
   resources :cats, only: %i(index new create update destroy)
   resources :password_resets, only: %i[new create edit update] # パスワードリセット用
-  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? # 開発環境用メーラー
-  
-  # resources :cats, only: [:index]
+
   resources :posts, only: %i(index new show edit create update destroy) do
     resources :comments, only: %i[create update destroy], shallow: true
     collection do
