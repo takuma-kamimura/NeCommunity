@@ -50,12 +50,17 @@
               <%end%>
               <!-- ログイン後いいねボタン -->
               <!-- 自分の投稿はいいねとブックマークしない -->
-              <%if current_user.id != @post.user.id %>
-                <%=render 'likes/like_button' , {post: @post} %><span id="like-count-for-post-<%= @post.id %>"><%= @post.likes.count %></span>
-              <% end %>
+              <div class="whitespace-no-wrap mt-2 text-center">
+                <%if current_user.id != @post.user.id %>
+                  <%=render 'likes/like_button' , {post: @post} %><span id="like-count-for-post-<%= @post.id %>"><%= @post.likes.count %></span>
+                <% end %>
+              </div>
+
             <%else%>
               <!--ログイン前いいね-->
-              <i class="bi bi-heart" id="like-before-login-for-post-<%= @post.id %>" style="color: red;"></i><%= @post.likes.count %>
+              <div class="whitespace-no-wrap mt-2 text-center">
+                <i class="bi bi-heart" id="like-before-login-for-post-<%= @post.id %>" style="color: red;"></i><%= @post.likes.count %>
+              </div>
             <% end %>
           </div>
         </div>
