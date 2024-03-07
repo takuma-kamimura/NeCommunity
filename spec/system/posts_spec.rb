@@ -26,7 +26,7 @@ RSpec.describe 'Posts', type: :system do
     end
     context 'ログアウト状態の場合' do
       it '「貴方の猫\'sと同猫種」ボタンが表示されないこと' do
-        expect(page).not_to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+        expect(page).not_to have_link '貴方の猫\'sと同猫種', href: samebreedcats_path
       end
     end
     context 'ログイン状態の場合' do

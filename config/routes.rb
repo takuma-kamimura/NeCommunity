@@ -30,8 +30,6 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create update destroy], shallow: true
     collection do
       get :likes
-      get :samebreedcats
-      get :specifycats
       get :autocomplete
     end
   end
