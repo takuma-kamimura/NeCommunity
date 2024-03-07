@@ -50,7 +50,7 @@ RSpec.describe 'Posts', type: :system do
         login_process(user)
         visit root_path
         visit posts_path
-        expect(page).to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+        expect(page).to have_link '貴方の猫\'sと同猫種', href: samebreedcats_path
       end
     end
   end
@@ -315,7 +315,7 @@ RSpec.describe 'Posts', type: :system do
       expect(page).to have_css("#button-edit-#{me_post2.id}")
     end
     it '自分の飼っている猫と同じ猫種に関する投稿が一覧ページで表示されていること' do
-      visit samebreedcats_posts_path
+      visit samebreedcats_path
       expect(page).to have_content(post.title)
       expect(page).to have_content(cat.name)
       expect(page).to have_content(post2.title)

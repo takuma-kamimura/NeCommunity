@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   put '/line_events', to: 'line_events#update'
 
   resources :post_by_cats, only: %i(index)
+  resources :samebreedcats, only: %i(index)
 
   namespace :admin do
     root to: 'posts#index'
