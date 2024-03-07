@@ -1,0 +1,16 @@
+
+
+<div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
+    <%= link_to '投稿一覧', posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+  </div>
+  <% if @post_by_cats.present? %>
+    <h1 class="lg:text-4xl text-xl text-black mb-4 p-3"><%= @cat.decorate.cat_name %>の投稿一覧</h1>
+    <div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
+      <%= render @post_by_cats %>
+    </div>
+  <% else %>
+    <h1 class="lg:text-4xl text-xl text-black p-3"><%= @cat.decorate.cat_name %>の投稿はまだありません</h1>
+  <%end%>
+  <div class="text-black py-3">
+    <%= paginate @post_by_cats %>
+  </div>

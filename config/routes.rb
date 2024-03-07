@@ -47,6 +47,8 @@ Rails.application.routes.draw do
   post '/line_events', to: 'line_events#receive'
   put '/line_events', to: 'line_events#update'
 
+  resources :post_by_cats, only: %i(index)
+
   namespace :admin do
     root to: 'posts#index'
     get 'login', to: 'user_sessions#new'
