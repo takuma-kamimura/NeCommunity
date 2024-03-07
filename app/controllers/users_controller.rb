@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: %i[new create show usercat ]
+  skip_before_action :require_login, only: %i[new create usercat ]
 
   def new
     @user = User.new
@@ -15,10 +15,6 @@ class UsersController < ApplicationController
       flash.now[:danger] = t('messages.users.new_faild')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
     end
-  end
-
-  def show
-    @user = User.find(params[:id])
   end
 
   # 他ユーザーの猫一覧

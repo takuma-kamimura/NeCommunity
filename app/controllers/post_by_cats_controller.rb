@@ -1,6 +1,7 @@
 class PostByCatsController < ApplicationController
   skip_before_action :require_login, only: %i[index]
 
+  # 猫別の投稿一覧
   def index
     cat_ids = params[:cat_id]
     @cat = Cat.find(cat_ids)
