@@ -228,13 +228,11 @@ RSpec.describe 'Posts', type: :system do
       expect(page).not_to have_css("#cat-edit-#{cat.id }")
       expect(page).not_to have_css("#cat-delete-#{cat.id}")
       expect(current_path).to eq(post_path(post))
-      # decorate.cat_name
       expect(page).to have_link("#{cat.decorate.cat_name}の投稿一覧")
       click_link "#{cat.decorate.cat_name}の投稿一覧"
       expect(page).to have_content("#{cat.decorate.cat_name}の投稿一覧")
       expect(page).to have_content(post.title)
       expect(page).to have_content(post.title)
-      # another_user
       expect(page).to have_content(another_user.name)
     end
     it '他人が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されないこと' do
