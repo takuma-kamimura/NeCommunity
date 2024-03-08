@@ -1,6 +1,6 @@
 <%= search_form_for @q, url: url do |f| %>
 <div class="relative flex rounded-md items-center lg:space-x-4">
-<div data-controller="autocomplete" data-autocomplete-url-value="/posts/autocomplete" role="combobox">
+<div data-controller="autocomplete" data-autocomplete-url-value="/autocompletes" role="combobox">
     <%= f.search_field :title_or_body_or_user_name_or_cat_name_cont, class: 'form-control bg-white px-1 text-black border border-black rounded-md', placeholder: '検索欄', data: { autocomplete_target: 'input' } %>
     <%= f.hidden_field :title_or_body_or_user_name_or_cat_name, data: { autocomplete_target: 'hidden' } %>
     <ul class="list-group absolute w-full md:text-sm max-w-max inline-block bg-opacity-100 z-10" data-autocomplete-target="results"></ul>

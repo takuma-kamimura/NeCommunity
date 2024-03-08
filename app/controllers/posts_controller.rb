@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  skip_before_action :require_login, only: %i[index show autocomplete]
+  skip_before_action :require_login, only: %i[index show]
 
   def index
     @q = Post.ransack(params[:q])
@@ -72,17 +72,6 @@ class PostsController < ApplicationController
     @post.destroy!
     flash[:success] = t('messages.post.delete')
     redirect_to posts_path, status: :see_other # 削除処理の時、「status: :see_other」をつけないと上手く機能しない。
-  end
-
-  # オートコンプリート機能
-  def autocomplete
-  cats = Post.joins(:cat).where('cats.name LIKE :q', q: "%#{params[:q]}%")
-  users = Post.joins(:user).where('users.name LIKE :q', q: "%#{params[:q]}%")
-  posts = Post.where('title LIKE :q OR body LIKE :q', q: "%#{params[:q]}%")
-  @posts = (cats + users + posts).uniq
-    respond_to do |format|
-      format.js
-    end
   end
 
   private

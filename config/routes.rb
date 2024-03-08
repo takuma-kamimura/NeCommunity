@@ -28,11 +28,12 @@ Rails.application.routes.draw do
 
   resources :posts, only: %i(index new show edit create update destroy) do
     resources :comments, only: %i[create update destroy], shallow: true
-    collection do
-      get :autocomplete
-    end
   end
   resources :likes, only: %i(create destroy)
+  resources :post_by_cats, only: %i(index)
+  resources :samebreedcats, only: %i(index)
+  resources :like_lists, only: %i(index)
+  resources :autocompletes, only: %i(index)
 
   resources :maps, only: %i(index show) do # GoogleマップAPIの導入により追加
     collection do
@@ -43,10 +44,6 @@ Rails.application.routes.draw do
   get 'line_events/show', to: 'line_events#show'
   post '/line_events', to: 'line_events#receive'
   put '/line_events', to: 'line_events#update'
-
-  resources :post_by_cats, only: %i(index)
-  resources :samebreedcats, only: %i(index)
-  resources :like_lists, only: %i(index)
 
   namespace :admin do
     root to: 'posts#index'
