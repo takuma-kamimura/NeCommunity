@@ -107,18 +107,18 @@ RSpec.describe 'Likes', type: :system do
       visit posts_path
     end
     it 'いいねした投稿がいいね一覧に表示されること' do
-      visit likes_posts_path
+      visit like_lists_path
       expect(page).to have_content(post1.title)
       expect(page).to have_content(post2.title)
       expect(page).to have_content(post3.title)
       expect(page).to have_content(another_user.name)
     end
     it 'いいね一覧の投稿からいいねを外すといいね一覧から消えていること' do
-      visit likes_posts_path
+      visit like_lists_path
       find("#unlike-button-for-post-#{like1.post.id}").click
       find("#unlike-button-for-post-#{like1.post.id}").click
       visit posts_path
-      visit likes_posts_path
+      visit like_lists_path
       expect(page).not_to have_content(post1.title)
       expect(page).to have_content(post2.title)
       expect(page).to have_content(post3.title)

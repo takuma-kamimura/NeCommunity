@@ -21,7 +21,7 @@ RSpec.describe 'Posts', type: :system do
     end
     context 'ログアウト状態の場合' do
       it '「いいね一覧」ボタンが表示されないこと' do
-        expect(page).not_to have_link 'いいね一覧', href: likes_posts_path
+        expect(page).not_to have_link 'いいね一覧', href: like_lists_path
       end
     end
     context 'ログアウト状態の場合' do
@@ -42,7 +42,7 @@ RSpec.describe 'Posts', type: :system do
         login_process(user)
         visit root_path
         visit posts_path
-        expect(page).to have_link 'いいね一覧', href: likes_posts_path
+        expect(page).to have_link 'いいね一覧', href: like_lists_path
       end
     end
     context 'ログイン状態の場合' do

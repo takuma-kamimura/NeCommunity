@@ -13,6 +13,6 @@ Link to the "Last" page
 %>
 
 <li>
-  <%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote, class: "pagination-link#{' is-current' if current_page.last?}",
-    class: 'border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center' %>
+  <%= link_to_unless current_page.last?, t('views.pagination.last').html_safe, url, remote: remote,
+    class: "pagination-link#{' is-current' if current_page.last?} border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center" %>
 </li>

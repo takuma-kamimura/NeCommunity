@@ -29,7 +29,6 @@ Rails.application.routes.draw do
   resources :posts, only: %i(index new show edit create update destroy) do
     resources :comments, only: %i[create update destroy], shallow: true
     collection do
-      get :likes
       get :autocomplete
     end
   end
@@ -47,6 +46,7 @@ Rails.application.routes.draw do
 
   resources :post_by_cats, only: %i(index)
   resources :samebreedcats, only: %i(index)
+  resources :like_lists, only: %i(index)
 
   namespace :admin do
     root to: 'posts#index'
