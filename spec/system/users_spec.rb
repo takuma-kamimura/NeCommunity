@@ -85,8 +85,8 @@ RSpec.describe 'Users', type: :system do
         fill_in 'user[password]', with: 'test'
         fill_in 'user[password_confirmation]', with: 'test'
         click_button 'Sign Up'
-        expect(page).to have_content('新規登録が完了しました！')
-        expect(current_path).to eq(root_path)
+        expect(page).to have_content('新規登録ありがとうございます！ログインが完了しました！ネコミュニティをお楽しみください！')
+        expect(current_path).to eq(posts_path)
       end
     end
   end

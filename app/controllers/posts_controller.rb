@@ -32,6 +32,8 @@ class PostsController < ApplicationController
 
     @post = Post.find_by(id: params[:id])
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
+    return tags_over_check if @tags.count > 3
+
     if post_params[:photo].present?
       # 画像を添付した場合の処理
       result = Vision.image_analysis(post_params[:photo])
@@ -48,6 +50,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @tags = params[:post][:name].split(',') # 「split()」でカンマ区切りにしている。
+    return tags_over_check if @tags.count > 3
+
     if post_params[:photo].present?
       # 画像を添付した場合の処理
       result = Vision.image_analysis(post_params[:photo])
@@ -162,5 +166,11 @@ class PostsController < ApplicationController
       flash.now[:danger] = t('messages.post.update_faild')
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  # タグの数チェック
+  def tags_over_check
+    flash.now[:danger] = t('messages.post.tag_faild')
+    render :edit, status: :unprocessable_entity
   end
 end

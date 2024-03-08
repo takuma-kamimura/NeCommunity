@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      auto_login(@user)
       flash[:success] = t('messages.users.new')
-      Rails.logger.error("User registration failed. Errors: #{@user.errors.full_messages}")
-      redirect_to root_path
+      redirect_to posts_path
     else
       flash.now[:danger] = t('messages.users.new_faild')
       render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
