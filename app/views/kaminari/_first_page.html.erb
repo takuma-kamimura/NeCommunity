@@ -13,5 +13,6 @@ Link to the "First" page
 %>
 
 <li>
-  <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, url, remote: remote, class: "pagination-link#{' is-current' if current_page.first?}" %>
+  <%= link_to_unless current_page.first?, t('views.pagination.first').html_safe, url, remote: remote, class: "pagination-link#{' is-current' if current_page.first?}",
+    class: 'border border-black w-10 h-8 base-color hover:bg-gray-300 flex items-center justify-center' %>
 </li>
