@@ -2,23 +2,68 @@ require 'rails_helper'
 
 RSpec.describe 'Cats', type: :system do
   let(:user) { create(:user) }
-  let!(:cat_breed) do
-    # 開発環境のデータをコピーしてテスト用データベースに保存
-    CatBreed.create!(name: 'マンチカン')
-  end
+  # let!(:cat_breed) do
+  #   # 開発環境のデータをコピーしてテスト用データベースに保存
+  #   CatBreed.create!(name: 'マンチカン')
+  # end
+  let!(:cat_breed) { create(:cat_breed, name: 'マンチカン') }
+  let!(:cat_breed2) { create(:cat_breed) }
+  let!(:cat_breed3) { create(:cat_breed) }
+  let!(:cat_breed4) { create(:cat_breed) }
+  let!(:cat_breed5) { create(:cat_breed, name: 'マンクス') }
+  let!(:cat_breed6) { create(:cat_breed, name: 'マンダレイ') }
+  let!(:cat_breed7) { create(:cat_breed, name: 'その他') }
+  let!(:cat_breed8) { create(:cat_breed, name: 'ソマリ') }
+  let!(:cat_breed9) { create(:cat_breed, name: 'ソコケ') }
+  let!(:cat_breed10) { create(:cat_breed, name: 'ミックス（雑種）') }
   describe '猫新規登録時のテスト' do
     before do
       login_process(user)
       visit root_path
       visit cats_path
     end
+    context '新規登録時に必要な機能が正常か' do
+      it '猫種を入力しようとした時、選択候補が正常に表示されるか' do
+        visit new_cat_path
+        fill_in 'cat[cat_breed_id]', with: 'c'
+        expect(page).to have_content(cat_breed2.name)
+        expect(page).to have_content(cat_breed3.name)
+        expect(page).to have_content(cat_breed4.name)
+        expect(page).not_to have_content(cat_breed.name)
+      end
+    end
+    context '新規登録時に必要な機能が正常か' do
+      it 'ひらがなで猫種を入力しようとした時、カタカナに変換され選択候補が正常に表示されるか' do
+        visit new_cat_path
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        expect(page).to have_content(cat_breed.name)
+        expect(page).to have_content(cat_breed5.name)
+        expect(page).to have_content(cat_breed6.name)
+      end
+    end
+    context '新規登録時に必要な機能が正常か' do
+      it '検索候補にその他も一緒に表示されるか' do
+        visit new_cat_path
+        fill_in 'cat[cat_breed_id]', with: 'そ'
+        expect(page).to have_content(cat_breed7.name)
+        expect(page).to have_content(cat_breed8.name)
+        expect(page).to have_content(cat_breed9.name)
+      end
+    end
+    context '新規登録時に必要な機能が正常か' do
+      it '検索候補にミックス（雑種）が表示されるか' do
+        visit new_cat_path
+        fill_in 'cat[cat_breed_id]', with: '雑'
+        expect(page).to have_content(cat_breed10.name)
+      end
+    end
     context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
       it '名前がない場合はエラーメッセージが表示されること' do
         visit new_cat_path
-        sleep 3
         fill_in 'cat[name]', with: nil
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの名前を入力してください')
         expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
@@ -30,7 +75,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '性別を選択してください', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         click_button 'ネコを登録する'
         expect(page).to have_content('性別を入力してください')
         expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
@@ -42,7 +88,19 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select 'ネコの種類を選択してください', from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: nil
+        click_button 'ネコを登録する'
+        expect(page).to have_content('猫種を入力してください')
+        expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
+        expect(current_path).to eq(new_cat_path)
+      end
+    end
+    context '入力に不備がある場合に登録に失敗し、エラーメッセージが表示されること' do
+      it '存在しない猫種を入力して登録しようとした場合はエラーメッセージが表示されること' do
+        visit new_cat_path
+        fill_in 'cat[name]', with: nil
+        select '女の子', from: 'cat_gender'
+        fill_in 'cat[cat_breed_id]', with: 'ゴールデンレトリバー'
         click_button 'ネコを登録する'
         expect(page).to have_content('猫種を入力してください')
         expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
@@ -54,7 +112,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'a' * 16
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの名前は15文字以内で入力してください')
         expect(page).to have_content('申し訳ありません 猫ちゃんの登録に失敗しました')
@@ -66,7 +125,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 201
         click_button 'ネコを登録する'
         expect(page).to have_content('ネコの紹介は200文字以内で入力してください')
@@ -79,7 +139,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         image_path = Rails.root.join('spec/images/ゴリラ.jpeg')
         attach_file 'avatar-file', image_path
@@ -94,7 +155,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
         expect(current_path).to eq(cats_path)
@@ -105,7 +167,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -117,7 +180,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
@@ -171,7 +235,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -200,7 +265,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -229,7 +295,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -258,7 +325,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -289,7 +357,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -320,7 +389,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
@@ -352,7 +422,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
@@ -385,7 +456,8 @@ RSpec.describe 'Cats', type: :system do
         visit new_cat_path
         fill_in 'cat[name]', with: 'test-cat'
         select '女の子', from: 'cat_gender'
-        select cat_breed.name, from: 'cat[cat_breed_id]'
+        fill_in 'cat[cat_breed_id]', with: 'ま'
+        find("li[data-autocomplete-value='#{cat_breed.id}']").click
         fill_in 'cat[self_introduction]', with: 'a' * 200
         click_button 'ネコを登録する'
         expect(page).to have_content('猫ちゃんの新規登録が完了しました！')
