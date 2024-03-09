@@ -28,7 +28,7 @@
     <%#= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
     <div class="relative rounded-md items-center lg:space-x-4">
       <div data-controller="autocomplete" data-autocomplete-url-value="/cat_breeds" role="combobox">
-        <%= f.search_field :cat_breed_id, class: 'form-control appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white', placeholder: '入力してでてきたネコ種一覧より選択してください', data: { autocomplete_target: 'input' } %>
+        <%= f.search_field :cat_breed_id, class: 'form-control appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white', placeholder: '入力してネコ種を選択してください', data: { autocomplete_target: 'input' } %>
         <%= f.hidden_field :cat_breed_id, data: { autocomplete_target: 'hidden' } %>
         <ul class="list-group absolute w-full md:text-sm max-w-max inline-block bg-opacity-100 z-10" data-autocomplete-target="results"></ul>
       </div>
