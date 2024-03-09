@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :delete_confirmation
     end
   end
+  resources :cat_breeds, only: %i(index)
   resources :cats, only: %i(index new create update destroy)
   resources :password_resets, only: %i[new create edit update] # パスワードリセット用
 

@@ -7,8 +7,8 @@ class AutocompletesController < ApplicationController
     users = Post.joins(:user).where('users.name LIKE :q', q: "%#{params[:q]}%")
     posts = Post.where('title LIKE :q OR body LIKE :q', q: "%#{params[:q]}%")
     @posts = (cats + users + posts).uniq
-      respond_to do |format|
-        format.js
-      end
+    respond_to do |format|
+      format.js
+    end
   end
 end
