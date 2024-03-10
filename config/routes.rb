@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     collection do
       get :kiyac
       get :policy
+      get :guide
     end
   end
 
