@@ -67,6 +67,7 @@
         <div class="mx-auto object-cover mb-4">
           <%= image_tag @post.photo_url %>
         </div>
+        <div class="text-sm px-8 mb-4 inline-block"><%= @post.user.name%>さん</div>
         <!-- 投稿の内容 -->
         <div class="flex justify-center">
           <div class="accent-color mb-4 border border-black rounded-xl max-w-sm p-4 shadow-md">
@@ -76,7 +77,7 @@
       </div>
     </div>
     <% if @post.tags.present? %>
-      <h1 class="flex justify-center mb-2">タグ</h1>
+      <div class="flex justify-center mb-2">タグ</div>
       <%@post.tags.each do |tag|%>
         <!-- tags テーブルの name カラムが指定された値と等しい条件を指定してpostコントローラindexに渡す -->
         <!-- custom_styles.cssを追加してリンクの下線を消した -->
