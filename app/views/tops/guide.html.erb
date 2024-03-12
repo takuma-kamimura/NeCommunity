@@ -141,8 +141,12 @@
 </div>
 <div class="px-8">
 <div class="flex flex-col">
-<div class="mb-3">
+<div class="mb-3 hidden xl:block">
     <%= video_tag("post-create.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
+</div>
+<!-- スマホでの表示用 -->
+<div class="mb-3 xl:hidden">
+    <%#= video_tag("google-map-mobile.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
 </div>
 </div>
 </div>
