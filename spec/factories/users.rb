@@ -6,4 +6,12 @@ FactoryBot.define do
     password_confirmation { 'password' }
     line_id { 'test_id' }
   end
+
+  trait :general do
+    role { :general }
+  end
+
+  trait :admin do
+    role { :admin }
+  end
 end

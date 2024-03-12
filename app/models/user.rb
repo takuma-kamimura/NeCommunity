@@ -25,6 +25,10 @@ class User < ApplicationRecord
   attr_accessor :remove_avatar
   before_save :remove_avatar_if_needed
 
+  # 管理画面でLine_id解除用として追加。
+  attr_accessor :remove_line_id
+  before_save :remove_line_id_if_needed
+
   def self.ransackable_attributes(auth_object = nil)
     %w[name email]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
   end
@@ -56,5 +60,9 @@ class User < ApplicationRecord
   # プロフィール画像解除用として追加。
   def remove_avatar_if_needed
     self.avatar = nil if remove_avatar == '1'
+  end
+
+  def remove_line_id_if_needed
+    self.line_id = nil if remove_line_id == '1'
   end
 end

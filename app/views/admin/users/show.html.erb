@@ -18,6 +18,12 @@
         <h1 class="text-2xl font-semibold mb-2">・自己紹介文</h1>
         <h1 class="text-lg font-semibold mb-4"><%= @user.self_introduction %></h1>
   
+        <% if @user.line_id.present? %>
+        <h1 class="text-2xl font-semibold mb-4">・Line登録済み</h1>
+        <%else%>
+        <h1 class="text-2xl font-semibold mb-4">・Line未登録</h1>
+        <%end%>
+
         <h1 class="text-2xl font-semibold mb-2">・ユーザー権限</h1>
         <h1 class="text-lg font-semibold mb-4"><%= @user.role_i18n %></h1>
   

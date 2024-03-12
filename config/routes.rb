@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   put '/line_events', to: 'line_events#update'
 
   namespace :admin do
-    root to: 'posts#index'
+    root to: 'users#index'
     get 'login', to: 'user_sessions#new'
     post 'login', to: 'user_sessions#create'
     delete 'logout', to: 'user_sessions#destroy'
