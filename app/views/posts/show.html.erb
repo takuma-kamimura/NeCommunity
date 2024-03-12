@@ -67,7 +67,13 @@
         <div class="mx-auto object-cover mb-4">
           <%= image_tag @post.photo_url %>
         </div>
-        <div class="text-sm px-8 mb-4 inline-block"><%= @post.user.name%>さん</div>
+        <!-- 投稿者の名前 -->
+        <div data-controller="modal" data-modal-allow-background-close="true">
+          <button data-action="click->modal#open" id="userid-post-show-<%= @post.user.id %>">
+        <div class="text-sm px-8 mb-4 inline-block text-blue-500 hover:underline"><%= @post.user.name%>さん</div>
+           </button>
+           <%= render 'users/show', user: @post.user %>
+          </div>
         <!-- 投稿の内容 -->
         <div class="flex justify-center">
           <div class="accent-color mb-4 border border-black rounded-xl max-w-sm p-4 shadow-md">

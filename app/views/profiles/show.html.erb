@@ -34,7 +34,7 @@
           <% if @user.line_id.present? %>
             <%= link_to '連携したline_idを削除する', line_events_path(id: current_user.id), data: { turbo_method: :put, turbo_confirm: "本当に削除しますか？" }, class: "shadow-md m-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm whitespace-nowrap" %>
           <% else %>
-            <%= link_to 'Line通知機能ON', line_events_show_path, class: 'shadow-md m-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm whitespace-nowrap' %>
+            <%= link_to 'Line通知機能ON', line_events_show_path, class: 'shadow-md m-3 px-4 py-2 bg-lime-500 text-white rounded-full hover:bg-lime-700 transition duration-300 ease-in-out md:text-lg text-sm whitespace-nowrap', data: { turbo: false } %>
           <% end %>
         </div>
       </div>
