@@ -5,6 +5,7 @@ FactoryBot.define do
     password { 'password' }
     password_confirmation { 'password' }
     line_id { 'test_id' }
+    self_introduction { '' }
   end
 
   trait :general do

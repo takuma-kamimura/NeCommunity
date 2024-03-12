@@ -25,9 +25,13 @@
     </div>
     <div class="px-8">
     <div class="flex flex-col">
-    <div class="mb-3">
+    <div class="mb-3 hidden xl:block">
         <%= video_tag("cat-create.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
     </div>
+    <!-- スマホでの表示用 -->
+<div class="mb-3 xl:hidden">
+    <%= video_tag("cat-create-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
+</div>
 </div>
 </div>
 </div>
@@ -49,9 +53,13 @@
 </div>
 <div class="px-8">
 <div class="flex flex-col">
-<div class="mb-3">
+  <div class="mb-3 hidden xl:block">
     <%= video_tag("user-edit.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
-</div>
+  </div>
+  <!-- スマホでの表示用 -->
+  <div class="mb-3 xl:hidden">
+    <%= video_tag("user-edit-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
+  </div>
 </div>
 </div>
 
@@ -75,8 +83,12 @@
     </div>
     <div class="px-8">
     <div class="flex flex-col">
-    <div class="mb-3">
+      <div class="mb-3 hidden xl:block">
         <%= video_tag("post-create.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
+      </div>
+      <!-- スマホでの表示用 -->
+    <div class="mb-3 xl:hidden">
+      <%= video_tag("post-create-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
     </div>
     </div>
     </div>
@@ -96,9 +108,13 @@
     </div>
     <div class="px-8">
     <div class="flex flex-col">
-    <div class="mb-3">
+      <div class="mb-3 hidden xl:block">
         <%= video_tag("comment-create.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
-    </div>
+      </div>
+      <!-- スマホでの表示用 -->
+      <div class="mb-3 xl:hidden">
+        <%= video_tag("comment-create-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
+      </div>
     </div>
     </div>
     </div>
@@ -142,11 +158,11 @@
 <div class="px-8">
 <div class="flex flex-col">
 <div class="mb-3 hidden xl:block">
-    <%= video_tag("post-create.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
+    <%= video_tag("google-map.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
 </div>
 <!-- スマホでの表示用 -->
 <div class="mb-3 xl:hidden">
-    <%#= video_tag("google-map-mobile.mp4", autoplay: true, muted: true, loop: true, playsinline: true) %>
+    <%= video_tag("google-map-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
 </div>
 </div>
 </div>
