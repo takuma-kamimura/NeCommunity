@@ -20,7 +20,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
   describe '管理画面の詳細ページ表示テスト' do
     let!(:general1) { create(:user, :general, self_introduction: 'test')}
     let!(:general2) { create(:user, :general, self_introduction: 'test')}
-    it '一般ユーザーの詳細ページが表示されること' do
+    it '一般ユーザーの詳細ページが正常に表示されること' do
       click_link general1.name
       sleep 2
       expect(current_path).to eq(admin_user_path(general1))
@@ -32,7 +32,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('一般ユーザー')
       expect(page).to have_content('作成日')
     end
-    it '管理者ユーザーの詳細ページが表示されること' do
+    it '管理者ユーザーの詳細ページが正常に表示されること' do
       click_link admin.name
       sleep 2
       expect(current_path).to eq(admin_user_path(admin))
