@@ -32,6 +32,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('一般ユーザー')
       expect(page).to have_content('作成日')
+      user_create_datetime = general1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
     end
     it '管理者ユーザーの詳細ページが正常に表示されること' do
       click_link admin.name
@@ -44,6 +46,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('管理者')
       expect(page).to have_content('作成日')
+      user_create_datetime = admin.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
     end
   end
   describe '編集・更新・削除テスト' do
@@ -60,6 +64,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('一般ユーザー')
       expect(page).to have_content('作成日')
+      user_create_datetime = general1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
 
       click_link '編集'
       fill_in 'user[name]', with: 'test-name'
@@ -75,6 +81,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_selector("img[src$='test-cat-photo.webp']")
       expect(page).to have_content('管理者')
       expect(page).to have_content('作成日')
+      expect(page).to have_content(user_create_datetime)
     end
     it 'ユーザーのアバター画像の解除が可能なこと' do
       click_link general1.name
@@ -87,6 +94,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('一般ユーザー')
       expect(page).to have_content('作成日')
+      user_create_datetime = general1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
 
       click_link '編集'
       fill_in 'user[name]', with: 'test-name'
@@ -114,6 +123,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('一般ユーザー')
       expect(page).to have_content('作成日')
+      user_create_datetime = general1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
 
       click_link '編集'
       check 'user[remove_line_id]'
@@ -131,6 +142,8 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(page).to have_content('Line登録済み')
       expect(page).to have_content('管理者')
       expect(page).to have_content('作成日')
+      user_create_datetime = general1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
 
       accept_alert do
         click_link '削除'

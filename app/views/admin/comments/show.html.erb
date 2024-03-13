@@ -10,6 +10,10 @@
   
       <h2 class="text-xl font-semibold mb-2">コメント内容</h2>
       <h3 class="text-md font-semibold mb-4"><%= @comment.body %></h3>
+
+      <h2 class="text-xl font-semibold mb-2">作成日</h2>
+      <h1 class="text-md font-semibold mb-4"><%= @comment.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
+
   
       <div class="flex space-x-2">
         <%= link_to '編集', edit_admin_comment_path(@comment), class: 'text-green-500 hover:underline' %>

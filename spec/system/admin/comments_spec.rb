@@ -94,6 +94,8 @@ RSpec.describe "Admin::Comments", type: :system do
       expect(page).to have_link(general2.name)
       expect(page).to have_link(post1.title)
       expect(page).to have_content(comment1.body)
+      comment_create_datetime = comment1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(comment_create_datetime)
     end
     it 'コメント投稿詳細ページからコメント投稿ユーザーのリンクへアクセスしてユーザーの情報が正常に表示されること' do
       click_link 'コメント管理'

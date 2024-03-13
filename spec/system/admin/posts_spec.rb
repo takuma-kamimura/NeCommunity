@@ -150,6 +150,8 @@ RSpec.describe "Admin::Posts", type: :system do
       expect(page).to have_content(post1.body)
       expect(page).to have_content(general1.name)
       expect(page).to have_content(cat1.name)
+      post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(post_create_datetime)
       expect(current_path).to eq(admin_post_path(post1))
     end
   end
@@ -162,6 +164,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -182,6 +186,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -202,6 +208,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -222,6 +230,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -242,6 +252,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -257,6 +269,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content('body-edit')
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
       end
       it '投稿に画像を添付し、編集して更新ができること' do
@@ -267,6 +281,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         click_link "編集", id: "admin-post-for-show-edit-id-#{post1.id}"
 
@@ -284,6 +300,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content('body-edit')
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         expect(page).to have_selector("img[src$='test-cat-photo.webp']")
       end
@@ -295,6 +313,8 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(page).to have_content(post1.body)
         expect(page).to have_content(general1.name)
         expect(page).to have_content(cat1.name)
+        post_create_datetime = post1.created_at.strftime('%Y年%m月%d日 %H時%M分')
+        expect(page).to have_content(post_create_datetime)
         expect(current_path).to eq(admin_post_path(post1))
         accept_alert do
           click_link "削除", id: "admin-post-for-show-delete-id-#{post1.id}"
