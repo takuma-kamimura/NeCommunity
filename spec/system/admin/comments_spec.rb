@@ -20,6 +20,7 @@ RSpec.describe "Admin::Comments", type: :system do
   describe '管理画面のコメント投稿一覧テスト' do
     it 'コメント投稿一覧が正常に表示されること' do
       click_link 'コメント管理'
+      expect(page).to have_content('コメント一覧')
       expect(page).to have_content(post1.title)
       expect(page).to have_content(comment1.body)
       expect(page).to have_content(general2.name)
@@ -84,8 +85,6 @@ RSpec.describe "Admin::Comments", type: :system do
       end
     end
   end
-
-
   describe '管理画面のコメント詳細テスト' do
     it 'コメント投稿詳細ページが正常に表示されること' do
       click_link 'コメント管理'

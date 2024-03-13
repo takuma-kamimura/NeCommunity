@@ -10,6 +10,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
   end
   describe '管理画面のユーザー一覧表示テスト' do
     it 'ユーザーの一覧が表示されること' do
+      expect(page).to have_content('ユーザー一覧')
       expect(page).to have_content(general1.name)
       expect(page).to have_content(general2.name)
       expect(page).to have_content(general3.name)

@@ -24,6 +24,7 @@ RSpec.describe "Admin::Posts", type: :system do
   describe '管理画面の投稿一覧テスト' do
     it '投稿一覧が正常に表示されること' do
       click_link '投稿管理'
+      expect(page).to have_content('投稿一覧')
       expect(page).to have_content(general1.name)
       expect(page).to have_content(post1.title)
       expect(page).to have_content(post1.body)
