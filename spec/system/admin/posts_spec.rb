@@ -140,7 +140,7 @@ RSpec.describe "Admin::Posts", type: :system do
       end
     end
   end
-  describe '管理画面の詳細ページ表示テスト' do
+  describe '管理画面の投稿詳細ページ表示テスト' do
     it '投稿詳細ページが正常に表示されること' do
       click_link '投稿管理'
       click_link "詳細", id: "admin-post-show-id-#{post1.id}"
@@ -303,5 +303,4 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(current_path).to eq(admin_posts_path)
       end
     end
-
 end
