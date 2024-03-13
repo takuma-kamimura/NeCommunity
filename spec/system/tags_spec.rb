@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Tags", type: :system do
+RSpec.describe 'Tags', type: :system do
   let(:user) { create(:user) }
   let!(:cat_breed) do
     # 開発環境のデータをコピーしてテスト用データベースに保存
@@ -14,7 +14,7 @@ RSpec.describe "Tags", type: :system do
       visit root_path
     end
     context '入力内容が正常' do
-      it "タグが保存されること" do
+      it 'タグが保存されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -25,7 +25,7 @@ RSpec.describe "Tags", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "タグが複数保存されること" do
+      it 'タグが複数保存されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -38,7 +38,7 @@ RSpec.describe "Tags", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "同じタグが重複して保存されないこと" do
+      it '同じタグが重複して保存されないこと' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -56,14 +56,47 @@ RSpec.describe "Tags", type: :system do
         expect(current_path).to eq(posts_path)
       end
     end
+    context '入力内容が正常' do
+      it '一つの投稿に対してタグが4つ以上設定されないこと' do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title'
+        fill_in 'post[body]', with: 'test-body'
+        fill_in 'post[name]', with: 'test-tag,test-tag2,test-tag3,test-tag4'
+        click_button '投稿'
+        expect(page).to have_content('申し訳ありません タグは3つまででお願いします')
+        expect(current_path).to eq(new_post_path)
+      end
+    end
   end
   describe 'タグの編集テスト' do
     before do
       login_process(user)
       visit root_path
     end
+    context '入力に不備がある場合に更新に失敗し、エラーメッセージが表示されること' do
+      it 'タグが編集時、一つの投稿に対してタグが4つ以上設定されないこと' do
+        visit new_post_path
+        fill_in 'post[title]', with: 'test-title-tag'
+        fill_in 'post[body]', with: 'test-body'
+        fill_in 'post[name]', with: 'test-tag,test-tag2,test-tag3'
+        click_button '投稿'
+        expect(page).to have_content('新規投稿が完了しました！')
+        expect(page).to have_content('test-tag')
+        expect(page).to have_content('test-tag2')
+        expect(page).to have_content('test-tag3')
+        expect(current_path).to eq(posts_path)
+
+        post = Post.last
+        visit edit_post_path(post)
+        expect(page).to have_selector("input[value='test-tag,test-tag2,test-tag3']")
+        fill_in 'post[name]', with: 'test-tag,test-tag-edit,test-tag-edit2,test-tag-edit3,test-tag-edit4'
+        click_button '投稿'
+        expect(page).to have_content('申し訳ありません タグは3つまででお願いします')
+        expect(current_path).to eq(edit_post_path(post))
+      end
+    end
     context '入力内容が正常' do
-      it "タグが編集できること" do
+      it 'タグが編集できること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title-tag'
         fill_in 'post[body]', with: 'test-body'
@@ -102,7 +135,7 @@ RSpec.describe "Tags", type: :system do
       post3.tags << tag2
     end
     context 'タグで検索できるか' do
-      it "投稿にタグが付与されている場合、同じ「タグ名」がついた投稿のみ投稿一覧に表示できるか" do
+      it '投稿にタグが付与されている場合、同じ「タグ名」がついた投稿のみ投稿一覧に表示できるか' do
         visit posts_path
         expect(page).to have_content(post1.title)
         expect(page).to have_content(post2.title)

@@ -14,5 +14,6 @@ Link showing page number
 %>
 
 <li>
-  <%= link_to page, url, {remote: remote, rel: page.rel, class: "pagination-link#{' is-current' if page.current?}"} %>
+  <%= link_to page, url, {remote: remote, rel: page.rel,
+    class: "pagination-link#{' is-current' if page.current?} border border-black w-8 h-8 base-color hover:bg-gray-300 flex items-center justify-center"} %>
 </li>

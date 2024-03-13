@@ -1,8 +1,5 @@
 class CatsController < ApplicationController
-  skip_before_action :require_login, only: %i[show]
-
   def index
-    # @cats = current_user.cats.order(created_at: :asc) # 生成した順番に取得する
     @cats = current_user.cats.includes(:user).order(created_at: :asc)
   end
 
@@ -10,45 +7,17 @@ class CatsController < ApplicationController
     @cat = Cat.new
   end
 
-  # def show
-  #   @cat = Cat.find(params[:id])
-  # end
-
-  # def edit
-  #   return unless set_cat.user_id == current_user.id
-
-  #   @cat = Cat.find(params[:id])
-  # end
-
   def create
     @cat = Cat.new(cat_params)
     if cat_params[:avatar].present?
       result = Vision.image_analysis(cat_params[:avatar])
-      # 画像を添付した場合の処理
       if result
-        if @cat.save
-          # 添付ファイルが猫の画像だった場合
-          flash[:success] = t('messages.cats.create')
-          redirect_to cats_path
-        else
-          flash.now[:danger] = t('messages.cats.create_faild')
-          render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
-        end
+        create_has_image # 添付画像が猫の画像だった場合の処理
       else
-        # 添付ファイルが猫とは関係ない画像だった場合
-        @cat.avatar = nil # renderで戻る前に画像をnillにする処理
-        flash.now[:danger] = t('messages.cats.cat_validation')
-        render :new, status: :unprocessable_entity
+        create_bad_image # 添付画像が猫の画像以外の場合の処理
       end
     else
-      # 画像を添付していない場合の処理
-      if @cat.save
-        flash[:success] = t('messages.cats.create')
-        redirect_to cats_path
-      else
-        flash.now[:danger] = t('messages.cats.create_faild')
-        render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
-      end
+      create_not_image # 画像を添付していない場合の処理
     end
   end
 
@@ -57,38 +26,13 @@ class CatsController < ApplicationController
 
     if cat_params[:avatar].present?
       result = Vision.image_analysis(cat_params[:avatar])
-      # 画像を添付した場合の処理
       if result
-        @cat = Cat.find_by(id: params[:id])
-        if @cat.update(cat_params)
-           # 添付ファイルが猫の画像だった場合
-          # flash.now[:success] = t('messages.cats.update')
-          # redirect_to cats_path
-        else
-          flash.now[:danger] = t('messages.cats.update_faild')
-          # render :edit, status: :unprocessable_entity
-          render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' })
-        end
+        update_has_image # 添付画像が猫の画像だった場合の処理
       else
-        # 添付ファイルが猫とは関係ない画像だった場合
-        flash.now[:danger] = t('messages.cats.cat_validation')
-        # render :edit, status: :unprocessable_entity
-        # render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
-        render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.cat_validation'), css_class: 'danger' })
+        update_bad_image # 添付画像が猫の画像以外の場合の処理
       end
     else
-      # 画像を添付していない場合の処理
-      @cat = Cat.find_by(id: params[:id])
-      if @cat.update(cat_params)
-        # flash.now[:success] = t('messages.cats.update')
-        # redirect_to cats_path
-      else
-        flash.now[:danger] = t('messages.cats.update_faild')
-        # render json: { success: false, message: flash.now[:danger] }, status: :unprocessable_entity
-        # エラー時の Turbo Stream
-        # render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' })
-        render turbo_stream: turbo_stream.replace("flash-messages-container-edit-#{@cat.id}", partial: 'shared/flash_message', locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }), status: :unprocessable_entity
-      end
+      update_not_image # 画像を添付していない場合の処理
     end
   end
 
@@ -108,7 +52,77 @@ class CatsController < ApplicationController
   end
 
   def cat_params
-    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender, :avatar, :avatar_cache, :cat_breed_id, :remove_cat_avatar).merge(user_id: current_user.id)
+    params.require(:cat).permit(:name, :birthday, :self_introduction, :gender,
+                                :avatar, :avatar_cache, :cat_breed_id, :remove_cat_avatar).merge(user_id: current_user.id)
   end
 
+  # 新規猫プロフィール作成時、猫の画像を添付していた場合の処理
+  def create_has_image
+    if @cat.save
+      flash[:success] = t('messages.cats.create')
+      redirect_to cats_path
+    else
+      flash.now[:danger] = t('messages.cats.create_faild')
+      render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+    end
+  end
+
+  # 新規猫プロフィール作成時、猫以外の画像を添付していた場合の処理
+  def create_bad_image
+    @cat.avatar = nil # renderで戻る前に画像をnillにする処理
+    flash.now[:danger] = t('messages.cats.cat_validation')
+    render :new, status: :unprocessable_entity
+  end
+
+  # 新規猫プロフィール作成時、画像を添付していない場合の処理
+  def create_not_image
+    # 画像を添付していない場合の処理
+    if @cat.save
+      flash[:success] = t('messages.cats.create')
+      redirect_to cats_path
+    else
+      flash.now[:danger] = t('messages.cats.create_faild')
+      render :new, status: :unprocessable_entity # renderでフラッシュメッセージを表示するときはstatus: :unprocessable_entityをつけないと動作しない。
+    end
+  end
+
+  # 猫プロフィール更新時、猫の画像を添付していた場合の処理
+  def update_has_image
+    @cat = Cat.find_by(id: params[:id])
+    return if @cat.update(cat_params)
+
+    flash.now[:danger] = t('messages.cats.update_faild')
+    render turbo_stream: turbo_stream.replace(
+      "flash-messages-container-edit-#{@cat.id}",
+      partial: 'shared/flash_message',
+      locals: { message: t('messages.cats.update_faild'), css_class: 'danger' }
+    )
+  end
+
+  # 猫プロフィール更新時、猫以外の画像を添付していた場合の処理
+  def update_bad_image
+    # 添付ファイルが猫とは関係ない画像だった場合
+    flash.now[:danger] = t('messages.cats.cat_validation')
+    render turbo_stream: turbo_stream.replace(
+      "flash-messages-container-edit-#{@cat.id}",
+      partial: 'shared/flash_message',
+      locals: { message: t('messages.cats.cat_validation'), css_class: 'danger' }
+    )
+  end
+
+  # 猫プロフィール更新時、画像を添付していなかった場合の処理
+  def update_not_image
+    # 画像を添付していない場合の処理
+    @cat = Cat.find_by(id: params[:id])
+    return if @cat.update(cat_params)
+
+    flash.now[:danger] = t('messages.cats.update_faild')
+    # エラー時の Turbo Stream
+    render turbo_stream: turbo_stream.replace(
+      "flash-messages-container-edit-#{@cat.id}",
+      partial: 'shared/flash_message',
+      locals: { message: t('messages.cats.update_faild'),
+                css_class: 'danger' }
+    ), status: :unprocessable_entity
+  end
 end

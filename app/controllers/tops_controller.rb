@@ -6,4 +6,6 @@ class TopsController < ApplicationController
   def kiyac; end
 
   def policy; end
+
+  def guide; end
 end

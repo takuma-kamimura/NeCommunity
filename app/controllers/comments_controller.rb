@@ -3,17 +3,17 @@ class CommentsController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV['LINE_CHANNEL_SECRET']
+      config.channel_token = ENV['LINE_CHANNEL_TOKEN']
     }
   end
 
   def create
     @comment = Comment.new(comment_params)
     @comment.save
-    if @comment.post.user.line_id.present?
-      client.push_message(@comment.post.user.line_id, { type: 'text', text: "#{@comment.post.user.name}さんの投稿、#{@comment.post.title}にコメントが追加されました!" })
-    end
+    return if @comment.post.user.line_id.blank?
+
+    client.push_message(@comment.post.user.line_id, { type: 'text', text: "#{@comment.post.user.name}さんの投稿、#{@comment.post.title}にコメントが追加されました!" })
   end
 
   def destroy

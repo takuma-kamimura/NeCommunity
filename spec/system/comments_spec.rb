@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Comments", type: :system do
-  let(:user) { create(:user) }
-  let(:another_user) { create(:user) }
-  let(:post) { create(:post, user: another_user) }
-  let(:cat) { create(:cat) }
+RSpec.describe 'Comments', type: :system do
+  let!(:user) { create(:user) }
+  let!(:another_user) { create(:user) }
+  let!(:post) { create(:post, user: another_user) }
+  let!(:cat) { create(:cat, user: user) }
   let!(:cat_breed) do
     # 開発環境のデータをコピーしてテスト用データベースに保存
     CatBreed.create!(name: 'マンチカン')
@@ -16,7 +16,7 @@ RSpec.describe "Comments", type: :system do
       visit posts_path
     end
     context '入力に不備がある場合にコメント投稿に失敗し、エラーメッセージが表示されること' do
-      it "内容がない場合はエラーメッセージが表示されること" do
+      it '内容がない場合はエラーメッセージが表示されること' do
         visit post_path(post)
         fill_in 'comment[body]', with: nil
         click_button 'コメント投稿'
@@ -25,7 +25,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力に不備がある場合にコメント投稿に失敗し、エラーメッセージが表示されること' do
-      it "コメントが501文字以上の場合はエラーメッセージが表示されること" do
+      it 'コメントが501文字以上の場合はエラーメッセージが表示されること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'a' * 501
         click_button 'コメント投稿'
@@ -34,7 +34,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "正常にコメント投稿ができること" do
+      it '正常にコメント投稿ができること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'test-comment'
         click_button 'コメント投稿'
@@ -45,7 +45,7 @@ RSpec.describe "Comments", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "コメント内容が500文字以内であり正常にコメント投稿ができること" do
+      it 'コメント内容が500文字以内であり正常にコメント投稿ができること' do
         visit post_path(post)
         fill_in 'comment[body]', with: 'a' * 500
         click_button 'コメント投稿'
@@ -60,16 +60,18 @@ RSpec.describe "Comments", type: :system do
     let!(:comment_user) { create(:user) }
     let!(:comment_user2) { create(:user) }
     let!(:comment_user3) { create(:user) }
+    let!(:another_cat) { create(:cat, user: comment_user) }
     let!(:comment_post) { create(:post, user: another_user) }
     let!(:comment1) { create(:comment, user: comment_user, post: comment_post) }
     let!(:comment2) { create(:comment, user: comment_user2, post: comment_post) }
     let!(:comment3) { create(:comment, user: comment_user3, post: comment_post) }
+    let!(:comment4) { create(:comment, user: user, post: comment_post) }
     before do
       login_process(user)
       visit root_path
       visit posts_path
     end
-    it "コメント一覧が表示されること" do
+    it 'コメント一覧が表示されること' do
       visit post_path(comment_post)
       expect(current_path).to eq(post_path(comment_post))
       expect(page).to have_content(comment1.body)
@@ -79,6 +81,38 @@ RSpec.describe "Comments", type: :system do
       expect(page).to have_content(comment2.user.name)
       expect(page).to have_content(comment3.user.name)
     end
+    it 'コメント一覧からユーザーのリンクをクリックするとユーザーの詳細が表示され、さらにリンクをクリックすると、そのユーザーのマイ猫sが表示されること' do
+      visit post_path(comment_post)
+      expect(current_path).to eq(post_path(comment_post))
+      expect(page).to have_content(comment1.body)
+      expect(page).to have_content(comment2.body)
+      expect(page).to have_content(comment3.body)
+      expect(page).to have_content(comment1.user.name)
+      expect(page).to have_content(comment2.user.name)
+      expect(page).to have_content(comment3.user.name)
+      find("#comment-index-from-post-show-#{comment_user.id}").click
+      expect(page).to have_content("#{comment_user.name}さんのマイ猫's")
+      click_link "#{comment_user.name}さんのマイ猫's"
+      expect(page).to have_content("#{comment_user.name}さんのマイ猫's")
+      expect(page).to have_content(another_cat.name)
+    end
+    it 'コメント一覧から自分のユーザーリンクをクリックすると自分の詳細が表示され、さらにリンクをクリックすると、自分のマイ猫sが表示されること' do
+      visit post_path(comment_post)
+      expect(current_path).to eq(post_path(comment_post))
+      expect(page).to have_content(comment1.body)
+      expect(page).to have_content(comment2.body)
+      expect(page).to have_content(comment3.body)
+      expect(page).to have_content(comment4.body)
+      expect(page).to have_content(comment1.user.name)
+      expect(page).to have_content(comment2.user.name)
+      expect(page).to have_content(comment3.user.name)
+      expect(page).to have_content(comment4.user.name)
+      find("#comment-index-from-post-show-#{comment4.user.id}").click
+      expect(page).to have_content('あなたのマイ猫\'s')
+      click_link 'あなたのマイ猫\'s'
+      expect(page).to have_content('マイ猫\'s')
+      expect(page).to have_content(cat.name)
+    end
   end
   describe 'コメントの削除のテスト' do
     let!(:destroy_comment) { create(:comment, user: user, post: post) }
@@ -87,7 +121,7 @@ RSpec.describe "Comments", type: :system do
       visit root_path
       visit posts_path
     end
-    it "自分のコメントが削除されること" do
+    it '自分のコメントが削除されること' do
       visit post_path(post)
       expect(page).to have_content(destroy_comment.body)
       accept_alert do

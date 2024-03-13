@@ -31,7 +31,12 @@ module ApplicationHelper
     title = options[:title]
     image = options[:image].presence || image_url('post_default.webp')
 
-    configs = {
+    configs = set_configs(site, title, image)
+    set_meta_tags(configs)
+  end
+
+  def set_configs(site, title, image)
+    {
       separator: '|',
       reverse: true,
       # 以下の「site」「title」はページタイトルに影響したためコメントにした。
@@ -54,8 +59,5 @@ module ApplicationHelper
         image: #image # 使用する画像のパスを指定
       }
     }
-    set_meta_tags(configs)
   end
-
-  
 end

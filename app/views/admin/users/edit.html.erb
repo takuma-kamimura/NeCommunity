@@ -17,6 +17,16 @@
         <%= f.label :self_introduction, class: "block text-gray-700 text-sm font-bold mb-2" %>
         <%= f.text_area :self_introduction, class: "form-input w-full px-3 py-2 placeholder-gray-400 border rounded-md focus:outline-none focus:shadow-outline-blue focus:border-blue-300" %>
       </div>
+
+      <% if @user.line_id.present? %>
+      <div class="mb-4">
+        <%= f.label :line_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <div class="border rounded-md p-2">
+        <%= f.check_box :remove_line_id %>
+        <%= f.label :remove_line_id, "連携したLineの設定を解除する" %>
+      </div>
+      </div>
+      <%end%>
     
       <div class="mb-4">
         <%= f.label :role, class: "block text-gray-700 text-sm font-bold mb-2" %>

@@ -4,7 +4,6 @@ import { Autocomplete } from 'stimulus-autocomplete' // オートコンプリー
 const application = Application.start()
 application.register('autocomplete', Autocomplete) // オートコンプリート機能のため追加
 
-// Configure Stimulus development experience
 application.debug = false
 window.Stimulus   = application
 

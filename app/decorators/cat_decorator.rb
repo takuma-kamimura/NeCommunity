@@ -1,20 +1,11 @@
 class CatDecorator < ApplicationDecorator
   delegate_all
 
-  # Define presentation-specific methods here. Helpers are accessed through
-  # `helpers` (aka `h`). You can override attributes, for example:
-  #
-  #   def created_at
-  #     helpers.content_tag :span, class: 'time' do
-  #       object.created_at.strftime("%a %m/%d/%y")
-  #     end
-  #   end
-
   # 猫の名前のオス・メスの表示切り替え
   def cat_name
-    if object.gender == 'Female'
+    if object.Female?
       "#{object.name}ちゃん"
-    elsif object.gender == 'Male'
+    else
       "#{object.name}くん"
     end
   end

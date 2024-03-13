@@ -1,21 +1,17 @@
 Rails.application.routes.draw do
-  # get 'tops/top'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
-
-  root "tops#top" # topページ
+  root 'tops#top' # topページ
 
   resources :tops do
     collection do
       get :kiyac
       get :policy
+      get :guide
     end
   end
 
   get 'login' => 'user_sessions#new', :as => :login # gem sorceryより。
-  post 'login' => "user_sessions#create" # gem sorceryのより。
+  post 'login' => 'user_sessions#create' # gem sorceryのより。
   delete 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users, only: %i(new create show) do
@@ -28,43 +24,38 @@ Rails.application.routes.draw do
       get :delete_confirmation
     end
   end
+  resources :cat_breeds, only: %i(index)
   resources :cats, only: %i(index new create update destroy)
   resources :password_resets, only: %i[new create edit update] # パスワードリセット用
-  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? # 開発環境用メーラー
-  
-  # resources :cats, only: [:index]
+
   resources :posts, only: %i(index new show edit create update destroy) do
     resources :comments, only: %i[create update destroy], shallow: true
-    collection do
-      get :likes
-      get :samebreedcats
-      get :specifycats
-      get :autocomplete
-    end
   end
   resources :likes, only: %i(create destroy)
+  resources :post_by_cats, only: %i(index)
+  resources :samebreedcats, only: %i(index)
+  resources :like_lists, only: %i(index)
+  resources :autocompletes, only: %i(index)
 
-  resources :maps, only: [:index, :show] do # GoogleマップAPIの導入により追加
+  resources :maps, only: %i(index show) do # GoogleマップAPIの導入により追加
     collection do
       get :search
     end
   end
 
-  get "line_events/show", to: 'line_events#show'
+  get 'line_events/show', to: 'line_events#show'
   post '/line_events', to: 'line_events#receive'
   put '/line_events', to: 'line_events#update'
 
   namespace :admin do
-    #root to: 'posts#index'
-    # root 'user_sessions#new'
-    root to: 'posts#index'
+    root to: 'users#index'
     get 'login', to: 'user_sessions#new'
     post 'login', to: 'user_sessions#create'
     delete 'logout', to: 'user_sessions#destroy'
-    resources :users, only: [:index, :show, :edit, :update, :destroy]
-    resources :posts, only: [:index, :show, :edit, :update, :destroy]
-    resources :cats, only: [:index, :show, :edit, :update, :destroy]
-    resources :tags, only: [:index, :show, :edit, :update, :destroy]
-    resources :comments, only: [:index, :show, :edit, :update, :destroy]
+    resources :users, only: %i(index show edit update destroy)
+    resources :posts, only: %i(index show edit update destroy)
+    resources :cats, only: %i(index show edit update destroy)
+    resources :tags, only: %i(index show edit update destroy)
+    resources :comments, only: %i(index show edit update destroy)
   end
 end

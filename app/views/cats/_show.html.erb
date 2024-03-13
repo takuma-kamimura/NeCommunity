@@ -53,6 +53,9 @@
           </div>
           <% end %>
         </div>
+        <div class="text-center">
+          <%= link_to "#{cat.decorate.cat_name}の投稿一覧", post_by_cats_path(cat_id: cat.id), class:"btn-sm btn-primary rounded-circle underline text-blue-500" %>
+        </div>
       </div>
     </div>
   </div>

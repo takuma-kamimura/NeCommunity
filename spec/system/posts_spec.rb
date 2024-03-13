@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Posts", type: :system do
+RSpec.describe 'Posts', type: :system do
   let(:user) { create(:user) }
   let!(:cat) { create(:cat, user: user) }
   let!(:cat_breed) do
@@ -15,22 +15,22 @@ RSpec.describe "Posts", type: :system do
       visit posts_path
     end
     context 'ログアウト状態の場合' do
-      it "「新規投稿」ボタンが表示されないこと" do
+      it '「新規投稿」ボタンが表示されないこと' do
         expect(page).not_to have_link '新規投稿', href: new_post_path
       end
     end
     context 'ログアウト状態の場合' do
-      it "「いいね一覧」ボタンが表示されないこと" do
-        expect(page).not_to have_link 'いいね一覧', href: likes_posts_path
+      it '「いいね一覧」ボタンが表示されないこと' do
+        expect(page).not_to have_link 'いいね一覧', href: like_lists_path
       end
     end
     context 'ログアウト状態の場合' do
-      it "「貴方の猫\'sと同猫種」ボタンが表示されないこと" do
-        expect(page).not_to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+      it '「貴方の猫\'sと同猫種」ボタンが表示されないこと' do
+        expect(page).not_to have_link '貴方の猫\'sと同猫種', href: samebreedcats_path
       end
     end
     context 'ログイン状態の場合' do
-      it "「新規投稿」ボタンが表示されること" do
+      it '「新規投稿」ボタンが表示されること' do
         login_process(user)
         visit root_path
         visit posts_path
@@ -38,19 +38,19 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context 'ログイン状態の場合' do
-      it "「いいね一覧」ボタンが表示されること" do
+      it '「いいね一覧」ボタンが表示されること' do
         login_process(user)
         visit root_path
         visit posts_path
-        expect(page).to have_link 'いいね一覧', href: likes_posts_path
+        expect(page).to have_link 'いいね一覧', href: like_lists_path
       end
     end
     context 'ログイン状態の場合' do
-      it "「貴方の猫\'sと同猫種」ボタンが表示されること" do
+      it '「貴方の猫\'sと同猫種」ボタンが表示されること' do
         login_process(user)
         visit root_path
         visit posts_path
-        expect(page).to have_link '貴方の猫\'sと同猫種', href: samebreedcats_posts_path
+        expect(page).to have_link '貴方の猫\'sと同猫種', href: samebreedcats_path
       end
     end
   end
@@ -61,7 +61,7 @@ RSpec.describe "Posts", type: :system do
       visit posts_path
     end
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
-      it "タイトルがない場合はエラーメッセージが表示されること" do
+      it 'タイトルがない場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: nil
         fill_in 'post[body]', with: 'test-body'
@@ -72,7 +72,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容がない場合はエラーメッセージが表示されること" do
+      it '投稿内容がない場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: nil
@@ -83,7 +83,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
-      it "タイトルが21文字以上の場合はエラーメッセージが表示されること" do
+      it 'タイトルが21文字以上の場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'a' * 21
         fill_in 'post[body]', with: 'test-body'
@@ -94,7 +94,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容が501文字以上の場合はエラーメッセージが表示されること" do
+      it '投稿内容が501文字以上の場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'a' * 501
@@ -105,7 +105,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿に失敗し、エラーメッセージが表示されること' do
-      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+      it '猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -119,7 +119,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "正常に投稿ができること。画像を添付していない場合はデフォルト画像が設定されていること" do
+      it '正常に投稿ができること。画像を添付していない場合はデフォルト画像が設定されていること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -131,7 +131,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿タイトルが20文字以内であり正常に投稿ができること" do
+      it '投稿タイトルが20文字以内であり正常に投稿ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'a' * 20
         fill_in 'post[body]', with: 'test-body'
@@ -142,7 +142,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿内容が500文字以内であり正常に投稿ができること" do
+      it '投稿内容が500文字以内であり正常に投稿ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'a' * 500
@@ -152,7 +152,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の情報を紐づけて、正常に投稿ができること" do
+      it '投稿に猫の情報を紐づけて、正常に投稿ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -164,7 +164,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "猫の画像を添付して、正常に投稿ができること" do
+      it '猫の画像を添付して、正常に投稿ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -194,7 +194,7 @@ RSpec.describe "Posts", type: :system do
       visit root_path
       visit posts_path
     end
-    it "投稿詳細ページが表示され、投稿者の投稿内容と「X」への共有ボタンが表示されること" do
+    it '投稿詳細ページが表示され、投稿者の投稿内容と「X」への共有ボタンが表示されること' do
       visit post_path(post)
       expect(page).to have_content(post.title)
       expect(page).to have_content(post.body)
@@ -202,7 +202,7 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_css("#share-button-#{post.id}")
       expect(current_path).to eq(post_path(post))
     end
-    it "他人が投稿した投稿の詳細ページが表示され、編集ボタン、削除ボタンが表示されないこと" do
+    it '他人が投稿した投稿の詳細ページが表示され、編集ボタン、削除ボタンが表示されないこと' do
       visit post_path(post)
       expect(page).to have_content(post.title)
       expect(page).to have_content(post.body)
@@ -210,7 +210,7 @@ RSpec.describe "Posts", type: :system do
       expect(page).not_to have_css("#button-edit-#{post.id}")
       expect(current_path).to eq(post_path(post))
     end
-    it "自分が投稿した投稿の詳細ページが表示され、編集ボタン、削除ボタンが表示されること" do
+    it '自分が投稿した投稿の詳細ページが表示され、編集ボタン、削除ボタンが表示されること' do
       visit post_path(me_post)
       expect(page).to have_content(me_post.title)
       expect(page).to have_content(me_post.body)
@@ -218,7 +218,24 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_css("#button-edit-#{me_post.id}")
       expect(current_path).to eq(post_path(me_post))
     end
-    it "他人が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されないこと" do
+    it '投稿の詳細ページで猫のモーダルウィンドウが表示され、猫の名前のリンクを押すとその猫の投稿一覧が表示される' do
+      visit post_path(post)
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(post.body)
+      find("#cat-avatar-for-post-show-#{cat.id}").click
+      expect(page).to have_content(cat.name)
+      expect(page).to have_content('ネコの名前')
+      expect(page).not_to have_css("#cat-edit-#{cat.id }")
+      expect(page).not_to have_css("#cat-delete-#{cat.id}")
+      expect(current_path).to eq(post_path(post))
+      expect(page).to have_link("#{cat.decorate.cat_name}の投稿一覧")
+      click_link "#{cat.decorate.cat_name}の投稿一覧"
+      expect(page).to have_content("#{cat.decorate.cat_name}の投稿一覧")
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(another_user.name)
+    end
+    it '他人が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されないこと' do
       visit post_path(post)
       expect(page).to have_content(post.title)
       expect(page).to have_content(post.body)
@@ -229,7 +246,7 @@ RSpec.describe "Posts", type: :system do
       expect(page).not_to have_css("#cat-delete-#{cat.id}")
       expect(current_path).to eq(post_path(post))
     end
-    it "自分が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されること" do
+    it '自分が投稿した投稿の詳細ページで猫のモーダルウィンドウが表示され、編集ボタン、削除ボタンが表示されること' do
       visit post_path(me_cat_post)
       expect(page).to have_content(me_cat_post.title)
       expect(page).to have_content(me_cat_post.body)
@@ -265,7 +282,7 @@ RSpec.describe "Posts", type: :system do
       visit root_path
       visit posts_path
     end
-    it "投稿一覧が表示されること" do
+    it '投稿一覧が表示されること' do
       expect(page).to have_content(post.title)
       expect(page).to have_content(another_user.name)
       expect(page).to have_content(cat.name)
@@ -276,7 +293,7 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_content(another_user3.name)
       expect(page).to have_content(cat3.name)
     end
-    it "他人が投稿した投稿が一覧ページで表示され、編集ボタン、削除ボタンが表示されていないこと" do
+    it '他人が投稿した投稿が一覧ページで表示され、編集ボタン、削除ボタンが表示されていないこと' do
       expect(page).to have_content(post.title)
       expect(page).to have_content(cat.name)
       expect(page).to have_content(post2.title)
@@ -292,7 +309,7 @@ RSpec.describe "Posts", type: :system do
       expect(page).not_to have_css("#button-delete-#{post3.id}")
       expect(page).not_to have_css("#button-edit-#{post3.id}")
     end
-    it "自分と他人の投稿が一覧ページで表示され、自分の投稿にのみ編集ボタン、削除ボタンが表示されていること" do
+    it '自分と他人の投稿が一覧ページで表示され、自分の投稿にのみ編集ボタン、削除ボタンが表示されていること' do
       expect(page).to have_content(post.title)
       expect(page).to have_content(cat.name)
       expect(page).to have_content(post2.title)
@@ -314,8 +331,8 @@ RSpec.describe "Posts", type: :system do
       expect(page).to have_css("#button-delete-#{me_post2.id}")
       expect(page).to have_css("#button-edit-#{me_post2.id}")
     end
-    it "自分の飼っている猫と同じ猫種に関する投稿が一覧ページで表示されていること" do
-      visit samebreedcats_posts_path
+    it '自分の飼っている猫と同じ猫種に関する投稿が一覧ページで表示されていること' do
+      visit samebreedcats_path
       expect(page).to have_content(post.title)
       expect(page).to have_content(cat.name)
       expect(page).to have_content(post2.title)
@@ -350,7 +367,7 @@ RSpec.describe "Posts", type: :system do
       visit posts_path
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "タイトルがない場合はエラーメッセージが表示されること" do
+      it 'タイトルがない場合はエラーメッセージが表示されること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -380,7 +397,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容がない場合はエラーメッセージが表示されること" do
+      it '投稿内容がない場合はエラーメッセージが表示されること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -410,7 +427,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "タイトルが21文字以上の場合はエラーメッセージが表示されること" do
+      it 'タイトルが21文字以上の場合はエラーメッセージが表示されること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -440,7 +457,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容が501文字以上の場合はエラーメッセージが表示されること" do
+      it '投稿内容が501文字以上の場合はエラーメッセージが表示されること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -470,7 +487,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+      it '猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること' do
 
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
@@ -503,7 +520,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "自分の投稿が一覧ページで表示され、自分の投稿を編集して更新できること" do
+      it '自分の投稿が一覧ページで表示され、自分の投稿を編集して更新できること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -534,7 +551,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿タイトルが20文字以内であり正常に投稿の更新ができること" do
+      it '投稿タイトルが20文字以内であり正常に投稿の更新ができること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -565,7 +582,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿内容が500文字以内であり正常に投稿の更新ができること" do
+      it '投稿内容が500文字以内であり正常に投稿の更新ができること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -596,7 +613,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の情報を紐づけて、正常に投稿ができること" do
+      it '投稿に猫の情報を紐づけて、正常に投稿ができること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -629,7 +646,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の画像を添付して、正常に投稿ができること" do
+      it '投稿に猫の画像を添付して、正常に投稿ができること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -666,7 +683,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '投稿の削除の処理が正常' do
-      it "自分の投稿が投稿一覧ページで削除できること" do
+      it '自分の投稿が投稿一覧ページで削除できること' do
         expect(page).to have_content(post.title)
         expect(page).to have_content(cat.name)
         expect(page).to have_content(post2.title)
@@ -705,7 +722,7 @@ RSpec.describe "Posts", type: :system do
     end
     context '投稿一覧が12件以内の場合' do
       let!(:posts) { create_list(:post, 12) }
-      it "ページネーションが表示されないこと" do
+      it 'ページネーションが表示されないこと' do
         login_process(user)
         visit posts_path
         expect(page).not_to have_selector('.pagination')
@@ -713,7 +730,7 @@ RSpec.describe "Posts", type: :system do
     end
     context '投稿一覧が13件以上の場合' do
       let!(:posts) { create_list(:post, 13) }
-      it "ページネーションが表示されること" do
+      it 'ページネーションが表示されること' do
         login_process(user)
         visit posts_path
         expect(page).to have_selector('.pagination')
@@ -729,7 +746,7 @@ RSpec.describe "Posts", type: :system do
       visit posts_path
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "タイトルがない場合はエラーメッセージが表示されること" do
+      it 'タイトルがない場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -747,7 +764,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容がない場合はエラーメッセージが表示されること" do
+      it '投稿内容がない場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -765,7 +782,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "タイトルが21文字以上の場合はエラーメッセージが表示されること" do
+      it 'タイトルが21文字以上の場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -783,7 +800,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "投稿内容が501文字以上の場合はエラーメッセージが表示されること" do
+      it '投稿内容が501文字以上の場合はエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -801,7 +818,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力に不備がある場合に投稿の更新に失敗し、エラーメッセージが表示されること' do
-      it "猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること" do
+      it '猫以外の画像を添付して、投稿ボタンを押すとエラーメッセージが表示されること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -821,7 +838,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "自分の投稿が投稿詳細画面で表示され、自分の投稿を編集して更新できること" do
+      it '自分の投稿が投稿詳細画面で表示され、自分の投稿を編集して更新できること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -840,7 +857,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿タイトルが20文字以内であり正常に投稿の更新ができること" do
+      it '投稿タイトルが20文字以内であり正常に投稿の更新ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -859,7 +876,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿内容が500文字以内であり正常に投稿の更新ができること" do
+      it '投稿内容が500文字以内であり正常に投稿の更新ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -878,7 +895,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の情報を紐づけて、正常に投稿の更新ができること" do
+      it '投稿に猫の情報を紐づけて、正常に投稿の更新ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -899,7 +916,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '入力内容が正常' do
-      it "投稿に猫の画像を添付して、正常に投稿の更新ができること" do
+      it '投稿に猫の画像を添付して、正常に投稿の更新ができること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'
@@ -924,7 +941,7 @@ RSpec.describe "Posts", type: :system do
       end
     end
     context '投稿の削除の処理が正常' do
-      it "自分の投稿が投稿詳細ページで削除できること" do
+      it '自分の投稿が投稿詳細ページで削除できること' do
         visit new_post_path
         fill_in 'post[title]', with: 'test-title'
         fill_in 'post[body]', with: 'test-body'

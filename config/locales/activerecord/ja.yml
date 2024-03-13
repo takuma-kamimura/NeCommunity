@@ -11,6 +11,7 @@ ja:
         name: '名前'
         self_introduction: '自己紹介'
         avatar: 'プロフィール画像'
+        line_id: 'Line ID'
       cat:
         name: 'ネコの名前'
         birthday: '誕生日'

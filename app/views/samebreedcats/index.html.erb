@@ -1,0 +1,16 @@
+<% content_for(:title, "#{h(current_user.name)}さんの猫'sと同猫種に関する投稿".html_safe) %>
+
+<div class="py-4 px-4 flex items-center justify-center justify-between flex-wrap">
+  <%= link_to '投稿一覧', posts_path, class: 'm-3 px-4 py-2 accent-color text-black rounded-full hover:bg-white transition duration-300 ease-in-out md:text-lg text-sm' %>
+</div>
+<% if @samebreedcats.present? %>
+  <h1 class="lg:text-4xl text-xl text-black mb-4 p-3">貴方の猫'sと同猫種に関する投稿</h1>
+  <div class="grid grid-cols-1 xl:grid-cols-4 md:grid-cols-2 gap-4 p-4 mx-auto xl:px-2">
+    <%= render @samebreedcats %>
+  </div>
+<% else %>
+  <h1 class="lg:text-4xl text-xl text-black p-3">あなたのネコ達と同じネコ種に関する投稿はまだありません</h1>
+<%end%>
+<div class="text-black py-3">
+  <%= paginate @samebreedcats %>
+</div>

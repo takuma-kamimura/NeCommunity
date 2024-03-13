@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Lines", type: :system do
+RSpec.describe 'Lines', type: :system do
   before do
     login_process(user)
     visit posts_path

@@ -16,10 +16,6 @@ class Cat < ApplicationRecord
     %w[name]  # 検索可能な属性を指定してください。検索時に猫の名前を検索できる
   end
 
-  # def self.ransackable_associations(auth_object = nil)
-  #   %w[body user]  # 検索可能なモデル関連を指定してください
-  # end
-
   def self.ransackable_associations(auth_object = nil)
     %w[health_records]  # 検索可能なモデル関連を指定してください
   end

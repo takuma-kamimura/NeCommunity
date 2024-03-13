@@ -1,0 +1,6 @@
+<div class="bg-white text-black inline-block p-1 rounded-md border-2 border-gray-500">ネコ種一覧</div>
+<% @cat_breeds.each do |cat_breed| %>
+  <li class="w-80 flex items-center rounded-md border border-black gap-x-3.5 py-2 px-3 bg-white text-sm hover:bg-blue-200 focus:ring-2 focus:ring-blue-500 dark:text-black dark:hover:bg-blue-200 dark:hover:text-gray-600" role="option" data-autocomplete-value="<%= cat_breed.id %>" data-autocomplete-label="<%= cat_breed.name %>">
+    <%= cat_breed.name %>
+  </li>
+<% end %>

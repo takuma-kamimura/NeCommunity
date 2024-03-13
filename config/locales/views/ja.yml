@@ -34,7 +34,7 @@ ja:
       logged_in: 'ようこそ！ログインしました！'
       logout: 'ログアウトしました'
       login_faild: '申し訳ありません ログインに失敗しました'
-      new: '新規登録が完了しました！'
+      new: '新規登録ありがとうございます！ログインが完了しました！ネコミュニティをお楽しみください！'
       new_faild: '申し訳ありません 新規登録に失敗しました'
       profile_update: 'プロフィールを更新しました'
       profile_update_faild: '申し訳ありません プロフィールの更新に失敗しました'
@@ -42,6 +42,8 @@ ja:
       reset_password_success: 'パスワードの変更が完了しました！'
       reset_password_faild: '申し訳ありません パスワードの変更ができませんでした'
       delete: '退会処理が完了しました。またのご利用をお待ちしております！ありがとうございました！'
+      reset_password_mail_subject: 'パスワードリセット'
+      management_login_faild: '権限がありません'
     post:
       create: '新規投稿が完了しました！'
       create_faild: '申し訳ありません 新規投稿に失敗しました'
@@ -49,6 +51,7 @@ ja:
       update_faild: '申し訳ありません 投稿の更新に失敗しました'
       delete: '投稿を削除しました！'
       cat_validation: '猫ちゃんに関係ない画像は投稿しないでください！'
+      tag_faild: '申し訳ありません タグは3つまででお願いします'
     cats:
       create: '猫ちゃんの新規登録が完了しました！'
       create_faild: '申し訳ありません 猫ちゃんの登録に失敗しました'

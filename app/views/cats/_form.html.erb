@@ -25,7 +25,14 @@
 
   <div class="mb-4 border border-black base-color rounded-md p-3">
     <%= f.label :cat_breed_id, class: "block text-gray-700 text-sm font-bold mb-2" %>
-    <%= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+    <%#= f.collection_select :cat_breed_id, CatBreed.order(:name), :id, :name, { prompt: "ネコの種類を選択してください" }, { class: "appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white" } %>
+    <div class="relative rounded-md items-center lg:space-x-4">
+      <div data-controller="autocomplete" data-autocomplete-url-value="/cat_breeds" role="combobox">
+        <%= f.search_field :cat_breed_id, class: 'form-control appearance-none border border-black rounded-md w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline bg-white', placeholder: '入力してネコ種を選択してください', data: { autocomplete_target: 'input' } %>
+        <%= f.hidden_field :cat_breed_id, data: { autocomplete_target: 'hidden' } %>
+        <ul class="list-group absolute w-full md:text-sm max-w-max inline-block bg-opacity-100 z-10" data-autocomplete-target="results"></ul>
+      </div>
+    </div>
   </div>
 
   <div class="mb-4 border border-black base-color rounded-md p-3">
@@ -36,11 +43,6 @@
     </div>
     <%= image_tag @cat.avatar_url, id: 'preview', class: 'w-full rounded-md' %>
   </div>
-
-  <!-- <div class="mb-4"> -->
-    <%#= f.check_box :remove_cat_avatar %>
-    <%#= f.label :remove_cat_avatar, "画像の設定を解除する" %>
-  <!-- </div> -->
 
   <div class="mb-4 text-center">
     <%= f.submit "ネコを登録する", class: "btn accent-color hover:bg-white text-black shadow-md border border-black" %>

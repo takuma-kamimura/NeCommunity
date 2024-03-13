@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "PasswordResets", type: :system do
+RSpec.describe 'PasswordResets', type: :system do
   let(:user) { create(:user) }
   describe 'パスワードリセット申請ページ' do
     it '正しいタイトルが表示されていること' do
@@ -25,7 +25,7 @@ RSpec.describe "PasswordResets", type: :system do
       fill_in 'パスワード', with: '123456789'
       fill_in 'パスワード確認', with: '123456789'
       click_button '更新'
-      Capybara.assert_current_path("/login", ignore_query: true)
+      Capybara.assert_current_path('/login', ignore_query: true)
       expect(current_path).to eq(login_path)
       expect(page).to have_content('パスワードの変更が完了しました！')
     end

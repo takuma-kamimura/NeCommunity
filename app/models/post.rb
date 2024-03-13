@@ -36,45 +36,53 @@ class Post < ApplicationRecord
     end
   end
 
+  # タグの更新処理
   def update_tags(tags)
-    # self = @post
     # @postの中のtagsを見ている。empty?で存在する場合（nillではない場合）に中の処理に入る。
     if self.tags.empty?
-      # タグが元々空の場合、通称のタグ追加更新処理
-      tags.each do |tag|
-        # self.tags.find_or_create_by(name: tag) # 指定された属性でレコードを検索し、存在しない場合には新しいレコードを作成するメソッド
-        # self.tags.find_or_initialize_by(name: tag)
-        tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
-        tagname.save unless tagname.persisted?
-        self.tags << tagname
-      end
+      add_to_empty_tag(tags) # タグが元々空の場合、タグ追加更新処理
     elsif tags.empty?
-      # 取得したtagsが空だった場合の処理
-      self.tags.each do |tag|
-        #@postのtagをeach文で回して一つづつ削除している。
-        self.tags.delete(tag)
-      end
+      empty_all_tags(tags) # 取得したtagsが空だった場合の処理
     else
-      # 既存のタグと新しいタグがある場合の処理
-      # 新しいタグ = 入力タグ　ー　既存タグ
-      new_tag = tags - self.tags.pluck(:name)
-      # 古いタグ = 既存タグ　ー　入力タグ
-      old_tag = self.tags.pluck(:name) - tags # old_tagは削除に使う。
-      # 古いタグ配列を削除
-      old_tag.each do |old_tag|
-        # @古くなったtagをeach文で回して一つづつ削除している。
-        # tagにfind_byを使ってold_tagと一致するタグをself.tagから探して入れる
-        tag = self.tags.find_by(name: old_tag)
-        self.tags.delete(tag) if tag.present?
-      end
+      new_and_old_tags(tags) # 既存のタグと新しいタグがある場合の処理
+    end
+  end
 
-      # 新しいタグを追加。
-      new_tag.each do |new_tag|
-        # self.tags.find_or_create_by(name: new_tag) # unless Tag.find_by(name: new_tag)
-        tagname = Tag.find_by(name: new_tag) || Tag.new(name: new_tag)
-        tagname.save unless tagname.persisted?
-        self.tags << tagname
-      end
+  # タグが元々空の場合、タグ追加更新処理
+  def add_to_empty_tag(tags)
+    tags.each do |tag|
+      tagname = Tag.find_by(name: tag) || Tag.new(name: tag)
+      tagname.save unless tagname.persisted?
+      self.tags << tagname
+    end
+  end
+
+  def empty_all_tags(tags)
+    # 取得したtagsが空だった場合の処理
+    self.tags.each do |tag|
+      #@postのtagをeach文で回して一つづつ削除している。
+      self.tags.delete(tag)
+    end
+  end
+
+  # 既存のタグと新しいタグがある場合の処理
+  def new_and_old_tags(tags)
+    # 新しいタグ = 入力タグ　ー　既存タグ
+    new_tags = tags - self.tags.pluck(:name)
+    # 古いタグ = 既存タグ　ー　入力タグ
+    old_tags = self.tags.pluck(:name) - tags # old_tagは削除に使う。
+    # 古いタグ配列を削除
+    old_tags.each do |old_tag|
+      # @古くなったtagをeach文で回して一つづつ削除している。
+      # tagにfind_byを使ってold_tagと一致するタグをself.tagから探して入れる
+      tag = self.tags.find_by(name: old_tag)
+      self.tags.delete(tag) if tag.present?
+    end
+    # 新しいタグを追加。
+    new_tags.each do |new_tag|
+      tagname = Tag.find_by(name: new_tag) || Tag.new(name: new_tag)
+      tagname.save unless tagname.persisted?
+      self.tags << tagname
     end
   end
 end

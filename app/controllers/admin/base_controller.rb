@@ -12,7 +12,7 @@ class Admin::BaseController < ApplicationController
     # current_userが「admin」かチェックしている。adminの場合は「return if」により処理がパズされる。adminじゃない場合は下の処理が作動する。
     return if current_user.admin?
 
-    flash[:danger] = t('user_sessions.management.login_failed')
-    redirect_to root_path
+    flash[:danger] = t('messages.users.management_login_faild')
+    redirect_to admin_login_path
   end
 end
