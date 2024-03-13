@@ -46,7 +46,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
     end
   end
   describe '編集・更新・削除テスト' do
-    let!(:general1) { create(:user, :general)}
+    let!(:general1) { create(:user, :general, self_introduction: 'test')}
     let!(:general2) { create(:user, :general)}
     it 'ユーザーの登録情報を更新できて一般ユーザーを管理者ユーザーへ変更可能なこと' do
       click_link general1.name
@@ -119,17 +119,23 @@ RSpec.describe "Admin::Users::Users", type: :system do
       click_button '更新'
       expect(page).to have_content('Line未登録')
     end
-    # it '管理者ユーザーの詳細ページが表示されること' do
-    #   click_link admin.name
-    #   sleep 2
-    #   expect(current_path).to eq(admin_user_path(admin))
-    #   expect(page).to have_content(admin.name)
-    #   expect(page).to have_content(admin.email)
-    #   expect(page).to have_content(admin.name)
-    #   expect(page).to have_content(admin.self_introduction)
-    #   expect(page).to have_content('Line登録済み')
-    #   expect(page).to have_content('管理者')
-    #   expect(page).to have_content('作成日')
-    # end
+    it '管理画面でユーザーの削除が可能なこと' do
+      click_link general1.name
+      sleep 2
+      expect(current_path).to eq(admin_user_path(general1))
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(general1.email)
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(general1.self_introduction)
+      expect(page).to have_content('Line登録済み')
+      expect(page).to have_content('管理者')
+      expect(page).to have_content('作成日')
+
+      accept_alert do
+        click_link '削除'
+      end
+      expect(page).to have_content('管理者用：削除しました')
+      expect(current_path).to eq(admin_users_path)
+    end
   end
 end
