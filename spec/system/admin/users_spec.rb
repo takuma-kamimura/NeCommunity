@@ -165,7 +165,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
 
       fill_in 'q_name_or_email_cont', with: '山'
       click_button '検索'
-      expect(page).to have_content('山田太郎')
+      expect(page).to have_content(general4.name)
       expect(page).not_to have_content(general1.name)
       expect(page).not_to have_content(general2.name)
       expect(page).not_to have_content(general3.name)
@@ -182,7 +182,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
 
       fill_in 'q_name_or_email_cont', with: 'yamada'
       click_button '検索'
-      expect(page).to have_content('山田太郎')
+      expect(page).to have_content(general4.name)
       expect(page).not_to have_content(general1.name)
       expect(page).not_to have_content(general2.name)
       expect(page).not_to have_content(general3.name)

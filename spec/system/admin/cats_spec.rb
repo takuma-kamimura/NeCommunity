@@ -343,4 +343,30 @@ RSpec.describe "Admin::Cats", type: :system do
       end
     end
   end
+  describe '管理画面の猫一覧検索機能テスト' do
+    let!(:cat4) { create(:cat, user: admin, cat_breed: cat_breed, name: '山田キャット') }
+    it '名前で猫の検索ができること' do
+      click_link '猫管理'
+      expect(page).to have_content('猫一覧')
+      expect(page).to have_content(cat1.name)
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(cat1.self_introduction)
+      expect(page).to have_content(cat2.name)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(cat2.self_introduction)
+      expect(page).to have_content(cat3.name)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(cat3.self_introduction)
+      expect(page).to have_content(cat4.name)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content(cat4.self_introduction)
+
+      fill_in 'q_name_cont', with: '山'
+      click_button '検索'
+      expect(page).to have_content(cat4.name)
+      expect(page).not_to have_content(cat1.name)
+      expect(page).not_to have_content(cat2.name)
+      expect(page).not_to have_content(cat3.name)
+    end
+  end
 end
