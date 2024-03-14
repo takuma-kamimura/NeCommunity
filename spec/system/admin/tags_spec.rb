@@ -120,4 +120,23 @@ RSpec.describe "Admin::Tags", type: :system do
       end
     end
   end
+  describe '管理画面のタグ一覧検索機能テスト' do
+    let!(:tag3) { create(:tag, name: '山田太郎') }
+    before do
+      post3.tags << tag2
+    end
+    it 'タグの検索ができること' do
+      click_link 'タグ管理'
+      expect(page).to have_content('タグ一覧')
+      expect(page).to have_link(tag1.name)
+      expect(page).to have_link(tag2.name)
+      expect(page).to have_link(tag3.name)
+
+      fill_in 'q_name_cont', with: '山'
+      click_button '検索'
+      expect(page).to have_link(tag3.name)
+      expect(page).not_to have_link(tag1.name)
+      expect(page).not_to have_link(tag2.name)
+    end
+  end
 end
