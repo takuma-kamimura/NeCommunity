@@ -26,6 +26,8 @@ class ProfilesController < ApplicationController
 
   def destroy
     @user = User.find(current_user.id)
+    return user_admin_check if current_user.admin?
+
     @user.destroy!
     flash[:success] = t('messages.users.delete')
     redirect_to root_path
@@ -39,5 +41,10 @@ class ProfilesController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :self_introduction, :avatar, :avatar_cache, :remove_avatar)
+  end
+
+  def user_admin_check
+    flash.now[:danger] = t('messages.users.delete_admin_false')
+    render :delete_confirmation, status: :unprocessable_entity
   end
 end

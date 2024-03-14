@@ -42,6 +42,7 @@ ja:
       reset_password_success: 'パスワードの変更が完了しました！'
       reset_password_faild: '申し訳ありません パスワードの変更ができませんでした'
       delete: '退会処理が完了しました。またのご利用をお待ちしております！ありがとうございました！'
+      delete_admin_false: '管理者ユーザーは退会できません！'
       reset_password_mail_subject: 'パスワードリセット'
       management_login_faild: '権限がありません'
     post:
@@ -72,3 +73,4 @@ ja:
       update: '管理者用：更新が成功しました'
       update_faild: '管理者用：更新が失敗しました'
       delete: '管理者用：削除しました'
+      delete_admin_false: '管理者用：管理者ユーザーは削除することができません'

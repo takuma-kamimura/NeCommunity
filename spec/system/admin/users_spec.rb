@@ -53,6 +53,7 @@ RSpec.describe "Admin::Users::Users", type: :system do
   describe '編集・更新・削除テスト' do
     let!(:general1) { create(:user, :general, self_introduction: 'test')}
     let!(:general2) { create(:user, :general)}
+    let!(:admin2) { create(:user, :admin)}
     it 'ユーザーの登録情報を更新できて一般ユーザーを管理者ユーザーへ変更可能なこと' do
       click_link general1.name
       sleep 2
@@ -150,6 +151,26 @@ RSpec.describe "Admin::Users::Users", type: :system do
       end
       expect(page).to have_content('管理者用：削除しました')
       expect(current_path).to eq(admin_users_path)
+    end
+    it '管理画面で管理者ユーザーの削除ができないこと' do
+      click_link admin2.name
+      sleep 2
+      expect(current_path).to eq(admin_user_path(admin2))
+      expect(page).to have_content(admin2.name)
+      expect(page).to have_content(admin2.email)
+      expect(page).to have_content(admin2.name)
+      expect(page).to have_content(admin2.self_introduction)
+      expect(page).to have_content('Line登録済み')
+      expect(page).to have_content('管理者')
+      expect(page).to have_content('作成日')
+      user_create_datetime = admin2.created_at.strftime('%Y年%m月%d日 %H時%M分')
+      expect(page).to have_content(user_create_datetime)
+
+      accept_alert do
+        click_link '削除'
+      end
+      expect(page).to have_content('管理者用：管理者ユーザーは削除することができません')
+      expect(current_path).to eq(admin_user_path(admin2))
     end
   end
   describe '管理画面のユーザー一覧検索機能テスト' do
