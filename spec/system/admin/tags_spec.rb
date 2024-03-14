@@ -13,7 +13,7 @@ RSpec.describe "Admin::Tags", type: :system do
     post3.tags << tag2
     login_process_admin(admin)
   end
-  describe '管理画面のタグ一覧テスト' do
+  describe '管理画面のタグのテスト' do
     it 'タグ一覧が正常に表示されること' do
       click_link 'タグ管理'
       expect(page).to have_content('タグ一覧')
@@ -50,6 +50,19 @@ RSpec.describe "Admin::Tags", type: :system do
       expect(current_path).to eq(admin_post_path(post1))
     end
     context '編集・更新・削除テスト' do
+      it 'タグ一覧ページからタグ編集ページへ遷移できて、タグが空の場合更新できないこと' do
+        click_link 'タグ管理'
+        expect(page).to have_link(tag1.name)
+        click_link "編集", id: "admin-tag-edit-id-#{tag1.id}"
+
+        expect(page).to have_content('タグ編集')
+        expect(current_path).to eq(edit_admin_tag_path(tag1))
+        fill_in 'tag[name]', with: nil
+        click_button '更新'
+        sleep 1
+        expect(page).to have_content('管理者用：更新が失敗しました')
+        expect(current_path).to eq(edit_admin_tag_path(tag1))
+      end
       it 'タグ一覧ページからタグ編集ページへ遷移できて、タグを編集し更新ができること' do
         click_link 'タグ管理'
         expect(page).to have_link(tag1.name)
@@ -78,6 +91,24 @@ RSpec.describe "Admin::Tags", type: :system do
         expect(page).to have_content('管理者用：削除しました')
         expect(current_path).to eq(admin_tags_path)
         expect(page).not_to have_link(tag1.name)
+      end
+      it 'タグ詳細ページからタグ編集ページへ遷移できて、タグが空の場合更新できないこと' do
+        click_link 'タグ管理'
+        click_link "詳細", id: "admin-tag-show-id-#{tag1.id}"
+        sleep 1
+        expect(current_path).to eq(admin_tag_path(tag1))
+        expect(page).to have_content(tag1.name)
+        expect(page).to have_link(post1.title)
+        expect(page).to have_link(post2.title)
+        click_link "編集"
+
+        expect(page).to have_content('タグ編集')
+        expect(current_path).to eq(edit_admin_tag_path(tag1))
+        fill_in 'tag[name]', with: nil
+        click_button '更新'
+        sleep 1
+        expect(page).to have_content('管理者用：更新が失敗しました')
+        expect(current_path).to eq(edit_admin_tag_path(tag1))
       end
       it 'タグ詳細ページからタグ編集ページへ遷移できて、タグを編集し更新ができること' do
         click_link 'タグ管理'
