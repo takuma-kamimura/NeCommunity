@@ -9,7 +9,7 @@ RSpec.describe 'Profiles', type: :system do
     visit profile_path
     visit edit_profile_path
   end
-  describe 'ユーザー新規登録時のテスト' do
+  describe 'ユーザープロフィール編集時のテスト' do
     context '入力に不備がある場合に更新に失敗し、エラーメッセージが表示されること' do
       it '名前がない場合はエラーメッセージが表示されること' do
         fill_in 'user[name]', with: nil
@@ -124,6 +124,21 @@ RSpec.describe 'Profiles', type: :system do
         expect(page).not_to have_selector("img[src$='test-cat-photo.webp']")
         selector = "img[src*='kkrn_icon_user'][src*='.webp']"
         expect(page).to have_selector(selector)
+      end
+    end
+    context '退会処理が正常' do
+      it 'ユーザーが退会できること' do
+        click_link '退会'
+        expect(page).to have_content('あなたの全てのデータが削除されます！')
+        expect(current_path).to eq(delete_confirmation_profile_path)
+        accept_alert do
+          click_link '退会'
+        end
+        sleep 2
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content('退会処理が完了しました。またのご利用をお待ちしております！ありがとうございました！')
+        login_process(user)
+        expect(page).to have_content('申し訳ありません ログインに失敗しました')
       end
     end
   end
