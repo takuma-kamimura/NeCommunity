@@ -31,7 +31,7 @@ RSpec.describe 'GoogleMaps', type: :system do
         expect(page).to have_content('札幌緑が丘動物病院')
         expect(page).to have_content('北海道札幌市南区澄川５条１１丁目２−２')
         expect(current_path).to eq('/maps/search')
-        expect(page).to have_content('公式HPはこちら')
+        expect(page).to have_link('公式HPはこちら')
       end
     end
   end

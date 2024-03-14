@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Admin::Users::Users", type: :system do
+RSpec.describe "Admin::Users", type: :system do
   let!(:general1) { create(:user, :general)}
   let!(:general2) { create(:user, :general)}
   let!(:general3) { create(:user, :general)}
