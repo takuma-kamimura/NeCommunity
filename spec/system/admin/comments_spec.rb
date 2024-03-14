@@ -193,4 +193,29 @@ RSpec.describe "Admin::Comments", type: :system do
       end
     end
   end
+  describe '管理画面のコメント一覧検索機能テスト' do
+    let!(:comment4) { create(:comment, user: admin, post: post1, body: '山田太郎です') }
+    it 'コメント内容の検索ができること' do
+      click_link 'コメント管理'
+      expect(page).to have_content('コメント一覧')
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(comment1.body)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(comment2.body)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(comment3.body)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content(comment4.body)
+      expect(current_path).to eq(admin_comments_path)
+
+      fill_in 'q_body_cont', with: '山'
+      click_button '検索'
+      expect(page).to have_content(comment4.body)
+      expect(page).not_to have_content(comment1.body)
+      expect(page).not_to have_content(comment2.body)
+      expect(page).not_to have_content(comment3.body)
+    end
+  end
 end
