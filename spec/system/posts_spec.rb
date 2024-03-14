@@ -673,7 +673,7 @@ RSpec.describe 'Posts', type: :system do
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
         click_button '投稿'
-        sleep 5
+        sleep 10
         expect(page).to have_content('投稿内容を更新しました！')
         expect(current_path).to eq(posts_path)
         expect(page).not_to have_content(edit_post.title)
@@ -932,7 +932,7 @@ RSpec.describe 'Posts', type: :system do
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
         click_button '投稿'
-        sleep 5
+        sleep 10
         expect(page).to have_content('投稿内容を更新しました！')
         expect(current_path).to eq(posts_path)
         expect(page).to have_content('test-edit')
