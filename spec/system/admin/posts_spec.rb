@@ -154,7 +154,6 @@ RSpec.describe "Admin::Posts", type: :system do
       expect(page).to have_content(post_create_datetime)
       expect(current_path).to eq(admin_post_path(post1))
     end
-  end
     context '編集・更新・削除テスト' do
       it 'タイトルが空の場合更新ができずエラーメッセージが表示されること' do
         click_link '投稿管理'
@@ -324,4 +323,65 @@ RSpec.describe "Admin::Posts", type: :system do
         expect(current_path).to eq(admin_posts_path)
       end
     end
+  end
+  describe '管理画面の投稿一覧検索機能テスト' do
+    let!(:post4) { create(:post, user: admin, title: '山田の投稿', body: 'ボディ') }
+    it '投稿タイトルの検索ができること' do
+      click_link '投稿管理'
+      expect(page).to have_content('投稿一覧')
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(post1.body)
+      expect(page).to have_content(cat1.name)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(post2.title)
+      expect(page).to have_content(post2.body)
+      expect(page).to have_content(cat2.name)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(post3.title)
+      expect(page).to have_content(post3.body)
+      expect(page).to have_content(cat3.name)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content(post4.title)
+      expect(page).to have_content(post4.body)
+      expect(page).not_to have_content(cat4.name)
+      expect(current_path).to eq(admin_posts_path)
+
+      fill_in 'q_title_or_body_cont', with: '山'
+      click_button '検索'
+      expect(page).to have_content(post4.title)
+      expect(page).not_to have_content(post1.title)
+      expect(page).not_to have_content(post2.title)
+      expect(page).not_to have_content(post3.title)
+    end
+    it '投稿内容の検索ができること' do
+      click_link '投稿管理'
+      expect(page).to have_content('投稿一覧')
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(post1.title)
+      expect(page).to have_content(post1.body)
+      expect(page).to have_content(cat1.name)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(post2.title)
+      expect(page).to have_content(post2.body)
+      expect(page).to have_content(cat2.name)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(post3.title)
+      expect(page).to have_content(post3.body)
+      expect(page).to have_content(cat3.name)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content(post4.title)
+      expect(page).to have_content(post4.body)
+      expect(page).not_to have_content(cat4.name)
+      expect(current_path).to eq(admin_posts_path)
+
+      fill_in 'q_title_or_body_cont', with: 'ボ'
+      click_button '検索'
+      expect(page).to have_content(post4.title)
+      expect(page).to have_content(post4.body)
+      expect(page).not_to have_content(post1.title)
+      expect(page).not_to have_content(post2.title)
+      expect(page).not_to have_content(post3.title)
+    end
+  end
 end
