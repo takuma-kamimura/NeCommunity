@@ -152,4 +152,41 @@ RSpec.describe "Admin::Users::Users", type: :system do
       expect(current_path).to eq(admin_users_path)
     end
   end
+  describe '管理画面のユーザー一覧検索機能テスト' do
+    let!(:general4) { create(:user, :general, name: '山田太郎', email: 'yamada@jp')}
+    it '名前でユーザーの検索ができること' do
+      expect(page).to have_content('ユーザー一覧')
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content('山田太郎')
+      expect(current_path).to eq(admin_root_path)
+
+      fill_in 'q_name_or_email_cont', with: '山'
+      click_button '検索'
+      expect(page).to have_content('山田太郎')
+      expect(page).not_to have_content(general1.name)
+      expect(page).not_to have_content(general2.name)
+      expect(page).not_to have_content(general3.name)
+      expect(page).not_to have_content(admin.name)
+    end
+    it 'メールアドレスでユーザーの検索ができること' do
+      expect(page).to have_content('ユーザー一覧')
+      expect(page).to have_content(general1.name)
+      expect(page).to have_content(general2.name)
+      expect(page).to have_content(general3.name)
+      expect(page).to have_content(admin.name)
+      expect(page).to have_content('山田太郎')
+      expect(current_path).to eq(admin_root_path)
+
+      fill_in 'q_name_or_email_cont', with: 'yamada'
+      click_button '検索'
+      expect(page).to have_content('山田太郎')
+      expect(page).not_to have_content(general1.name)
+      expect(page).not_to have_content(general2.name)
+      expect(page).not_to have_content(general3.name)
+      expect(page).not_to have_content(admin.name)
+    end
+  end
 end
