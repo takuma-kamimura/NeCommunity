@@ -218,6 +218,22 @@ RSpec.describe 'Posts', type: :system do
       expect(page).to have_css("#button-edit-#{me_post.id}")
       expect(current_path).to eq(post_path(me_post))
     end
+    it '他人が投稿した投稿の詳細ページが表示され、投稿者のモーダルウィンドウが表示され投稿者のマイ猫sのリンクがあり、リンク先で投稿者の猫一覧が確認できること。' do
+      visit post_path(post)
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(post.body)
+      expect(page).to have_link(another_user.name)
+
+
+      click_button another_user.name
+      expect(page).to have_content('飼い主さんのお名前')
+      expect(current_path).to eq(post_path(post))
+      click_link "#{another_user.name}さんのマイ猫\'s"
+      sleep 2
+      expect(current_path).to eq(usercat_users_path)
+      expect(page).to have_content("#{another_user.name}さんのマイ猫\'s")
+      expect(page).to have_content(cat.name)
+    end
     it '投稿の詳細ページで猫のモーダルウィンドウが表示され、猫の名前のリンクを押すとその猫の投稿一覧が表示される' do
       visit post_path(post)
       expect(page).to have_content(post.title)
