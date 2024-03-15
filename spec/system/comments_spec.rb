@@ -91,6 +91,7 @@ RSpec.describe 'Comments', type: :system do
       expect(page).to have_content(comment2.user.name)
       expect(page).to have_content(comment3.user.name)
       find("#comment-index-from-post-show-#{comment_user.id}").click
+      sleep 1
       expect(page).to have_content("#{comment_user.name}さんのマイ猫's")
       click_link "#{comment_user.name}さんのマイ猫's"
       expect(page).to have_content("#{comment_user.name}さんのマイ猫's")
@@ -108,6 +109,7 @@ RSpec.describe 'Comments', type: :system do
       expect(page).to have_content(comment3.user.name)
       expect(page).to have_content(comment4.user.name)
       find("#comment-index-from-post-show-#{comment4.user.id}").click
+      sleep 1
       expect(page).to have_content('あなたのマイ猫\'s')
       click_link 'あなたのマイ猫\'s'
       expect(page).to have_content('マイ猫\'s')

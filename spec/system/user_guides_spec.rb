@@ -6,6 +6,7 @@ RSpec.describe "UserGuides", type: :system do
       it '使い方ページへアクセスできること' do
         visit root_path
         find('#bars').click
+        sleep 1
         click_link 'How to Use'
         sleep 1
         expect(current_path).to eq(guide_tops_path)
@@ -17,7 +18,9 @@ RSpec.describe "UserGuides", type: :system do
       let(:user) { create(:user) }
       it '使い方ページへアクセスできること' do
         login_process(user)
+        visit root_path
         find('#bars').click
+        sleep 1
         click_link 'How to Use'
         sleep 1
         expect(current_path).to eq(guide_tops_path)
