@@ -18,6 +18,7 @@ class CatDecorator < ApplicationDecorator
     if today < this_years_birthday
       age -= 1
     end
+    age = 0 if age.negative?
     "#{age}歳"
   end
 end
