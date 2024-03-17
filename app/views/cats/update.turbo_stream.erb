@@ -44,7 +44,7 @@
 
 <%= turbo_stream.update "cat-birthday-for-show-#{@cat.id}" do %>
 <% if @cat.birthday.present? %>
-<%= @cat.birthday.strftime('%Y年%m月%d日') %>
+<%= @cat.birthday.strftime('%Y年%m月%d日') %>(<%= @cat.decorate.cat_age %>)
 <% end %>
 <% end %>
 
@@ -66,7 +66,6 @@
 <%= @cat.cat_breed.name %>
 <% end %>
 
-# ここは「turbo_stream.update」ではなく「turbo_stream.replace」だとちゃんと動いた。
 <%= turbo_stream.update "cat-self_introduction-for-show-#{@cat.id}" do %>
 <%= @cat.self_introduction %>
 <% end %>
