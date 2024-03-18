@@ -14,6 +14,8 @@ class Admin::TagsController < Admin::BaseController
 
   def update
     @tag = Tag.find(params[:id])
+    return tags_nil_check if tag_params[:name] == ''
+
     if @tag.update(tag_params)
       flash[:success] = t('admin.messages.update')
       redirect_to admin_tag_path(@tag)
@@ -34,5 +36,11 @@ class Admin::TagsController < Admin::BaseController
 
   def tag_params
     params.require(:tag).permit(:name)
+  end
+
+  # タグの数チェック
+  def tags_nil_check
+    flash.now[:danger] = t('admin.messages.update_faild')
+    render :edit, status: :unprocessable_entity
   end
 end

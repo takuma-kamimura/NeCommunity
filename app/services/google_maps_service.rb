@@ -28,6 +28,6 @@ class GoogleMapsService
       return unless photos && photos.length > 0
 
       photoReference = photos[0]['photo_reference']
-      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{ENV['PLACES_API_KEY']}"
+      "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=#{photoReference}&key=#{API_KEY}"
     end
 end

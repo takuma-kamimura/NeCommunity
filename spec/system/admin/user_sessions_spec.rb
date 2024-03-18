@@ -1,13 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Admin::Users::User_Sessions", type: :system do
+RSpec.describe "Admin::User_Sessions", type: :system do
   let!(:general1) { create(:user, :general)}
   let!(:general2) { create(:user, :general)}
   let!(:general3) { create(:user, :general)}
   let!(:admin) { create(:user, :admin)}
-  before do
-    # login_process_admin(admin)
-  end
   describe '管理画面のログインテスト' do
     context '入力に不備がある場合にログインに失敗し、エラーメッセージが表示されること' do
       it '一般ユーザーの場合はエラーメッセージが表示されること' do

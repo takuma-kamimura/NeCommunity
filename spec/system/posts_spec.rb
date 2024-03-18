@@ -218,6 +218,36 @@ RSpec.describe 'Posts', type: :system do
       expect(page).to have_css("#button-edit-#{me_post.id}")
       expect(current_path).to eq(post_path(me_post))
     end
+    it '他人が投稿した投稿の詳細ページで、投稿者の名前をクリックするとモーダルウィンドウが表示され、投稿者のマイ猫sのリンクがあり、リンク先で投稿者の猫一覧が確認できること。' do
+      visit post_path(post)
+      expect(page).to have_content(post.title)
+      expect(page).to have_content(post.body)
+      expect(page).to have_link(another_user.name)
+
+      click_button another_user.name
+      expect(page).to have_content('飼い主さんのお名前')
+      expect(current_path).to eq(post_path(post))
+      click_link "#{another_user.name}さんのマイ猫\'s"
+      sleep 2
+      expect(current_path).to eq(usercat_users_path)
+      expect(page).to have_content("#{another_user.name}さんのマイ猫\'s")
+      expect(page).to have_content(cat.name)
+    end
+    it '自分が投稿した投稿の詳細ページが表示され、投稿者の名前(自分の名前)をクリックするとモーダルウィンドウが表示され、自分のマイ猫sのリンクがあり、リンク先で自分の猫一覧が確認できること。' do
+      visit post_path(me_post)
+      expect(page).to have_content(me_post.title)
+      expect(page).to have_content(me_post.body)
+      expect(page).to have_link(user.name)
+
+      click_button user.name
+      expect(page).to have_content('飼い主さんのお名前')
+      expect(current_path).to eq(post_path(me_post))
+      click_link "あなたのマイ猫\'s"
+      sleep 2
+      expect(current_path).to eq(cats_path)
+      expect(page).to have_content("マイ猫\'s")
+      expect(page).to have_content(me_cat.name)
+    end
     it '投稿の詳細ページで猫のモーダルウィンドウが表示され、猫の名前のリンクを押すとその猫の投稿一覧が表示される' do
       visit post_path(post)
       expect(page).to have_content(post.title)
@@ -673,7 +703,7 @@ RSpec.describe 'Posts', type: :system do
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
         click_button '投稿'
-        sleep 5
+        sleep 10
         expect(page).to have_content('投稿内容を更新しました！')
         expect(current_path).to eq(posts_path)
         expect(page).not_to have_content(edit_post.title)
@@ -932,7 +962,7 @@ RSpec.describe 'Posts', type: :system do
         image_path = Rails.root.join('spec/images/test-cat-photo.webp')
         attach_file 'avatar-file', image_path
         click_button '投稿'
-        sleep 5
+        sleep 10
         expect(page).to have_content('投稿内容を更新しました！')
         expect(current_path).to eq(posts_path)
         expect(page).to have_content('test-edit')

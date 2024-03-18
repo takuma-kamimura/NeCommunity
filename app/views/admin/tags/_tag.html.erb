@@ -6,8 +6,8 @@
     <h3 class="text-sm mb-4 text-black"><%= tag.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h3>
   
     <div class="flex">
-      <%= link_to '詳細', admin_tag_path(tag), class: "text-blue-500 hover:underline mr-4" %>
-      <%= link_to '編集', edit_admin_tag_path(tag), class: 'text-green-500 hover:underline mr-4' %>
-      <%= link_to '削除', admin_tag_path(tag), data: { turbo_method: :delete, turbo_confirm: "タグを削除しますか？" }, class: "text-red-500 hover:underline" %>
+      <%= link_to '詳細', admin_tag_path(tag), class: "text-blue-500 hover:underline mr-4", id: "admin-tag-show-id-#{tag.id}" %>
+      <%= link_to '編集', edit_admin_tag_path(tag), class: 'text-green-500 hover:underline mr-4', id: "admin-tag-edit-id-#{tag.id}" %>
+      <%= link_to '削除', admin_tag_path(tag), data: { turbo_method: :delete, turbo_confirm: "タグを削除しますか？" }, class: "text-red-500 hover:underline", id: "admin-tag-delete-id-#{tag.id}" %>
     </div>
   </div>

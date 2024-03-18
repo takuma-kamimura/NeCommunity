@@ -3,13 +3,17 @@
   
     <div class="bg-white rounded-md shadow-md p-6 mb-6">
       <h2 class="text-xl font-semibold mb-2">コメントしたユーザー</h2>
-      <h3 class="text-md font-semibold mb-4"><%= link_to @comment.user.name, admin_user_path(@comment.user) %></h3>
+      <h3 class="text-md font-semibold mb-4"><%= link_to @comment.user.name, admin_user_path(@comment.user), class: 'text-blue-500 hover:underline' %></h3>
   
       <h2 class="text-xl font-semibold mb-2">コメントした投稿のタイトル</h2>
-      <h3 class="text-md font-semibold mb-4"><%= link_to @comment.post.title, admin_post_path(@comment.post) %></h3>
+      <h3 class="text-md font-semibold mb-4"><%= link_to @comment.post.title, admin_post_path(@comment.post), class: 'text-blue-500 hover:underline' %></h3>
   
       <h2 class="text-xl font-semibold mb-2">コメント内容</h2>
       <h3 class="text-md font-semibold mb-4"><%= @comment.body %></h3>
+
+      <h2 class="text-xl font-semibold mb-2">作成日</h2>
+      <h1 class="text-md font-semibold mb-4"><%= @comment.created_at.strftime('%Y年%m月%d日 %H時%M分') %></h1>
+
   
       <div class="flex space-x-2">
         <%= link_to '編集', edit_admin_comment_path(@comment), class: 'text-green-500 hover:underline' %>

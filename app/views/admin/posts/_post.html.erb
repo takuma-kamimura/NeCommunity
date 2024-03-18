@@ -12,10 +12,10 @@
 
   <!-- ボタン類 -->
   <div class="flex space-x-2">
-    <%= link_to '詳細', admin_post_path(post), class: 'text-blue-500 hover:underline' %>
-    <%= link_to '編集', edit_admin_post_path(post), class: 'text-green-500 hover:underline' %>
+    <%= link_to '詳細', admin_post_path(post), class: 'text-blue-500 hover:underline', id: "admin-post-show-id-#{post.id}" %>
+    <%= link_to '編集', edit_admin_post_path(post), class: 'text-green-500 hover:underline', id: "admin-post-edit-id-#{post.id}" %>
     <%= link_to '削除', admin_post_path(post), 
                 class: 'text-red-500 hover:underline',
-                data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" } %>
+                data: { turbo_method: :delete, turbo_confirm: "投稿を削除しますか？" }, id: "admin-post-delete-id-#{post.id}" %>
   </div>
 </div>

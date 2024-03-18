@@ -2,14 +2,21 @@ require 'rails_helper'
 
 RSpec.describe 'Profiles', type: :system do
   let(:user) { create(:user) }
-  before do
-    login_process(user)
-    visit posts_path
-    find('#bars').click
-    visit profile_path
-    visit edit_profile_path
-  end
-  describe 'ユーザー新規登録時のテスト' do
+  # before do
+  #   login_process(user)
+  #   visit posts_path
+  #   find('#bars').click
+  #   visit profile_path
+  #   visit edit_profile_path
+  # end
+  describe 'ユーザープロフィール編集時のテスト' do
+    before do
+      login_process(user)
+      visit posts_path
+      find('#bars').click
+      visit profile_path
+      visit edit_profile_path
+    end
     context '入力に不備がある場合に更新に失敗し、エラーメッセージが表示されること' do
       it '名前がない場合はエラーメッセージが表示されること' do
         fill_in 'user[name]', with: nil
@@ -124,6 +131,54 @@ RSpec.describe 'Profiles', type: :system do
         expect(page).not_to have_selector("img[src$='test-cat-photo.webp']")
         selector = "img[src*='kkrn_icon_user'][src*='.webp']"
         expect(page).to have_selector(selector)
+      end
+    end
+  end
+  describe 'ユーザーの退会処理のテスト' do
+    context '退会処理が正常' do
+      before do
+        login_process(user)
+        visit posts_path
+        find('#bars').click
+        visit profile_path
+        visit edit_profile_path
+      end
+      it 'ユーザーが退会できること' do
+        click_link '退会'
+        expect(page).to have_content('あなたの全てのデータが削除されます！')
+        expect(current_path).to eq(delete_confirmation_profile_path)
+        accept_alert do
+          click_link '退会'
+        end
+        sleep 2
+        expect(current_path).to eq(root_path)
+        expect(page).to have_content('退会処理が完了しました。またのご利用をお待ちしております！ありがとうございました！')
+        login_process(user)
+        expect(page).to have_content('申し訳ありません ログインに失敗しました')
+      end
+    end
+    context '退会処理が正常' do
+      let!(:admin) { create(:user, :admin)}
+      before do
+        login_process(admin)
+        visit posts_path
+        find('#bars').click
+        visit profile_path
+        visit edit_profile_path
+      end
+      it '管理者ユーザーは退会できないこと' do
+        click_link '退会'
+        expect(page).to have_content('あなたの全てのデータが削除されます！')
+        expect(current_path).to eq(delete_confirmation_profile_path)
+        accept_alert do
+          click_link '退会'
+        end
+        sleep 2
+        expect(current_path).to eq(delete_confirmation_profile_path)
+        expect(page).to have_content('管理者ユーザーは退会できません！')
+        visit profile_path
+        expect(page).to have_content(admin.name)
+        expect(page).to have_content(admin.email)
       end
     end
   end
