@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Cats', type: :system do
   let(:user) { create(:user) }
-  # let!(:cat_breed) do
-  #   # 開発環境のデータをコピーしてテスト用データベースに保存
-  #   CatBreed.create!(name: 'マンチカン')
-  # end
   let!(:cat_breed) { create(:cat_breed, name: 'マンチカン') }
   let!(:cat_breed2) { create(:cat_breed) }
   let!(:cat_breed3) { create(:cat_breed) }

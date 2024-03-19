@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Profiles', type: :system do
   let(:user) { create(:user) }
-  # before do
-  #   login_process(user)
-  #   visit posts_path
-  #   find('#bars').click
-  #   visit profile_path
-  #   visit edit_profile_path
-  # end
   describe 'ユーザープロフィール編集時のテスト' do
     before do
       login_process(user)
