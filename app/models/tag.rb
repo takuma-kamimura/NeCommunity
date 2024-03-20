@@ -5,6 +5,6 @@ class Tag < ApplicationRecord
   validates :name, uniqueness: true # タグの重複を避ける
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
+    %w[name]  # 検索時にtagの名前を検索できる
   end
 end

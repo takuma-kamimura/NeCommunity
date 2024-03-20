@@ -30,11 +30,11 @@ class User < ApplicationRecord
   before_save :remove_line_id_if_needed
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name email]  # 検索可能な属性を指定してください。検索時にuserの名前を検索できる
+    %w[name email]  # 検索時にuserの名前・アドレスを検索できる
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[cat body]  # 検索可能な関連を指定してください
+    %w[cat body]
   end
 
   def own?(object)

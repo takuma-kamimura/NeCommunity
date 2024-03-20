@@ -16,11 +16,11 @@ class Post < ApplicationRecord
   validates :body, presence: true, length: { maximum: 500 }
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[title body]  # 検索可能な属性を指定してください
+    %w[title body]  # 投稿の名前とタイトルを選択できる
   end
 
   def self.ransackable_associations(auth_object = nil)
-    %w[cat user tags]  # 検索可能な関連モデルを指定してください
+    %w[cat user tags]  # 検索可能な関連モデル、cat・user・tag
   end
 
   #tag保存メソッド
