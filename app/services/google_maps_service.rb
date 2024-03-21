@@ -1,4 +1,3 @@
-# app/services/google_maps_service.rb
 class GoogleMapsService
     require 'net/http'
     require 'uri'
