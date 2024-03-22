@@ -2,12 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Tags', type: :system do
   let(:user) { create(:user) }
-  # let!(:cat_breed) do
-  #   # 開発環境のデータをコピーしてテスト用データベースに保存
-  #   CatBreed.create!(name: 'マンチカン')
-  # end
   let(:cat) { create(:cat) }
-  
+
   describe 'タグの生成テスト' do
     before do
       login_process(user)
