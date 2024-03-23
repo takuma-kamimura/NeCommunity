@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Tags', type: :system do
   let(:user) { create(:user) }
   let(:cat) { create(:cat) }
-
   describe 'タグの生成テスト' do
     before do
       login_process(user)
