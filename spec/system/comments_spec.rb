@@ -5,10 +5,10 @@ RSpec.describe 'Comments', type: :system do
   let!(:another_user) { create(:user) }
   let!(:post) { create(:post, user: another_user) }
   let!(:cat) { create(:cat, user: user) }
-  let!(:cat_breed) do
-    # 開発環境のデータをコピーしてテスト用データベースに保存
-    CatBreed.create!(name: 'マンチカン')
-  end
+  # let!(:cat_breed) do
+  #   # 開発環境のデータをコピーしてテスト用データベースに保存
+  #   CatBreed.create!(name: 'マンチカン')
+  # end
   describe 'コメント投稿のテスト' do
     before do
       login_process(user)
