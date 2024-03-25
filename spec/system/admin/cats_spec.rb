@@ -5,9 +5,7 @@ RSpec.describe "Admin::Cats", type: :system do
   let!(:general2) { create(:user, :general)}
   let!(:general3) { create(:user, :general)}
   let!(:admin) { create(:user, :admin)}
-
   let!(:cat_breed) {create(:cat_breed)}
-
   let!(:cat1) { create(:cat, user: general1, cat_breed: cat_breed) }
   let!(:cat2) { create(:cat, user: general2, cat_breed: cat_breed) }
   let!(:cat3) { create(:cat, user: general3, cat_breed: cat_breed) }

@@ -5,19 +5,15 @@ RSpec.describe "Admin::Posts", type: :system do
   let!(:general2) { create(:user, :general)}
   let!(:general3) { create(:user, :general)}
   let!(:admin) { create(:user, :admin)}
-
   let!(:cat_breed) {create(:cat_breed)}
-
   let!(:cat1) { create(:cat, user: general1, cat_breed: cat_breed) }
   let!(:cat2) { create(:cat, user: general2, cat_breed: cat_breed) }
   let!(:cat3) { create(:cat, user: general3, cat_breed: cat_breed) }
   let!(:cat4) { create(:cat, user: admin, cat_breed: cat_breed) }
-
   let!(:post1) { create(:post, user: general1, cat: cat1) }
   let!(:post2) { create(:post, user: general2, cat: cat2) }
   let!(:post3) { create(:post, user: general3, cat: cat3) }
   let!(:post4) { create(:post, user: admin) }
-  
   before do
     login_process_admin(admin)
   end

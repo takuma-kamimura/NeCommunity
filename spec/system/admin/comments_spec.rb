@@ -5,15 +5,12 @@ RSpec.describe "Admin::Comments", type: :system do
   let!(:general2) { create(:user, :general)}
   let!(:general3) { create(:user, :general)}
   let!(:admin) { create(:user, :admin)}
-
   let!(:cat_breed) {create(:cat_breed)}
   let!(:cat1) { create(:cat, user: general1, cat_breed: cat_breed) }
   let!(:post1) { create(:post, user: general1, cat: cat1) }
-
   let!(:comment1) { create(:comment, user: general2, post: post1) }
   let!(:comment2) { create(:comment, user: general3, post: post1) }
   let!(:comment3) { create(:comment, user: admin, post: post1) }
-
   before do
     login_process_admin(admin)
   end
