@@ -4,7 +4,6 @@ RSpec.describe 'Posts', type: :system do
   let(:user) { create(:user) }
   let!(:cat) { create(:cat, user: user) }
   let!(:cat_breed) do
-    # 開発環境のデータをコピーしてテスト用データベースに保存
     CatBreed.create!(name: 'マンチカン')
   end
   describe 'ログイン・ログアウト状態の投稿一覧の表示テスト' do
