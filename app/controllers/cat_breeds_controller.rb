@@ -12,6 +12,7 @@ class CatBreedsController < ApplicationController
 
   private
 
+  # 文字が「そ」か「雑」かを判定。
   def q_check
     if params[:q] == 'そ'
       @q = CatBreed.ransack(name_start: params[:q])
