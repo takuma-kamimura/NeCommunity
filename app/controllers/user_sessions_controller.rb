@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
   def create
     @user = login(params[:email], params[:password])
     if @user
-      flash[:success] = t('messages.users.logged_in') # 'ログインに成功しました。'
+      flash[:success] = t('messages.users.logged_in')
       redirect_to posts_path
     else
       flash.now[:danger] = t('messages.users.login_faild')
