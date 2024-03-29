@@ -7,7 +7,7 @@ class PasswordResetsController < ApplicationController
     @user = User.find_by(email: params[:email])
     @user&.deliver_reset_password_instructions!
     # ↓「存在しないメールアドレスです」という旨の文言を表示すると、逆に存在するメールアドレスを特定されてしまうため
-    #　　↓あえて成功時のメッセージを送信させている
+    # ↓あえて成功時のメッセージを送信させている
     flash[:success] = t('messages.users.reset_password_mail')
     redirect_to root_path
   end
