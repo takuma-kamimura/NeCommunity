@@ -33,7 +33,7 @@
             <h2 class="text-black lg:text-4xl text-xl inline-block"><%= @post.title %></h2>
           </div>
           <div class="mb-4">
-            <% character = [0x1D54F].pack('U*') %> <!-- 「X」のアイコン生成 -->
+            <% character = [0x1D54F].pack('U*') %><!-- 「X」のアイコン生成 -->
             <%= link_to "#{character}", "https://twitter.com/intent/tweet?url=#{request.url}&text=【#{@post.title}】%0a%20%23ネコミュニティ", id: "share-button-#{@post.id}", class: "btn bg-black text-white", title: 'Twitter', target: '_blank' %>
             <!-- ログインしてるかチェック -->
             <% if logged_in? %>
