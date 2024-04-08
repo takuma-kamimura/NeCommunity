@@ -1,4 +1,4 @@
-# ⚪︎アプリ名(仮)：「ネコミュニティ」or「NeCommunity」
+# ネコミュニティ
 
 ![image](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/f29bc254-0578-4370-9d48-7c537f1f5ad3)
 
