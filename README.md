@@ -24,6 +24,17 @@ https://twitter.com/tkm9353
 
 * 猫を飼っている中で「他の人はこんな時、どうしているのだろう？」と疑問が湧いた時に気軽に相談し合えるコミュニティがあれば助かると思ったため。
 
+## ■使用技術一覧
+
+| 項目           | 技術                                                                                          |
+|----------------|---------------------------------------------------------------------------------------------|
+| フロントエンド | Hotwire,JavaScript, Tailwind css, Boot Strap icons,daisy Ul| 
+| バックエンド  |Ruby 3.2.2 , Ruby on Rails 7.0.8| 
+| データベース | PostgreSQL| 
+| 環境構築    | Docker / docker-compose / Nginx | 
+| インフラ     | Heroku, AWS(S3)|                
+| API        |  Google Cloud Vision API,  Google Geocoding API,  Google Maps JavaScript API,  Google Places API,  Line-bot-api | 
+
 ## ■現在使用を想定しているgem
 ```
 gem 'sorcery' # ユーザー新規登録、ログイン
