@@ -6,6 +6,7 @@
 ![](https://img.shields.io/badge/Rails-v7.0.8-CC0000)
 ![](https://img.shields.io/badge/TailWind_CSS-v3.3.5-2396F3)
 ![](https://img.shields.io/badge/Docker-gray?logo=Docker)
+![](https://img.shields.io/badge/Nginx-gray?logo=Nginx)
 
 ## ■サービス概要
 
