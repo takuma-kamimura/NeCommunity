@@ -7,6 +7,8 @@
 ![](https://img.shields.io/badge/TailWind_CSS-v3.3.5-2396F3)
 ![](https://img.shields.io/badge/Docker-gray?logo=Docker)
 ![](https://img.shields.io/badge/Nginx-gray?logo=Nginx)
+![](https://img.shields.io/badge/AWS_S3-gray?logo=amazon-aws)
+![](https://img.shields.io/badge/Heroku-gray?logo=Heroku)
 
 ## ■サービス概要
 
