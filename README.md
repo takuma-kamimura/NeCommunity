@@ -2,13 +2,13 @@
 
 ![image](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/f29bc254-0578-4370-9d48-7c537f1f5ad3)
 
-![](https://img.shields.io/badge/Ruby-v3.2.2-CC0000)
-![](https://img.shields.io/badge/Ruby_On_Rails-v7.0.8-CC0000)
-![](https://img.shields.io/badge/TailWind_CSS-v3.3.5-2396F3)
+![](https://img.shields.io/badge/Ruby-v3.2.2-CC0000?logo=Ruby&logoColor=CC0000)
+![](https://img.shields.io/badge/Ruby_On_Rails-v7.0.8-CC0000?logo=Ruby-on-Rails&logoColor=CC0000)
+![](https://img.shields.io/badge/TailWind_CSS-v3.3.5-2396F3?logo=tailwindcss)
 ![](https://img.shields.io/badge/Docker-gray?logo=Docker)
-![](https://img.shields.io/badge/Nginx-gray?logo=Nginx)
-![](https://img.shields.io/badge/AWS_S3-gray?logo=amazon-aws)
-![](https://img.shields.io/badge/Heroku-gray?logo=Heroku)
+![](https://img.shields.io/badge/Nginx-gray?logo=Nginx&logoColor=269539)
+![](https://img.shields.io/badge/AWS_S3-gray?logo=amazon-aws&logoColor=FCC624)
+![](https://img.shields.io/badge/Heroku-gray?logo=Heroku&logoColor=430098)
 
 ## ■サービス概要
 
