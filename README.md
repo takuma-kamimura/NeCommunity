@@ -51,7 +51,11 @@ https://twitter.com/tkm9353
 | インフラ     | Heroku, AWS(S3)|                
 | API        |  Google Cloud Vision API,  Google Geocoding API,  Google Maps JavaScript API,  Google Places API,  Line-bot-api | 
 
-## 画面遷移図
+## ■テスト
+
+* Rspec
+
+## ■画面遷移図
 
 * https://www.figma.com/file/jUooXyrTJY2d0CwGplCvGh/%E3%83%8D%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3?type=design&mode=design&t=ZmynGkavsBR2zSbI-1
 
