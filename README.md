@@ -26,7 +26,9 @@ https://twitter.com/tkm9353
 | 猫登録機能| ユーザープロフィール編集機能 | 投稿機能 |
 |------|------|-----|
 | ![Readme-cat-create-ezgif com-video-to-gif-converter](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/f85b20f7-06f1-4de3-9703-f0630ec3ca1f)| ![profile-edit](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/90b210d6-f862-454e-8f98-0db6e795fef6) | ![post-create](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/0b6d37a5-e664-45b3-b942-f8133058f7b4)|
+
 | コメント投稿機能 |　 Line通知機能 | 動物病院検索機能 |
+|------|------|-----|
 | ![comment-create](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/69dee272-4b55-4783-b908-b1d9f5a8accc)| ![Line-message](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/95e27420-1a2c-4d41-a90e-6bcaffd0ebc7) |![map](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/3214c64b-97f8-4968-8d74-c43e26e9df0e) |
 
 ## ■使用技術一覧
