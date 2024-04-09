@@ -2,6 +2,8 @@
 
 ![image](https://github.com/takuma-kamimura/NeCommunity/assets/134459703/f29bc254-0578-4370-9d48-7c537f1f5ad3)
 
+![](https://img.shields.io/badge/Ruby-v3.2.2-CC0000)
+![](https://img.shields.io/badge/Rails-v7.0.8-CC0000.svg?logo=rails&style=flat)
 ## ■サービス概要
 
 * 猫好き専門の猫画像投稿型SNSサービスです。猫好きな人達がお互いの猫の画像を投稿して自慢し合い、評価し合えます。飼っている猫を登録して、投稿時に飼っている猫を投稿内容に紐付けることができます。好きな地名を入力すると地名周辺の猫専門の動物病院を検索することができます。
