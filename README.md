@@ -45,7 +45,7 @@ https://twitter.com/tkm9353
 
 ## 画面遷移図
 
-* https://www.figma.com/file/5O5VhEaXhD97rPYlHKn594/%E3%83%8D%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=0-1&mode=design&t=H9w9qXO6RY0f2Zmg-0
+* https://www.figma.com/file/jUooXyrTJY2d0CwGplCvGh/%E3%83%8D%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3?type=design&mode=design&t=ZmynGkavsBR2zSbI-1
 
 ## ER図
 
