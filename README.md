@@ -53,7 +53,7 @@ https://twitter.com/tkm9353
 
 ## ■テスト
 
-* Rspec
+* RSpec
 
 ## ■画面遷移図
 
