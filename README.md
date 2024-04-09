@@ -33,37 +33,6 @@ https://twitter.com/tkm9353
 | インフラ     | Heroku, AWS(S3)|                
 | API        |  Google Cloud Vision API,  Google Geocoding API,  Google Maps JavaScript API,  Google Places API,  Line-bot-api | 
 
-## ■現在使用を想定しているgem
-```
-gem 'sorcery' # ユーザー新規登録、ログイン
-
-gem 'rails-i18n' # 日本語翻訳機能
-
-gem 'draper' # デコレータ機能
-
-gem 'ransack'　# 検索機能
-
-gem 'kaminari'　# ページネーション
-
-gem 'kaminari-i18n'　# ページネーション日本語化
-
-gem 'carrierwave'　# 画像アップロード機能。なるべくActiveStorageよりこちらを検討。
-
-gem 'enum_help'　# 管理者機能追加のため
-
-gem 'faraday'　# APIを使う時に検討する。「Faraday.get "URL"」でリクエストできるようになる。
-
-gem 'rails-autocomplete' # オートコンプリート。Stimulus Autocompleteのどちらかを選び検討。
-
-gem 'rmagick'　# 画像の加工用として
-
-gem 'config' # 環境ごとに定数を管理するために検討
-
-gem "faker"　# テスト時のダミーデータの作成のため
-
-gem 'pry-byebug' # テスト用
-```
-
 ## 画面遷移図
 
 * https://www.figma.com/file/5O5VhEaXhD97rPYlHKn594/%E3%83%8D%E3%82%B3%E3%83%9F%E3%83%A5%E3%83%8B%E3%83%86%E3%82%A3%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?type=design&node-id=0-1&mode=design&t=H9w9qXO6RY0f2Zmg-0
