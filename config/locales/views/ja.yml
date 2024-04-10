@@ -14,6 +14,10 @@ ja:
   tops:
     top:
       title: 'トップページ'
+    kiyac:
+      title: '利用規約'
+    policy:
+      title: 'プライバシーポリシー'
   posts:
     index:
       title: '投稿一覧'
@@ -22,9 +26,11 @@ ja:
   cats:
     new:
       title: '猫登録'
-  health_records:
-    new:
-      title: '新規健康記録'
+  maps:
+    search:
+      title: '動物病院検索'
+    show:
+      title: '動物病院詳細'
   helpers:
     label:
       email: 'email'

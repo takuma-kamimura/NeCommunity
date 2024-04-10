@@ -97,53 +97,55 @@
     </div>
     </div>
 
-     <!-- コメントとLine通知機能 -->
-     <div class="p-8">
-        <div class="accent-color shadow-md border rounded-md p-2 flex flex-col">
-    <div class="text-3xl mb-3">・コメント投稿機能</div>
-    <div class="flex justify-center">
-      <div class="mb-2 items-center">
-          <div class="base-color mx-auto border rounded-md shadow-md mb-3 p-2 text-center">
-            <div class="text-sm md:text-base">投稿詳細画面よりコメントを投稿することができます。</div>
+    <!-- コメント機能 -->
+    <div class="p-8">
+      <div class="accent-color shadow-md border rounded-md p-2 flex flex-col">
+  <div class="text-3xl mb-3">・コメント投稿機能</div>
+ <div class="flex justify-center">
+  <div class="mb-2 items-center">
+    <div class="base-color mx-auto border rounded-md shadow-md mb-3 p-2 text-center">
+      <div class="text-sm md:text-base">投稿詳細画面よりコメントを投稿することができます。</div>
     </div>
-    <div class="px-8">
-    <div class="flex flex-col">
-      <div class="mb-3 hidden xl:block">
-        <%= video_tag("comment-create.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
-      </div>
-      <!-- スマホでの表示用 -->
-      <div class="mb-3 xl:hidden">
-        <%= video_tag("comment-create-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
-      </div>
+  <div class="px-8">
+  <div class="flex flex-col">
+    <div class="mb-3 hidden xl:block">
+      <%= video_tag("comment-create.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
     </div>
+    <!-- スマホでの表示用 -->
+    <div class="mb-3 xl:hidden">
+      <%= video_tag("comment-create-mobile.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
     </div>
-    </div>
-    </div>
-    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
 
+  <!-- Line通知機能 -->
+  <div class="p-8">
     <div class="accent-color shadow-md border rounded-md p-2 flex flex-col">
-        <div class="text-3xl mb-3">・Line通知機能</div>
-        <div class="flex justify-center">
-          <div class="mb-2 items-center">
-              <div class="base-color mx-auto border rounded-md shadow-md mb-3 p-2 text-center">
-                <div class="text-sm md:text-base">プロフィール詳細画面よりLine通知機能をONにすることができます。</div>
-                <div class="text-sm md:text-base">Lineの友達追加機能の「QRコード」読み取り機能で友達追加してください。</div>
-                <div class="text-sm md:text-base">Lineの友達追加後、トークにてネコミュニティご登録の「メールアドレス」を送信してください。</div>
-                <div class="text-sm md:text-base">ネコミュニティのあなたのアカウントにLine情報が登録されます。</div>
-                <div class="text-sm md:text-base">あなたの投稿にコメントが追加されるとLineで通知が届くようになります。</div>
-        </div>
-        <div class="px-8">
-        <div class="flex flex-col">
-        <div class="mb-3">
-            <%= video_tag("Line-message.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-
-    </div>
+<div class="text-3xl mb-3">・Line通知機能</div>
+<div class="flex justify-center">
+<div class="mb-2 items-center">
+  <div class="base-color mx-auto border rounded-md shadow-md mb-3 p-2 text-center">
+    <div class="text-sm md:text-base">プロフィール詳細画面よりLine通知機能をONにすることができます。</div>
+    <div class="text-sm md:text-base">Lineの友達追加機能の「QRコード」読み取り機能で友達追加してください。</div>
+    <div class="text-sm md:text-base">Lineの友達追加後、トークにてネコミュニティご登録の「メールアドレス」を送信してください。</div>
+    <div class="text-sm md:text-base">ネコミュニティのあなたのアカウントにLine情報が登録されます。</div>
+    <div class="text-sm md:text-base">あなたの投稿にコメントが追加されるとLineで通知が届くようになります。</div>
+</div>
+<div class="px-8">
+<div class="flex flex-col">
+  <div class="mb-3">
+    <%= video_tag("Line-message.mov", autoplay: true, muted: true, loop: true, playsinline: true) %>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <!-- Google Map機能 -->
 <div class="p-8">
