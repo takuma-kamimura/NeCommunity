@@ -27,7 +27,7 @@ RSpec.describe 'GoogleMaps', type: :system do
         expect(page).to have_selector('#hospital')
         expect(page).to have_css('map#gmimap0')
 
-        click_link('札幌緑が丘動物病院の詳細ページ')
+        click_link('札幌緑が丘動物病院')
         expect(page).to have_content('札幌緑が丘動物病院')
         expect(page).to have_content('北海道札幌市南区澄川５条１１丁目２−２')
         expect(current_path).to eq('/maps/search')

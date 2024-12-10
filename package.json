@@ -10,6 +10,7 @@
     "daisyui": "^4.4.2",
     "esbuild": "^0.19.5",
     "heic2any": "^0.0.4",
+    "install": "^0.13.0",
     "postcss": "^8.4.31",
     "sass": "^1.69.5",
     "stimulus": "^3.2.2",
